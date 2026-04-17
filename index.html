@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samuel Frausto — Designer & Experience Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 2.5rem 5rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.orb{position:absolute;border-radius:50%;filter:blur(90px)}
+.o1{width:650px;height:650px;background:rgba(255,107,74,.16);top:-120px;right:-120px}
+.o2{width:420px;height:420px;background:rgba(62,207,178,.1);bottom:0;left:-80px}
+.o3{width:320px;height:320px;background:rgba(167,139,250,.09);top:35%;left:38%}
+.hero-content{position:relative;z-index:1;max-width:1100px;width:100%}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.7rem;color:var(--coral);letter-spacing:.08em;margin-bottom:1.5rem;animation:fadeup .8s .2s both}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--coral)}
+.hero-name{font-size:clamp(4rem,10vw,9.5rem);font-weight:800;line-height:.92;letter-spacing:-.03em;color:var(--text);animation:fadeup .8s .3s both}
+.hero-name .outline{display:block;font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3.5rem,9vw,8.5rem);color:transparent;-webkit-text-stroke:1px rgba(240,238,232,.35);letter-spacing:-.02em}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;margin-top:2.5rem;flex-wrap:wrap;gap:1.5rem;animation:fadeup .8s .5s both}
+.hero-desc{font-size:.92rem;color:var(--muted);max-width:400px;line-height:1.85}
+.hero-desc strong{color:var(--text);font-weight:500}
+.hero-pills{display:flex;flex-wrap:wrap;gap:7px;max-width:380px;justify-content:flex-end}
+.pill{font-size:.68rem;padding:5px 12px;border-radius:99px;font-weight:500;letter-spacing:.04em;border:1px solid var(--border2);background:rgba(255,255,255,.04);color:var(--muted)}
+.pill.hot{border-color:var(--coral-mid);color:var(--coral);background:var(--coral-dim)}
+.pill.cool{border-color:rgba(62,207,178,.3);color:var(--teal);background:var(--teal-dim)}
+.pill.vio{border-color:rgba(167,139,250,.3);color:var(--violet);background:var(--violet-dim)}
+@keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--mono);font-size:.6rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;z-index:1;animation:fadeup 1s 1.2s both}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--coral),transparent);animation:scr 2s infinite}
+@keyframes scr{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+.status-strip{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 2.5rem;display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center}
+.st-item{display:flex;align-items:center;gap:10px}
+.st-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.st-dot.g{background:var(--teal);box-shadow:0 0 8px var(--teal);animation:pulse 2s infinite}
+.st-dot.a{background:var(--amber);box-shadow:0 0 8px var(--amber);animation:pulse 2s .5s infinite}
+.st-label{font-size:.72rem;color:var(--muted)}
+.st-label strong{color:var(--text);font-weight:500}
+
+.section{padding:5rem 2.5rem;max-width:1200px;margin:0 auto}
+.section-header{display:flex;align-items:baseline;gap:1rem;margin-bottom:3rem}
+.sec-num{font-family:var(--mono);font-size:.7rem;color:var(--coral)}
+.sec-title{font-size:2.2rem;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.sec-title em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--muted)}
+
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2rem}
+.filter-btn{font-family:var(--display);font-size:.72rem;font-weight:600;letter-spacing:.05em;padding:7px 16px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:none;transition:all .15s}
+.filter-btn:hover{border-color:var(--border2);color:var(--text)}
+.filter-btn.active{background:var(--coral);border-color:var(--coral);color:white}
+
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.project-card{background:var(--bg);padding:1.75rem;cursor:none;display:flex;flex-direction:column;transition:background .2s;position:relative;text-decoration:none;color:inherit}
+.project-card:hover{background:var(--bg2)}
+.project-card::after{content:'↗';position:absolute;top:1.5rem;right:1.5rem;font-size:1rem;color:var(--dim);transition:color .2s,transform .2s}
+.project-card:hover::after{color:var(--coral);transform:translate(2px,-2px)}
+.project-card.hidden{display:none}
+.project-card.featured{grid-column:span 2;background:var(--bg2);border-left:3px solid var(--coral)}
+.project-card.featured:hover{background:var(--bg3)}
+.card-top{display:flex;align-items:center;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
+.card-cat{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.card-title{font-size:1.05rem;font-weight:700;line-height:1.25;color:var(--text);margin-bottom:.75rem;letter-spacing:-.01em;padding-right:2rem}
+.card-desc{font-size:.8rem;color:var(--muted);line-height:1.75;flex:1;font-weight:400}
+.card-footer{margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:6px}
+
+/* ABOUT */
+.about-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;align-items:start}
+.about-intro{font-family:var(--serif);font-style:italic;font-size:1.55rem;line-height:1.5;color:var(--text);margin-bottom:1.5rem;letter-spacing:-.01em}
+.about-body{font-size:.88rem;color:var(--muted);line-height:1.85;margin-bottom:2rem}
+.about-body strong{color:var(--text);font-weight:500}
+.about-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.about-card{background:var(--surface);border-radius:var(--r);padding:1.25rem;border:1px solid var(--border);position:relative;overflow:hidden}
+.about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.c1::before{background:var(--coral)}.c2::before{background:var(--teal)}.c3::before{background:var(--violet)}.c4::before{background:var(--amber)}
+.about-card-icon{font-size:1.1rem;margin-bottom:.75rem}
+.about-card-title{font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.about-card-body{font-size:.75rem;color:var(--muted);line-height:1.7}
+
+/* INTERESTS */
+.interests-list{display:flex;flex-direction:column}
+.interest-item{display:flex;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:.88rem;color:var(--muted);transition:color .2s,background .2s;cursor:none;border-radius:4px;padding-left:4px}
+.interest-item:hover{color:var(--text)}
+.interest-item:first-child{border-top:1px solid var(--border)}
+.interest-item.active-interest{color:var(--coral)}
+.int-num{font-family:var(--mono);font-size:.65rem;color:var(--dim);min-width:20px}
+.int-name{flex:1;font-weight:500}
+.int-arrow{font-size:.75rem;color:var(--dim);transition:transform .2s,color .2s}
+.interest-item:hover .int-arrow{transform:translateX(3px);color:var(--coral)}
+.interest-item.active-interest .int-arrow{color:var(--coral)}
+.interest-tag{font-family:var(--mono);font-size:.6rem;padding:2px 8px;border-radius:99px;background:var(--coral-dim);color:var(--coral);border:1px solid var(--coral-mid)}
+
+/* CONTACT */
+.contact-wrap{background:var(--bg2);border-top:1px solid var(--border);padding:5rem 2.5rem;position:relative;overflow:hidden}
+.contact-wrap::before{content:'';position:absolute;bottom:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(255,107,74,.12) 0%,transparent 70%);pointer-events:none}
+.contact-wrap::after{content:'';position:absolute;top:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(ellipse,rgba(62,207,178,.08) 0%,transparent 70%);pointer-events:none}
+.contact-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.contact-eyebrow{font-family:var(--mono);font-size:.65rem;color:var(--coral);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+.contact-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--coral)}
+.contact-heading{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800;line-height:1.0;letter-spacing:-.03em;color:var(--text);margin-bottom:2.5rem}
+.contact-heading em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--coral)}
+.contact-links{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:4rem}
+.contact-link{display:flex;align-items:center;gap:10px;font-size:.78rem;font-weight:700;letter-spacing:.06em;padding:14px 24px;border-radius:var(--r);text-decoration:none;transition:all .2s;cursor:none}
+.link-email{background:var(--coral);color:white;border:1px solid var(--coral)}
+.link-email:hover{background:#e55a38;transform:translateY(-2px)}
+.link-li{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.link-li:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04);transform:translateY(-2px)}
+.link-icon{width:14px;height:14px;flex-shrink:0}
+.contact-footer{padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-name{font-weight:700;font-size:.9rem;color:var(--dim);letter-spacing:.04em}
+.footer-copy{font-family:var(--mono);font-size:.65rem;color:var(--dim)}
+
+/* Filter highlight pulse */
+@keyframes gridpulse{0%{box-shadow:0 0 0 0 rgba(255,107,74,.3)}100%{box-shadow:0 0 0 8px rgba(255,107,74,0)}}
+.projects-grid.filtered{animation:gridpulse .4s ease-out}
+
+@media(max-width:768px){
+  .hero{padding:0 1.25rem 4rem}
+  .section{padding:3.5rem 1.25rem}
+  .about-layout{grid-template-columns:1fr}
+  .about-cards{grid-template-columns:1fr}
+  .contact-wrap{padding:4rem 1.25rem}
+  .project-card.featured{grid-column:span 1}
+  .status-strip{padding:1rem 1.25rem;gap:1.25rem}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">S<span>.</span>Frausto</a>
+  <div class="nav-links">
+    <a href="#projects">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <div class="nav-dot" title="Open to opportunities"></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Designer &amp; Experience Builder</div>
+    <h1 class="hero-name">Samuel<span class="outline">Frausto.</span></h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        Building at the edge of <strong>spatial computing</strong>, <strong>biotech</strong>, and <strong>human-centered design</strong> — from VR training systems to cancer research.<br><br>
+        Biophysics @ USC · Transferring into Human Technology Interaction · XR Intern @ Edwards Lifesciences
+      </p>
+      <div class="hero-pills">
+        <span class="pill hot">XR / VR</span>
+        <span class="pill cool">Digital Twins</span>
+        <span class="pill hot">Biotech</span>
+        <span class="pill vio">Video Game Design</span>
+        <span class="pill cool">visionOS</span>
+        <span class="pill">Medicine &amp; UX</span>
+        <span class="pill hot">Unity &amp; Blender</span>
+        <span class="pill cool">Spatial Computing</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<div class="status-strip">
+  <div class="st-item">
+    <div class="st-dot g"></div>
+    <span class="st-label"><strong>Incoming:</strong> XR Learning Design Intern @ Edwards Lifesciences · Summer 2026</span>
+  </div>
+  <div class="st-item">
+    <div class="st-dot a"></div>
+    <span class="st-label"><strong>In Progress:</strong> Transfer application — USC Human Technology Interaction</span>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-header reveal">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">Selected <em>work</em></h2>
+  </div>
+
+  <div class="filter-bar reveal" id="filterBar">
+    <button class="filter-btn active" onclick="filter('all',this)">All</button>
+    <button class="filter-btn" onclick="filter('xr',this)">XR / 3D</button>
+    <button class="filter-btn" onclick="filter('brand',this)">Brand &amp; Marketing</button>
+    <button class="filter-btn" onclick="filter('innovation',this)">Innovation</button>
+    <button class="filter-btn" onclick="filter('research',this)">Research</button>
+  </div>
+
+  <div class="projects-grid reveal" id="projectsGrid">
+
+    <a class="project-card featured" data-cat="xr" href="projects/vr-baseball.html">
+      <div class="card-top"><span class="card-cat">XR / 3D · Independent</span><span class="card-status s-progress">In Progress</span></div>
+      <h2 class="card-title">VR Baseball Training System</h2>
+      <p class="card-desc">An immersive VR training environment simulating pitch types, speed variation, and catcher scenarios. Custom ball physics engine, trajectory modeling, and real-time interaction mechanics built in Unity with Blender-modeled assets.</p>
+      <div class="card-footer"><span class="chip">Unity</span><span class="chip">Blender</span><span class="chip">Physics Engine</span><span class="chip">VR Interaction</span></div>
+    </a>
+
+    <a class="project-card" data-cat="xr" href="projects/iyh-digital-twin.html">
+      <div class="card-top"><span class="card-cat">Digital Twin · Multi-Platform</span><span class="card-status s-progress">In Progress</span></div>
+      <h2 class="card-title">Iovine &amp; Young Hall Digital Twin</h2>
+      <p class="card-desc">Google Maps-style waypoint navigation through a fully student-modeled building — live on Web, Meta Quest, and Apple Vision Pro.</p>
+      <div class="card-footer"><span class="chip">Omniverse</span><span class="chip">visionOS</span><span class="chip">Meta Quest</span><span class="chip">Web</span></div>
+    </a>
+
+    <a class="project-card" data-cat="xr" href="projects/synesthesia.html">
+      <div class="card-top"><span class="card-cat">visionOS · ACAD 217</span><span class="card-status s-live">Completed</span></div>
+      <h2 class="card-title">Synesthesia — Ambient VR App</h2>
+      <p class="card-desc">An experiential visionOS app designed to run passively while you work. Dynamic color, music, AR opacity, and scene switching. Technical lead on a 3-person team.</p>
+      <div class="card-footer"><span class="chip">visionOS</span><span class="chip">Unity</span><span class="chip">SwiftUI</span><span class="chip">Shader</span></div>
+    </a>
+
+    <a class="project-card" data-cat="xr" href="projects/pavilia.html">
+      <div class="card-top"><span class="card-cat">3D · Group Project</span><span class="card-status s-live">Completed</span></div>
+      <h2 class="card-title">Pavilia — Portal Mechanic</h2>
+      <p class="card-desc">Custom Unity portal shader using render textures and dual-camera mathematics that replicates the player's exact position — teleporting them seamlessly between worlds.</p>
+      <div class="card-footer"><span class="chip">Unity</span><span class="chip">HLSL</span><span class="chip">Render Texture</span></div>
+    </a>
+
+    <a class="project-card" data-cat="xr" href="projects/cyberpunk-twin.html">
+      <div class="card-top"><span class="card-cat">Digital Twin · ACAD 288</span><span class="card-status s-live">Completed</span></div>
+      <h2 class="card-title">Cyberpunk 2077 Room — Digital Twin</h2>
+      <p class="card-desc">High-fidelity Omniverse replica of a Cyberpunk 2077 bedroom with a custom extension to streamline material workflows. Co-lead: modeling, animation &amp; skybox.</p>
+      <div class="card-footer"><span class="chip">Omniverse</span><span class="chip">USD</span><span class="chip">Animation</span></div>
+    </a>
+
+    <a class="project-card" data-cat="brand" href="projects/flavoice-crayola.html">
+      <div class="card-top"><span class="card-cat">Brand · Jel Sert</span><span class="card-status s-intern">Internship</span></div>
+      <h2 class="card-title">Fla-Vor-Ice × Crayola</h2>
+      <p class="card-desc">Press release, promo graphics and video posted by Crayola, influencer outreach, and internal newsletter for a limited-edition Banana Mango freezer bar.</p>
+      <div class="card-footer"><span class="chip">PR</span><span class="chip">Graphic Design</span><span class="chip">Video</span></div>
+    </a>
+
+    <a class="project-card" data-cat="brand" href="projects/purekick-harley.html">
+      <div class="card-top"><span class="card-cat">Brand · Jel Sert</span><span class="card-status s-intern">Internship</span></div>
+      <h2 class="card-title">Pure Kick × Harley-Davidson</h2>
+      <p class="card-desc">Produced a promo video for a motorcycle giveaway and delivered a consumer insights report on predictive partnership outcomes.</p>
+      <div class="card-footer"><span class="chip">Video Production</span><span class="chip">Consumer Research</span></div>
+    </a>
+
+    <a class="project-card" data-cat="brand" href="projects/jelsert-jamba.html">
+      <div class="card-top"><span class="card-cat">Brand · Jel Sert</span><span class="card-status s-intern">Internship</span></div>
+      <h2 class="card-title">Jel Sert × Jamba</h2>
+      <p class="card-desc">Managed 30+ partnership and influencer outreach efforts, represented the company at a Bakersfield road show, authored the official press release and blog.</p>
+      <div class="card-footer"><span class="chip">Partnerships</span><span class="chip">PR Writing</span><span class="chip">Strategy</span></div>
+    </a>
+
+    <a class="project-card" data-cat="innovation" href="projects/suzchews.html">
+      <div class="card-top"><span class="card-cat">Innovation · Health</span><span class="card-status s-progress">Prototyping</span></div>
+      <h2 class="card-title">SuzChews — Cancer Patient Gum</h2>
+      <p class="card-desc">A gum specially formulated to combat dysgeusia — chemotherapy-induced taste loss. Inspired by my parents' treatment, combining cancer research expertise with human-centered product design.</p>
+      <div class="card-footer"><span class="chip">Product Design</span><span class="chip">HCD</span><span class="chip">Biotech</span></div>
+    </a>
+
+    <a class="project-card" data-cat="research" href="projects/tet2-research.html">
+      <div class="card-top"><span class="card-cat">Research · UChicago</span><span class="card-status s-award">2nd Place · 36 Presenters</span></div>
+      <h2 class="card-title">TET2 Inhibition Cancer Research</h2>
+      <p class="card-desc">300+ wetlab hours evaluating small molecule inhibition of TET2 to overcome adaptive radiation resistance. Presented at UIUC symposium. Inspired a subsequent grant-winning project.</p>
+      <div class="card-footer"><span class="chip">Immunology</span><span class="chip">Epigenetics</span><span class="chip">Wetlab</span></div>
+    </a>
+
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-header reveal">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">About <em>me</em></h2>
+  </div>
+  <div class="about-layout">
+    <div class="reveal">
+      <p class="about-intro">"I build things that live at the edge of what's technically possible and deeply human."</p>
+      <p class="about-body">
+        I'm a <strong>Biophysics major at USC</strong>, in the process of transferring into the new <strong>Human Technology Interaction</strong> program at the Iovine and Young Academy — a degree built for exactly the kind of work I do.<br><br>
+        This summer I'm joining <strong>Edwards Lifesciences as an Extended Reality Learning Design Intern</strong>, bringing spatial computing into medical education. It's the exact intersection I've been building toward: XR with real clinical stakes.<br><br>
+        My background in <strong>cancer immunology research</strong> shapes how I approach design — every project starts with a real person and a real problem.
+      </p>
+      <div class="about-cards">
+        <div class="about-card c1"><div class="about-card-icon">⚗️</div><p class="about-card-title">Education</p><p class="about-card-body">USC Biophysics · Transferring to Human Technology Interaction, Iovine and Young Academy</p></div>
+        <div class="about-card c2"><div class="about-card-icon">🏥</div><p class="about-card-title">Upcoming</p><p class="about-card-body">XR Learning Design Intern @ Edwards Lifesciences · Summer 2026</p></div>
+        <div class="about-card c3"><div class="about-card-icon">🎮</div><p class="about-card-title">Toolkit</p><p class="about-card-body">Unity · Blender · Omniverse · visionOS · Meta Quest · Figma · Video Production</p></div>
+        <div class="about-card c4"><div class="about-card-icon">🔬</div><p class="about-card-title">Research</p><p class="about-card-body">Cancer immunology wetlab at UChicago · 2nd place UIUC symposium presenter</p></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <p style="font-family:var(--mono);font-size:.65rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;">Interests &amp; passions — click to explore related work</p>
+      <div class="interests-list" id="interestsList">
+        <div class="interest-item" data-filter="xr" onclick="filterFromInterest('xr',this)"><span class="int-num">01</span><span class="int-name">Extended Reality &amp; Spatial Computing</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" data-filter="innovation" onclick="filterFromInterest('innovation',this)"><span class="int-num">02</span><span class="int-name">Biotech &amp; Medical Innovation</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" data-filter="xr" onclick="filterFromInterest('xr',this)"><span class="int-num">03</span><span class="int-name">Video Game Design &amp; World-Building</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" data-filter="innovation" onclick="filterFromInterest('innovation',this)"><span class="int-num">04</span><span class="int-name">Human-Centered Product Design</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" data-filter="research" onclick="filterFromInterest('research',this)"><span class="int-num">05</span><span class="int-name">Cancer Research &amp; Immunology</span><span class="interest-tag">1 project</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" data-filter="brand" onclick="filterFromInterest('brand',this)"><span class="int-num">06</span><span class="int-name">Brand Strategy &amp; Storytelling</span><span class="interest-tag">3 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" data-filter="xr" onclick="filterFromInterest('xr',this)"><span class="int-num">07</span><span class="int-name">Shader Programming &amp; Real-Time Graphics</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" data-filter="innovation" onclick="filterFromInterest('innovation',this)"><span class="int-num">08</span><span class="int-name">Medicine &amp; Therapeutic UX</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-wrap" id="contact">
+  <div class="contact-inner">
+    <p class="contact-eyebrow">Get in touch</p>
+    <h2 class="contact-heading">Let's build something<br><em>worth remembering.</em></h2>
+    <p style="font-size:.9rem;color:var(--muted);max-width:480px;line-height:1.8;margin-bottom:2.5rem;">Open to internships, full-time roles, and collaborations in XR, biotech UX, and human-centered design. Always happy to connect.</p>
+    <div class="contact-links">
+      <a class="contact-link link-email" href="mailto:samueljfrausto@gmail.com">
+        <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        samueljfrausto@gmail.com
+      </a>
+      <a class="contact-link link-li" href="https://www.linkedin.com/in/samuel-frausto/" target="_blank" rel="noopener">
+        <svg class="link-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+    <div class="contact-footer">
+      <span class="footer-name">Samuel Frausto</span>
+      <span class="footer-copy">© 2025 — Designer &amp; Experience Builder</span>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+function filter(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.querySelectorAll('.project-card').forEach(card=>{
+    if(cat==='all'||card.dataset.cat===cat) card.classList.remove('hidden');
+    else card.classList.add('hidden');
+  });
+  document.querySelectorAll('.interest-item').forEach(i=>i.classList.remove('active-interest'));
+  const grid = document.getElementById('projectsGrid');
+  grid.classList.remove('filtered');
+  void grid.offsetWidth;
+  grid.classList.add('filtered');
+}
+
+function filterFromInterest(cat, el) {
+  // Highlight the interest
+  document.querySelectorAll('.interest-item').forEach(i=>i.classList.remove('active-interest'));
+  el.classList.add('active-interest');
+  // Update filter buttons
+  const matchBtn = [...document.querySelectorAll('.filter-btn')].find(b=>b.textContent.toLowerCase().includes(cat==='xr'?'xr':cat==='brand'?'brand':cat==='innovation'?'innov':cat));
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  if(matchBtn) matchBtn.classList.add('active');
+  // Filter cards
+  document.querySelectorAll('.project-card').forEach(card=>{
+    if(card.dataset.cat===cat) card.classList.remove('hidden');
+    else card.classList.add('hidden');
+  });
+  // Scroll to projects
+  document.getElementById('projects').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
