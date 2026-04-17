@@ -1,0 +1,7 @@
+{
+  "name": "portfolioweb",
+  "private": true,
+  "scripts": {
+    "build": "rm -rf dist && mkdir -p dist && cp index.html style.css shared.js dist/ && cp -R projects dist/projects"
+  }
+}
