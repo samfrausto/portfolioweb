@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuzChews · §06 Patient Simulation — Samuel Frausto</title>
+<meta name="description" content="Five authored patient personas demonstrate how the SuzChews formulation algorithm responds to different dysgeusia profiles. Deterministic scenario picker — no LLM, runs on static hosting.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="suzchews.css">
+<style>
+/* §06 page-local: scenario picker grid */
+.scenario-picker{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+  gap:10px;
+  margin-bottom:2rem;
+}
+.scenario-btn{
+  padding:1.1rem 1.25rem;
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  background:var(--surface);
+  text-align:left;
+  cursor:none;
+  transition:border-color .2s, background .2s;
+  position:relative;
+  overflow:hidden;
+}
+.scenario-btn::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:var(--border2);
+  transition:background .2s;
+}
+.scenario-btn[data-regimen="platinum"]::before    { background:var(--electric); }
+.scenario-btn[data-regimen="taxane"]::before      { background:var(--violet); }
+.scenario-btn[data-regimen="anthracycline"]::before{ background:var(--coral); }
+.scenario-btn[data-regimen="other"]::before       { background:var(--teal); }
+.scenario-btn:hover{
+  border-color:rgba(255,255,255,0.18);
+  background:rgba(255,255,255,0.03);
+}
+.scenario-btn.is-active{
+  border-color:rgba(92,225,255,0.45);
+  background:rgba(92,225,255,0.06);
+}
+.scenario-btn.is-active::before{ background:var(--electric); }
+.sb-name{
+  font-family:var(--display);
+  font-size:.95rem;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:.2rem;
+  display:block;
+}
+.sb-meta{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.08em;
+  color:var(--dim);
+  text-transform:uppercase;
+}
+
+/* CiTAS dimension mini-bars */
+.citas-bars{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:1rem;
+}
+.citas-row{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+}
+.citas-label{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.08em;
+  color:var(--dim);
+  text-transform:uppercase;
+  min-width:10ch;
+}
+.citas-track{
+  flex:1;
+  height:5px;
+  background:var(--bg3);
+  border-radius:3px;
+  overflow:hidden;
+}
+.citas-fill{
+  height:100%;
+  border-radius:3px;
+  transition:width .5s var(--ease-paper);
+}
+.citas-fill.dim1{ background:linear-gradient(90deg,var(--teal),var(--electric)); }
+.citas-fill.dim2{ background:linear-gradient(90deg,var(--coral),var(--violet)); }
+.citas-fill.dim3{ background:linear-gradient(90deg,var(--amber),var(--coral)); }
+.citas-val{
+  font-family:var(--mono);
+  font-size:.62rem;
+  color:var(--text);
+  min-width:3ch;
+  text-align:right;
+  font-feature-settings:'tnum' 1;
+}
+
+/* Formulation output bars (mini version inside persona panel) */
+.sim-form-bars{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:1rem;
+}
+.sim-bar-row{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+}
+.sim-bar-name{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--dim);
+  min-width:16ch;
+}
+.sim-bar-track{
+  flex:1;
+  height:6px;
+  background:var(--bg3);
+  border-radius:3px;
+  overflow:hidden;
+}
+.sim-bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--electric),var(--coral));
+  transition:width .55s var(--ease-paper);
+}
+.sim-bar-pct{
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--text);
+  min-width:3.5ch;
+  text-align:right;
+  font-feature-settings:'tnum' 1;
+}
+
+/* Empty state */
+.sim-empty{
+  padding:3rem 2rem;
+  text-align:center;
+  font-family:var(--mono);
+  font-size:.72rem;
+  color:var(--dim);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  border:1px dashed var(--border);
+  border-radius:var(--r-lg);
+}
+</style>
+</head>
+<body class="suzchews-page" data-page="06">
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="scanlines" aria-hidden="true"></div>
+
+<nav>
+  <div class="nav-left">
+    <a class="nav-logo" href="../../index.html">S<span>.</span>Frausto</a>
+    <span class="nav-readout" aria-hidden="true">SUZCHEWS · §06 SIMULATION</span>
+  </div>
+  <div class="nav-links">
+    <a href="../../index.html#projects">Work</a>
+    <a href="../../index.html#about">About</a>
+    <a href="../../index.html#contact">Contact</a>
+    <div class="nav-dot"></div>
+  </div>
+</nav>
+
+<nav class="proj-subnav" aria-label="Project sections">
+  <div class="proj-subnav-inner">
+    <span class="proj-subnav-id">SuzChews · v1.0 · 2026.05</span>
+    <ul class="proj-subnav-list">
+      <li><a class="proj-subnav-link" data-page="01" href="index.html"><span class="pn-num">§01</span> Problem</a></li>
+      <li><a class="proj-subnav-link" data-page="02" href="background.html"><span class="pn-num">§02</span> Background</a></li>
+      <li><a class="proj-subnav-link" data-page="03" href="solution.html"><span class="pn-num">§03</span> Solution</a></li>
+      <li><a class="proj-subnav-link" data-page="04" href="biomarkers.html"><span class="pn-num">§04</span> Biomarkers</a></li>
+      <li><a class="proj-subnav-link" data-page="05" href="algorithm.html"><span class="pn-num">§05</span> Algorithm</a></li>
+      <li><a class="proj-subnav-link" data-page="06" href="simulation.html"><span class="pn-num">§06</span> Simulation</a></li>
+      <li><a class="proj-subnav-link" data-page="07" href="references.html"><span class="pn-num">§07</span> References</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============================================================
+     MANUSCRIPT HEADER
+     ============================================================ -->
+<header class="manuscript-head">
+  <a class="back-link" href="algorithm.html">Back to §05 Algorithm</a>
+  <div class="ms-eyebrow" style="margin-top:1.25rem;">
+    <span>§06 — AI Patient Simulation</span>
+    <span class="ms-doi">SUZCHEWS / 2026.05 / 06</span>
+  </div>
+  <h1 class="ms-title">Five patients. <em>Five different gums.</em></h1>
+  <p class="ms-abstract">
+    The §02 variability problem stated that two patients on the same regimen can present
+    wildly different dysgeusia profiles. This section makes that legible.
+    Select a patient scenario below to see their clinical profile, estimated CiTAS dimension
+    scores, and the formulation recommendation the §05 algorithm produces for them.
+    All scenarios are deterministic and author-authored — no language model is involved.
+  </p>
+  <div class="ms-byline">
+    <span><strong>Samuel Frausto</strong> &middot; ACAD 432</span>
+    <span class="read-time"><span class="auto-reading-time">~6 min read</span></span>
+    <span class="updated">Updated <span class="auto-last-updated">2026.05</span></span>
+  </div>
+  <div class="ms-keywords">
+    <span class="ms-kw">patient simulation</span>
+    <span class="ms-kw">scenario picker</span>
+    <span class="ms-kw">deterministic</span>
+    <span class="ms-kw">CiTAS profiles</span>
+    <span class="ms-kw">formulation variability</span>
+  </div>
+</header>
+
+<!-- ============================================================
+     §6.1 SCENARIO PICKER
+     ============================================================ -->
+<section class="ms-section" id="s-picker">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 06.1</span>
+    <h2 class="ms-section-title">Select a <em>patient scenario.</em></h2>
+  </div>
+
+  <p class="sci-prose" style="max-width:62ch;margin-bottom:2rem;">
+    Five scenarios were authored to span the clinical variable space: different drug classes,
+    biomarker profiles, and treatment phases. The color bar at the top of each card
+    corresponds to the dominant drug class.
+    <!-- TODO: SAM — these personas are your authored constructs. Replace or expand them
+         with any actual patient profiles you have access to from your research, or adjust
+         the clinical details to better match profiles you encountered in the literature. -->
+  </p>
+
+  <!-- Scenario picker buttons -->
+  <div class="scenario-picker" id="scenarioPicker" role="listbox" aria-label="Select patient scenario">
+    <button type="button" class="scenario-btn" data-scenario="maria" data-regimen="platinum"
+            role="option" aria-selected="false">
+      <span class="sb-name">Maria, 58</span>
+      <span class="sb-meta">Breast · Carboplatin · Wk 4</span>
+    </button>
+    <button type="button" class="scenario-btn" data-scenario="jake" data-regimen="platinum"
+            role="option" aria-selected="false">
+      <span class="sb-name">Jake, 44</span>
+      <span class="sb-meta">Colorectal · FOLFOX · Wk 6</span>
+    </button>
+    <button type="button" class="scenario-btn" data-scenario="sofia" data-regimen="other"
+            role="option" aria-selected="false">
+      <span class="sb-name">Sofia, 15</span>
+      <span class="sb-meta">Pediatric ALL · Various · Wk 3</span>
+    </button>
+    <button type="button" class="scenario-btn" data-scenario="patricia" data-regimen="taxane"
+            role="option" aria-selected="false">
+      <span class="sb-name">Patricia, 71</span>
+      <span class="sb-meta">Lung · Docetaxel · Wk 8</span>
+    </button>
+    <button type="button" class="scenario-btn" data-scenario="david" data-regimen="anthracycline"
+            role="option" aria-selected="false">
+      <span class="sb-name">David, 52</span>
+      <span class="sb-meta">Lymphoma · Doxorubicin · Wk 2</span>
+    </button>
+  </div>
+
+  <!-- Persona shell: card + formulation output -->
+  <div class="persona-shell" id="personaShell">
+    <!-- Persona detail card -->
+    <div class="persona-card" id="personaCard" style="display:none;">
+      <p class="persona-name" id="p-name">—</p>
+      <p class="persona-meta" id="p-meta">—</p>
+
+      <div class="persona-section">
+        <p class="persona-section-label">Clinical profile</p>
+        <p class="persona-section-body" id="p-profile">—</p>
+      </div>
+
+      <div class="persona-section">
+        <p class="persona-section-label">Dominant dysgeusia presentation</p>
+        <p class="persona-section-body" id="p-presentation">—</p>
+      </div>
+
+      <div class="persona-section">
+        <p class="persona-section-label">Estimated CiTAS dimension profile</p>
+        <div class="citas-bars">
+          <div class="citas-row">
+            <span class="citas-label">Dim. I — quantitative</span>
+            <div class="citas-track"><div class="citas-fill dim1" id="citas-d1"></div></div>
+            <span class="citas-val" id="citas-d1-val">—</span>
+          </div>
+          <div class="citas-row">
+            <span class="citas-label">Dim. II — qualitative</span>
+            <div class="citas-track"><div class="citas-fill dim2" id="citas-d2"></div></div>
+            <span class="citas-val" id="citas-d2-val">—</span>
+          </div>
+          <div class="citas-row">
+            <span class="citas-label">Dim. III — nutrition</span>
+            <div class="citas-track"><div class="citas-fill dim3" id="citas-d3"></div></div>
+            <span class="citas-val" id="citas-d3-val">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="persona-trait-list" id="p-traits"></div>
+    </div>
+
+    <!-- Formulation output -->
+    <div id="simOutput">
+      <div class="sim-empty" id="simEmpty">← Select a patient to see the formulation</div>
+      <div id="simResult" style="display:none;">
+        <div style="padding:1.5rem;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bg2);">
+          <p style="font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--electric);margin-bottom:1.25rem;display:flex;align-items:center;gap:.5rem;">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal);display:inline-block;animation:pulse 2s infinite;"></span>
+            Algorithm output — recommended formulation
+          </p>
+          <div class="sim-form-bars">
+            <div class="sim-bar-row">
+              <span class="sim-bar-name">Trigeminal</span>
+              <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-trigeminal"></div></div>
+              <span class="sim-bar-pct" id="sim-val-trigeminal">—</span>
+            </div>
+            <div class="sim-bar-row">
+              <span class="sim-bar-name">Umami / bitter masker</span>
+              <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-umami"></div></div>
+              <span class="sim-bar-pct" id="sim-val-umami">—</span>
+            </div>
+            <div class="sim-bar-row">
+              <span class="sim-bar-name">Sour / tart</span>
+              <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-sour"></div></div>
+              <span class="sim-bar-pct" id="sim-val-sour">—</span>
+            </div>
+            <div class="sim-bar-row">
+              <span class="sim-bar-name">Anti-nausea</span>
+              <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-antinausea"></div></div>
+              <span class="sim-bar-pct" id="sim-val-antinausea">—</span>
+            </div>
+          </div>
+
+          <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border);">
+            <p style="font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--electric);margin-bottom:.5rem;">Algorithm rationale</p>
+            <p id="sim-rationale" style="font-size:.78rem;line-height:1.7;color:var(--muted);">—</p>
+          </div>
+
+          <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border);">
+            <p style="font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:.5rem;">What this patient might experience</p>
+            <p id="sim-experience" style="font-size:.78rem;line-height:1.7;color:var(--muted);font-family:var(--serif);font-style:italic;">—</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /persona-shell -->
+</section>
+
+<!-- ============================================================
+     §6.2 METHODOLOGY & DESIGN RATIONALE
+     ============================================================ -->
+<section class="ms-section" id="s-methodology">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 06.2</span>
+    <h2 class="ms-section-title">Methodology &amp; <em>design rationale.</em></h2>
+  </div>
+
+  <div class="sci-layout">
+    <div class="sci-prose">
+      <!-- TODO: SAM — fill this in with your honest methodological framing.
+           Key points to address:
+           1) Why deterministic (not live LLM): static hosting, cost, explainability,
+              the fact that the personas are the authored content — an LLM wrapping them
+              would add noise without adding precision
+           2) How personas were authored: from literature, not from actual patient interviews
+              (be honest about this — actual patient interviews would be the next step)
+           3) How CiTAS dimension scores were estimated: from the variable profile,
+              not from actual CiTAS assessments of these patients
+           4) How a live-LLM upgrade would work if pursued: replace the authored
+              experience text with a prompt + the patient's variable state as context -->
+      <p>
+        <strong>This simulation is entirely deterministic.</strong> No language model is
+        involved in generating any of the text. The five patient personas are authored
+        constructs — each variable (treatment type, iron, zinc, hygiene, weeks, nausea) was
+        set to produce a distinct point in the clinical variable space, and the experience
+        description was written by me to reflect what the literature says about that profile.
+      </p>
+      <p>
+        The decision to use a deterministic scenario picker rather than a live LLM was made
+        for three reasons: <strong>static hosting</strong> (this site runs on Vercel with no
+        server-side logic — a live LLM call would require a backend and API costs);
+        <strong>explainability</strong> (authored text can be reviewed and corrected; LLM
+        text cannot be guaranteed to stay accurate); and <strong>scope control</strong>
+        (building a reliable deterministic version now is better than an unreliable dynamic
+        version later).
+      </p>
+      <p>
+        <strong>How a live-LLM upgrade would work.</strong> The §05 algorithm already
+        produces the patient state as a structured object. That object plus a system prompt
+        anchored to the §04 mechanism descriptions would be sufficient context for a capable
+        language model to generate accurate, personalized experience descriptions on demand.
+        The architecture is scaffolded for this — the authored text is a drop-in placeholder,
+        not a structural dependency.
+      </p>
+      <p>
+        <strong>Limitation: these are not real patients.</strong> The personas are grounded
+        in the literature but were not drawn from actual clinical observations or patient
+        interviews. They demonstrate the algorithm's differentiation across the variable space
+        — they are not prevalence-weighted samples of the actual chemo patient population.
+        Actual patient interviews or a clinical survey would be the right next step.
+      </p>
+      <!-- /TODO -->
+    </div>
+    <aside class="sci-margin">
+      <div class="margin-note">
+        <span class="mn-label">Static vs. dynamic</span>
+        <p>Static determinism is a feature for a course deliverable: the output is the same every time, it is auditable, and it runs at zero marginal cost per visitor. An LLM adds variability and cost in exchange for nuance that isn't yet justified by the underlying data.</p>
+      </div>
+      <div class="margin-note">
+        <span class="mn-label">Future upgrade path</span>
+        <p>Patient state object → system prompt (§04 mechanism descriptions) + user prompt (patient variables) → LLM generates experience text. No structural changes to the page needed.</p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="callout callout--info" style="margin-top:2rem;">
+    <p class="callout-label">Design rationale summary</p>
+    <p>
+      Deterministic scenario picker on static hosting. Five personas authored from the
+      literature — not real patients. CiTAS dimension estimates derived from variable profiles,
+      not from actual CiTAS assessments. Scaffolded for a live-LLM upgrade: replace the
+      authored experience strings with a structured-context API call. No structural changes
+      to the page required for that upgrade.
+    </p>
+  </div>
+</section>
+
+<!-- Next-page footer -->
+<div class="next-page">
+  <span class="next-page-meta">§06 / 07 · Patient Simulation</span>
+  <a class="next-page-link" href="references.html">
+    <span>
+      <span class="np-label">Up next · §07</span>
+      <span class="np-title">References</span>
+    </span>
+    <span class="np-arrow">→</span>
+  </a>
+</div>
+
+<script src="../../shared.js"></script>
+<script src="suzchews.js"></script>
+<script>
+/* ============================================================
+   §06 PAGE-LOCAL: Deterministic scenario picker
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ----------------------------------------------------------
+     PERSONA DATABASE
+     Each persona has:
+       .inputs   — fed into the §05 algorithm function
+       .citas    — estimated dim scores [d1, d2, d3] each 0-100
+       .profile  — clinical profile sentence
+       .presentation — dominant symptom description
+       .traits   — tag chips
+       .experience — first-person-adjacent description of gum effect
+  ---------------------------------------------------------- */
+  var PERSONAS = {
+    maria: {
+      name: 'Maria, 58',
+      meta: 'Breast cancer · Carboplatin (platinum) · Week 4 · Elevated iron · Fair oral hygiene',
+      inputs: { treatment:'platinum', hygiene:'fair', iron:'elevated', zinc:'normal', weeks:'mid', nausea:1 },
+      citas: [42, 78, 35],
+      profile: 'Breast cancer patient in her fourth week of carboplatin therapy. Serum iron elevated (likely dietary — red meat-heavy diet pre-diagnosis). Oral hygiene fair. Nausea mild to moderate. Zinc within normal range.',
+      presentation: 'Dominant presentation: metallic. Everything tastes like a copper coin. Hot food intensifies it. Cold food is more tolerable. Sour foods are the most recognizable still — citrus gives the clearest signal.',
+      traits: ['Platinum agent', 'Elevated iron', 'Metallic dominant', 'Week 4'],
+      experience: 'When Maria chews SuzChews, the first wave of citric sourness cuts through the metallic background — briefly — and the menthol tingle redirects attention away from the taste buds toward the roof of the mouth and throat. The savory undercurrent doesn\'t fully mask the metallic quality, but it competes with it. Food afterward tastes slightly more like food.'
+    },
+    jake: {
+      name: 'Jake, 44',
+      meta: 'Colorectal cancer · FOLFOX (platinum + fluorouracil) · Week 6 · Deficient zinc · Good oral hygiene',
+      inputs: { treatment:'platinum', hygiene:'good', iron:'normal', zinc:'deficient', weeks:'mid', nausea:1 },
+      citas: [68, 55, 40],
+      profile: 'Colorectal cancer patient, mid-career, six weeks into FOLFOX regimen (oxaliplatin + leucovorin + fluorouracil). Zinc deficient — dietary intake severely reduced due to nausea. Good oral hygiene baseline. Normal iron.',
+      presentation: 'Dominant presentation: overall taste loss with a metallic undertone. Food tastes of almost nothing, then occasionally — unpredictably — metallic. The absence of flavor is almost as disorienting as a bad one. Sour is the most intact sense remaining.',
+      traits: ['Platinum agent', 'Zinc deficient', 'Taste loss dominant', 'Week 6'],
+      experience: 'Jake\'s experience with SuzChews centers on the sour first wave — it\'s the clearest flavor signal he\'s had in weeks, and it momentarily reorients his perception of what food is supposed to feel like. The umami sustain doesn\'t produce a flavor he can name, but it fills in a background that makes eating feel less futile.'
+    },
+    sofia: {
+      name: 'Sofia, 15',
+      meta: 'Pediatric ALL · Multi-agent chemotherapy · Week 3 · Zinc deficient · Fair oral hygiene',
+      inputs: { treatment:'other', hygiene:'fair', iron:'normal', zinc:'deficient', weeks:'early', nausea:2 },
+      citas: [55, 38, 62],
+      profile: 'Fifteen-year-old with acute lymphoblastic leukemia (ALL) on a multi-agent induction regimen. Three weeks in. Zinc deficient. Nausea moderate and persistent — the primary complaint alongside taste change. Fair oral hygiene, consistent with the difficulty of maintaining routines during induction.',
+      presentation: 'Dominant presentation: nausea + taste flattening. Foods Sofia loved — Takis, mango, anything spicy — taste like nothing. The nausea is always present. She hasn\'t wanted to eat in two weeks. The ACCO pediatric-patient notes describe this exact profile.',
+      traits: ['Pediatric ALL', 'Zinc deficient', 'Nausea dominant', 'Taste flattening'],
+      experience: 'For Sofia, the anti-nausea ginger and magnesium base works first — the nausea recedes just enough that eating feels possible. The sour/tart wave gives her a recognizable flavor signal, the one she\'s been missing. It\'s not Takis. But it\'s something. Her mom says she asked for mango two days later.'
+    },
+    patricia: {
+      name: 'Patricia, 71',
+      meta: 'Non-small cell lung cancer · Docetaxel (taxane) · Week 8 · Deficient zinc · Elevated iron · Poor oral hygiene',
+      inputs: { treatment:'taxane', hygiene:'poor', iron:'elevated', zinc:'deficient', weeks:'late', nausea:2 },
+      citas: [80, 65, 70],
+      profile: 'Seventy-one-year-old lung cancer patient, eight weeks into docetaxel (taxane-class). Multiple compounding variables: zinc deficient, iron elevated, poor oral hygiene (smoking history, irregular dental care). Nausea moderate. The most complex case in the cohort — nearly every variable is unfavorable.',
+      presentation: 'Severe across all CiTAS dimensions. Quantitative loss: almost nothing tastes like it should. Qualitative distortion: what does register is either metallic, bitter, or both. Nutrition impact: Patricia has lost 8 lbs in 8 weeks. Her oncologist has flagged nutritional decline as a treatment concern.',
+      traits: ['Taxane agent', 'Poor oral hygiene', 'Zinc deficient', 'Elevated iron', 'Severe all dimensions'],
+      experience: 'Patricia\'s formulation is the most intense of the five — poor oral hygiene applies a ×1.18 multiplier and all strategies are elevated. The sour wave hits hard and is the strongest flavor experience she\'s had in weeks. The menthol tingle lasts into the aftertaste. It won\'t fix the weight loss. But it makes the act of eating less dread-inducing.'
+    },
+    david: {
+      name: 'David, 52',
+      meta: 'Diffuse large B-cell lymphoma · R-CHOP (anthracycline + others) · Week 2 · Normal iron/zinc · Good oral hygiene',
+      inputs: { treatment:'anthracycline', hygiene:'good', iron:'normal', zinc:'normal', weeks:'early', nausea:2 },
+      citas: [30, 40, 65],
+      profile: 'Fifty-two-year-old with DLBCL (lymphoma) on R-CHOP regimen. Two weeks in. Good oral hygiene baseline. Normal iron and zinc — earliest stage, biomarkers haven\'t shifted yet. Nausea moderate, which is characteristic of anthracycline-containing regimens.',
+      presentation: 'Early stage: nausea is the primary complaint, with taste change just beginning. CiTAS Dimensions I and II are relatively low — the qualitative metallic distortion and quantitative loss haven\'t set in fully yet. Dimension III (nutritional impact) is already high because of nausea.',
+      traits: ['Anthracycline agent', 'Early stage', 'Nausea dominant', 'Good hygiene'],
+      experience: 'David is at the window where intervention is easiest — dysgeusia is mild, nausea is the primary barrier. The anti-nausea ginger base and the B6 settle the stomach enough that he eats dinner with his family for the first time since starting treatment. The taste is close to normal. He finishes the whole plate.'
+    }
+  };
+
+  /* ----------------------------------------------------------
+     §05 algorithm (mirrored from algorithm.html — keeps pages independent)
+  ---------------------------------------------------------- */
+  function compute(s) {
+    var trig = 25, umami = 25, sour = 25, nausea = 25;
+    if (s.treatment === 'platinum')     { trig += 20; umami += 15; }
+    else if (s.treatment === 'taxane')  { sour += 12; trig  +=  8; }
+    else if (s.treatment === 'anthracycline') { nausea += 18; trig += 7; }
+    if (s.iron === 'elevated')  { trig += 18; umami += 12; }
+    if (s.zinc === 'deficient') { sour += 16; nausea += 10; }
+    if      (s.weeks === 'mid')  { trig += 5; umami += 5; }
+    else if (s.weeks === 'late') { umami += 8; sour  += 5; }
+    else if (s.weeks === 'post') { sour += 10; umami += 5; }
+    nausea += s.nausea * 10;
+    var mult = s.hygiene === 'poor' ? 1.18 : s.hygiene === 'fair' ? 1.09 : 1.0;
+    trig *= mult; umami *= mult; sour *= mult; nausea *= mult;
+    var total = trig + umami + sour + nausea;
+    return {
+      trigeminal: Math.round(trig  / total * 100),
+      umami:      Math.round(umami / total * 100),
+      sour:       Math.round(sour  / total * 100),
+      antinausea: Math.round(nausea / total * 100)
+    };
+  }
+
+  function shortRationale(s) {
+    var parts = [];
+    if (s.treatment === 'platinum')       parts.push('Platinum → trigeminal + umami up');
+    else if (s.treatment === 'taxane')    parts.push('Taxane → sour up (taste-bud apoptosis)');
+    else if (s.treatment === 'anthracycline') parts.push('Anthracycline → anti-nausea up');
+    if (s.iron === 'elevated')  parts.push('elevated iron → trigeminal + umami +');
+    if (s.zinc === 'deficient') parts.push('zinc deficiency → sour + anti-nausea +');
+    if (s.hygiene === 'poor')   parts.push('poor hygiene ×1.18 global multiplier');
+    else if (s.hygiene === 'fair') parts.push('fair hygiene ×1.09 global multiplier');
+    if (s.nausea > 0)           parts.push('nausea severity → anti-nausea +'+ (s.nausea*10));
+    return parts.join(' · ');
+  }
+
+  /* ----------------------------------------------------------
+     Render selected persona
+  ---------------------------------------------------------- */
+  function renderPersona(key) {
+    var p = PERSONAS[key];
+    if (!p) return;
+    var r = compute(p.inputs);
+
+    /* Persona card */
+    document.getElementById('p-name').textContent = p.name;
+    document.getElementById('p-meta').textContent = p.meta;
+    document.getElementById('p-profile').textContent = p.profile;
+    document.getElementById('p-presentation').textContent = p.presentation;
+
+    /* CiTAS bars */
+    ['d1','d2','d3'].forEach(function(d, i){
+      var fill = document.getElementById('citas-' + d);
+      var val  = document.getElementById('citas-' + d + '-val');
+      if (fill) fill.style.width = p.citas[i] + '%';
+      if (val)  val.textContent  = p.citas[i] + '%';
+    });
+
+    /* Traits */
+    var traitsEl = document.getElementById('p-traits');
+    traitsEl.innerHTML = '';
+    p.traits.forEach(function(t){
+      var span = document.createElement('span');
+      span.className = 'persona-trait';
+      span.textContent = t;
+      traitsEl.appendChild(span);
+    });
+
+    /* Formulation bars */
+    var keys = ['trigeminal','umami','sour','antinausea'];
+    keys.forEach(function(k){
+      var fill = document.getElementById('sim-fill-' + k);
+      var val  = document.getElementById('sim-val-'  + k);
+      if (fill) fill.style.width = r[k] + '%';
+      if (val)  val.textContent  = r[k] + '%';
+    });
+
+    /* Rationale + experience */
+    document.getElementById('sim-rationale').textContent = shortRationale(p.inputs);
+    document.getElementById('sim-experience').textContent = p.experience;
+
+    /* Show / hide */
+    document.getElementById('personaCard').style.display = '';
+    document.getElementById('simEmpty').style.display = 'none';
+    document.getElementById('simResult').style.display = '';
+  }
+
+  /* ----------------------------------------------------------
+     Button listeners
+  ---------------------------------------------------------- */
+  document.querySelectorAll('.scenario-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.scenario-btn').forEach(function(b){
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected','false');
+      });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected','true');
+      renderPersona(btn.dataset.scenario);
+    });
+  });
+
+  /* Auto-select first on load */
+  var first = document.querySelector('.scenario-btn');
+  if (first) first.click();
+
+}());
+</script>
+</body>
+</html>

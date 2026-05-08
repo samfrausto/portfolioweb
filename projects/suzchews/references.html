@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuzChews · §07 References — Samuel Frausto</title>
+<meta name="description" content="Complete numbered reference list for the SuzChews project. Searchable, type-filterable, with bidirectional citation chips showing which sections each source supports.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="suzchews.css">
+<style>
+/* §07 page-local: ref count badge */
+.ref-count-badge{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:3px 10px;
+  border-radius:99px;
+  background:rgba(92,225,255,0.08);
+  border:1px solid rgba(92,225,255,0.22);
+  color:var(--electric);
+  margin-left:1rem;
+}
+.ref-todo-note{
+  padding:.75rem 1.1rem;
+  border-left:2px solid var(--amber);
+  background:rgba(251,188,4,0.05);
+  border-radius:0 var(--r) var(--r) 0;
+  font-family:var(--mono);
+  font-size:.68rem;
+  color:var(--amber);
+  line-height:1.6;
+  margin:.5rem 0 .2rem;
+}
+</style>
+</head>
+<body class="suzchews-page" data-page="07">
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="scanlines" aria-hidden="true"></div>
+
+<nav>
+  <div class="nav-left">
+    <a class="nav-logo" href="../../index.html">S<span>.</span>Frausto</a>
+    <span class="nav-readout" aria-hidden="true">SUZCHEWS · §07 REFERENCES</span>
+  </div>
+  <div class="nav-links">
+    <a href="../../index.html#projects">Work</a>
+    <a href="../../index.html#about">About</a>
+    <a href="../../index.html#contact">Contact</a>
+    <div class="nav-dot"></div>
+  </div>
+</nav>
+
+<nav class="proj-subnav" aria-label="Project sections">
+  <div class="proj-subnav-inner">
+    <span class="proj-subnav-id">SuzChews · v1.0 · 2026.05</span>
+    <ul class="proj-subnav-list">
+      <li><a class="proj-subnav-link" data-page="01" href="index.html"><span class="pn-num">§01</span> Problem</a></li>
+      <li><a class="proj-subnav-link" data-page="02" href="background.html"><span class="pn-num">§02</span> Background</a></li>
+      <li><a class="proj-subnav-link" data-page="03" href="solution.html"><span class="pn-num">§03</span> Solution</a></li>
+      <li><a class="proj-subnav-link" data-page="04" href="biomarkers.html"><span class="pn-num">§04</span> Biomarkers</a></li>
+      <li><a class="proj-subnav-link" data-page="05" href="algorithm.html"><span class="pn-num">§05</span> Algorithm</a></li>
+      <li><a class="proj-subnav-link" data-page="06" href="simulation.html"><span class="pn-num">§06</span> Simulation</a></li>
+      <li><a class="proj-subnav-link" data-page="07" href="references.html"><span class="pn-num">§07</span> References</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============================================================
+     MANUSCRIPT HEADER
+     ============================================================ -->
+<header class="manuscript-head">
+  <a class="back-link" href="simulation.html">Back to §06 Simulation</a>
+  <div class="ms-eyebrow" style="margin-top:1.25rem;">
+    <span>§07 — References</span>
+    <span class="ms-doi">SUZCHEWS / 2026.05 / 07</span>
+  </div>
+  <h1 class="ms-title">Every claim, <em>sourced.</em></h1>
+  <p class="ms-abstract">
+    Complete reference list for all seven sections of the SuzChews project deliverable.
+    Search by keyword, filter by source type. Each entry shows which sections cite it.
+    <!-- TODO: SAM — add the full citation details for any [TODO] entries below
+         and remove the amber TODO notes once resolved. -->
+  </p>
+  <div class="ms-byline">
+    <span><strong>Samuel Frausto</strong> &middot; ACAD 432</span>
+    <span class="read-time"><span id="ref-total-count">12</span> sources</span>
+    <span class="updated">Updated <span class="auto-last-updated">2026.05</span></span>
+  </div>
+  <div class="ms-keywords">
+    <span class="ms-kw">dysgeusia</span>
+    <span class="ms-kw">chemotherapy</span>
+    <span class="ms-kw">CiTAS scale</span>
+    <span class="ms-kw">taste alteration</span>
+    <span class="ms-kw">formulation</span>
+  </div>
+</header>
+
+<!-- ============================================================
+     REFERENCE LIST
+     ============================================================ -->
+<section class="ms-section" id="s-refs">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 07</span>
+    <h2 class="ms-section-title">Reference <em>list.</em>
+      <span class="ref-count-badge" id="visible-count">12 shown</span>
+    </h2>
+  </div>
+
+  <!-- Controls: search + type filter -->
+  <div class="ref-controls">
+    <input type="search" class="ref-search" id="refSearch" placeholder="Search references…" aria-label="Search references">
+    <div class="ref-filter-bar" role="group" aria-label="Filter by source type">
+      <button type="button" class="ref-filter is-active" data-type="all">All</button>
+      <button type="button" class="ref-filter" data-type="peer-reviewed">Peer-reviewed</button>
+      <button type="button" class="ref-filter" data-type="clinical">Clinical</button>
+      <button type="button" class="ref-filter" data-type="industry">Industry</button>
+      <button type="button" class="ref-filter" data-type="lay">Lay / organisation</button>
+    </div>
+  </div>
+
+  <ol class="ref-list" id="refList">
+
+    <!-- [1] -->
+    <li class="ref-item" id="ref-1" data-type="lay">
+      <span class="ref-num">1</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — confirm the full URL and access date for Cleveland Clinic dysgeusia page -->
+        <p class="ref-citation">
+          Cleveland Clinic. <em>Dysgeusia (taste disorder): causes, symptoms, treatment.</em>
+          Cleveland Clinic Health Library. Available at:
+          <a href="https://my.clevelandclinic.org/health/diseases/23388-dysgeusia"
+             target="_blank" rel="noopener"
+             style="color:var(--electric);text-decoration:none;">
+            my.clevelandclinic.org/health/diseases/23388-dysgeusia
+          </a>.
+          Accessed 2025.
+        </p>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="lay">Lay / organisation</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="background.html#s-landscape">§02.1 Landscape</a>
+          <a class="ref-support-link" href="solution.html#s-concept">§03.1 Concept</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- [2] -->
+    <li class="ref-item" id="ref-2" data-type="peer-reviewed">
+      <span class="ref-num">2</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — add full Imami et al. citation (journal, volume, pages, year, DOI) -->
+        <p class="ref-citation">
+          <strong>Imami AS, et al.</strong> Taste alteration in patients receiving chemotherapy:
+          higher prevalence (≥75%) in elderly patients (≥70 years). <em>[TODO: Journal name,
+          volume, issue, pages, year, DOI]</em>
+        </p>
+        <div class="ref-todo-note">TODO: complete citation — journal, vol, pages, year, DOI</div>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="peer-reviewed">Peer-reviewed</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="background.html#s-landscape">§02.1 Landscape</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- [3] -->
+    <li class="ref-item" id="ref-3" data-type="peer-reviewed">
+      <span class="ref-num">3</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — verify Kano & Kanda year, journal, volume, pages, DOI -->
+        <p class="ref-citation">
+          <strong>Kano T, Kanda K.</strong> Development and validation of a
+          chemotherapy-induced taste alteration scale (CiTAS).
+          <em>Oncology Nursing Forum.</em> 2013;40(2):E68–E74.
+          doi: <a href="https://doi.org/10.1188/13.ONF.E68-E74" target="_blank" rel="noopener"
+                  style="color:var(--electric);text-decoration:none;">10.1188/13.ONF.E68-E74</a>
+          <em>[TODO: SAM — confirm DOI resolves correctly]</em>
+        </p>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="peer-reviewed">Peer-reviewed</span>
+          <span class="ref-tag" data-type="clinical">Clinical</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="background.html#s-landscape">§02.1 CiTAS</a>
+          <a class="ref-support-link" href="biomarkers.html#s-citas">§04.3 CiTAS</a>
+          <a class="ref-support-link" href="algorithm.html#s-overview">§05.1 Overview</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- [4] -->
+    <li class="ref-item" id="ref-4" data-type="peer-reviewed">
+      <span class="ref-num">4</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — add full Silvio et al. citation -->
+        <p class="ref-citation">
+          <strong>Silvio [first initial] et al.</strong> Review of the CiTAS scale dimensions
+          and clinical application in chemotherapy patients.
+          <em>[TODO: full citation — journal, volume, pages, year, DOI]</em>
+        </p>
+        <div class="ref-todo-note">TODO: complete citation for Silvio et al. CiTAS review</div>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="peer-reviewed">Peer-reviewed</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="background.html#s-landscape">§02.1 CiTAS dimensions</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- [5] -->
+    <li class="ref-item" id="ref-5" data-type="clinical">
+      <span class="ref-num">5</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — confirm full US Pharmacist reference details and URL -->
+        <p class="ref-citation">
+          US Pharmacist. <em>Chemotherapy-induced dysgeusia: implications for food intake,
+          nutritional status, drug classes, and time course.</em>
+          USPharmacist.com. Available at:
+          <a href="https://www.uspharmacist.com" target="_blank" rel="noopener"
+             style="color:var(--electric);text-decoration:none;">uspharmacist.com</a>.
+          Accessed 2025. <em>[TODO: add full URL slug and access date]</em>
+        </p>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="clinical">Clinical</span>
+          <span class="ref-tag" data-type="lay">Lay / organisation</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="background.html#s-timecourse">§02.3 Time course</a>
+          <a class="ref-support-link" href="biomarkers.html#s-treatment">§04.3 Treatment type</a>
+          <a class="ref-support-link" href="algorithm.html">§05 Calculator</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- [6] -->
+    <li class="ref-item" id="ref-6" data-type="peer-reviewed">
+      <span class="ref-num">6</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — verify Jensen SB et al. full citation, DOI, journal -->
+        <p class="ref-citation">
+          <strong>Jensen SB, et al.</strong> Oral mucosal lesions, microbial changes, and taste
+          alterations in patients with breast cancer undergoing adjuvant chemotherapy: no
+          relationship found between dysgeusia and salivary flow rate.
+          <em>Support Care Cancer.</em> [TODO: year; volume; pages; DOI]
+        </p>
+        <div class="ref-todo-note">TODO: confirm year, volume, DOI for Jensen SB et al.</div>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="peer-reviewed">Peer-reviewed</span>
+          <span class="ref-tag" data-type="clinical">Clinical</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="background.html#s-mechanism">§02.2 Salivary chemistry</a>
+          <a class="ref-support-link" href="biomarkers.html#s-diagram">§04.2 Pathway diagram</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- [7] -->
+    <li class="ref-item" id="ref-7" data-type="peer-reviewed">
+      <span class="ref-num">7</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — iron worsens metallic taste: identify the specific paper this
+             came from in your literature review (mentioned in your Dysgeusia Work notes).
+             The note reads: "Iron-containing compounds in red meat can worsen impaired
+             taste sensations and may contribute to a BC patient experiencing a bitter or
+             metallic taste when eating." Add the full citation. -->
+        <p class="ref-citation">
+          <em>[TODO: SAM — add the full citation for the iron / metallic taste finding.
+          Your literature note states: "Iron-containing compounds in red meat can worsen
+          impaired taste sensations and may contribute to a BC patient experiencing a
+          bitter or metallic taste when eating." Identify and cite the source paper.]</em>
+        </p>
+        <div class="ref-todo-note">TODO: identify and complete citation for iron / metallic taste source</div>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="peer-reviewed">Peer-reviewed</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="background.html#s-mechanism">§02.2 Metal-ion binding</a>
+          <a class="ref-support-link" href="biomarkers.html#s-iron">§04.3 Iron levels</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- [8] -->
+    <li class="ref-item" id="ref-8" data-type="peer-reviewed">
+      <span class="ref-num">8</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — carbonyl production / lipid peroxidation: same note block
+             as [7] in your work canvas. "Chemotherapy-induced metallic taste sensations
+             may be due to the production of carbonyls by the lipid peroxidation of oral
+             epithelial cells (e.g., platinum agents)." Identify the source paper. -->
+        <p class="ref-citation">
+          <em>[TODO: SAM — add the full citation for the carbonyl / lipid peroxidation
+          finding. Your literature note: "Chemotherapy-induced metallic taste sensations
+          may be due to the production of carbonyls by the lipid peroxidation of oral
+          epithelial cells (e.g., platinum agents). Iron-containing compounds in red meat
+          can worsen impaired taste sensations." Identify and cite the source paper.]</em>
+        </p>
+        <div class="ref-todo-note">TODO: identify and complete citation for carbonyl / lipid peroxidation source</div>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="peer-reviewed">Peer-reviewed</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="background.html#s-mechanism">§02.2 Carbonyl production</a>
+          <a class="ref-support-link" href="biomarkers.html#s-carbonyl">§04.3 Carbonyl/lipid peroxidation</a>
+          <a class="ref-support-link" href="biomarkers.html#s-diagram">§04.2 Pathway diagram</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- [9] -->
+    <li class="ref-item" id="ref-9" data-type="peer-reviewed">
+      <span class="ref-num">9</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — neuropathy / olfactory damage: the source note reads
+             "Chemotherapy may damage olfactory receptor cells and taste buds, may
+             induce a peripheral and central neuropathy resulting in neuronal cell
+             deterioration and neurotransmission blockage involving the cranial nerves,
+             and may induce mucosal injury and/or xerostomia." From PubMed literature
+             review 1990–2022. Identify the specific paper. -->
+        <p class="ref-citation">
+          <em>[TODO: SAM — add the full citation for chemotherapy-induced neuropathy
+          and olfactory damage. Your literature note (PubMed review 1990–2022) states:
+          "Chemotherapy may damage olfactory receptor cells and taste buds, may induce
+          a peripheral and central neuropathy resulting in neuronal cell deterioration
+          and neurotransmission blockage involving the cranial nerves." Identify and
+          cite the source paper.]</em>
+        </p>
+        <div class="ref-todo-note">TODO: identify and complete citation for neuropathy / olfactory damage source</div>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="peer-reviewed">Peer-reviewed</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="background.html#s-mechanism">§02.2 Neuropathy</a>
+          <a class="ref-support-link" href="biomarkers.html#s-limits">§04.4 Olfactory limits</a>
+          <a class="ref-support-link" href="biomarkers.html#s-diagram">§04.2 Pathway diagram</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- [10] -->
+    <li class="ref-item" id="ref-10" data-type="peer-reviewed">
+      <span class="ref-num">10</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — time course review: "The time course for developing dysgeusia
+             also varies, with some patients developing it early on during the first
+             chemotherapeutic cycle, after 4 to 7 days, within 2 weeks, or up to
+             10 weeks following the initiation of therapy. While dysgeusia can be
+             persistent or intermittent, full restoration of taste generally occurs
+             on average at 12 months after completion of treatment. Salt perception
+             is most compromised." This was described as from a PubMed literature
+             review. Identify the specific review paper(s). -->
+        <p class="ref-citation">
+          <em>[TODO: SAM — add the full citation for the dysgeusia time course review.
+          Key findings: onset 4–7 days to ≤10 weeks; full recovery average 12 months
+          post-treatment; salt perception most compromised. From PubMed lit review
+          1990–2022. Identify and cite the source paper(s).]</em>
+        </p>
+        <div class="ref-todo-note">TODO: identify and complete citation for time course meta-review</div>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="peer-reviewed">Peer-reviewed</span>
+          <span class="ref-tag" data-type="clinical">Clinical</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="background.html#s-timecourse">§02.3 Time course</a>
+          <a class="ref-support-link" href="algorithm.html#s-overview">§05 Algorithm</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- [11] -->
+    <li class="ref-item" id="ref-11" data-type="lay">
+      <span class="ref-num">11</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — confirm the Canadian Cancer Society URL and exact page title -->
+        <p class="ref-citation">
+          Canadian Cancer Society. <em>Taste changes during cancer treatment.</em>
+          Available at:
+          <a href="https://cancer.ca" target="_blank" rel="noopener"
+             style="color:var(--electric);text-decoration:none;">cancer.ca</a>.
+          Accessed 2025. <em>[TODO: add full URL and access date]</em>
+        </p>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="lay">Lay / organisation</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="background.html#s-variability">§02.4 Variability</a>
+          <a class="ref-support-link" href="biomarkers.html#s-hygiene">§04.3 Oral hygiene</a>
+          <a class="ref-support-link" href="biomarkers.html#s-diagram">§04.2 Pathway diagram</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- [12] -->
+    <li class="ref-item" id="ref-12" data-type="peer-reviewed">
+      <span class="ref-num">12</span>
+      <div class="ref-body">
+        <!-- TODO: SAM — zinc deficiency and taste: identify the specific paper(s) from
+             your literature review linking zinc deficiency to dysgeusia / taste receptor
+             function in cancer patients. -->
+        <p class="ref-citation">
+          <em>[TODO: SAM — add the full citation for the zinc deficiency / taste receptor
+          function finding. This is cited in §04.3 Zinc Levels. Identify the source
+          from your literature review.]</em>
+        </p>
+        <div class="ref-todo-note">TODO: identify and complete citation for zinc + taste receptor function</div>
+        <div class="ref-meta">
+          <span class="ref-tag" data-type="peer-reviewed">Peer-reviewed</span>
+          <span class="ref-tag" data-type="clinical">Clinical</span>
+        </div>
+        <div class="ref-supports">
+          <span class="ref-supports-label">Supports →</span>
+          <a class="ref-support-link" href="biomarkers.html#s-zinc">§04.3 Zinc levels</a>
+          <a class="ref-support-link" href="algorithm.html">§05 Calculator (zinc input)</a>
+        </div>
+      </div>
+    </li>
+
+  </ol><!-- /refList -->
+</section>
+
+<!-- Back to top / end of project footer -->
+<div class="next-page">
+  <span class="next-page-meta">§07 / 07 · References · End of SuzChews deliverable</span>
+  <a class="next-page-link" href="index.html">
+    <span>
+      <span class="np-label">Return to start</span>
+      <span class="np-title">§01 Problem &amp; Hook</span>
+    </span>
+    <span class="np-arrow">→</span>
+  </a>
+</div>
+
+<script src="../../shared.js"></script>
+<script src="suzchews.js"></script>
+<script>
+/* ============================================================
+   §07 PAGE-LOCAL: search + type filter
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var list    = document.getElementById('refList');
+  var search  = document.getElementById('refSearch');
+  var filters = document.querySelectorAll('.ref-filter');
+  var counter = document.getElementById('visible-count');
+  var items   = Array.prototype.slice.call(list.querySelectorAll('.ref-item'));
+
+  var activeType = 'all';
+  var searchTerm = '';
+
+  function updateVisible() {
+    var count = 0;
+    items.forEach(function (item) {
+      var typeMatch = activeType === 'all' || item.dataset.type === activeType;
+      var textMatch = !searchTerm || item.textContent.toLowerCase().indexOf(searchTerm) !== -1;
+      var show = typeMatch && textMatch;
+      item.classList.toggle('is-hidden', !show);
+      if (show) count++;
+    });
+    if (counter) counter.textContent = count + ' shown';
+  }
+
+  /* Type filters */
+  filters.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      filters.forEach(function (b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      activeType = btn.dataset.type;
+      updateVisible();
+    });
+  });
+
+  /* Search */
+  if (search) {
+    search.addEventListener('input', function () {
+      searchTerm = search.value.trim().toLowerCase();
+      updateVisible();
+    });
+  }
+
+  updateVisible();
+}());
+</script>
+</body>
+</html>
