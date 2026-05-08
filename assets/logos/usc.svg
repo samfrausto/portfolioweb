@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" role="img" aria-label="USC">
+  <rect width="200" height="56" rx="8" fill="#1a080a"/>
+  <rect x="2" y="2" width="196" height="52" rx="6" fill="none" stroke="#ffc72c" stroke-opacity="0.35" stroke-width="1"/>
+  <text x="100" y="37" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="800" fill="#ffc72c" letter-spacing="0.08em">USC</text>
+</svg>

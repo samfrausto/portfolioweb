@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 56" role="img" aria-label="Edwards Lifesciences">
+  <rect width="240" height="56" rx="8" fill="#061a18"/>
+  <rect x="2" y="2" width="236" height="52" rx="6" fill="none" stroke="#3ecfb2" stroke-opacity="0.45" stroke-width="1"/>
+  <text x="120" y="36" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#3ecfb2" letter-spacing="0.14em">EDWARDS LIFESCIENCES</text>
+</svg>

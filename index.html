@@ -9,12 +9,66 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
+.scanlines{position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.045;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.08) 0px,rgba(255,255,255,0.08) 1px,transparent 1px,transparent 3px);mix-blend-mode:overlay;animation:scanmove 12s linear infinite}
+@keyframes scanmove{to{background-position:0 120px}}
+.nav-left{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
+.nav-readout{display:none;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;padding:4px 10px;border:1px solid var(--border);border-radius:4px;background:rgba(92,225,255,0.04)}
+@media(min-width:900px){.nav-readout{display:inline-block}}
+.hero-hud{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-hud .hc{position:absolute;width:min(56px,12vw);height:min(56px,12vw);border-color:rgba(92,225,255,0.45);border-style:solid;pointer-events:none;opacity:.85}
+.hero-hud .hc:nth-child(1){top:5.25rem;left:1.5rem;border-width:2px 0 0 2px}
+.hero-hud .hc:nth-child(2){top:5.25rem;right:1.5rem;border-width:2px 2px 0 0}
+.hero-hud .hc:nth-child(3){bottom:6.25rem;left:1.5rem;border-width:0 0 2px 2px}
+.hero-hud .hc:nth-child(4){bottom:6.25rem;right:1.5rem;border-width:0 2px 2px 0}
+
+.orgs-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(92,225,255,0.04),transparent 55%),var(--bg2);position:relative;overflow:hidden}
+.orgs-wrap::before{content:'// AFFILIATIONS · STACK';position:absolute;top:1rem;right:1.5rem;font-family:var(--mono);font-size:.52rem;letter-spacing:.16em;color:var(--dim);opacity:.45}
+.orgs-inner{max-width:1200px;margin:0 auto;padding:2.25rem 2.5rem 2.5rem;position:relative;z-index:1}
+.orgs-kicker{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--electric);margin-bottom:1.25rem;display:flex;align-items:center;gap:12px}
+.orgs-kicker::before{content:'';width:24px;height:1px;background:var(--electric);opacity:.6}
+.orgs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;align-items:stretch;list-style:none;padding:0;margin:0}
+.orgs-grid li{list-style:none;margin:0;padding:0}
+.org-slot{display:flex;align-items:center;justify-content:center;min-height:72px;padding:14px 16px;border:1px solid var(--border);border-radius:10px;background:rgba(8,8,10,0.65);text-decoration:none;color:inherit;transition:border-color .2s,box-shadow .25s,transform .2s;position:relative;overflow:hidden}
+.org-slot::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,74,0.06),transparent 50%);opacity:0;transition:opacity .25s}
+.org-slot:hover::before{opacity:1}
+.org-slot:hover{border-color:rgba(92,225,255,0.35);box-shadow:0 0 0 1px rgba(92,225,255,0.12),0 12px 40px rgba(0,0,0,0.35);transform:translateY(-2px)}
+.org-slot picture{display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.org-slot img{max-width:100%;max-height:44px;width:auto;height:auto;object-fit:contain;opacity:.92;transition:filter .2s,opacity .2s,transform .2s;filter:grayscale(0.2) brightness(1.08) contrast(1.05)}
+.org-slot:hover img{filter:none;opacity:1}
+.org-slot .org-fallback{display:none;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--muted);text-align:center;line-height:1.35;position:relative;z-index:1}
+.org-slot.no-logo picture,.org-slot.no-logo img{display:none}
+.org-slot.no-logo .org-fallback{display:block}
+
+.project-group{margin-top:2.75rem;border:1px solid var(--border);border-radius:14px;background:linear-gradient(160deg,rgba(92,225,255,0.06),rgba(8,8,10,0.92) 38%,rgba(255,107,74,0.03));overflow:hidden;position:relative;box-shadow:0 24px 60px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.04)}
+.project-group:first-of-type{margin-top:0}
+.project-group::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;opacity:.72;pointer-events:none}
+.project-group[data-topic="xr"]::after{background:linear-gradient(to bottom,var(--electric),var(--teal),var(--coral))}
+.project-group[data-topic="research"]::after{background:linear-gradient(to bottom,var(--violet),var(--electric))}
+.project-group[data-topic="innovation"]::after{background:linear-gradient(to bottom,var(--coral),var(--usc-gold))}
+.project-group[data-topic="brand"]::after{background:linear-gradient(to bottom,var(--usc-gold),var(--coral))}
+.project-group.group-hidden{display:none!important}
+.group-head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:1rem 1.5rem;padding:1.35rem 1.35rem 1.1rem 1.6rem;border-bottom:1px solid var(--border);background:linear-gradient(90deg,rgba(255,255,255,0.03),transparent)}
+.group-code{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;color:var(--electric);text-transform:uppercase}
+.group-code span{color:var(--dim);letter-spacing:.1em;margin-left:8px;font-size:.55rem}
+.group-desc{font-size:.78rem;color:var(--muted);line-height:1.55;flex:1;min-width:200px;max-width:42rem;padding-left:.25rem}
+.group-meta{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;color:var(--dim);margin-left:auto;white-space:nowrap;border:1px solid var(--border);padding:5px 10px;border-radius:6px;background:rgba(0,0,0,0.25)}
+.group-cards{position:relative;padding-left:6px}
+.project-group .project-card{border-radius:0;border-left:none;margin-left:0;padding-left:1.35rem}
+.project-group .project-card:first-of-type{border-top:none}
+.project-group .project-card:last-child{border-bottom:none}
+
+.projects-grid{display:flex;flex-direction:column;gap:0;background:transparent;border:none;border-radius:0;overflow:visible;position:relative}
+.projects-grid::before{display:none}
+
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 2.5rem 5rem;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
-.orb{position:absolute;border-radius:50%;filter:blur(90px)}
-.o1{width:650px;height:650px;background:rgba(255,107,74,.16);top:-120px;right:-120px}
-.o2{width:420px;height:420px;background:rgba(62,207,178,.1);bottom:0;left:-80px}
-.o3{width:320px;height:320px;background:rgba(167,139,250,.09);top:35%;left:38%}
+.hero-bg::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,0.07) 1px,transparent 0);background-size:48px 48px;opacity:.25;mask-image:radial-gradient(ellipse 70% 60% at 50% 100%,black,transparent)}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);animation:orbdrift 26s ease-in-out infinite}
+.o1{width:650px;height:650px;background:rgba(255,107,74,.2);top:-120px;right:-120px;animation-delay:0s}
+.o2{width:420px;height:420px;background:rgba(62,207,178,.12);bottom:0;left:-80px;animation-delay:-8s}
+.o3{width:380px;height:380px;background:rgba(167,139,250,.1);top:35%;left:38%;animation-delay:-16s}
+.o4{width:280px;height:280px;background:rgba(92,225,255,.09);bottom:25%;right:15%;animation-delay:-5s}
+@keyframes orbdrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-14px,10px) scale(1.02)}66%{transform:translate(12px,-8px) scale(0.99)}}
 .hero-content{position:relative;z-index:1;max-width:1100px;width:100%}
 .hero-eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.7rem;color:var(--coral);letter-spacing:.08em;margin-bottom:1.5rem;animation:fadeup .8s .2s both}
 .hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--coral)}
@@ -28,12 +82,14 @@
 .pill.hot{border-color:var(--coral-mid);color:var(--coral);background:var(--coral-dim)}
 .pill.cool{border-color:rgba(62,207,178,.3);color:var(--teal);background:var(--teal-dim)}
 .pill.vio{border-color:rgba(167,139,250,.3);color:var(--violet);background:var(--violet-dim)}
+.pill.usc{border-color:rgba(255,199,44,.42);color:var(--usc-gold);background:linear-gradient(135deg,rgba(153,0,0,.32),rgba(255,199,44,.1));font-weight:600;letter-spacing:.06em}
 @keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--mono);font-size:.6rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;z-index:1;animation:fadeup 1s 1.2s both}
-.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--coral),transparent);animation:scr 2s infinite}
+.scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(255,107,74,.75),rgba(255,199,44,.2),transparent);animation:scr 2.85s ease-in-out infinite;opacity:.85}
 @keyframes scr{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-.status-strip{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 2.5rem;display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center}
+.status-strip{background:linear-gradient(90deg,var(--bg2),var(--bg3),var(--bg2));border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 2.5rem;display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center;position:relative;overflow:hidden}
+.status-strip::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 12px,rgba(92,225,255,0.04) 12px,rgba(92,225,255,0.04) 13px);pointer-events:none;opacity:.5}
 .st-item{display:flex;align-items:center;gap:10px}
 .st-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .st-dot.g{background:var(--teal);box-shadow:0 0 8px var(--teal);animation:pulse 2s infinite}
@@ -42,29 +98,39 @@
 .st-label strong{color:var(--text);font-weight:500}
 
 .section{padding:5rem 2.5rem;max-width:1200px;margin:0 auto}
-.section-header{display:flex;align-items:baseline;gap:1rem;margin-bottom:3rem}
-.sec-num{font-family:var(--mono);font-size:.7rem;color:var(--coral)}
-.sec-title{font-size:2.2rem;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.section-header{display:flex;align-items:flex-end;gap:1.25rem;margin-bottom:3rem;flex-wrap:wrap}
+.sec-num{font-family:var(--mono);font-size:.68rem;color:var(--text);letter-spacing:.12em;padding:6px 12px;border:1px solid rgba(255,199,44,0.28);border-radius:6px;background:linear-gradient(155deg,rgba(153,0,0,.22),rgba(92,225,255,.07));box-shadow:inset 0 -2px 0 rgba(153,0,0,.32),0 0 0 1px rgba(92,225,255,0.06)}
+.sec-title{font-size:clamp(2rem,4vw,2.75rem);font-weight:800;color:var(--text);letter-spacing:-.03em;text-shadow:0 0 36px rgba(255,107,74,0.07),0 0 60px rgba(255,199,44,0.04)}
 .sec-title em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--muted)}
+.section-header::after{content:'';flex:1;min-width:120px;height:1px;background:linear-gradient(90deg,rgba(255,199,44,0.4),var(--border2),transparent);margin-bottom:.35rem}
 
-.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2rem}
-.filter-btn{font-family:var(--display);font-size:.72rem;font-weight:600;letter-spacing:.05em;padding:7px 16px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:none;transition:all .15s}
-.filter-btn:hover{border-color:var(--border2);color:var(--text)}
-.filter-btn.active{background:var(--coral);border-color:var(--coral);color:white}
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2.25rem;padding:6px;border-radius:99px;border:1px solid var(--border);background:var(--bg2);width:fit-content;max-width:100%;box-shadow:inset 0 1px 0 rgba(255,255,255,0.04)}
+.filter-btn{font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;border-radius:99px;border:1px solid transparent;background:transparent;color:var(--dim);cursor:none;transition:color .2s,background .2s,border-color .2s,box-shadow .2s}
+.filter-btn:hover{color:var(--text);border-color:rgba(92,225,255,0.2)}
+.filter-btn.active{color:#fff;background:linear-gradient(135deg,var(--usc-cardinal-bright),var(--coral) 52%,#ff9a6e);border-color:transparent;box-shadow:0 0 18px rgba(255,107,74,0.22),0 0 0 1px rgba(255,199,44,0.22)}
 
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
-.project-card{background:var(--bg);padding:1.75rem;cursor:none;display:flex;flex-direction:column;transition:background .2s;position:relative;text-decoration:none;color:inherit}
-.project-card:hover{background:var(--bg2)}
-.project-card::after{content:'↗';position:absolute;top:1.5rem;right:1.5rem;font-size:1rem;color:var(--dim);transition:color .2s,transform .2s}
-.project-card:hover::after{color:var(--coral);transform:translate(2px,-2px)}
+.project-card{display:grid;grid-template-columns:108px 2.75rem minmax(0,1fr) auto;align-items:center;gap:.85rem 1.25rem;padding:1.35rem 0 1.35rem 1rem;margin-left:0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;position:relative;background:transparent;cursor:none;border-left:2px solid transparent;transition:border-color .28s,background .3s,padding .28s}
+.project-card::before{content:'';position:absolute;inset:0;left:-1px;background:linear-gradient(90deg,rgba(255,107,74,0.08),rgba(92,225,255,0.04),rgba(255,199,44,0.03),transparent 58%);opacity:0;transition:opacity .32s;pointer-events:none}
+.project-card:hover::before{opacity:1}
+.project-card:hover{border-left-color:var(--coral);background:rgba(255,255,255,0.02);padding-left:1.12rem}
 .project-card.hidden{display:none}
-.project-card.featured{grid-column:span 2;background:var(--bg2);border-left:3px solid var(--coral)}
-.project-card.featured:hover{background:var(--bg3)}
-.card-top{display:flex;align-items:center;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
-.card-cat{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
-.card-title{font-size:1.05rem;font-weight:700;line-height:1.25;color:var(--text);margin-bottom:.75rem;letter-spacing:-.01em;padding-right:2rem}
-.card-desc{font-size:.8rem;color:var(--muted);line-height:1.75;flex:1;font-weight:400}
-.card-footer{margin-top:1.25rem;display:flex;flex-wrap:wrap;gap:6px}
+.project-card.featured{border-left-color:rgba(255,107,74,0.55);background:linear-gradient(90deg,rgba(255,107,74,0.06),rgba(255,199,44,0.03),transparent 48%)}
+.project-card.featured .card-title{font-size:clamp(1.35rem,3vw,2.45rem)}
+.project-card.featured{grid-template-columns:120px 2.75rem minmax(0,1fr) auto}
+.proj-thumb{width:108px;height:68px;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--surface);position:relative;flex-shrink:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.05),0 4px 20px rgba(0,0,0,0.25)}
+.project-card.featured .proj-thumb{width:120px;height:75px;border-radius:11px}
+.proj-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.2,.85,.2,1)}
+.project-card:hover .proj-thumb img{transform:scale(1.035)}
+.proj-thumb.no-img img{display:none}
+.proj-thumb.no-img{background:linear-gradient(150deg,rgba(153,0,0,.42) 0%,rgba(8,8,10,.35) 45%,rgba(255,199,44,.14) 100%),repeating-linear-gradient(-11deg,transparent,transparent 4px,rgba(255,255,255,.05) 4px,rgba(255,255,255,.05) 5px)}
+.proj-thumb.no-img::after{content:'';position:absolute;inset:7px;border:1px dashed rgba(255,255,255,.18);border-radius:7px;pointer-events:none;opacity:.85}
+.proj-thumb.no-img::before{content:'';position:absolute;top:50%;left:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border:1px solid rgba(255,199,44,.4);border-radius:3px;transform:rotate(45deg);opacity:.55}
+.proj-idx{font-family:var(--mono);font-size:.68rem;color:var(--dim);letter-spacing:.06em;transition:color .2s}
+.project-card:hover .proj-idx{color:var(--electric)}
+.card-title{font-size:clamp(1.2rem,2.6vw,2.15rem);font-weight:700;line-height:1.12;color:var(--text);margin:0;letter-spacing:-.03em;padding:0;transition:transform .3s cubic-bezier(.2,.85,.2,1)}
+.project-card:hover .card-title{transform:translateX(2px)}
+.proj-go{font-family:var(--mono);font-size:.85rem;color:var(--dim);transition:color .22s,transform .28s}
+.project-card:hover .proj-go{color:var(--teal);transform:translate(2px,-2px)}
 
 /* ABOUT */
 .about-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;align-items:start}
@@ -74,7 +140,7 @@
 .about-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .about-card{background:var(--surface);border-radius:var(--r);padding:1.25rem;border:1px solid var(--border);position:relative;overflow:hidden}
 .about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.c1::before{background:var(--coral)}.c2::before{background:var(--teal)}.c3::before{background:var(--violet)}.c4::before{background:var(--amber)}
+.c1::before{background:linear-gradient(90deg,var(--usc-cardinal),var(--usc-gold))}.c2::before{background:var(--teal)}.c3::before{background:var(--violet)}.c4::before{background:var(--amber)}
 .about-card-icon{font-size:1.1rem;margin-bottom:.75rem}
 .about-card-title{font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:6px}
 .about-card-body{font-size:.75rem;color:var(--muted);line-height:1.7}
@@ -116,23 +182,39 @@
 @keyframes gridpulse{0%{box-shadow:0 0 0 0 rgba(255,107,74,.3)}100%{box-shadow:0 0 0 8px rgba(255,107,74,0)}}
 .projects-grid.filtered{animation:gridpulse .4s ease-out}
 
+@media(prefers-reduced-motion:reduce){
+  .orb,.scroll-line,.scanlines{animation:none!important}
+  .project-card,.filter-btn,.proj-go,.card-title,.proj-thumb img{transition:none!important}
+  .project-card:hover .proj-thumb img{transform:none!important}
+}
 @media(max-width:768px){
   .hero{padding:0 1.25rem 4rem}
   .section{padding:3.5rem 1.25rem}
   .about-layout{grid-template-columns:1fr}
   .about-cards{grid-template-columns:1fr}
   .contact-wrap{padding:4rem 1.25rem}
-  .project-card.featured{grid-column:span 1}
   .status-strip{padding:1rem 1.25rem;gap:1.25rem}
+  .project-card,.project-card.featured{grid-template-columns:64px 2rem minmax(0,1fr) auto;gap:.5rem .65rem;padding:1.1rem 0 1.1rem .4rem}
+  .proj-thumb,.project-card.featured .proj-thumb{width:64px;height:40px;border-radius:8px}
+  .section-header::after{display:none}
+  .filter-bar{border-radius:12px;width:100%}
+  .orgs-wrap::before{display:none}
+  .orgs-inner{padding:1.75rem 1.25rem 2rem}
+  .group-meta{margin-left:0;width:100%;text-align:center;white-space:normal}
+  .group-head{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
-<body>
+<body class="home">
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+<div class="scanlines" aria-hidden="true"></div>
 
 <nav>
-  <a class="nav-logo" href="index.html">S<span>.</span>Frausto</a>
+  <div class="nav-left">
+    <a class="nav-logo" href="index.html">S<span>.</span>Frausto</a>
+    <span class="nav-readout" aria-hidden="true">SYS.SFRAUSTO · REL 1.0 · LAX</span>
+  </div>
   <div class="nav-links">
     <a href="#projects">Work</a>
     <a href="#about">About</a>
@@ -144,8 +226,9 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+    <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div>
   </div>
+  <div class="hero-hud" aria-hidden="true"><span class="hc"></span><span class="hc"></span><span class="hc"></span><span class="hc"></span></div>
   <div class="hero-content">
     <div class="hero-eyebrow">Designer &amp; Experience Builder</div>
     <h1 class="hero-name">Samuel<span class="outline">Frausto.</span></h1>
@@ -156,6 +239,7 @@
       </p>
       <div class="hero-pills">
         <span class="pill hot">XR / VR</span>
+        <span class="pill usc">USC · HTI</span>
         <span class="pill cool">Digital Twins</span>
         <span class="pill hot">Biotech</span>
         <span class="pill vio">Video Game Design</span>
@@ -182,6 +266,66 @@
 
 <hr class="full-divider">
 
+<section class="orgs-wrap reveal" aria-label="Affiliations and organizations">
+  <div class="orgs-inner">
+    <p class="orgs-kicker">Organizations · Open related work</p>
+    <ul class="orgs-grid" role="list">
+      <li>
+        <a class="org-slot" href="projects/iyh-digital-twin.html" title="USC — Iovine &amp; Young Hall digital twin">
+          <picture>
+            <source srcset="assets/logos/usc.png" type="image/png">
+            <source srcset="assets/logos/usc.webp" type="image/webp">
+            <img src="assets/logos/usc.svg" alt="University of Southern California" width="200" height="56" loading="lazy" decoding="async" onerror="this.closest('.org-slot').classList.add('no-logo')">
+          </picture>
+          <span class="org-fallback">USC</span>
+        </a>
+      </li>
+      <li>
+        <a class="org-slot" href="projects/synesthesia.html" title="Iovine &amp; Young Academy — ACAD course project">
+          <picture>
+            <source srcset="assets/logos/iya.png" type="image/png">
+            <source srcset="assets/logos/iya.webp" type="image/webp">
+            <img src="assets/logos/iya.svg" alt="Iovine and Young Academy" width="180" height="56" loading="lazy" decoding="async" onerror="this.closest('.org-slot').classList.add('no-logo')">
+          </picture>
+          <span class="org-fallback">IYA · USC</span>
+        </a>
+      </li>
+      <li>
+        <a class="org-slot" href="#track-xr" title="Edwards — XR &amp; spatial work (swap when you add an Edwards-specific project)">
+          <picture>
+            <source srcset="assets/logos/edwards.png" type="image/png">
+            <source srcset="assets/logos/edwards.webp" type="image/webp">
+            <img src="assets/logos/edwards.svg" alt="Edwards Lifesciences" width="240" height="56" loading="lazy" decoding="async" onerror="this.closest('.org-slot').classList.add('no-logo')">
+          </picture>
+          <span class="org-fallback">Edwards</span>
+        </a>
+      </li>
+      <li>
+        <a class="org-slot" href="#track-brand" title="Jel Sert internship projects">
+          <picture>
+            <source srcset="assets/logos/jelsert.png" type="image/png">
+            <source srcset="assets/logos/jelsert.webp" type="image/webp">
+            <img src="assets/logos/jelsert.svg" alt="Jel Sert" width="200" height="56" loading="lazy" decoding="async" onerror="this.closest('.org-slot').classList.add('no-logo')">
+          </picture>
+          <span class="org-fallback">Jel Sert</span>
+        </a>
+      </li>
+      <li>
+        <a class="org-slot" href="projects/tet2-research.html" title="University of Chicago Medicine — lab research">
+          <picture>
+            <source srcset="assets/logos/uchicago.png" type="image/png">
+            <source srcset="assets/logos/uchicago.webp" type="image/webp">
+            <img src="assets/logos/uchicago.svg" alt="University of Chicago Medicine" width="260" height="56" loading="lazy" decoding="async" onerror="this.closest('.org-slot').classList.add('no-logo')">
+          </picture>
+          <span class="org-fallback">UChicago Medicine</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<hr class="full-divider">
+
 <!-- PROJECTS -->
 <section class="section" id="projects">
   <div class="section-header reveal">
@@ -199,75 +343,105 @@
 
   <div class="projects-grid reveal" id="projectsGrid">
 
-    <a class="project-card featured" data-cat="xr" href="projects/vr-baseball.html">
-      <div class="card-top"><span class="card-cat">XR / 3D · Independent</span><span class="card-status s-progress">In Progress</span></div>
-      <h2 class="card-title">VR Baseball Training System</h2>
-      <p class="card-desc">An immersive VR training environment simulating pitch types, speed variation, and catcher scenarios. Custom ball physics engine, trajectory modeling, and real-time interaction mechanics built in Unity with Blender-modeled assets.</p>
-      <div class="card-footer"><span class="chip">Unity</span><span class="chip">Blender</span><span class="chip">Physics Engine</span><span class="chip">VR Interaction</span></div>
-    </a>
+    <div class="project-group reveal" id="track-xr" data-topic="xr">
+      <header class="group-head">
+        <p class="group-code">Track A · XR / Spatial <span>/// REALTIME · IMMERSIVE</span></p>
+        <p class="group-desc">Unity, visionOS, Omniverse, shaders, and interaction systems — where hardware limits meet design craft.</p>
+        <span class="group-meta">05 MODULES</span>
+      </header>
+      <div class="group-cards">
+        <a class="project-card featured" data-cat="xr" href="projects/vr-baseball.html" data-slug="vr-baseball">
+          <span class="proj-thumb"><img src="assets/projects/vr-baseball-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
+          <span class="proj-idx" aria-hidden="true">01</span>
+          <h2 class="card-title">VR Baseball Training System</h2>
+          <span class="proj-go" aria-hidden="true">↗</span>
+        </a>
+        <a class="project-card" data-cat="xr" href="projects/iyh-digital-twin.html" data-slug="iyh-digital-twin">
+          <span class="proj-thumb"><img src="assets/projects/iyh-digital-twin-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
+          <span class="proj-idx" aria-hidden="true">02</span>
+          <h2 class="card-title">Iovine &amp; Young Hall Digital Twin</h2>
+          <span class="proj-go" aria-hidden="true">↗</span>
+        </a>
+        <a class="project-card" data-cat="xr" href="projects/synesthesia.html" data-slug="synesthesia">
+          <span class="proj-thumb"><img src="assets/projects/synesthesia-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
+          <span class="proj-idx" aria-hidden="true">03</span>
+          <h2 class="card-title">Synesthesia — Ambient VR App</h2>
+          <span class="proj-go" aria-hidden="true">↗</span>
+        </a>
+        <a class="project-card" data-cat="xr" href="projects/pavilia.html" data-slug="pavilia">
+          <span class="proj-thumb"><img src="assets/projects/pavilia-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
+          <span class="proj-idx" aria-hidden="true">04</span>
+          <h2 class="card-title">Pavilia — Portal Mechanic</h2>
+          <span class="proj-go" aria-hidden="true">↗</span>
+        </a>
+        <a class="project-card" data-cat="xr" href="projects/cyberpunk-twin.html" data-slug="cyberpunk-twin">
+          <span class="proj-thumb"><img src="assets/projects/cyberpunk-twin-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
+          <span class="proj-idx" aria-hidden="true">05</span>
+          <h2 class="card-title">Cyberpunk 2077 Room — Digital Twin</h2>
+          <span class="proj-go" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
 
-    <a class="project-card" data-cat="xr" href="projects/iyh-digital-twin.html">
-      <div class="card-top"><span class="card-cat">Digital Twin · Multi-Platform</span><span class="card-status s-progress">In Progress</span></div>
-      <h2 class="card-title">Iovine &amp; Young Hall Digital Twin</h2>
-      <p class="card-desc">Google Maps-style waypoint navigation through a fully student-modeled building — live on Web, Meta Quest, and Apple Vision Pro.</p>
-      <div class="card-footer"><span class="chip">Omniverse</span><span class="chip">visionOS</span><span class="chip">Meta Quest</span><span class="chip">Web</span></div>
-    </a>
+    <div class="project-group reveal" id="track-research" data-topic="research">
+      <header class="group-head">
+        <p class="group-code">Track B · Research <span>/// WETLAB · EPIGENETICS</span></p>
+        <p class="group-desc">Bench science, long timelines, and evidence-first storytelling — where protocol meets narrative.</p>
+        <span class="group-meta">01 MODULE</span>
+      </header>
+      <div class="group-cards">
+        <a class="project-card" data-cat="research" href="projects/tet2-research.html" data-slug="tet2-research">
+          <span class="proj-thumb"><img src="assets/projects/tet2-research-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
+          <span class="proj-idx" aria-hidden="true">06</span>
+          <h2 class="card-title">TET2 Inhibition Cancer Research</h2>
+          <span class="proj-go" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
 
-    <a class="project-card" data-cat="xr" href="projects/synesthesia.html">
-      <div class="card-top"><span class="card-cat">visionOS · ACAD 217</span><span class="card-status s-live">Completed</span></div>
-      <h2 class="card-title">Synesthesia — Ambient VR App</h2>
-      <p class="card-desc">An experiential visionOS app designed to run passively while you work. Dynamic color, music, AR opacity, and scene switching. Technical lead on a 3-person team.</p>
-      <div class="card-footer"><span class="chip">visionOS</span><span class="chip">Unity</span><span class="chip">SwiftUI</span><span class="chip">Shader</span></div>
-    </a>
+    <div class="project-group reveal" id="track-innovation" data-topic="innovation">
+      <header class="group-head">
+        <p class="group-code">Track C · Innovation <span>/// PRODUCT · HCD</span></p>
+        <p class="group-desc">Human-centered prototypes at the edge of medicine — translating research into tangible outcomes.</p>
+        <span class="group-meta">01 MODULE</span>
+      </header>
+      <div class="group-cards">
+        <a class="project-card" data-cat="innovation" href="projects/suzchews.html" data-slug="suzchews">
+          <span class="proj-thumb"><img src="assets/projects/suzchews-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
+          <span class="proj-idx" aria-hidden="true">07</span>
+          <h2 class="card-title">SuzChews — Cancer Patient Gum</h2>
+          <span class="proj-go" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
 
-    <a class="project-card" data-cat="xr" href="projects/pavilia.html">
-      <div class="card-top"><span class="card-cat">3D · Group Project</span><span class="card-status s-live">Completed</span></div>
-      <h2 class="card-title">Pavilia — Portal Mechanic</h2>
-      <p class="card-desc">Custom Unity portal shader using render textures and dual-camera mathematics that replicates the player's exact position — teleporting them seamlessly between worlds.</p>
-      <div class="card-footer"><span class="chip">Unity</span><span class="chip">HLSL</span><span class="chip">Render Texture</span></div>
-    </a>
-
-    <a class="project-card" data-cat="xr" href="projects/cyberpunk-twin.html">
-      <div class="card-top"><span class="card-cat">Digital Twin · ACAD 288</span><span class="card-status s-live">Completed</span></div>
-      <h2 class="card-title">Cyberpunk 2077 Room — Digital Twin</h2>
-      <p class="card-desc">High-fidelity Omniverse replica of a Cyberpunk 2077 bedroom with a custom extension to streamline material workflows. Co-lead: modeling, animation &amp; skybox.</p>
-      <div class="card-footer"><span class="chip">Omniverse</span><span class="chip">USD</span><span class="chip">Animation</span></div>
-    </a>
-
-    <a class="project-card" data-cat="brand" href="projects/flavoice-crayola.html">
-      <div class="card-top"><span class="card-cat">Brand · Jel Sert</span><span class="card-status s-intern">Internship</span></div>
-      <h2 class="card-title">Fla-Vor-Ice × Crayola</h2>
-      <p class="card-desc">Press release, promo graphics and video posted by Crayola, influencer outreach, and internal newsletter for a limited-edition Banana Mango freezer bar.</p>
-      <div class="card-footer"><span class="chip">PR</span><span class="chip">Graphic Design</span><span class="chip">Video</span></div>
-    </a>
-
-    <a class="project-card" data-cat="brand" href="projects/purekick-harley.html">
-      <div class="card-top"><span class="card-cat">Brand · Jel Sert</span><span class="card-status s-intern">Internship</span></div>
-      <h2 class="card-title">Pure Kick × Harley-Davidson</h2>
-      <p class="card-desc">Produced a promo video for a motorcycle giveaway and delivered a consumer insights report on predictive partnership outcomes.</p>
-      <div class="card-footer"><span class="chip">Video Production</span><span class="chip">Consumer Research</span></div>
-    </a>
-
-    <a class="project-card" data-cat="brand" href="projects/jelsert-jamba.html">
-      <div class="card-top"><span class="card-cat">Brand · Jel Sert</span><span class="card-status s-intern">Internship</span></div>
-      <h2 class="card-title">Jel Sert × Jamba</h2>
-      <p class="card-desc">Managed 30+ partnership and influencer outreach efforts, represented the company at a Bakersfield road show, authored the official press release and blog.</p>
-      <div class="card-footer"><span class="chip">Partnerships</span><span class="chip">PR Writing</span><span class="chip">Strategy</span></div>
-    </a>
-
-    <a class="project-card" data-cat="innovation" href="projects/suzchews.html">
-      <div class="card-top"><span class="card-cat">Innovation · Health</span><span class="card-status s-progress">Prototyping</span></div>
-      <h2 class="card-title">SuzChews — Cancer Patient Gum</h2>
-      <p class="card-desc">A gum specially formulated to combat dysgeusia — chemotherapy-induced taste loss. Inspired by my parents' treatment, combining cancer research expertise with human-centered product design.</p>
-      <div class="card-footer"><span class="chip">Product Design</span><span class="chip">HCD</span><span class="chip">Biotech</span></div>
-    </a>
-
-    <a class="project-card" data-cat="research" href="projects/tet2-research.html">
-      <div class="card-top"><span class="card-cat">Research · UChicago</span><span class="card-status s-award">2nd Place · 36 Presenters</span></div>
-      <h2 class="card-title">TET2 Inhibition Cancer Research</h2>
-      <p class="card-desc">300+ wetlab hours evaluating small molecule inhibition of TET2 to overcome adaptive radiation resistance. Presented at UIUC symposium. Inspired a subsequent grant-winning project.</p>
-      <div class="card-footer"><span class="chip">Immunology</span><span class="chip">Epigenetics</span><span class="chip">Wetlab</span></div>
-    </a>
+    <div class="project-group reveal" id="track-brand" data-topic="brand">
+      <header class="group-head">
+        <p class="group-code">Track D · Brand <span>/// CAMPAIGNS · PARTNERSHIPS</span></p>
+        <p class="group-desc">Launch narratives, partnerships, and multi-channel campaigns — where strategy meets execution.</p>
+        <span class="group-meta">03 MODULES</span>
+      </header>
+      <div class="group-cards">
+        <a class="project-card" data-cat="brand" href="projects/flavoice-crayola.html" data-slug="flavoice-crayola">
+          <span class="proj-thumb"><img src="assets/projects/flavoice-crayola-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
+          <span class="proj-idx" aria-hidden="true">08</span>
+          <h2 class="card-title">Fla-Vor-Ice × Crayola</h2>
+          <span class="proj-go" aria-hidden="true">↗</span>
+        </a>
+        <a class="project-card" data-cat="brand" href="projects/purekick-harley.html" data-slug="purekick-harley">
+          <span class="proj-thumb"><img src="assets/projects/purekick-harley-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
+          <span class="proj-idx" aria-hidden="true">09</span>
+          <h2 class="card-title">Pure Kick × Harley-Davidson</h2>
+          <span class="proj-go" aria-hidden="true">↗</span>
+        </a>
+        <a class="project-card" data-cat="brand" href="projects/jelsert-jamba.html" data-slug="jelsert-jamba">
+          <span class="proj-thumb"><img src="assets/projects/jelsert-jamba-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
+          <span class="proj-idx" aria-hidden="true">10</span>
+          <h2 class="card-title">Jel Sert × Jamba</h2>
+          <span class="proj-go" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -329,13 +503,20 @@
     </div>
     <div class="contact-footer">
       <span class="footer-name">Samuel Frausto</span>
-      <span class="footer-copy">© 2025 — Designer &amp; Experience Builder</span>
+      <span class="footer-copy">© 2026 — Designer &amp; Experience Builder</span>
     </div>
   </div>
 </div>
 
 <script src="shared.js"></script>
 <script>
+function syncProjectGroups() {
+  document.querySelectorAll('.project-group').forEach(group => {
+    const any = [...group.querySelectorAll('.project-card')].some(c => !c.classList.contains('hidden'));
+    group.classList.toggle('group-hidden', !any);
+  });
+}
+
 function filter(cat, btn) {
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
@@ -344,6 +525,7 @@ function filter(cat, btn) {
     else card.classList.add('hidden');
   });
   document.querySelectorAll('.interest-item').forEach(i=>i.classList.remove('active-interest'));
+  syncProjectGroups();
   const grid = document.getElementById('projectsGrid');
   grid.classList.remove('filtered');
   void grid.offsetWidth;
@@ -351,19 +533,16 @@ function filter(cat, btn) {
 }
 
 function filterFromInterest(cat, el) {
-  // Highlight the interest
   document.querySelectorAll('.interest-item').forEach(i=>i.classList.remove('active-interest'));
   el.classList.add('active-interest');
-  // Update filter buttons
   const matchBtn = [...document.querySelectorAll('.filter-btn')].find(b=>b.textContent.toLowerCase().includes(cat==='xr'?'xr':cat==='brand'?'brand':cat==='innovation'?'innov':cat));
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   if(matchBtn) matchBtn.classList.add('active');
-  // Filter cards
   document.querySelectorAll('.project-card').forEach(card=>{
     if(card.dataset.cat===cat) card.classList.remove('hidden');
     else card.classList.add('hidden');
   });
-  // Scroll to projects
+  syncProjectGroups();
   document.getElementById('projects').scrollIntoView({behavior:'smooth'});
 }
 </script>

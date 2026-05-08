@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 56" role="img" aria-label="University of Chicago">
+  <rect width="260" height="56" rx="8" fill="#120808"/>
+  <rect x="2" y="2" width="256" height="52" rx="6" fill="none" stroke="#800000" stroke-opacity="0.85" stroke-width="2"/>
+  <text x="130" y="36" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#deb887" letter-spacing="0.1em">UNIVERSITY OF CHICAGO</text>
+</svg>

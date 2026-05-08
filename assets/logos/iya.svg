@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 56" role="img" aria-label="Iovine and Young Academy">
+  <rect width="180" height="56" rx="8" fill="#0e1018"/>
+  <path d="M0 8h180v5H0z" fill="#ff6b4a" opacity="0.9"/>
+  <text x="90" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#f0eee8" letter-spacing="0.18em">IYA · USC</text>
+</svg>
