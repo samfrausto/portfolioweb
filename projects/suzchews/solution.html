@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuzChews · §03 Solution, Systems Model &amp; Process Innovation — Samuel Frausto</title>
+<meta name="description" content="The SuzChews gum, the systems model integrating product and process innovation, the business plan, and the solo-project context.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="suzchews.css">
+<style>
+/* Page-local layouts unique to §03 */
+
+/* Section-jump strip (at top of §03 since it's the longest page) */
+.p03-jumps{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:1.5rem;
+}
+.p03-jump{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:.45rem .85rem;
+  border-radius:99px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.02);
+  color:var(--muted);
+  text-decoration:none;
+  transition:color .15s, border-color .15s, background .15s;
+}
+.p03-jump:hover{
+  color:var(--text);
+  border-color:rgba(92,225,255,0.32);
+  background:rgba(92,225,255,0.06);
+}
+
+/* Solo-project / role grid for §3.4 */
+.role-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+  gap:14px;
+  margin-top:1.5rem;
+}
+.role-card{
+  padding:1.35rem 1.5rem;
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  background:linear-gradient(160deg,rgba(255,199,44,0.04),rgba(8,8,10,0.92) 50%);
+  position:relative;
+  overflow:hidden;
+}
+.role-card::before{
+  content:'';
+  position:absolute;
+  top:0; left:0;
+  width:3px; height:100%;
+  background:linear-gradient(to bottom,var(--usc-cardinal-bright),var(--usc-gold));
+}
+.role-icon{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--usc-gold);
+  margin-bottom:.45rem;
+}
+.role-name{
+  font-family:var(--display);
+  font-size:1rem;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:.5rem;
+}
+.role-detail{
+  font-size:.78rem;
+  line-height:1.65;
+  color:var(--muted);
+}
+.role-skills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:.85rem;
+}
+.role-skill{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.06em;
+  padding:2px 7px;
+  border-radius:4px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  color:var(--muted);
+}
+
+/* Timeline horizontal milestone ladder (§3.5) */
+.milestone-fig{
+  width:100%;
+  height:auto;
+  display:block;
+  font-family:var(--mono);
+}
+.milestone-fig .ml-axis{ stroke:var(--border2); stroke-width:1; }
+.milestone-fig .ml-tick{ stroke:var(--border2); stroke-width:1; }
+.milestone-fig .ml-month{ fill:var(--dim); font-size:11px; letter-spacing:.1em; text-transform:uppercase; }
+.milestone-fig .ml-marker{ fill:var(--bg3); stroke:var(--border2); stroke-width:1.5; }
+.milestone-fig .ml-marker.is-done{ fill:var(--teal); stroke:var(--teal); }
+.milestone-fig .ml-marker.is-active{ fill:var(--coral); stroke:var(--coral); }
+.milestone-fig .ml-date{ fill:var(--dim); font-size:9px; letter-spacing:.04em; font-feature-settings:'tnum' 1; }
+.milestone-fig .ml-label{ fill:var(--text); font-size:10px; }
+.milestone-fig .ml-label-sub{ fill:var(--dim); font-size:8.5px; }
+
+/* Financial plan placeholder grid */
+.fin-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+  gap:14px;
+  margin-top:1.5rem;
+}
+.fin-card{
+  padding:1.35rem;
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  background:var(--bg2);
+}
+.fin-card-label{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--electric);
+  margin-bottom:.4rem;
+}
+.fin-card-value{
+  font-family:var(--display);
+  font-size:1.5rem;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:.5rem;
+  font-feature-settings:'tnum' 1;
+}
+.fin-card-value .fin-todo{
+  font-family:var(--mono);
+  font-size:.65rem;
+  font-weight:400;
+  color:var(--dim);
+}
+.fin-card-body{
+  font-size:.74rem;
+  line-height:1.6;
+  color:var(--muted);
+}
+</style>
+</head>
+<body class="suzchews-page" data-page="03">
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="scanlines" aria-hidden="true"></div>
+
+<nav>
+  <div class="nav-left">
+    <a class="nav-logo" href="../../index.html">S<span>.</span>Frausto</a>
+    <span class="nav-readout" aria-hidden="true">SUZCHEWS · §03 SOLUTION</span>
+  </div>
+  <div class="nav-links">
+    <a href="../../index.html#projects">Work</a>
+    <a href="../../index.html#about">About</a>
+    <a href="../../index.html#contact">Contact</a>
+    <div class="nav-dot"></div>
+  </div>
+</nav>
+
+<nav class="proj-subnav" aria-label="Project sections">
+  <div class="proj-subnav-inner">
+    <span class="proj-subnav-id">SuzChews · v1.0 · 2026.05</span>
+    <ul class="proj-subnav-list">
+      <li><a class="proj-subnav-link" data-page="01" href="index.html"><span class="pn-num">§01</span> Problem</a></li>
+      <li><a class="proj-subnav-link" data-page="02" href="background.html"><span class="pn-num">§02</span> Background</a></li>
+      <li><a class="proj-subnav-link" data-page="03" href="solution.html"><span class="pn-num">§03</span> Solution</a></li>
+      <li><a class="proj-subnav-link" data-page="04" href="biomarkers.html"><span class="pn-num">§04</span> Biomarkers</a></li>
+      <li><a class="proj-subnav-link" data-page="05" href="algorithm.html"><span class="pn-num">§05</span> Algorithm</a></li>
+      <li><a class="proj-subnav-link" data-page="06" href="simulation.html"><span class="pn-num">§06</span> Simulation</a></li>
+      <li><a class="proj-subnav-link" data-page="07" href="references.html"><span class="pn-num">§07</span> References</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="manuscript-head">
+  <a class="back-link" href="background.html">Back to §02 Background</a>
+  <div class="ms-eyebrow" style="margin-top:1.25rem;">
+    <span>§03 — Solution, Systems Model &amp; Process Innovation</span>
+    <span class="ms-doi">SUZCHEWS / 2026.05 / 03</span>
+  </div>
+  <h1 class="ms-title">The gum, the system, the <em>plan.</em></h1>
+  <p class="ms-abstract">
+    SuzChews is a chewing gum designed to combat chemotherapy-induced dysgeusia using four
+    ingredient strategies that target different mechanisms identified in §02. This section
+    presents the gum in concept, the systems model that integrates product and process
+    innovation, the stakeholder and financial plan, the solo-project context, and the
+    development timeline.
+  </p>
+  <div class="ms-byline">
+    <span><strong>Samuel Frausto</strong> &middot; ACAD 432</span>
+    <span class="read-time"><span class="auto-reading-time">~10 min read</span></span>
+    <span class="updated">Updated <span class="auto-last-updated">2026.05</span></span>
+  </div>
+  <div class="ms-keywords">
+    <span class="ms-kw">product innovation</span>
+    <span class="ms-kw">process innovation</span>
+    <span class="ms-kw">systems model</span>
+    <span class="ms-kw">stakeholder map</span>
+    <span class="ms-kw">business plan</span>
+  </div>
+  <div class="p03-jumps">
+    <a class="p03-jump" href="#s-concept">§3.1 Concept</a>
+    <a class="p03-jump" href="#s-systems">§3.2 Systems model</a>
+    <a class="p03-jump" href="#s-process">§3.3 Process innovation</a>
+    <a class="p03-jump" href="#s-team">§3.4 Solo project &amp; roles</a>
+    <a class="p03-jump" href="#s-timeline">§3.5 Timeline</a>
+  </div>
+</header>
+
+<!-- ============================================================
+     §3.1 THE GUM IN CONCEPT — interactive flavor profile curve
+     ============================================================ -->
+<section class="ms-section" id="s-concept">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 03.1</span>
+    <h2 class="ms-section-title">The gum, in <em>concept.</em></h2>
+  </div>
+
+  <div class="sci-layout">
+    <div class="sci-prose">
+      <!-- TODO: SAM — short framing of the gum concept. The four ingredient strategies are
+           drawn from your pitch slides 7–8. Keep this section descriptive (what each strategy
+           does and why); the why-it-works mechanism lives on §04. -->
+      <p>
+        SuzChews is built around <strong>four ingredient strategies</strong> &mdash; each chosen to
+        target a specific dysgeusia mechanism identified in §02.2. Together they form the
+        <strong>flavor profile curve</strong> shown in <strong>Fig. 03.1</strong>.
+      </p>
+
+      <h4>1 · Trigeminal stimulation</h4>
+      <p>
+        Cooling, tingling, and carbonation effects (menthol, capsaicin analogs, fizzing agents)
+        activate the <strong>trigeminal nerve</strong>, redirecting attention away from the
+        rancid/metallic/bitter signal generated at the tongue. The trigeminal pathway is
+        anatomically separate from the gustatory pathway, which is why this works even when taste
+        receptor cells are compromised.
+      </p>
+
+      <h4>2 · Umami / peptide compounds</h4>
+      <p>
+        Savory peptides and amino acids act as <strong>competitive distraction</strong> at the
+        bitter receptors and as a positive overlay on whatever residual taste signal remains.
+        Function as a "bitter masker" without using the synthetic bitter blockers found in
+        pharma applications.
+      </p>
+
+      <h4>3 · Sour / tart stimulation</h4>
+      <p>
+        The first wave of flavor on the curve. Sour is one of the most robust primary tastes
+        under dysgeusia &mdash; sour-detecting cells appear less compromised than sweet or salt
+        receptors, and sourness sets the tone for everything that follows.
+      </p>
+
+      <h4>4 · Anti-nauseating support</h4>
+      <p>
+        Ginger, lemon, magnesium, and vitamin B6 in functional doses provide
+        <strong>secondary nausea relief</strong>. This is not the primary purpose of the gum, but
+        it removes a parallel barrier to the patient feeling like eating after chewing.
+      </p>
+      <!-- /TODO -->
+    </div>
+
+    <aside class="sci-margin">
+      <div class="margin-note">
+        <span class="mn-label">Trigeminal vs gustatory</span>
+        <p>The trigeminal nerve carries cooling/tingling/heat sensations &mdash; chemesthesis. It runs separately from the taste-specific (gustatory) nerves. Damage one, the other still works.</p>
+      </div>
+      <div class="margin-note">
+        <span class="mn-label">Why not synthetic bitter blockers?</span>
+        <p>Compounds like AMP-based bitter blockers are effective but not consumer-friendly for an OTC gum. Umami peptides occupy a similar functional space with food-grade ingredients.</p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- INTERACTIVE FLAVOR PROFILE CURVE -->
+  <figure class="figure" style="margin-top:3rem;">
+    <div class="figure-frame">
+      <svg class="flavor-curve" id="flavorCurve" viewBox="0 0 880 400" role="img" aria-labelledby="fc-title fc-desc">
+        <title id="fc-title">SuzChews flavor profile curve</title>
+        <desc id="fc-desc">Five ingredient flavor lines plotted across chewing duration: Sour peaks first, Sweet shortly after, Stimulant (menthol) peaks mid-curve, Ginger/Lemon emerges late, Umami bitter-masker sustains throughout. Hover or tap a line to focus on a single ingredient.</desc>
+
+        <!-- Axes -->
+        <line class="axis" x1="60" y1="350" x2="840" y2="350"/>
+        <line class="axis" x1="60" y1="40"  x2="60"  y2="350"/>
+
+        <!-- Axis labels -->
+        <text class="axis-label" x="450" y="385" text-anchor="middle">Chewing duration →</text>
+        <text class="axis-label" x="40"  y="200" text-anchor="middle" transform="rotate(-90,40,200)">Flavor intensity</text>
+
+        <!-- Time gridlines -->
+        <line class="axis" x1="220" y1="350" x2="220" y2="345" opacity=".5"/>
+        <line class="axis" x1="450" y1="350" x2="450" y2="345" opacity=".5"/>
+        <line class="axis" x1="680" y1="350" x2="680" y2="345" opacity=".5"/>
+
+        <!-- Ingredient lines (peaks staggered across the timeline)
+             Each path is keyed by data-ing for hover-focus behavior -->
+        <!-- Sour: peaks early (~15s) -->
+        <path class="ingredient-line" data-ing="sour"
+          d="M 60 320 Q 120 100 180 110 Q 260 130 340 220 Q 480 300 840 330"/>
+
+        <!-- Sweet: peaks shortly after sour -->
+        <path class="ingredient-line" data-ing="sweet"
+          d="M 60 340 Q 160 290 240 180 Q 320 130 400 200 Q 560 290 840 320"/>
+
+        <!-- Stimulant (Menthol): peaks mid-curve -->
+        <path class="ingredient-line" data-ing="stimulant"
+          d="M 60 345 Q 200 320 320 220 Q 440 130 520 145 Q 660 220 840 290"/>
+
+        <!-- Ginger/Lemon: emerges late, sustained -->
+        <path class="ingredient-line" data-ing="ginger"
+          d="M 60 350 Q 240 340 380 280 Q 520 220 620 170 Q 740 145 840 170"/>
+
+        <!-- Umami bitter masker: sustained low-mid throughout -->
+        <path class="ingredient-line" data-ing="umami"
+          d="M 60 280 Q 200 260 340 250 Q 480 240 600 220 Q 720 210 840 220"/>
+      </svg>
+    </div>
+    <figcaption class="figure-caption">
+      <span class="fig-label">Fig. 03.1</span>
+      <strong>SuzChews flavor profile curve.</strong>
+      Five ingredient lines plotted across chewing duration. The staggered peaks are deliberate:
+      sour and sweet front-load palatability before the bitter-masker (umami) and trigeminal
+      stimulant (menthol) take over for the longer middle of the chew, with ginger/lemon
+      sustaining the back-end. Hover or tap a line to focus on a single ingredient.
+    </figcaption>
+  </figure>
+
+  <!-- Ingredient legend / detail panel -->
+  <div class="ingredient-legend" id="ingredientLegend">
+    <button type="button" class="ingredient-chip" data-ing="sour">Sour / tart</button>
+    <button type="button" class="ingredient-chip" data-ing="sweet">Sweet</button>
+    <button type="button" class="ingredient-chip" data-ing="stimulant">Stimulant (menthol)</button>
+    <button type="button" class="ingredient-chip" data-ing="ginger">Ginger / lemon</button>
+    <button type="button" class="ingredient-chip" data-ing="umami">Umami / bitter masker</button>
+  </div>
+  <div class="ingredient-detail is-empty" id="ingredientDetail" aria-live="polite">
+    <p class="ingredient-detail-name">Hover or tap a line to inspect.</p>
+    <p class="ingredient-detail-purpose">&nbsp;</p>
+    <p class="ingredient-detail-body">Each ingredient targets a specific dysgeusia mechanism. The full mechanistic mapping lives on §04.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     §3.2 SYSTEMS MODEL — animated interactive SVG diagram
+     ============================================================ -->
+<section class="ms-section" id="s-systems">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 03.2</span>
+    <h2 class="ms-section-title">The <em>systems model.</em></h2>
+  </div>
+
+  <p class="sci-prose" style="max-width:62ch;margin-bottom:1.5rem;">
+    The diagram below shows how the four pillars of this project &mdash; the
+    <strong>Challenge</strong>, the <strong>Product Innovation</strong>, the
+    <strong>Process Innovation</strong>, and the <strong>Team Structure</strong> &mdash; integrate.
+    Edges are labeled with the relationship between components. Click any node to jump to the
+    section of the site that documents it in depth.
+  </p>
+
+  <figure class="figure">
+    <div class="figure-frame">
+      <svg class="diagram-svg" id="systemsModel" viewBox="0 0 1100 620" role="img" aria-labelledby="sm-title sm-desc">
+        <title id="sm-title">SuzChews systems model of innovation</title>
+        <desc id="sm-desc">Four-quadrant systems diagram showing how the dysgeusia challenge, product innovation, process innovation, and solo team structure connect to one another via labeled relationships. Click any node to navigate to the corresponding section.</desc>
+
+        <!-- ============== EDGES (drawn first so they sit behind nodes) ============== -->
+        <!-- Challenge ↔ Product -->
+        <path class="edge is-confirmed" data-anim="draw" data-edge="challenge-product" d="M 280 180 C 380 180, 420 180, 540 180" />
+        <text class="edge-label" x="410" y="170" text-anchor="middle">defines targets for</text>
+
+        <!-- Challenge ↔ Process -->
+        <path class="edge is-confirmed" data-anim="draw" data-edge="challenge-process" d="M 200 250 C 200 350, 350 400, 540 440" />
+        <text class="edge-label" x="320" y="350" text-anchor="middle">scopes</text>
+
+        <!-- Product ↔ Process -->
+        <path class="edge is-confirmed" data-anim="draw" data-edge="product-process" d="M 720 240 C 720 340, 720 400, 720 440" />
+        <text class="edge-label" x="780" y="350" text-anchor="middle">manufactured by</text>
+
+        <!-- Process ↔ Team -->
+        <path class="edge is-confirmed" data-anim="draw" data-edge="process-team" d="M 880 480 C 980 480, 1020 360, 1020 240" />
+        <text class="edge-label" x="1020" y="370" text-anchor="middle">executed by</text>
+
+        <!-- Team ↔ Challenge -->
+        <path class="edge is-confirmed" data-anim="draw" data-edge="team-challenge" d="M 920 180 C 700 100, 400 100, 280 130" />
+        <text class="edge-label" x="600" y="92" text-anchor="middle">motivated by</text>
+
+        <!-- Team ↔ Product (advisory) -->
+        <path class="edge is-hypothesis" data-anim="draw" data-edge="team-product" d="M 920 240 C 850 280, 800 250, 720 200" />
+        <text class="edge-label" x="830" y="270" text-anchor="middle">informs</text>
+
+        <!-- ============== NODES ============== -->
+        <!-- CHALLENGE (top-left) -->
+        <a class="node-link" href="background.html">
+          <g class="node-group" data-anim="fade" data-node="challenge" data-target="background.html">
+            <rect class="node-rect is-feature" x="60" y="100" width="220" height="160" />
+            <text class="node-label"    x="170" y="140" text-anchor="middle" font-weight="700">CHALLENGE</text>
+            <text class="node-sublabel" x="170" y="158" text-anchor="middle">§02 BACKGROUND</text>
+            <text class="node-sublabel" x="170" y="184" text-anchor="middle" fill="rgba(242,240,234,0.55)">Taste bud apoptosis</text>
+            <text class="node-sublabel" x="170" y="200" text-anchor="middle" fill="rgba(242,240,234,0.55)">Salivary chemistry shift</text>
+            <text class="node-sublabel" x="170" y="216" text-anchor="middle" fill="rgba(242,240,234,0.55)">Metal-ion binding</text>
+            <text class="node-sublabel" x="170" y="232" text-anchor="middle" fill="rgba(242,240,234,0.55)">Carbonyl production</text>
+            <text class="node-sublabel" x="170" y="248" text-anchor="middle" fill="rgba(242,240,234,0.55)">Neuropathy (partial)</text>
+          </g>
+        </a>
+
+        <!-- PRODUCT (top-right) -->
+        <a class="node-link" href="biomarkers.html">
+          <g class="node-group" data-anim="fade" data-node="product" data-target="biomarkers.html">
+            <rect class="node-rect is-ingredient" x="540" y="100" width="220" height="160" />
+            <text class="node-label"    x="650" y="140" text-anchor="middle" font-weight="700">PRODUCT</text>
+            <text class="node-sublabel" x="650" y="158" text-anchor="middle">§04 BIOMARKERS &amp; PATHWAYS</text>
+            <text class="node-sublabel" x="650" y="184" text-anchor="middle" fill="rgba(242,240,234,0.55)">Trigeminal stimulation</text>
+            <text class="node-sublabel" x="650" y="200" text-anchor="middle" fill="rgba(242,240,234,0.55)">Umami / peptide bitter mask</text>
+            <text class="node-sublabel" x="650" y="216" text-anchor="middle" fill="rgba(242,240,234,0.55)">Sour / tart first wave</text>
+            <text class="node-sublabel" x="650" y="232" text-anchor="middle" fill="rgba(242,240,234,0.55)">Anti-nauseant support</text>
+            <text class="node-sublabel" x="650" y="248" text-anchor="middle" fill="rgba(242,240,234,0.55)">Gum delivery vehicle</text>
+          </g>
+        </a>
+
+        <!-- PROCESS (bottom-center) -->
+        <a class="node-link" href="algorithm.html">
+          <g class="node-group" data-anim="fade" data-node="process" data-target="algorithm.html">
+            <rect class="node-rect is-process" x="540" y="440" width="340" height="140" />
+            <text class="node-label"    x="710" y="478" text-anchor="middle" font-weight="700">PROCESS INNOVATION</text>
+            <text class="node-sublabel" x="710" y="496" text-anchor="middle">§05 ALGORITHM · §06 SIMULATION</text>
+            <text class="node-sublabel" x="710" y="522" text-anchor="middle" fill="rgba(242,240,234,0.55)">Symptom decomposition →</text>
+            <text class="node-sublabel" x="710" y="538" text-anchor="middle" fill="rgba(242,240,234,0.55)">variable weighting →</text>
+            <text class="node-sublabel" x="710" y="554" text-anchor="middle" fill="rgba(242,240,234,0.55)">formulation recommendation →</text>
+            <text class="node-sublabel" x="710" y="570" text-anchor="middle" fill="rgba(242,240,234,0.55)">simulated patient validation</text>
+          </g>
+        </a>
+
+        <!-- TEAM / SOLO (right) -->
+        <a class="node-link" href="#s-team">
+          <g class="node-group" data-anim="fade" data-node="team" data-target="#s-team">
+            <rect class="node-rect is-team" x="920" y="100" width="160" height="160" />
+            <text class="node-label"    x="1000" y="140" text-anchor="middle" font-weight="700">TEAM</text>
+            <text class="node-sublabel" x="1000" y="158" text-anchor="middle">§3.4 SOLO + ADVISORS</text>
+            <text class="node-sublabel" x="1000" y="184" text-anchor="middle" fill="rgba(242,240,234,0.55)">Samuel Frausto</text>
+            <text class="node-sublabel" x="1000" y="200" text-anchor="middle" fill="rgba(242,240,234,0.55)">(sole researcher)</text>
+            <text class="node-sublabel" x="1000" y="226" text-anchor="middle" fill="rgba(242,240,234,0.55)">Jel Sert R&amp;D</text>
+            <text class="node-sublabel" x="1000" y="242" text-anchor="middle" fill="rgba(242,240,234,0.55)">(informal knowledge)</text>
+          </g>
+        </a>
+      </svg>
+    </div>
+    <figcaption class="figure-caption">
+      <span class="fig-label">Fig. 03.2</span>
+      <strong>Final systems model of innovation.</strong>
+      Four primary components &mdash; Challenge, Product, Process, Team &mdash; connected by
+      labeled relationships. Solid edges represent confirmed dependencies; dashed edges
+      represent advisory/informal relationships. Edges animate on viewport-enter; node clicks
+      jump to the corresponding deep-dive section.
+    </figcaption>
+  </figure>
+
+  <!-- Walkthrough annotations -->
+  <div class="ms-subsection">
+    <p class="ms-subsection-head">Walkthrough</p>
+    <h3 class="ms-subsection-title">How to read the model.</h3>
+    <div class="sci-layout">
+      <div class="sci-prose">
+        <p>
+          <strong>① Challenge → Product.</strong> The five mechanisms identified in §02.2 directly
+          define the four ingredient strategies in the Product node. There is a one-to-many
+          relationship: a single ingredient strategy may address two mechanisms simultaneously
+          (e.g. trigeminal stimulation distracts from <em>both</em> the bitter signal from carbonyls
+          <em>and</em> the metallic signal from metal-ion binding).
+        </p>
+        <p>
+          <strong>② Challenge → Process.</strong> The variability problem from §02.4 is what makes
+          process innovation necessary. Without per-patient symptom decomposition, the gum is a
+          single SKU with average-case efficacy. The mapping algorithm in §05 is the response.
+        </p>
+        <p>
+          <strong>③ Product ↔ Process.</strong> The flavor-profile curve in §3.1 is not a
+          formulation; it is a <em>template</em> that the §05 algorithm parameterizes per patient.
+          The Process node's outputs become the Product's specifications.
+        </p>
+        <p>
+          <strong>④ Process → Team.</strong> A solo project with a single executor places hard
+          ceilings on what scope the Process can sustain. The decision to use a deterministic
+          scenario picker in §06 (rather than a live LLM) is a direct consequence of this
+          constraint &mdash; documented honestly in §3.4 and §06's methodology section.
+        </p>
+        <p>
+          <strong>⑤ Team → Challenge.</strong> The dashed motivational edge from Team back to
+          Challenge is intentionally not removed: the project's founding observation
+          &mdash; my parents &mdash; is what shapes the prioritization of which mechanisms get
+          targeted first.
+        </p>
+      </div>
+      <aside class="sci-margin">
+        <div class="margin-note">
+          <span class="mn-label">Why label the edges?</span>
+          <p>An unlabeled diagram is decoration. Labels turn it into a falsifiable claim: each edge can be defended or revised. This is the difference between a "systems model" and a flow chart.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     §3.3 PROCESS INNOVATION (BUSINESS) — stakeholders, financial, sustainability
+     ============================================================ -->
+<section class="ms-section" id="s-process">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 03.3</span>
+    <h2 class="ms-section-title">Process innovation &amp; <em>business plan.</em></h2>
+  </div>
+
+  <p class="sci-prose" style="max-width:62ch;">
+    Per the class-spec definition, "process innovation" extends beyond the technical formulation
+    process into the <strong>operational, financial, and societal mechanics</strong> of getting
+    SuzChews from a research deliverable into hands that need it. This subsection treats
+    stakeholder engagement, financial planning, and societal sustainability in turn.
+  </p>
+
+  <!-- §3.3.a Stakeholders -->
+  <div class="ms-subsection">
+    <p class="ms-subsection-head">§ 03.3.a</p>
+    <h3 class="ms-subsection-title">Stakeholder map.</h3>
+
+    <p class="sci-prose" style="max-width:62ch;">
+      Seven stakeholder tiers were identified, ordered roughly by proximity to the patient.
+      Each card describes what that stakeholder cares about and the planned engagement strategy.
+    </p>
+
+    <div class="stakeholder-grid">
+      <div class="stakeholder-card" data-tier="patient">
+        <p class="sh-role">Tier 1</p>
+        <p class="sh-name">Cancer patients on active treatment</p>
+        <p class="sh-cares" data-label="What they care about">Tasting food again. Reducing the cognitive load of dietary management. Convenience.</p>
+        <p class="sh-engage" data-label="How SuzChews engages">
+          <!-- TODO: SAM — fill engagement strategy (focus groups via ACCO? online survey?
+               oncology-clinic pamphlet partnership?). -->
+          [TODO: distribution channel + onboarding]
+        </p>
+      </div>
+      <div class="stakeholder-card" data-tier="caregiver">
+        <p class="sh-role">Tier 1</p>
+        <p class="sh-name">Family caregivers</p>
+        <p class="sh-cares" data-label="What they care about">Helping their person eat. Reducing visible suffering. Anything tangible they can offer.</p>
+        <p class="sh-engage" data-label="How SuzChews engages">
+          <!-- TODO: SAM — fill -->
+          [TODO: caregiver-facing messaging + distribution]
+        </p>
+      </div>
+      <div class="stakeholder-card" data-tier="clinician">
+        <p class="sh-role">Tier 2</p>
+        <p class="sh-name">Oncologists &amp; oncology nurses</p>
+        <p class="sh-cares" data-label="What they care about">Patient adherence to treatment. Reducing nutritional decline. Evidence-backed adjuncts that don't interfere with chemo.</p>
+        <p class="sh-engage" data-label="How SuzChews engages">
+          <!-- TODO: SAM — fill (clinical pilot study? case-series publication?
+               ASCO conference poster?) -->
+          [TODO: clinical evidence pathway]
+        </p>
+      </div>
+      <div class="stakeholder-card" data-tier="formulator">
+        <p class="sh-role">Tier 3</p>
+        <p class="sh-name">Manufacturer &amp; formulator</p>
+        <p class="sh-cares" data-label="What they care about">Stable formulation. Scalable supply chain. Margin.</p>
+        <p class="sh-engage" data-label="How SuzChews engages">Informal R&amp;D conversations with Jel Sert (former internship) for formulation knowledge transfer; future contract-manufacturer evaluation TBD.</p>
+      </div>
+      <div class="stakeholder-card" data-tier="distributor">
+        <p class="sh-role">Tier 3</p>
+        <p class="sh-name">Distribution channel</p>
+        <p class="sh-cares" data-label="What they care about">Velocity, shelf-stability, regulatory clarity.</p>
+        <p class="sh-engage" data-label="How SuzChews engages">
+          <!-- TODO: SAM — OTC retail vs oncology-clinic direct vs ACCO patient-package? -->
+          [TODO: channel decision]
+        </p>
+      </div>
+      <div class="stakeholder-card" data-tier="advocacy">
+        <p class="sh-role">Tier 2</p>
+        <p class="sh-name">Patient advocacy (ACCO)</p>
+        <p class="sh-cares" data-label="What they care about">Childhood-cancer patient quality of life. Equitable access. Donor narratives.</p>
+        <p class="sh-engage" data-label="How SuzChews engages">
+          <!-- TODO: SAM — describe ACCO partnership scope -->
+          [TODO: ACCO partnership plan]
+        </p>
+      </div>
+      <div class="stakeholder-card" data-tier="regulator">
+        <p class="sh-role">Tier 4</p>
+        <p class="sh-name">FDA / regulatory</p>
+        <p class="sh-cares" data-label="What they care about">Safety, claims substantiation, supplement vs food vs drug classification.</p>
+        <p class="sh-engage" data-label="How SuzChews engages">
+          Initial path: <strong>food product with no medical claims</strong> (functional gum
+          category). If clinical efficacy data emerges, evaluate <strong>medical food</strong>
+          designation. Drug pathway (NDA) deferred indefinitely.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- §3.3.b Financial -->
+  <div class="ms-subsection">
+    <p class="ms-subsection-head">§ 03.3.b</p>
+    <h3 class="ms-subsection-title">Financial plan.</h3>
+    <p class="sci-prose" style="max-width:62ch;">
+      <!-- TODO: SAM — the cards below are scaffolding. Fill in the actual numbers from any
+           cost-of-goods estimates you've done, pricing comparisons against existing OTC gum
+           and supplement products, and your assumptions about the path to break-even. The
+           class spec is looking for evidence that you've thought about it; rough numbers
+           with stated assumptions are far better than nothing. -->
+      The financial picture below is preliminary and intended to demonstrate the
+      <em>shape</em> of the business, not a defended forecast. All values are placeholders to be
+      replaced with sourced estimates.
+    </p>
+    <div class="fin-grid">
+      <div class="fin-card">
+        <p class="fin-card-label">Cost of goods (per pack)</p>
+        <p class="fin-card-value tnum">$<span class="fin-todo">TBD</span></p>
+        <p class="fin-card-body">Functional gum category benchmark: $0.40&ndash;$1.20/pack at scale. SuzChews is at the upper end of that range due to premium ingredients (peptides, magnesium, B6).</p>
+      </div>
+      <div class="fin-card">
+        <p class="fin-card-label">Retail price target</p>
+        <p class="fin-card-value tnum">$<span class="fin-todo">TBD</span></p>
+        <p class="fin-card-body">Comparable: ginger chews (Prince of Peace ~$8/jar), nausea lozenges (~$12/box). Target a price patients on treatment can sustain.</p>
+      </div>
+      <div class="fin-card">
+        <p class="fin-card-label">Year-1 unit volume</p>
+        <p class="fin-card-value tnum"><span class="fin-todo">TBD</span></p>
+        <p class="fin-card-body">Bounded by addressable population: ~1.9M new US chemo patients per year × % experiencing dysgeusia × % reachable via oncology-clinic + ACCO channels.</p>
+      </div>
+      <div class="fin-card">
+        <p class="fin-card-label">Path to break-even</p>
+        <p class="fin-card-value tnum"><span class="fin-todo">TBD</span></p>
+        <p class="fin-card-body">Assumes [TODO]: tooling and formulation amortization, channel margin, marketing spend at oncology-conference scale rather than DTC consumer scale.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- §3.3.c Societal sustainability -->
+  <div class="ms-subsection">
+    <p class="ms-subsection-head">§ 03.3.c</p>
+    <h3 class="ms-subsection-title">Societal sustainability.</h3>
+    <div class="sci-layout">
+      <div class="sci-prose">
+        <!-- TODO: SAM — replace with your real analysis. Three angles to cover:
+             1) Equity — chemo patients across income bands. Pricing decisions matter.
+             2) Childhood cancer angle (your ACCO partnership) — younger patients have
+                particular sensitivity to taste change and longer recovery windows.
+             3) Long-term viability — open formulation? generic-friendly? subsidized
+                through patient advocacy? environmental footprint of gum manufacture? -->
+        <p>
+          <strong>Equity.</strong> Chemotherapy patients across income bands experience dysgeusia
+          at similar rates, but access to mitigation strategies skews with insurance coverage
+          and clinic resources. SuzChews is most valuable as an <em>accessible</em> intervention,
+          which constrains pricing and channel decisions in ways a typical CPG product would not face.
+        </p>
+        <p>
+          <strong>Pediatric application.</strong> Childhood cancer patients experience dysgeusia
+          on a longer recovery timeline relative to total expected life-years and against a
+          background of developing food preferences. The ACCO partnership channel is therefore
+          not a marketing afterthought but a primary distribution pathway under evaluation.
+        </p>
+        <p>
+          <strong>Long-term viability.</strong>
+          [TODO: your stance on open formulation, environmental footprint of gum bases, and
+          whether SuzChews is a one-product project or the founding product of a category
+          (anti-symptom functional confectionery for cancer patients).]
+        </p>
+        <!-- /TODO -->
+      </div>
+      <aside class="sci-margin">
+        <div class="margin-note">
+          <span class="mn-label">A note on gum bases</span>
+          <p>Conventional gum bases use synthetic polymers that are non-biodegradable. Natural-base alternatives (chicle, jelutong) exist and align with the equity/sustainability framing &mdash; trade-off is shelf life and cost.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     §3.4 SOLO PROJECT & ROLES — satisfies the "team" spec requirement
+     ============================================================ -->
+<section class="ms-section" id="s-team">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 03.4</span>
+    <h2 class="ms-section-title">Solo project, distributed <em>roles.</em></h2>
+  </div>
+
+  <div class="sci-layout">
+    <div class="sci-prose">
+      <p>
+        <strong>SuzChews is an independent, single-author project.</strong> There are no
+        teammates. The full body of work &mdash; from literature review through formulation
+        strategy through this website &mdash; is mine.
+      </p>
+      <p>
+        The class deliverable spec asks for "presentation of roles and skills of team members."
+        For a solo project, the honest interpretation is to make the <em>distribution of roles
+        within a single person</em> explicit, and to be transparent about the
+        <em>informal advisory inputs</em> that shaped the work.
+      </p>
+      <p>
+        <strong>Informal advisory.</strong> The most substantial outside input came from
+        conversations with R&amp;D contacts at <strong>Jel Sert</strong> (where I previously
+        worked as a product-formulation intern), drawing on knowledge of how functional
+        confectionery is designed and manufactured. No formal collaboration agreement, no
+        co-authorship; the formulation choices, ingredient strategy, and algorithm in this
+        project are mine alone.
+      </p>
+      <p>
+        Earlier project framing (visible in the pitch deck linked in §07) referenced
+        Dr. Emily Liman's lab at USC and the American Childhood Cancer Organization (ACCO) as
+        prospective collaborators. Those were aspirational and were not formalized within the
+        scope of this deliverable.
+      </p>
+    </div>
+
+    <aside class="sci-margin">
+      <div class="margin-note">
+        <span class="mn-label">Why be explicit?</span>
+        <p>Honest reporting of what was and wasn't done is part of the methodology. Overstating collaboration is the kind of thing that makes work non-replicable.</p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Role grid -->
+  <div class="role-grid">
+    <div class="role-card">
+      <p class="role-icon">Role 01</p>
+      <h4 class="role-name">Researcher &amp; literature synthesist</h4>
+      <p class="role-detail">Sourced, read, and synthesized the dysgeusia literature. Identified the four mechanisms and eight variables that drive the algorithm.</p>
+      <div class="role-skills">
+        <span class="role-skill">PubMed search</span>
+        <span class="role-skill">Mechanism mapping</span>
+        <span class="role-skill">CiTAS scale</span>
+        <span class="role-skill">Reference management</span>
+      </div>
+    </div>
+    <div class="role-card">
+      <p class="role-icon">Role 02</p>
+      <h4 class="role-name">Product designer &amp; formulation strategist</h4>
+      <p class="role-detail">Selected the four ingredient strategies and authored the flavor profile curve. Integrated trigeminal/gustatory split as the core design principle.</p>
+      <div class="role-skills">
+        <span class="role-skill">Ingredient strategy</span>
+        <span class="role-skill">Sensory design</span>
+        <span class="role-skill">Trade-off analysis</span>
+      </div>
+    </div>
+    <div class="role-card">
+      <p class="role-icon">Role 03</p>
+      <h4 class="role-name">Algorithm author</h4>
+      <p class="role-detail">Designed the symptom-decomposition mapping that turns a patient's CiTAS profile, treatment regimen, and lab values into a per-patient formulation recommendation. Documented in §05.</p>
+      <div class="role-skills">
+        <span class="role-skill">Variable weighting</span>
+        <span class="role-skill">Decomposition</span>
+        <span class="role-skill">Methodology</span>
+      </div>
+    </div>
+    <div class="role-card">
+      <p class="role-icon">Role 04</p>
+      <h4 class="role-name">Simulation methodologist</h4>
+      <p class="role-detail">Built the deterministic scenario picker in §06, grounded in the literature review, to make the variability of dysgeusia legible to a non-clinical reader.</p>
+      <div class="role-skills">
+        <span class="role-skill">Persona design</span>
+        <span class="role-skill">Methodology</span>
+        <span class="role-skill">Validation</span>
+      </div>
+    </div>
+    <div class="role-card">
+      <p class="role-icon">Role 05</p>
+      <h4 class="role-name">Front-end &amp; design</h4>
+      <p class="role-detail">Authored this site &mdash; HTML, CSS, SVG, accessibility. Visual system extends my portfolio aesthetic toward Distill / Tufte scientific-paper conventions.</p>
+      <div class="role-skills">
+        <span class="role-skill">HTML / CSS</span>
+        <span class="role-skill">SVG diagramming</span>
+        <span class="role-skill">Information design</span>
+        <span class="role-skill">Accessibility</span>
+      </div>
+    </div>
+    <div class="role-card">
+      <p class="role-icon">Role 06</p>
+      <h4 class="role-name">Project manager</h4>
+      <p class="role-detail">Owned the timeline (§3.5), scope decisions (e.g. deterministic vs live-LLM in §06), and delivery cadence over the spring semester.</p>
+      <div class="role-skills">
+        <span class="role-skill">Scope control</span>
+        <span class="role-skill">Timeline</span>
+        <span class="role-skill">Delivery</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     §3.5 TIMELINE
+     ============================================================ -->
+<section class="ms-section" id="s-timeline">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 03.5</span>
+    <h2 class="ms-section-title">The <em>timeline.</em></h2>
+  </div>
+
+  <figure class="figure">
+    <div class="figure-frame">
+      <svg class="milestone-fig" viewBox="0 0 1100 280" role="img" aria-labelledby="ml-title ml-desc">
+        <title id="ml-title">SuzChews development timeline, March through May 2026</title>
+        <desc id="ml-desc">Horizontal milestone timeline showing eight project milestones across March, April, and May 2026.</desc>
+
+        <!-- Axis -->
+        <line class="ml-axis" x1="60" y1="160" x2="1040" y2="160"/>
+
+        <!-- Month labels -->
+        <text class="ml-month" x="180" y="200" text-anchor="middle">March</text>
+        <text class="ml-month" x="540" y="200" text-anchor="middle">April</text>
+        <text class="ml-month" x="900" y="200" text-anchor="middle">May</text>
+        <line class="ml-tick" x1="360" y1="155" x2="360" y2="170" opacity=".5"/>
+        <line class="ml-tick" x1="720" y1="155" x2="720" y2="170" opacity=".5"/>
+
+        <!-- Milestones (x-positions roughly map dates onto axis) -->
+        <!-- 3/10 — Complete Flavor Profiles -->
+        <circle class="ml-marker is-done" cx="100" cy="160" r="8"/>
+        <text class="ml-date"  x="100" y="135" text-anchor="middle">3/10</text>
+        <text class="ml-label" x="100" y="55"  text-anchor="middle">Complete</text>
+        <text class="ml-label" x="100" y="70"  text-anchor="middle">flavor profiles</text>
+        <line class="ml-axis" x1="100" y1="80" x2="100" y2="152" opacity=".4"/>
+
+        <!-- 3/24 — Finalize hypothesis -->
+        <circle class="ml-marker is-done" cx="240" cy="160" r="8"/>
+        <text class="ml-date"  x="240" y="135" text-anchor="middle">3/24</text>
+        <text class="ml-label" x="240" y="55"  text-anchor="middle">Finalize</text>
+        <text class="ml-label" x="240" y="70"  text-anchor="middle">variable hypothesis</text>
+        <line class="ml-axis" x1="240" y1="80" x2="240" y2="152" opacity=".4"/>
+
+        <!-- 3/26 — Reach out to Liman Lab -->
+        <circle class="ml-marker is-done" cx="280" cy="160" r="6"/>
+        <text class="ml-date"  x="290" y="248" text-anchor="middle">3/26</text>
+        <text class="ml-label-sub" x="290" y="232" text-anchor="middle">Outreach to Liman Lab</text>
+        <line class="ml-axis" x1="280" y1="168" x2="280" y2="218" opacity=".4"/>
+
+        <!-- 3/31 — V1 formulation -->
+        <circle class="ml-marker is-done" cx="380" cy="160" r="8"/>
+        <text class="ml-date"  x="380" y="135" text-anchor="middle">3/31</text>
+        <text class="ml-label" x="380" y="100" text-anchor="middle">V1 formulation</text>
+        <line class="ml-axis" x1="380" y1="110" x2="380" y2="152" opacity=".4"/>
+
+        <!-- 4/14 — V2 formulation -->
+        <circle class="ml-marker is-done" cx="540" cy="160" r="8"/>
+        <text class="ml-date"  x="540" y="135" text-anchor="middle">4/14</text>
+        <text class="ml-label" x="540" y="55"  text-anchor="middle">V2 formulation</text>
+        <line class="ml-axis" x1="540" y1="65" x2="540" y2="152" opacity=".4"/>
+
+        <!-- 4/16 — Reach out to ACCO -->
+        <circle class="ml-marker is-done" cx="580" cy="160" r="6"/>
+        <text class="ml-date"  x="590" y="248" text-anchor="middle">4/16</text>
+        <text class="ml-label-sub" x="590" y="232" text-anchor="middle">Outreach to ACCO</text>
+        <line class="ml-axis" x1="580" y1="168" x2="580" y2="218" opacity=".4"/>
+
+        <!-- 4/21 — V3 formulation -->
+        <circle class="ml-marker is-done" cx="660" cy="160" r="8"/>
+        <text class="ml-date"  x="660" y="135" text-anchor="middle">4/21</text>
+        <text class="ml-label" x="660" y="100" text-anchor="middle">V3 formulation</text>
+        <line class="ml-axis" x1="660" y1="110" x2="660" y2="152" opacity=".4"/>
+
+        <!-- 4/30 — Working prototype -->
+        <circle class="ml-marker is-active" cx="800" cy="160" r="10"/>
+        <text class="ml-date"  x="800" y="135" text-anchor="middle">4/30</text>
+        <text class="ml-label" x="800" y="55"  text-anchor="middle">Working prototype</text>
+        <text class="ml-label-sub" x="800" y="70" text-anchor="middle" fill="rgba(255,107,74,0.85)">+ this site</text>
+        <line class="ml-axis" x1="800" y1="80" x2="800" y2="152" opacity=".4"/>
+
+        <!-- May submission -->
+        <circle class="ml-marker" cx="980" cy="160" r="8"/>
+        <text class="ml-date"  x="980" y="135" text-anchor="middle">5/12</text>
+        <text class="ml-label" x="980" y="100" text-anchor="middle">Final submission</text>
+        <line class="ml-axis" x1="980" y1="110" x2="980" y2="152" opacity=".4"/>
+      </svg>
+    </div>
+    <figcaption class="figure-caption">
+      <span class="fig-label">Fig. 03.3</span>
+      <strong>Development timeline, March&ndash;May 2026.</strong>
+      Filled teal markers represent completed milestones; coral marker is the current state
+      (working prototype + this site); hollow marker is the final class submission.
+      <!-- TODO: SAM — adjust marker statuses as you actually hit (or push) milestones. -->
+    </figcaption>
+  </figure>
+</section>
+
+<!-- Next-page footer -->
+<div class="next-page">
+  <span class="next-page-meta">§03 / 07 · Solution &amp; Systems Model</span>
+  <a class="next-page-link" href="biomarkers.html">
+    <span>
+      <span class="np-label">Up next · §04</span>
+      <span class="np-title">Biomarkers, pathways &amp; ingredient mechanisms</span>
+    </span>
+    <span class="np-arrow">→</span>
+  </a>
+</div>
+
+<script src="../../shared.js"></script>
+<script src="suzchews.js"></script>
+<script>
+/* ============================================================
+   §03 PAGE-LOCAL: flavor curve interactivity + systems model click routing
+   ============================================================ */
+(function(){
+  // -- Flavor curve hover/tap focus --------------------------------------
+  var curve = document.getElementById('flavorCurve');
+  var legend = document.getElementById('ingredientLegend');
+  var detail = document.getElementById('ingredientDetail');
+  if (!curve || !legend || !detail) return;
+
+  // Ingredient detail copy (drawn from §3.1 prose). Sam can edit these strings later.
+  var INGREDIENTS = {
+    sour: {
+      name: 'Sour / tart stimulation',
+      purpose: 'Strategy 03 · First-wave palatability',
+      body: 'Sour-detecting taste cells appear less compromised than sweet or salt receptors under chemotherapy. Sour as the first wave restores a recognizable flavor anchor and primes the rest of the curve. Citric and malic acids in functional doses are food-grade and do not interfere with the trigeminal stimulant or the bitter-masking peptides.'
+    },
+    sweet: {
+      name: 'Sweet',
+      purpose: 'Palatability scaffolding',
+      body: 'Used at restrained levels — too much sweet flattens the differentiation between the other strategies and competes with the umami bitter masker. Functions as palatability scaffolding rather than a primary mechanism.'
+    },
+    stimulant: {
+      name: 'Trigeminal stimulant (menthol)',
+      purpose: 'Strategy 01 · Trigeminal redirection',
+      body: 'Cooling, tingling, and carbonation effects activate the trigeminal nerve, which is anatomically separate from the gustatory nerves. This redirects attention away from the bitter and metallic signals generated at the tongue, working even when taste receptor cells themselves are compromised.'
+    },
+    ginger: {
+      name: 'Ginger / lemon (anti-nauseant)',
+      purpose: 'Strategy 04 · Nausea support',
+      body: 'Functional doses of ginger and lemon — supplemented in formulation by magnesium and vitamin B6 — provide secondary nausea relief. Not the primary purpose of the gum, but removes a parallel barrier to the patient feeling like eating after chewing.'
+    },
+    umami: {
+      name: 'Umami / peptide bitter masker',
+      purpose: 'Strategy 02 · Bitter mask + competitive distraction',
+      body: 'Savory peptides and amino acids act as a competitive distraction at the bitter receptors and as a positive overlay on whatever residual taste signal remains. Functions as a bitter masker without the synthetic blockers used in pharma applications, keeping the formulation food-grade.'
+    }
+  };
+
+  function focusIngredient(ing) {
+    if (!ing || !INGREDIENTS[ing]) return;
+    curve.classList.add('is-focused');
+    curve.querySelectorAll('.ingredient-line').forEach(function(p){
+      p.classList.toggle('is-active', p.dataset.ing === ing);
+    });
+    legend.querySelectorAll('.ingredient-chip').forEach(function(c){
+      c.classList.toggle('is-active', c.dataset.ing === ing);
+    });
+    var d = INGREDIENTS[ing];
+    detail.classList.remove('is-empty');
+    detail.querySelector('.ingredient-detail-name').textContent = d.name;
+    detail.querySelector('.ingredient-detail-purpose').textContent = d.purpose;
+    detail.querySelector('.ingredient-detail-body').textContent = d.body;
+  }
+  function unfocus() {
+    curve.classList.remove('is-focused');
+    curve.querySelectorAll('.ingredient-line').forEach(function(p){ p.classList.remove('is-active'); });
+    legend.querySelectorAll('.ingredient-chip').forEach(function(c){ c.classList.remove('is-active'); });
+    detail.classList.add('is-empty');
+    detail.querySelector('.ingredient-detail-name').textContent = 'Hover or tap a line to inspect.';
+    detail.querySelector('.ingredient-detail-purpose').textContent = ' ';
+    detail.querySelector('.ingredient-detail-body').textContent = 'Each ingredient targets a specific dysgeusia mechanism. The full mechanistic mapping lives on §04.';
+  }
+
+  curve.querySelectorAll('.ingredient-line').forEach(function(p){
+    p.addEventListener('mouseenter', function(){ focusIngredient(p.dataset.ing); });
+    p.addEventListener('mouseleave', unfocus);
+    p.addEventListener('focus', function(){ focusIngredient(p.dataset.ing); });
+    p.addEventListener('click', function(){ focusIngredient(p.dataset.ing); });
+  });
+  legend.querySelectorAll('.ingredient-chip').forEach(function(c){
+    c.addEventListener('mouseenter', function(){ focusIngredient(c.dataset.ing); });
+    c.addEventListener('mouseleave', unfocus);
+    c.addEventListener('click', function(){ focusIngredient(c.dataset.ing); });
+  });
+
+  // -- Systems model: hover dim + click route ----------------------------
+  var sm = document.getElementById('systemsModel');
+  if (!sm) return;
+  var groups = sm.querySelectorAll('.node-group');
+  var edges  = sm.querySelectorAll('.edge');
+
+  function highlightNode(nodeKey) {
+    sm.classList.add('is-dimmed');
+    groups.forEach(function(g){ g.classList.toggle('is-active', g.dataset.node === nodeKey); });
+    edges.forEach(function(e){
+      var matches = (e.dataset.edge || '').split('-').indexOf(nodeKey) !== -1;
+      e.classList.toggle('is-active', matches);
+    });
+  }
+  function clearHighlight() {
+    sm.classList.remove('is-dimmed');
+    groups.forEach(function(g){ g.classList.remove('is-active'); });
+    edges.forEach(function(e){ e.classList.remove('is-active'); });
+  }
+  groups.forEach(function(g){
+    g.addEventListener('mouseenter', function(){ highlightNode(g.dataset.node); });
+    g.addEventListener('mouseleave', clearHighlight);
+    g.addEventListener('focus', function(){ highlightNode(g.dataset.node); });
+    g.addEventListener('blur', clearHighlight);
+    g.addEventListener('click', function(){
+      var t = g.dataset.target;
+      if (t) window.location.href = t;
+    });
+  });
+})();
+</script>
+</body>
+</html>
