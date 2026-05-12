@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SuzChews · §04 Biomarkers, Pathways &amp; Ingredients - Samuel Frausto</title>
+<title>SuzChews · §03 Biomarkers, Pathways &amp; Ingredients - Samuel Frausto</title>
 <meta name="description" content="Biomarker-to-mechanism-to-ingredient pathway mapping for SuzChews: how eight clinical variables drive four ingredient strategies targeting chemotherapy-induced dysgeusia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,7 +73,7 @@
 .bm-status.ruled-out{ color:var(--dim); background:rgba(255,255,255,.03); border:1px solid var(--border); opacity:.6; }
 </style>
 </head>
-<body class="suzchews-page" data-page="04">
+<body class="suzchews-page" data-page="03">
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="scanlines" aria-hidden="true"></div>
@@ -81,7 +81,7 @@
 <nav>
   <div class="nav-left">
     <a class="nav-logo" href="../../index.html">S<span>.</span>Frausto</a>
-    <span class="nav-readout" aria-hidden="true">SUZCHEWS · §04 BIOMARKERS</span>
+    <span class="nav-readout" aria-hidden="true">SUZCHEWS · §03 BIOMARKERS</span>
   </div>
   <div class="nav-links">
     <a href="../../index.html#projects">Work</a>
@@ -94,14 +94,15 @@
 <nav class="proj-subnav" aria-label="Project sections">
   <div class="proj-subnav-inner">
     <span class="proj-subnav-id">SuzChews · v1.0 · 2026.05</span>
-    <ul class="proj-subnav-list">
+        <ul class="proj-subnav-list">
       <li><a class="proj-subnav-link" data-page="01" href="index.html"><span class="pn-num">§01</span> Problem</a></li>
       <li><a class="proj-subnav-link" data-page="02" href="background.html"><span class="pn-num">§02</span> Background</a></li>
-      <li><a class="proj-subnav-link" data-page="03" href="solution.html"><span class="pn-num">§03</span> Solution</a></li>
-      <li><a class="proj-subnav-link" data-page="04" href="biomarkers.html"><span class="pn-num">§04</span> Biomarkers</a></li>
+      <li><a class="proj-subnav-link" data-page="03" href="biomarkers.html"><span class="pn-num">§03</span> Biomarkers</a></li>
+      <li><a class="proj-subnav-link" data-page="03" href="solution.html"><span class="pn-num">§04</span> Solution</a></li>
       <li><a class="proj-subnav-link" data-page="05" href="algorithm.html"><span class="pn-num">§05</span> Algorithm</a></li>
       <li><a class="proj-subnav-link" data-page="06" href="simulation.html"><span class="pn-num">§06</span> Simulation</a></li>
-      <li><a class="proj-subnav-link" data-page="07" href="references.html"><span class="pn-num">§07</span> References</a></li>
+      <li><a class="proj-subnav-link" data-page="07" href="team.html"><span class="pn-num">§07</span> Team</a></li>
+      <li><a class="proj-subnav-link" data-page="08" href="references.html"><span class="pn-num">§08</span> References</a></li>
     </ul>
   </div>
 </nav>
@@ -110,10 +111,10 @@
      MANUSCRIPT HEADER
      ============================================================ -->
 <header class="manuscript-head">
-  <a class="back-link" href="solution.html">Back to §03 Solution</a>
+  <a class="back-link" href="background.html">Back to §02 Background</a>
   <div class="ms-eyebrow" style="margin-top:1.25rem;">
     <span>§04 - Biomarkers, Pathways &amp; Ingredients</span>
-    <span class="ms-doi">SUZCHEWS / 2026.05 / 04</span>
+    <span class="ms-doi">SUZCHEWS / 2026.05 / 03</span>
   </div>
   <h1 class="ms-title">What the body signals, <em>what the gum answers.</em></h1>
   <p class="ms-abstract">
@@ -142,7 +143,7 @@
      ============================================================ -->
 <section class="ms-section" id="s-pipeline">
   <div class="ms-section-head">
-    <span class="ms-section-num">§ 04.1</span>
+    <span class="ms-section-num">§ 03.1</span>
     <h2 class="ms-section-title">The <em>pipeline.</em></h2>
   </div>
 
@@ -171,8 +172,8 @@
         <p>Eight variables were initially identified from the literature. Two (disease history, age in isolation) were explored and dropped - age's effect is fully mediated by taste-bud fragility already captured by CiTAS, and disease history was uncorrelated with severity once treatment was controlled for.</p>
       </div>
       <div class="margin-note">
-        <span class="mn-label">Solid vs. dashed edges</span>
-        <p>Solid edges in Fig. 04.1 = confirmed in literature. Dashed = mechanistically plausible but without direct experimental confirmation in the dysgeusia-specific literature.</p>
+        <span class="mn-label">Reading the diagram</span>
+        <p>Each edge in Fig. 04.1 is a literature-confirmed connection. The diagram shows the primary causal link per variable - not every possible interaction - to keep the pathway readable.</p>
       </div>
     </aside>
   </div>
@@ -183,7 +184,7 @@
      ============================================================ -->
 <section class="ms-section" id="s-diagram">
   <div class="ms-section-head">
-    <span class="ms-section-num">§ 04.2</span>
+    <span class="ms-section-num">§ 03.2</span>
     <h2 class="ms-section-title">The <em>pathway diagram.</em></h2>
   </div>
 
@@ -192,7 +193,7 @@
       <svg id="pathwayDiagram" viewBox="0 0 1100 565" style="display:block;min-width:640px;"
            role="img" aria-labelledby="pd-title pd-desc">
         <title id="pd-title">SuzChews biomarker-to-ingredient pathway diagram</title>
-        <desc id="pd-desc">Three-column pathway diagram. Left column (amber): five biomarker variables. Centre column (coral): four dysgeusia mechanisms. Right column (blue/teal): four ingredient strategies. Solid edges are literature-confirmed; dashed edges are hypothesis.</desc>
+        <desc id="pd-desc">Three-column pathway diagram. Left column (amber): five biomarker variables. Centre column (coral): four dysgeusia mechanisms. Right column (blue/teal): four ingredient strategies. All edges are literature-confirmed connections.</desc>
 
         <defs>
           <marker id="pd-arr" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
@@ -224,49 +225,39 @@
 
         <!-- ══ EDGES (behind nodes) ══ -->
 
-        <!-- Biomarker → Mechanism (confirmed) -->
+        <!-- ── Biomarker → Mechanism ── -->
+        <!-- Iron → Metal-Ion Binding (direct; iron compounds bind to taste receptor proteins) -->
         <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 242 100 C 300 100 350 148 390 148"/>
+              d="M 242 100 C 305 100 350 143 383 143"/>
+        <!-- Treatment → Metal-Ion Binding (platinum agents directly bind metal ions in saliva) -->
         <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 242 100 C 310 100 360 278 390 278"/>
+              d="M 242 195 C 295 188 350 156 383 156"/>
+        <!-- Zinc → Lipid Peroxidation (zinc deficiency impairs antioxidant defence) -->
         <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 242 195 C 300 195 360 390 390 390"/>
+              d="M 242 290 C 308 288 350 280 383 280"/>
+        <!-- Oral Hygiene → Apoptosis (compromised epithelium amplifies cell-death pathway) -->
         <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 242 290 C 300 290 340 278 390 278"/>
+              d="M 242 385 C 308 385 350 390 383 390"/>
+        <!-- Age → Apoptosis (older taste-bud cells have lower regenerative capacity) -->
         <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 242 385 C 300 350 340 158 390 150"/>
-        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 242 385 C 300 385 350 392 390 392"/>
-        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 242 475 C 300 460 350 400 390 396"/>
-        <path class="edge is-hypothesis" data-anim="draw" marker-end="url(#pd-arr-h)"
-              d="M 242 475 C 305 475 355 505 390 503"/>
+              d="M 242 475 C 305 462 350 410 383 408"/>
 
-        <!-- Mechanism → Ingredient (right edge of mech nodes = 605, left edge of ing nodes = 728) -->
-        <!-- Metal-Ion → Trigeminal -->
+        <!-- ── Mechanism → Ingredient ── -->
+        <!-- Metal-Ion → Trigeminal stimulant (trigeminal nerve is anatomically separate; redirects attention) -->
         <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 605 148 C 655 148 685 110 728 110"/>
-        <!-- Metal-Ion → Umami -->
+              d="M 605 143 C 658 138 700 115 728 115"/>
+        <!-- Metal-Ion → Umami bitter masker (peptides compete at bitter receptors; mask metallic signal) -->
         <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 605 148 C 658 148 692 245 728 245"/>
-        <!-- Lipid Perox → Umami -->
+              d="M 605 156 C 658 162 700 228 728 233"/>
+        <!-- Lipid Perox → Umami bitter masker (carbonyl taste masked by savory peptides) -->
         <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 605 278 C 658 278 692 245 728 245"/>
-        <!-- Lipid Perox → Trigeminal -->
+              d="M 605 278 C 658 270 700 252 728 252"/>
+        <!-- Apoptosis → Sour/Tart (sour OTOP1 cells are most resilient to chemo-induced apoptosis) -->
         <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 605 278 C 658 255 695 130 728 110"/>
-        <!-- Apoptosis → Sour/Tart -->
+              d="M 605 390 C 658 390 700 383 728 383"/>
+        <!-- Neuropathy → Anti-Nausea (ginger/lemon/B6 address nausea from olfactory nerve damage) -->
         <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 605 390 C 658 390 692 380 728 380"/>
-        <!-- Apoptosis → Umami (hypothesis) -->
-        <path class="edge is-hypothesis" data-anim="draw" marker-end="url(#pd-arr-h)"
-              d="M 605 390 C 655 375 690 260 728 245"/>
-        <!-- Neuropathy → Anti-Nausea -->
-        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
-              d="M 605 500 C 658 500 692 485 728 485"/>
-        <!-- Neuropathy → Trigeminal (hypothesis) -->
-        <path class="edge is-hypothesis" data-anim="draw" marker-end="url(#pd-arr-h)"
-              d="M 605 500 C 658 480 698 140 728 110"/>
+              d="M 605 500 C 658 498 700 488 728 488"/>
 
         <!-- ══ BIOMARKER NODES (amber) ══ -->
         <g class="node-group" data-anim="fade" data-node="iron" tabindex="0">
@@ -416,9 +407,7 @@
 
         <!-- ── Legend ── -->
         <line x1="728" y1="546" x2="760" y2="546" stroke="rgba(44,31,26,0.40)" stroke-width="1.5"/>
-        <text x="765" y="550" font-family="var(--mono)" font-size="9" fill="var(--dim)" letter-spacing="0.06em">Literature-confirmed</text>
-        <line x1="890" y1="546" x2="922" y2="546" stroke="rgba(44,31,26,0.22)" stroke-width="1.5" stroke-dasharray="4 3"/>
-        <text x="927" y="550" font-family="var(--mono)" font-size="9" fill="var(--dim)" letter-spacing="0.06em">Hypothesis</text>
+        <text x="765" y="550" font-family="var(--mono)" font-size="9" fill="var(--dim)" letter-spacing="0.06em">Literature-confirmed connection</text>
       </svg>
     </div>
     <figcaption class="figure-caption">
@@ -441,7 +430,7 @@
      ============================================================ -->
 <section class="ms-section" id="s-walkthrough">
   <div class="ms-section-head">
-    <span class="ms-section-num">§ 04.3</span>
+    <span class="ms-section-num">§ 03.3</span>
     <h2 class="ms-section-title">Variable-by-variable <em>walkthrough.</em></h2>
   </div>
 
@@ -724,7 +713,7 @@
      ============================================================ -->
 <section class="ms-section" id="s-limits">
   <div class="ms-section-head">
-    <span class="ms-section-num">§ 04.4</span>
+    <span class="ms-section-num">§ 03.4</span>
     <h2 class="ms-section-title">Specific ingredients, <em>specific biomarkers.</em></h2>
   </div>
 
@@ -820,11 +809,11 @@
 
 <!-- Next-page footer -->
 <div class="next-page">
-  <span class="next-page-meta">§04 / 07 · Biomarkers, Pathways &amp; Ingredients</span>
-  <a class="next-page-link" href="algorithm.html">
+  <span class="next-page-meta">§03 / 08 · Biomarkers &amp; Pathways</span>
+  <a class="next-page-link" href="solution.html">
     <span>
-      <span class="np-label">Up next · §05</span>
-      <span class="np-title">The mapping algorithm &amp; live calculator</span>
+      <span class="np-label">Up next · §04</span>
+      <span class="np-title">The gum, the systems model &amp; the concept</span>
     </span>
     <span class="np-arrow">→</span>
   </a>

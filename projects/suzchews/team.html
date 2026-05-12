@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuzChews · §07 Team &amp; Process Innovation - Samuel Frausto</title>
+<meta name="description" content="The process innovation model behind SuzChews, the stakeholders who would make it real, and the personal story that started it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="suzchews.css">
+<style>
+/* §07 page-local styles */
+
+/* Section jump strip */
+.p07-jumps {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+.p07-jump {
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .45rem .85rem;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.p07-jump:hover {
+  color: var(--text);
+  border-color: rgba(92,225,255,0.32);
+  background: rgba(92,225,255,0.06);
+}
+
+/* Process innovation flow */
+.process-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+.pf-step {
+  padding: 1.1rem 1.25rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface);
+  position: relative;
+}
+.pf-step::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.pf-step[data-color="coral"]::before   { background: var(--coral); }
+.pf-step[data-color="amber"]::before   { background: var(--amber); }
+.pf-step[data-color="violet"]::before  { background: var(--violet); }
+.pf-step[data-color="electric"]::before{ background: var(--electric); }
+.pf-step[data-color="teal"]::before    { background: var(--teal); }
+.pf-num {
+  font-family: var(--mono);
+  font-size: .55rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: .35rem;
+}
+.pf-title {
+  font-family: var(--display);
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: .4rem;
+}
+.pf-desc {
+  font-size: .72rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Timeline strip */
+.timeline-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.tl-month {
+  padding: 1.1rem 1.1rem 1.25rem;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+}
+.tl-month:last-child { border-right: none; }
+.tl-label {
+  font-family: var(--mono);
+  font-size: .55rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--electric);
+  margin-bottom: .5rem;
+}
+.tl-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.tl-items li {
+  font-size: .72rem;
+  line-height: 1.55;
+  color: var(--muted);
+  padding: .2rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.tl-items li:last-child { border-bottom: none; }
+
+/* Personal context callouts */
+.context-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 1.5rem;
+}
+@media (max-width: 640px) {
+  .context-grid { grid-template-columns: 1fr; }
+  .timeline-strip { grid-template-columns: 1fr 1fr; }
+}
+.context-card {
+  padding: 1.35rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  position: relative;
+}
+.cc-eyebrow {
+  font-family: var(--mono);
+  font-size: .58rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: .4rem;
+}
+.cc-title {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: .6rem;
+}
+.cc-body {
+  font-size: .78rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+</style>
+</head>
+<body class="suzchews-page" data-page="07">
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="scanlines" aria-hidden="true"></div>
+
+<nav>
+  <div class="nav-left">
+    <a class="nav-logo" href="../../index.html">S<span>.</span>Frausto</a>
+    <span class="nav-readout" aria-hidden="true">SUZCHEWS · §07 TEAM</span>
+  </div>
+  <div class="nav-links">
+    <a href="../../index.html#projects">Work</a>
+    <a href="../../index.html#about">About</a>
+    <a href="../../index.html#contact">Contact</a>
+    <div class="nav-dot"></div>
+  </div>
+</nav>
+
+<nav class="proj-subnav" aria-label="Project sections">
+  <div class="proj-subnav-inner">
+    <span class="proj-subnav-id">SuzChews · v1.0 · 2026.05</span>
+    <ul class="proj-subnav-list">
+      <li><a class="proj-subnav-link" data-page="01" href="index.html"><span class="pn-num">§01</span> Problem</a></li>
+      <li><a class="proj-subnav-link" data-page="02" href="background.html"><span class="pn-num">§02</span> Background</a></li>
+      <li><a class="proj-subnav-link" data-page="03" href="biomarkers.html"><span class="pn-num">§03</span> Biomarkers</a></li>
+      <li><a class="proj-subnav-link" data-page="04" href="solution.html"><span class="pn-num">§04</span> Solution</a></li>
+      <li><a class="proj-subnav-link" data-page="05" href="algorithm.html"><span class="pn-num">§05</span> Algorithm</a></li>
+      <li><a class="proj-subnav-link" data-page="06" href="simulation.html"><span class="pn-num">§06</span> Simulation</a></li>
+      <li><a class="proj-subnav-link" data-page="07" href="team.html"><span class="pn-num">§07</span> Team</a></li>
+      <li><a class="proj-subnav-link" data-page="08" href="references.html"><span class="pn-num">§08</span> References</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============================================================
+     MANUSCRIPT HEADER
+     ============================================================ -->
+<header class="manuscript-head">
+  <a class="back-link" href="simulation.html">Back to §06 Simulation</a>
+  <div class="ms-eyebrow" style="margin-top:1.25rem;">
+    <span>§07 - Process Innovation &amp; Team</span>
+    <span class="ms-doi">SUZCHEWS / 2026.05 / 07</span>
+  </div>
+  <h1 class="ms-title">The process. <em>The people. The why.</em></h1>
+  <p class="ms-abstract">
+    SuzChews is a solo project. But making it real requires a specific chain of partners - a formulation manufacturer, an advocacy organization, a regulatory body, and the clinical relationships to test it.
+    This section covers the process innovation model that structures the work, the stakeholders who sit inside it, and the personal context that started the project in the first place.
+  </p>
+  <div class="ms-byline">
+    <span><strong>Samuel Frausto</strong> &middot; ACAD 432</span>
+    <span class="read-time"><span class="auto-reading-time">~5 min read</span></span>
+    <span class="updated">Updated <span class="auto-last-updated">2026.05</span></span>
+  </div>
+  <div class="p07-jumps">
+    <a class="p07-jump" href="#s-process">§7.1 Process innovation</a>
+    <a class="p07-jump" href="#s-stakeholders">§7.2 Stakeholders</a>
+    <a class="p07-jump" href="#s-personal">§7.3 About me</a>
+  </div>
+</header>
+
+<main class="ms-body">
+
+<!-- ============================================================
+     §7.1 PROCESS INNOVATION
+     ============================================================ -->
+<section class="ms-section" id="s-process">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 07.1</span>
+    <h2 class="ms-section-title">Process <em>innovation.</em></h2>
+  </div>
+
+  <p>
+    SuzChews is not just a new product - it requires a new process for how a functional gum gets built.
+    Traditional gum development starts with flavor first and adjusts from there.
+    SuzChews inverts that: it starts from the patient's biomarker profile, maps that to a target ingredient mix,
+    and only then determines flavor and texture around those functional constraints.
+  </p>
+  <p>
+    The five-step process below reflects how this project actually moved from observation to prototype.
+    Each step feeds the next, and the §04 systems model shows how they connect across the full site.
+  </p>
+
+  <div class="process-flow">
+    <div class="pf-step" data-color="coral">
+      <div class="pf-num">Step 01</div>
+      <div class="pf-title">Observation</div>
+      <p class="pf-desc">Personal contact with chemotherapy patients revealed a gap: no consumer product addressed taste distortion directly.</p>
+    </div>
+    <div class="pf-step" data-color="amber">
+      <div class="pf-num">Step 02</div>
+      <div class="pf-title">Literature synthesis</div>
+      <p class="pf-desc">Eight biomarker variables identified across peer-reviewed literature. CiTAS scale selected as the quantification method.</p>
+    </div>
+    <div class="pf-step" data-color="violet">
+      <div class="pf-num">Step 03</div>
+      <div class="pf-title">Biomarker mapping</div>
+      <p class="pf-desc">Variables mapped to dysgeusia mechanisms. Mechanisms mapped to ingredient strategies - the §03 pathway diagram.</p>
+    </div>
+    <div class="pf-step" data-color="electric">
+      <div class="pf-num">Step 04</div>
+      <div class="pf-title">Ingredient design</div>
+      <p class="pf-desc">Four ingredient strategies (trigeminal, umami, sour, anti-nausea) formulated against the mechanism map and the §02 flavor curve.</p>
+    </div>
+    <div class="pf-step" data-color="teal">
+      <div class="pf-num">Step 05</div>
+      <div class="pf-title">Algorithm + prototype</div>
+      <p class="pf-desc">Weighting algorithm built from the variable profiles. Physical prototype submitted to Jel Sert and ACCO for review.</p>
+    </div>
+  </div>
+
+  <div class="ms-margin-note" style="margin-top:2rem;">
+    <span class="mn-label">Solo project</span>
+    <p>Every stage - research, mapping, formulation, algorithm, and site - was completed independently as part of ACAD 432 at USC. The collaborator relationships listed below are aspirational partnerships built during the course.</p>
+  </div>
+
+  <h3 style="font-family:var(--display);font-size:1.05rem;font-weight:600;margin-top:2.5rem;margin-bottom:.75rem;">Development timeline</h3>
+  <div class="timeline-strip">
+    <div class="tl-month">
+      <div class="tl-label">February</div>
+      <ul class="tl-items">
+        <li>Concept formed</li>
+        <li>Initial literature search</li>
+        <li>Collaborator outreach begins</li>
+      </ul>
+    </div>
+    <div class="tl-month">
+      <div class="tl-label">March</div>
+      <ul class="tl-items">
+        <li>8 biomarker variables identified</li>
+        <li>CiTAS scale selected</li>
+        <li>Ingredient strategy drafted</li>
+        <li>Jel Sert contact made</li>
+      </ul>
+    </div>
+    <div class="tl-month">
+      <div class="tl-label">April</div>
+      <ul class="tl-items">
+        <li>Mechanism-to-ingredient mapping</li>
+        <li>Weighting algorithm built</li>
+        <li>Formulation v1, v2, v3</li>
+        <li>ACCO outreach</li>
+      </ul>
+    </div>
+    <div class="tl-month">
+      <div class="tl-label">May</div>
+      <ul class="tl-items">
+        <li>Working prototype</li>
+        <li>Simulation scenarios authored</li>
+        <li>Submitted to Jel Sert + ACCO</li>
+        <li>FDA pathway scoped</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ms-pullquote" style="margin-top:2.5rem;">
+    Traditional gum development starts with flavor, then adjusts. SuzChews starts with the patient, then builds the flavor around what their biomarker profile actually requires.
+  </div>
+</section>
+
+<!-- ============================================================
+     §7.2 STAKEHOLDERS
+     ============================================================ -->
+<section class="ms-section" id="s-stakeholders">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 07.2</span>
+    <h2 class="ms-section-title">Stakeholder <em>map.</em></h2>
+  </div>
+
+  <p>
+    Six groups sit inside the SuzChews ecosystem. Each has a distinct reason to care about the product
+    and a specific role in moving it from prototype to distribution. The cards below identify what each
+    stakeholder cares about and how the project engages them.
+  </p>
+
+  <div class="stakeholder-grid">
+
+    <div class="stakeholder-card" data-tier="patient">
+      <div class="sh-role">Primary user</div>
+      <div class="sh-name">Cancer patients</div>
+      <p class="sh-cares" data-label="What they care about">Restoring a sense of normalcy during treatment. Any product that makes eating feel less like a chore has outsized value during chemotherapy.</p>
+      <p class="sh-engage" data-label="How the project engages them">Patient simulation scenarios (§06) are authored from real clinical profiles to ensure the formulation actually maps to how dysgeusia presents in practice, not just in aggregate.</p>
+    </div>
+
+    <div class="stakeholder-card" data-tier="caregiver">
+      <div class="sh-role">Support network</div>
+      <div class="sh-name">Caregivers &amp; family</div>
+      <p class="sh-cares" data-label="What they care about">Finding something - anything - the patient will eat. Appetite loss is one of the most visible and distressing symptoms from a caregiver's perspective.</p>
+      <p class="sh-engage" data-label="How the project engages them">Product accessibility and simplicity are built into the design constraint. A gum is something a caregiver can hand to a patient without any clinical setup or instruction.</p>
+    </div>
+
+    <div class="stakeholder-card" data-tier="clinician">
+      <div class="sh-role">Clinical partner</div>
+      <div class="sh-name">Oncologists &amp; the Liman Lab</div>
+      <p class="sh-cares" data-label="What they care about">Evidence-backed interventions. Symptom management that complements treatment rather than conflicting with it. Dr. Emily Liman's lab at USC contributed to the discovery of the sour taste bud cell, which directly underpins the §03 biomarker mapping.</p>
+      <p class="sh-engage" data-label="How the project engages them">All ingredient choices are food-grade and cross-referenced against known drug interactions. The CiTAS scale (from clinical literature) is used as the quantification method rather than anecdotal taste reports.</p>
+    </div>
+
+    <div class="stakeholder-card" data-tier="formulator">
+      <div class="sh-role">Manufacturing partner</div>
+      <div class="sh-name">The Jel Sert Company</div>
+      <p class="sh-cares" data-label="What they care about">Manufacturability. Functional ingredients need to survive the gum base process, maintain stability, and stay within food-grade parameters at scale. Jel Sert makes Otter Pops and other confectionery - they understand what is actually possible on a production line.</p>
+      <p class="sh-engage" data-label="How the project engages them">The prototype was submitted to Jel Sert contacts through a prior R&amp;D internship relationship. The formulation was designed from the start with gum-base compatibility in mind, not after the fact.</p>
+    </div>
+
+    <div class="stakeholder-card" data-tier="advocacy">
+      <div class="sh-role">Distribution + advocacy</div>
+      <div class="sh-name">ACCO</div>
+      <p class="sh-cares" data-label="What they care about">The American Childhood Cancer Organization focuses on improving quality of life for pediatric cancer patients. Taste distortion is particularly damaging for children during treatment, where maintaining appetite has direct developmental consequences.</p>
+      <p class="sh-engage" data-label="How the project engages them">ACCO is positioned as both a distribution channel and a validation partner. Their endorsement would provide both clinical credibility and access to the patient population most likely to benefit.</p>
+    </div>
+
+    <div class="stakeholder-card" data-tier="regulator">
+      <div class="sh-role">Regulatory body</div>
+      <div class="sh-name">FDA</div>
+      <p class="sh-cares" data-label="What they care about">Whether the product makes an implied health claim. A gum marketed to cancer patients sits in ambiguous territory between functional food and medical device, which affects the regulatory pathway significantly.</p>
+      <p class="sh-engage" data-label="How the project engages them">All ingredients are food-grade (GRAS status). Claims are positioned around taste support and palatability rather than treatment benefit, which keeps the product in the functional food category and avoids the clinical trial requirements of a drug or device.</p>
+    </div>
+
+  </div>
+
+  <div class="ms-margin-note" style="margin-top:2rem;">
+    <span class="mn-label">Aspirational partnerships</span>
+    <p>Jel Sert and ACCO are named because they are the realistic next step from prototype, not because formal agreements exist. The Liman Lab relationship is based on published research from USC. These represent the intended partners if the project moves into production.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     §7.3 PERSONAL CONTEXT
+     ============================================================ -->
+<section class="ms-section" id="s-personal">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 07.3</span>
+    <h2 class="ms-section-title">Where this <em>came from.</em></h2>
+  </div>
+
+  <p>
+    Both of my parents are cancer survivors. I watched each of them go through chemotherapy,
+    and one of the most consistent and least-discussed parts of that experience was how much their
+    appetite and taste changed. They knew they would feel sick. They didn't expect that their scrambled
+    eggs would taste metallic, or that food they'd eaten their entire lives would suddenly be unrecognizable.
+  </p>
+  <p>
+    That observation stayed with me. When ACAD 432 at USC asked for a product innovation project,
+    this was the obvious starting point. Not because it was easy, but because I already understood the
+    problem from the inside - not just from a paper.
+  </p>
+
+  <div class="context-grid">
+    <div class="context-card">
+      <div class="cc-eyebrow">Academic context</div>
+      <div class="cc-title">ACAD 432 · USC</div>
+      <p class="cc-body">
+        This project was built entirely within the Innovation and Design course at the University of Southern California.
+        The course pushed for real research grounding and real stakeholder thinking,
+        which is why the project reaches into clinical literature and production partnerships
+        rather than stopping at a concept sketch.
+      </p>
+    </div>
+    <div class="context-card">
+      <div class="cc-eyebrow">Industry context</div>
+      <div class="cc-title">Jel Sert R&amp;D internship</div>
+      <p class="cc-body">
+        A prior internship in product formulation R&amp;D at Jel Sert gave me a working understanding of
+        how functional ingredients behave inside confectionery bases, what is manufactureable at scale,
+        and what the actual production constraints look like. That background is the reason the formulation
+        choices in §04 are grounded rather than speculative.
+      </p>
+    </div>
+    <div class="context-card">
+      <div class="cc-eyebrow">Research foundation</div>
+      <div class="cc-title">Liman Lab, USC</div>
+      <p class="cc-body">
+        Dr. Emily Liman's lab at USC contributed to identifying the sour taste receptor cell (OTOP1),
+        which is directly relevant to the §03 biomarker mapping. Having that research available at my home institution
+        shaped which mechanisms the project treats as primary and which it treats as secondary.
+      </p>
+    </div>
+    <div class="context-card">
+      <div class="cc-eyebrow">Design philosophy</div>
+      <div class="cc-title">Food-grade by default</div>
+      <p class="cc-body">
+        Every formulation decision was made under one constraint: it has to be food-grade.
+        No pharma-grade bitter blockers, no novel compounds, no ingredients that require a prescription context.
+        The goal was something a patient could pick up at a pharmacy without a doctor's recommendation.
+        That constraint shaped the entire ingredient strategy.
+      </p>
+    </div>
+  </div>
+
+  <div class="ms-pullquote" style="margin-top:2.5rem;">
+    I didn't start with a market gap. I started with two people I love eating food they couldn't taste.
+  </div>
+
+  <div class="ms-margin-note" style="margin-top:2rem;">
+    <span class="mn-label">Jel Sert products</span>
+    <p>Jel Sert makes Otter Pops, Wyler's Light, and other confectionery brands. Their production infrastructure and food science capability are the realistic manufacturing pathway for a product like SuzChews.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- Next-page footer -->
+<div class="next-page">
+  <span class="next-page-meta">§07 / 08 · Team &amp; Process Innovation</span>
+  <a class="next-page-link" href="references.html">
+    <span>
+      <span class="np-label">Up next · §08</span>
+      <span class="np-title">Full reference list</span>
+    </span>
+    <span class="np-arrow">→</span>
+  </a>
+</div>
+
+<script src="../../shared.js"></script>
+<script src="suzchews.js"></script>
+</body>
+</html>

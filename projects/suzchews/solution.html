@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SuzChews · §03 Solution, Systems Model &amp; Process Innovation - Samuel Frausto</title>
+<title>SuzChews · §04 Solution, Systems Model &amp; Process Innovation - Samuel Frausto</title>
 <meta name="description" content="The SuzChews gum - a specialized chewing gum for cancer patients experiencing taste distortion - the systems model integrating product and process innovation, and the personal context behind the project.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,13 +18,13 @@
 /* Page-local layouts unique to §03 */
 
 /* Section-jump strip (at top of §03 since it's the longest page) */
-.p03-jumps{
+.p04-jumps{
   display:flex;
   gap:6px;
   flex-wrap:wrap;
   margin-top:1.5rem;
 }
-.p03-jump{
+.p04-jump{
   font-family:var(--mono);
   font-size:.6rem;
   letter-spacing:.1em;
@@ -37,7 +37,7 @@
   text-decoration:none;
   transition:color .15s, border-color .15s, background .15s;
 }
-.p03-jump:hover{
+.p04-jump:hover{
   color:var(--text);
   border-color:rgba(92,225,255,0.32);
   background:rgba(92,225,255,0.06);
@@ -161,7 +161,7 @@
 }
 </style>
 </head>
-<body class="suzchews-page" data-page="03">
+<body class="suzchews-page" data-page="04">
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="scanlines" aria-hidden="true"></div>
@@ -169,7 +169,7 @@
 <nav>
   <div class="nav-left">
     <a class="nav-logo" href="../../index.html">S<span>.</span>Frausto</a>
-    <span class="nav-readout" aria-hidden="true">SUZCHEWS · §03 SOLUTION</span>
+    <span class="nav-readout" aria-hidden="true">SUZCHEWS · §04 SOLUTION</span>
   </div>
   <div class="nav-links">
     <a href="../../index.html#projects">Work</a>
@@ -182,23 +182,24 @@
 <nav class="proj-subnav" aria-label="Project sections">
   <div class="proj-subnav-inner">
     <span class="proj-subnav-id">SuzChews · v1.0 · 2026.05</span>
-    <ul class="proj-subnav-list">
+        <ul class="proj-subnav-list">
       <li><a class="proj-subnav-link" data-page="01" href="index.html"><span class="pn-num">§01</span> Problem</a></li>
       <li><a class="proj-subnav-link" data-page="02" href="background.html"><span class="pn-num">§02</span> Background</a></li>
-      <li><a class="proj-subnav-link" data-page="03" href="solution.html"><span class="pn-num">§03</span> Solution</a></li>
-      <li><a class="proj-subnav-link" data-page="04" href="biomarkers.html"><span class="pn-num">§04</span> Biomarkers</a></li>
+      <li><a class="proj-subnav-link" data-page="04" href="biomarkers.html"><span class="pn-num">§03</span> Biomarkers</a></li>
+      <li><a class="proj-subnav-link" data-page="04" href="solution.html"><span class="pn-num">§04</span> Solution</a></li>
       <li><a class="proj-subnav-link" data-page="05" href="algorithm.html"><span class="pn-num">§05</span> Algorithm</a></li>
       <li><a class="proj-subnav-link" data-page="06" href="simulation.html"><span class="pn-num">§06</span> Simulation</a></li>
-      <li><a class="proj-subnav-link" data-page="07" href="references.html"><span class="pn-num">§07</span> References</a></li>
+      <li><a class="proj-subnav-link" data-page="07" href="team.html"><span class="pn-num">§07</span> Team</a></li>
+      <li><a class="proj-subnav-link" data-page="08" href="references.html"><span class="pn-num">§08</span> References</a></li>
     </ul>
   </div>
 </nav>
 
 <header class="manuscript-head">
-  <a class="back-link" href="background.html">Back to §02 Background</a>
+  <a class="back-link" href="biomarkers.html">Back to §03 Biomarkers</a>
   <div class="ms-eyebrow" style="margin-top:1.25rem;">
-    <span>§03 - Solution, Systems Model &amp; Process Innovation</span>
-    <span class="ms-doi">SUZCHEWS / 2026.05 / 03</span>
+    <span>§04 - Solution, Systems Model &amp; Process Innovation</span>
+    <span class="ms-doi">SUZCHEWS / 2026.05 / 04</span>
   </div>
   <h1 class="ms-title">The gum that gives taste <em>back.</em></h1>
   <p class="ms-abstract">
@@ -219,20 +220,18 @@
     <span class="ms-kw">stakeholder map</span>
     <span class="ms-kw">cancer patients</span>
   </div>
-  <div class="p03-jumps">
-    <a class="p03-jump" href="#s-concept">§3.1 Concept</a>
-    <a class="p03-jump" href="#s-systems">§3.2 Systems model</a>
-    <a class="p03-jump" href="#s-process">§3.3 Stakeholders</a>
-    <a class="p03-jump" href="#s-team">§3.4 Personal context</a>
+  <div class="p04-jumps">
+    <a class="p04-jump" href="#s-concept">§4.1 Concept</a>
+    <a class="p04-jump" href="#s-systems">§4.2 Systems model</a>
   </div>
 </header>
 
 <!-- ============================================================
-     §3.1 THE GUM IN CONCEPT - interactive flavor profile curve
+     §4.1 THE GUM IN CONCEPT - interactive flavor profile curve
      ============================================================ -->
 <section class="ms-section" id="s-concept">
   <div class="ms-section-head">
-    <span class="ms-section-num">§ 03.1</span>
+    <span class="ms-section-num">§ 04.1</span>
     <h2 class="ms-section-title">The gum, in <em>concept.</em></h2>
   </div>
 
@@ -378,11 +377,11 @@
 </section>
 
 <!-- ============================================================
-     §3.2 SYSTEMS MODEL - animated interactive SVG diagram
+     §4.2 SYSTEMS MODEL - animated interactive SVG diagram
      ============================================================ -->
 <section class="ms-section" id="s-systems">
   <div class="ms-section-head">
-    <span class="ms-section-num">§ 03.2</span>
+    <span class="ms-section-num">§ 04.2</span>
     <h2 class="ms-section-title">The <em>systems model.</em></h2>
   </div>
 
@@ -497,169 +496,13 @@
   </figure>
 </section>
 
-<!-- ============================================================
-     §3.3 PROCESS INNOVATION - stakeholder engagement
-     ============================================================ -->
-<section class="ms-section" id="s-process">
-  <div class="ms-section-head">
-    <span class="ms-section-num">§ 03.3</span>
-    <h2 class="ms-section-title">Process innovation &amp; <em>stakeholders.</em></h2>
-  </div>
-
-  <div class="sci-layout">
-    <div class="sci-prose">
-      <p>
-        The process innovation in SuzChews isn't just the algorithm - it's the systematic approach
-        to building something that can actually reach the people who need it. That means thinking
-        through who is affected by this product, what they need from it, and how each group fits
-        into the path from concept to patient.
-      </p>
-      <p>
-        The algorithm (§05) is the core process innovation: it replaces a fixed "average-patient"
-        formula with a per-patient recommendation driven by symptom variables. But a product that
-        only exists as an algorithm doesn't help anyone. The stakeholder structure below
-        addresses how the product actually moves through the world.
-      </p>
-    </div>
-    <aside class="sci-margin">
-      <div class="margin-note">
-        <span class="mn-label">Process innovation defined</span>
-        <p>The innovation here is in the formulation process itself - symptom-driven, variable, per-patient - not just the end product. A static SKU would serve average-case patients. The algorithm serves the actual distribution of patients.</p>
-      </div>
-    </aside>
-  </div>
-
-  <!-- Stakeholders -->
-  <div class="ms-subsection" style="margin-top:2rem;">
-    <p class="ms-subsection-head">§ 03.3.a</p>
-    <h3 class="ms-subsection-title">Who this affects.</h3>
-
-    <div class="stakeholder-grid">
-      <div class="stakeholder-card" data-tier="patient">
-        <p class="sh-role">Primary</p>
-        <p class="sh-name">Cancer patients on active treatment</p>
-        <p class="sh-cares" data-label="What they care about">Tasting food again. Reducing the mental load of eating during treatment. A product that works without adding to their medication burden.</p>
-        <p class="sh-engage" data-label="How SuzChews reaches them">OTC distribution via oncology clinic gift shops and care packages, positioned as a comfort product rather than a medical adjunct. No prescription required.</p>
-      </div>
-      <div class="stakeholder-card" data-tier="caregiver">
-        <p class="sh-role">Primary</p>
-        <p class="sh-name">Family caregivers</p>
-        <p class="sh-cares" data-label="What they care about">Something concrete they can do. Watching someone they love not eat is one of the harder parts of being a caregiver - a product that helps, even partially, matters.</p>
-        <p class="sh-engage" data-label="How SuzChews reaches them">Caregiver-facing packaging and plain-language labeling. The product should be something a caregiver can hand over without needing to explain mechanism.</p>
-      </div>
-      <div class="stakeholder-card" data-tier="clinician">
-        <p class="sh-role">Secondary</p>
-        <p class="sh-name">Oncologists &amp; oncology nurses</p>
-        <p class="sh-cares" data-label="What they care about">Patient adherence to treatment, nutritional status, and adjuncts that don't interfere with chemotherapy. They are cautious about recommending anything without evidence.</p>
-        <p class="sh-engage" data-label="How SuzChews reaches them">Food-product classification keeps SuzChews outside the clinical approval process while clinical use data accumulates. Early engagement through oncology dietitian networks.</p>
-      </div>
-      <div class="stakeholder-card" data-tier="formulator">
-        <p class="sh-role">Operational</p>
-        <p class="sh-name">Manufacturer &amp; formulator</p>
-        <p class="sh-cares" data-label="What they care about">Stable formulation, supply chain, and margin. Specialty ingredient sourcing is a real constraint at this dose level.</p>
-        <p class="sh-engage" data-label="How SuzChews engages">Jel Sert internship provided direct R&amp;D knowledge of functional confectionery manufacturing. Future: contract-manufacturer evaluation for specialty gum production.</p>
-      </div>
-      <div class="stakeholder-card" data-tier="advocacy">
-        <p class="sh-role">Secondary</p>
-        <p class="sh-name">Patient advocacy (ACCO)</p>
-        <p class="sh-cares" data-label="What they care about">Childhood cancer patient quality of life and equitable access to supportive care products that go beyond standard clinical offerings.</p>
-        <p class="sh-engage" data-label="How SuzChews engages">ACCO patient packages as an aspirational distribution channel. The product's OTC, non-pharma positioning fits their model of patient-directed comfort products.</p>
-      </div>
-      <div class="stakeholder-card" data-tier="regulator">
-        <p class="sh-role">Regulatory</p>
-        <p class="sh-name">FDA / regulatory</p>
-        <p class="sh-cares" data-label="What they care about">Safety, claims substantiation, and the food-supplement-drug classification question.</p>
-        <p class="sh-engage" data-label="How SuzChews engages">Initial path: <strong>food product, no medical claims</strong> (functional gum category). If clinical data accumulates, evaluate <strong>medical food</strong> designation. Drug pathway deferred indefinitely.</p>
-      </div>
-    </div>
-  </div>
-
-</section>
-
-<!-- ============================================================
-     §3.4 WHO I AM - personal + professional context
-     ============================================================ -->
-<section class="ms-section" id="s-team">
-  <div class="ms-section-head">
-    <span class="ms-section-num">§ 03.4</span>
-    <h2 class="ms-section-title">Who I am, and what <em>made this.</em></h2>
-  </div>
-
-  <div class="sci-layout">
-    <div class="sci-prose">
-
-      <p>
-        Two of the most important people in my life went through cancer. Both of them were on
-        chemotherapy. And the thing that stays with me - not the fear, not the waiting rooms,
-        but the small thing - is watching them push food around a plate because everything
-        tasted wrong. Like metal. Like nothing. Like something they couldn't describe.
-      </p>
-      <p>
-        That observation is where SuzChews starts. Not in the literature, not in a lab.
-        In a kitchen, watching someone who used to love food stop wanting to eat.
-      </p>
-      <p>
-        I'm Samuel Frausto - a student at USC in ACAD 432 studying innovation design. Before
-        this class, I interned at <strong>Jel Sert</strong>, a functional confectionery
-        manufacturer whose products include Fla-Vor-Ice, Otter Pops, and Jamba-branded
-        beverages. I spent time in their R&amp;D environment working on product formulation,
-        which is where I learned how flavor actually gets built - not as an afterthought but
-        as an engineering problem with real tradeoffs.
-      </p>
-      <p>
-        That internship changed how I thought about the problem my family members had faced.
-        It showed me that a functional gum isn't just a concept - it's a formulation target
-        with a delivery mechanism, a flavor release curve, ingredient interaction constraints,
-        and a manufacturing process. SuzChews is the result of applying that knowledge to
-        a patient population that has nothing designed specifically for them.
-      </p>
-
-      <h3>What Jel Sert taught about formulation</h3>
-      <p>
-        The most important thing I took from the Jel Sert internship is that
-        <strong>formulation requires a clear end goal.</strong> In a product R&amp;D environment,
-        you can't approach a formula by mixing ingredients together and seeing what works - you
-        have to know exactly what the product is supposed to do before you select anything. The
-        end goal defines every ingredient decision that follows it.
-      </p>
-      <p>
-        That insight directly shaped how SuzChews was designed. Rather than starting with a list
-        of "things that might help dysgeusia" and iterating at random, the algorithm in §05 starts
-        from a defined target: specific symptom profiles mapped to specific mechanisms, with each
-        ingredient strategy serving an identified function. The formulation is systematic because
-        the internship showed me that systematic is the only approach that actually produces a
-        product designed for a purpose - not just a product that happened to come together.
-      </p>
-      <p>
-        The Jel Sert conversations were informal; the application to SuzChews is mine.
-      </p>
-    </div>
-
-    <aside class="sci-margin">
-      <div class="margin-note">
-        <span class="mn-label">Solo project</span>
-        <p>SuzChews is an independent, single-author project. The full body of work - literature review, formulation strategy, algorithm, simulation, and this site - is mine alone.</p>
-      </div>
-      <div class="margin-note">
-        <span class="mn-label">Jel Sert products</span>
-        <p>Fla-Vor-Ice · Otter Pops · Jamba-branded beverages. Functional confectionery &amp; frozen novelties. The R&amp;D environment includes flavor chemistry, ingredient sourcing, and manufacturing process design.</p>
-      </div>
-      <div class="margin-note">
-        <span class="mn-label">Aspirational partnerships</span>
-        <p>Earlier project framing referenced Dr. Emily Liman's lab at USC and ACCO as prospective collaborators. These remained aspirational within the scope of this deliverable.</p>
-      </div>
-    </aside>
-  </div>
-
-</section>
-
 <!-- Next-page footer -->
 <div class="next-page">
-  <span class="next-page-meta">§03 / 07 · Solution &amp; Systems Model</span>
-  <a class="next-page-link" href="biomarkers.html">
+  <span class="next-page-meta">§04 / 08 · Solution &amp; Systems Model</span>
+  <a class="next-page-link" href="algorithm.html">
     <span>
-      <span class="np-label">Up next · §04</span>
-      <span class="np-title">Biomarkers, pathways &amp; ingredient mechanisms</span>
+      <span class="np-label">Up next · §05</span>
+      <span class="np-title">Mapping algorithm &amp; live calculator</span>
     </span>
     <span class="np-arrow">→</span>
   </a>
@@ -678,7 +521,7 @@
   var detail = document.getElementById('ingredientDetail');
   if (!curve || !legend || !detail) return;
 
-  // Ingredient detail copy (drawn from §3.1 prose). Sam can edit these strings later.
+  // Ingredient detail copy (drawn from §4.1 prose). Sam can edit these strings later.
   var INGREDIENTS = {
     sour: {
       name: 'Sour / tart stimulation',
