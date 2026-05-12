@@ -122,28 +122,6 @@
 }
 .tl-items li:last-child { border-bottom: none; }
 
-/* Process images */
-.process-image-block {
-  margin: 2rem 0;
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  background: #fff;
-}
-.process-image-block img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.process-image-caption {
-  font-family: var(--mono);
-  font-size: .6rem;
-  letter-spacing: .08em;
-  color: var(--dim);
-  padding: .65rem 1rem;
-  border-top: 1px solid var(--border);
-  background: var(--surface);
-}
 
 @media (max-width: 640px) {
   .timeline-strip { grid-template-columns: 1fr 1fr; }
@@ -203,8 +181,7 @@
   </div>
   <div class="p07-jumps">
     <a class="p07-jump" href="#s-process">§7.1 The process</a>
-    <a class="p07-jump" href="#s-workingdocs">§7.2 Working documents</a>
-    <a class="p07-jump" href="#s-stakeholders">§7.3 Stakeholders</a>
+    <a class="p07-jump" href="#s-stakeholders">§7.2 Stakeholders</a>
   </div>
 </header>
 
@@ -297,42 +274,7 @@
   </div>
 </section>
 
-<!-- ============================================================
-     §7.2 WORKING DOCUMENTS
-     ============================================================ -->
-<section class="ms-section" id="s-workingdocs">
-  <div class="ms-section-head">
-    <span class="ms-section-num">§ 07.2</span>
-    <h2 class="ms-section-title">Working <em>documents.</em></h2>
-  </div>
 
-  <p>
-    These are the raw FigJam working documents from the development process. The yellow stickies are early-stage
-    concept framing. The pink stickies are the active research and variable identification work that fed
-    directly into the §03 biomarker pathway.
-  </p>
-
-  <div class="process-image-block">
-    <img src="assets/process/Screenshot%202026-05-12%20at%2010.51.22%20AM.png"
-         alt="Variable scoring workflow: mapping eight dysgeusia variables across altered taste, metallic sensing, dietary shifts, and smell change features"
-         loading="lazy">
-    <div class="process-image-caption">Variable scoring — each of the eight biomarker variables scored across four dysgeusia features, with literature rationale. The scores directly fed the weighting algorithm.</div>
-  </div>
-
-  <div class="process-image-block">
-    <img src="assets/process/Screenshot%202026-05-12%20at%2010.51.06%20AM.png"
-         alt="SUZChews Second-Stage Ingredient Map: heatmap scoring nine candidate ingredients across altered taste, metallic sensing, dietary shifts, smell change, overall score, and feasibility"
-         loading="lazy">
-    <div class="process-image-caption">Second-stage ingredient map — nine candidate ingredients scored across all dysgeusia feature dimensions plus manufacturability feasibility. Lactoferrin and menthol/carvone emerged as the highest-performing choices.</div>
-  </div>
-
-  <div class="process-image-block">
-    <img src="assets/process/Screenshot%202026-05-12%20at%2010.50.52%20AM.png"
-         alt="Recommended prototyping protocol ranked by fidelity vs. practicality: five simulation methods from FeSO4 oral rinse to zinc sulfate rinse"
-         loading="lazy">
-    <div class="process-image-caption">Prototyping protocol — five ranked simulation methods for testing the formulation, from high-fidelity FeSO4 rinses to Gymnema sylvestre sweet suppression. Used to validate ingredient decisions before physical gum production.</div>
-  </div>
-</section>
 
 <!-- ============================================================
      §7.3 STAKEHOLDERS
