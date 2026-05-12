@@ -8,213 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-.scanlines{position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.045;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.08) 0px,rgba(255,255,255,0.08) 1px,transparent 1px,transparent 3px);mix-blend-mode:overlay;animation:scanmove 12s linear infinite}
-@keyframes scanmove{to{background-position:0 120px}}
-.nav-left{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
-.nav-readout{display:none;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;padding:4px 10px;border:1px solid var(--border);border-radius:4px;background:rgba(92,225,255,0.04)}
-@media(min-width:900px){.nav-readout{display:inline-block}}
-.hero-hud{position:absolute;inset:0;pointer-events:none;z-index:0}
-.hero-hud .hc{position:absolute;width:min(56px,12vw);height:min(56px,12vw);border-color:rgba(92,225,255,0.45);border-style:solid;pointer-events:none;opacity:.85}
-.hero-hud .hc:nth-child(1){top:5.25rem;left:1.5rem;border-width:2px 0 0 2px}
-.hero-hud .hc:nth-child(2){top:5.25rem;right:1.5rem;border-width:2px 2px 0 0}
-.hero-hud .hc:nth-child(3){bottom:6.25rem;left:1.5rem;border-width:0 0 2px 2px}
-.hero-hud .hc:nth-child(4){bottom:6.25rem;right:1.5rem;border-width:0 2px 2px 0}
-
-.orgs-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(92,225,255,0.04),transparent 55%),var(--bg2);position:relative;overflow:hidden}
-.orgs-wrap::before{content:'// AFFILIATIONS · STACK';position:absolute;top:1rem;right:1.5rem;font-family:var(--mono);font-size:.52rem;letter-spacing:.16em;color:var(--dim);opacity:.45}
-.orgs-inner{max-width:1200px;margin:0 auto;padding:2.25rem 2.5rem 2.5rem;position:relative;z-index:1}
-.orgs-kicker{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--electric);margin-bottom:1.25rem;display:flex;align-items:center;gap:12px}
-.orgs-kicker::before{content:'';width:24px;height:1px;background:var(--electric);opacity:.6}
-.orgs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;align-items:stretch;list-style:none;padding:0;margin:0}
-.orgs-grid li{list-style:none;margin:0;padding:0}
-.org-slot{display:flex;align-items:center;justify-content:center;min-height:72px;padding:14px 16px;border:1px solid var(--border);border-radius:10px;background:rgba(8,8,10,0.65);text-decoration:none;color:inherit;transition:border-color .2s,box-shadow .25s,transform .2s;position:relative;overflow:hidden}
-.org-slot::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,74,0.06),transparent 50%);opacity:0;transition:opacity .25s}
-.org-slot:hover::before{opacity:1}
-.org-slot:hover{border-color:rgba(92,225,255,0.35);box-shadow:0 0 0 1px rgba(92,225,255,0.12),0 12px 40px rgba(0,0,0,0.35);transform:translateY(-2px)}
-.org-slot picture{display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
-.org-slot img{max-width:100%;max-height:44px;width:auto;height:auto;object-fit:contain;opacity:.92;transition:filter .2s,opacity .2s,transform .2s;filter:grayscale(0.2) brightness(1.08) contrast(1.05)}
-.org-slot:hover img{filter:none;opacity:1}
-.org-slot .org-fallback{display:none;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--muted);text-align:center;line-height:1.35;position:relative;z-index:1}
-.org-slot.no-logo picture,.org-slot.no-logo img{display:none}
-.org-slot.no-logo .org-fallback{display:block}
-
-.project-group{margin-top:2.75rem;border:1px solid var(--border);border-radius:14px;background:linear-gradient(160deg,rgba(92,225,255,0.06),rgba(8,8,10,0.92) 38%,rgba(255,107,74,0.03));overflow:hidden;position:relative;box-shadow:0 24px 60px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.04)}
-.project-group:first-of-type{margin-top:0}
-.project-group::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;opacity:.72;pointer-events:none}
-.project-group[data-topic="xr"]::after{background:linear-gradient(to bottom,var(--electric),var(--teal),var(--coral))}
-.project-group[data-topic="research"]::after{background:linear-gradient(to bottom,var(--violet),var(--electric))}
-.project-group[data-topic="innovation"]::after{background:linear-gradient(to bottom,var(--coral),var(--usc-gold))}
-.project-group[data-topic="brand"]::after{background:linear-gradient(to bottom,var(--usc-gold),var(--coral))}
-.project-group.group-hidden{display:none!important}
-.group-head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:1rem 1.5rem;padding:1.35rem 1.35rem 1.1rem 1.6rem;border-bottom:1px solid var(--border);background:linear-gradient(90deg,rgba(255,255,255,0.03),transparent)}
-.group-code{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;color:var(--electric);text-transform:uppercase}
-.group-code span{color:var(--dim);letter-spacing:.1em;margin-left:8px;font-size:.55rem}
-.group-desc{font-size:.78rem;color:var(--muted);line-height:1.55;flex:1;min-width:200px;max-width:42rem;padding-left:.25rem}
-.group-meta{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;color:var(--dim);margin-left:auto;white-space:nowrap;border:1px solid var(--border);padding:5px 10px;border-radius:6px;background:rgba(0,0,0,0.25)}
-.group-cards{position:relative;padding-left:6px}
-.project-group .project-card{border-radius:0;border-left:none;margin-left:0;padding-left:1.35rem}
-.project-group .project-card:first-of-type{border-top:none}
-.project-group .project-card:last-child{border-bottom:none}
-
-.projects-grid{display:flex;flex-direction:column;gap:0;background:transparent;border:none;border-radius:0;overflow:visible;position:relative}
-.projects-grid::before{display:none}
-
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 2.5rem 5rem;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
-.hero-bg::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,0.07) 1px,transparent 0);background-size:48px 48px;opacity:.25;mask-image:radial-gradient(ellipse 70% 60% at 50% 100%,black,transparent)}
-.orb{position:absolute;border-radius:50%;filter:blur(90px);animation:orbdrift 26s ease-in-out infinite}
-.o1{width:650px;height:650px;background:rgba(255,107,74,.2);top:-120px;right:-120px;animation-delay:0s}
-.o2{width:420px;height:420px;background:rgba(62,207,178,.12);bottom:0;left:-80px;animation-delay:-8s}
-.o3{width:380px;height:380px;background:rgba(167,139,250,.1);top:35%;left:38%;animation-delay:-16s}
-.o4{width:280px;height:280px;background:rgba(92,225,255,.09);bottom:25%;right:15%;animation-delay:-5s}
-@keyframes orbdrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-14px,10px) scale(1.02)}66%{transform:translate(12px,-8px) scale(0.99)}}
-.hero-content{position:relative;z-index:1;max-width:1100px;width:100%}
-.hero-eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.7rem;color:var(--coral);letter-spacing:.08em;margin-bottom:1.5rem;animation:fadeup .8s .2s both}
-.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--coral)}
-.hero-name{font-size:clamp(4rem,10vw,9.5rem);font-weight:800;line-height:.92;letter-spacing:-.03em;color:var(--text);animation:fadeup .8s .3s both}
-.hero-name .outline{display:block;font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(3.5rem,9vw,8.5rem);color:transparent;-webkit-text-stroke:1px rgba(240,238,232,.35);letter-spacing:-.02em}
-.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;margin-top:2.5rem;flex-wrap:wrap;gap:1.5rem;animation:fadeup .8s .5s both}
-.hero-desc{font-size:.92rem;color:var(--muted);max-width:400px;line-height:1.85}
-.hero-desc strong{color:var(--text);font-weight:500}
-.hero-pills{display:flex;flex-wrap:wrap;gap:7px;max-width:380px;justify-content:flex-end}
-.pill{font-size:.68rem;padding:5px 12px;border-radius:99px;font-weight:500;letter-spacing:.04em;border:1px solid var(--border2);background:rgba(255,255,255,.04);color:var(--muted)}
-.pill.hot{border-color:var(--coral-mid);color:var(--coral);background:var(--coral-dim)}
-.pill.cool{border-color:rgba(62,207,178,.3);color:var(--teal);background:var(--teal-dim)}
-.pill.vio{border-color:rgba(167,139,250,.3);color:var(--violet);background:var(--violet-dim)}
-.pill.usc{border-color:rgba(255,199,44,.42);color:var(--usc-gold);background:linear-gradient(135deg,rgba(153,0,0,.32),rgba(255,199,44,.1));font-weight:600;letter-spacing:.06em}
-@keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--mono);font-size:.6rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;z-index:1;animation:fadeup 1s 1.2s both}
-.scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(255,107,74,.75),rgba(255,199,44,.2),transparent);animation:scr 2.85s ease-in-out infinite;opacity:.85}
-@keyframes scr{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-
-.status-strip{background:linear-gradient(90deg,var(--bg2),var(--bg3),var(--bg2));border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1rem 2.5rem;display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center;position:relative;overflow:hidden}
-.status-strip::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 12px,rgba(92,225,255,0.04) 12px,rgba(92,225,255,0.04) 13px);pointer-events:none;opacity:.5}
-.st-item{display:flex;align-items:center;gap:10px}
-.st-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.st-dot.g{background:var(--teal);box-shadow:0 0 8px var(--teal);animation:pulse 2s infinite}
-.st-dot.a{background:var(--amber);box-shadow:0 0 8px var(--amber);animation:pulse 2s .5s infinite}
-.st-label{font-size:.72rem;color:var(--muted)}
-.st-label strong{color:var(--text);font-weight:500}
-
-.section{padding:5rem 2.5rem;max-width:1200px;margin:0 auto}
-.section-header{display:flex;align-items:flex-end;gap:1.25rem;margin-bottom:3rem;flex-wrap:wrap}
-.sec-num{font-family:var(--mono);font-size:.68rem;color:var(--text);letter-spacing:.12em;padding:6px 12px;border:1px solid rgba(255,199,44,0.28);border-radius:6px;background:linear-gradient(155deg,rgba(153,0,0,.22),rgba(92,225,255,.07));box-shadow:inset 0 -2px 0 rgba(153,0,0,.32),0 0 0 1px rgba(92,225,255,0.06)}
-.sec-title{font-size:clamp(2rem,4vw,2.75rem);font-weight:800;color:var(--text);letter-spacing:-.03em;text-shadow:0 0 36px rgba(255,107,74,0.07),0 0 60px rgba(255,199,44,0.04)}
-.sec-title em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--muted)}
-.section-header::after{content:'';flex:1;min-width:120px;height:1px;background:linear-gradient(90deg,rgba(255,199,44,0.4),var(--border2),transparent);margin-bottom:.35rem}
-
-.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2.25rem;padding:6px;border-radius:99px;border:1px solid var(--border);background:var(--bg2);width:fit-content;max-width:100%;box-shadow:inset 0 1px 0 rgba(255,255,255,0.04)}
-.filter-btn{font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;border-radius:99px;border:1px solid transparent;background:transparent;color:var(--dim);cursor:none;transition:color .2s,background .2s,border-color .2s,box-shadow .2s}
-.filter-btn:hover{color:var(--text);border-color:rgba(92,225,255,0.2)}
-.filter-btn.active{color:#fff;background:linear-gradient(135deg,var(--usc-cardinal-bright),var(--coral) 52%,#ff9a6e);border-color:transparent;box-shadow:0 0 18px rgba(255,107,74,0.22),0 0 0 1px rgba(255,199,44,0.22)}
-
-.project-card{display:grid;grid-template-columns:108px 2.75rem minmax(0,1fr) auto;align-items:center;gap:.85rem 1.25rem;padding:1.35rem 0 1.35rem 1rem;margin-left:0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;position:relative;background:transparent;cursor:none;border-left:2px solid transparent;transition:border-color .28s,background .3s,padding .28s}
-.project-card::before{content:'';position:absolute;inset:0;left:-1px;background:linear-gradient(90deg,rgba(255,107,74,0.08),rgba(92,225,255,0.04),rgba(255,199,44,0.03),transparent 58%);opacity:0;transition:opacity .32s;pointer-events:none}
-.project-card:hover::before{opacity:1}
-.project-card:hover{border-left-color:var(--coral);background:rgba(255,255,255,0.02);padding-left:1.12rem}
-.project-card.hidden{display:none}
-.project-card.featured{border-left-color:rgba(255,107,74,0.55);background:linear-gradient(90deg,rgba(255,107,74,0.06),rgba(255,199,44,0.03),transparent 48%)}
-.project-card.featured .card-title{font-size:clamp(1.35rem,3vw,2.45rem)}
-.project-card.featured{grid-template-columns:120px 2.75rem minmax(0,1fr) auto}
-.proj-thumb{width:108px;height:68px;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--surface);position:relative;flex-shrink:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.05),0 4px 20px rgba(0,0,0,0.25)}
-.project-card.featured .proj-thumb{width:120px;height:75px;border-radius:11px}
-.proj-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.2,.85,.2,1)}
-.project-card:hover .proj-thumb img{transform:scale(1.035)}
-.proj-thumb.no-img img{display:none}
-.proj-thumb.no-img{background:linear-gradient(150deg,rgba(153,0,0,.42) 0%,rgba(8,8,10,.35) 45%,rgba(255,199,44,.14) 100%),repeating-linear-gradient(-11deg,transparent,transparent 4px,rgba(255,255,255,.05) 4px,rgba(255,255,255,.05) 5px)}
-.proj-thumb.no-img::after{content:'';position:absolute;inset:7px;border:1px dashed rgba(255,255,255,.18);border-radius:7px;pointer-events:none;opacity:.85}
-.proj-thumb.no-img::before{content:'';position:absolute;top:50%;left:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border:1px solid rgba(255,199,44,.4);border-radius:3px;transform:rotate(45deg);opacity:.55}
-.proj-idx{font-family:var(--mono);font-size:.68rem;color:var(--dim);letter-spacing:.06em;transition:color .2s}
-.project-card:hover .proj-idx{color:var(--electric)}
-.card-title{font-size:clamp(1.2rem,2.6vw,2.15rem);font-weight:700;line-height:1.12;color:var(--text);margin:0;letter-spacing:-.03em;padding:0;transition:transform .3s cubic-bezier(.2,.85,.2,1)}
-.project-card:hover .card-title{transform:translateX(2px)}
-.proj-go{font-family:var(--mono);font-size:.85rem;color:var(--dim);transition:color .22s,transform .28s}
-.project-card:hover .proj-go{color:var(--teal);transform:translate(2px,-2px)}
-
-/* ABOUT */
-.about-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;align-items:start}
-.about-intro{font-family:var(--serif);font-style:italic;font-size:1.55rem;line-height:1.5;color:var(--text);margin-bottom:1.5rem;letter-spacing:-.01em}
-.about-body{font-size:.88rem;color:var(--muted);line-height:1.85;margin-bottom:2rem}
-.about-body strong{color:var(--text);font-weight:500}
-.about-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.about-card{background:var(--surface);border-radius:var(--r);padding:1.25rem;border:1px solid var(--border);position:relative;overflow:hidden}
-.about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.c1::before{background:linear-gradient(90deg,var(--usc-cardinal),var(--usc-gold))}.c2::before{background:var(--teal)}.c3::before{background:var(--violet)}.c4::before{background:var(--amber)}
-.about-card-icon{font-size:1.1rem;margin-bottom:.75rem}
-.about-card-title{font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:6px}
-.about-card-body{font-size:.75rem;color:var(--muted);line-height:1.7}
-
-/* INTERESTS */
-.interests-list{display:flex;flex-direction:column}
-.interest-item{display:flex;align-items:center;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);font-size:.88rem;color:var(--muted);transition:color .2s,background .2s;cursor:none;border-radius:4px;padding-left:4px}
-.interest-item:hover{color:var(--text)}
-.interest-item:first-child{border-top:1px solid var(--border)}
-.interest-item.active-interest{color:var(--coral)}
-.int-num{font-family:var(--mono);font-size:.65rem;color:var(--dim);min-width:20px}
-.int-name{flex:1;font-weight:500}
-.int-arrow{font-size:.75rem;color:var(--dim);transition:transform .2s,color .2s}
-.interest-item:hover .int-arrow{transform:translateX(3px);color:var(--coral)}
-.interest-item.active-interest .int-arrow{color:var(--coral)}
-.interest-tag{font-family:var(--mono);font-size:.6rem;padding:2px 8px;border-radius:99px;background:var(--coral-dim);color:var(--coral);border:1px solid var(--coral-mid)}
-
-/* CONTACT */
-.contact-wrap{background:var(--bg2);border-top:1px solid var(--border);padding:5rem 2.5rem;position:relative;overflow:hidden}
-.contact-wrap::before{content:'';position:absolute;bottom:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(255,107,74,.12) 0%,transparent 70%);pointer-events:none}
-.contact-wrap::after{content:'';position:absolute;top:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(ellipse,rgba(62,207,178,.08) 0%,transparent 70%);pointer-events:none}
-.contact-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
-.contact-eyebrow{font-family:var(--mono);font-size:.65rem;color:var(--coral);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
-.contact-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--coral)}
-.contact-heading{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800;line-height:1.0;letter-spacing:-.03em;color:var(--text);margin-bottom:2.5rem}
-.contact-heading em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--coral)}
-.contact-links{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:4rem}
-.contact-link{display:flex;align-items:center;gap:10px;font-size:.78rem;font-weight:700;letter-spacing:.06em;padding:14px 24px;border-radius:var(--r);text-decoration:none;transition:all .2s;cursor:none}
-.link-email{background:var(--coral);color:white;border:1px solid var(--coral)}
-.link-email:hover{background:#e55a38;transform:translateY(-2px)}
-.link-li{background:transparent;color:var(--text);border:1px solid var(--border2)}
-.link-li:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04);transform:translateY(-2px)}
-.link-icon{width:14px;height:14px;flex-shrink:0}
-.contact-footer{padding-top:2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.footer-name{font-weight:700;font-size:.9rem;color:var(--dim);letter-spacing:.04em}
-.footer-copy{font-family:var(--mono);font-size:.65rem;color:var(--dim)}
-
-/* Filter highlight pulse */
-@keyframes gridpulse{0%{box-shadow:0 0 0 0 rgba(255,107,74,.3)}100%{box-shadow:0 0 0 8px rgba(255,107,74,0)}}
-.projects-grid.filtered{animation:gridpulse .4s ease-out}
-
-@media(prefers-reduced-motion:reduce){
-  .orb,.scroll-line,.scanlines{animation:none!important}
-  .project-card,.filter-btn,.proj-go,.card-title,.proj-thumb img{transition:none!important}
-  .project-card:hover .proj-thumb img{transform:none!important}
-}
-@media(max-width:768px){
-  .hero{padding:0 1.25rem 4rem}
-  .section{padding:3.5rem 1.25rem}
-  .about-layout{grid-template-columns:1fr}
-  .about-cards{grid-template-columns:1fr}
-  .contact-wrap{padding:4rem 1.25rem}
-  .status-strip{padding:1rem 1.25rem;gap:1.25rem}
-  .project-card,.project-card.featured{grid-template-columns:64px 2rem minmax(0,1fr) auto;gap:.5rem .65rem;padding:1.1rem 0 1.1rem .4rem}
-  .proj-thumb,.project-card.featured .proj-thumb{width:64px;height:40px;border-radius:8px}
-  .section-header::after{display:none}
-  .filter-bar{border-radius:12px;width:100%}
-  .orgs-wrap::before{display:none}
-  .orgs-inner{padding:1.75rem 1.25rem 2rem}
-  .group-meta{margin-left:0;width:100%;text-align:center;white-space:normal}
-  .group-head{flex-direction:column;align-items:flex-start}
-}
-</style>
 </head>
 <body class="home">
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-<div class="scanlines" aria-hidden="true"></div>
 
 <nav>
-  <div class="nav-left">
-    <a class="nav-logo" href="index.html">S<span>.</span>Frausto</a>
-    <span class="nav-readout" aria-hidden="true">SYS.SFRAUSTO · REL 1.0 · LAX</span>
-  </div>
+  <a class="nav-logo" href="index.html">S<span>.</span>Frausto</a>
   <div class="nav-links">
     <a href="#projects">Work</a>
     <a href="#about">About</a>
@@ -226,9 +26,11 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div>
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+    <div class="orb o4"></div>
   </div>
-  <div class="hero-hud" aria-hidden="true"><span class="hc"></span><span class="hc"></span><span class="hc"></span><span class="hc"></span></div>
   <div class="hero-content">
     <div class="hero-eyebrow">Designer &amp; Experience Builder</div>
     <h1 class="hero-name">Samuel<span class="outline">Frausto.</span></h1>
@@ -246,13 +48,13 @@
         <span class="pill cool">visionOS</span>
         <span class="pill">Medicine &amp; UX</span>
         <span class="pill hot">Unity &amp; Blender</span>
-        <span class="pill cool">Spatial Computing</span>
       </div>
     </div>
   </div>
   <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
 
+<!-- STATUS STRIP -->
 <div class="status-strip">
   <div class="st-item">
     <div class="st-dot g"></div>
@@ -264,186 +66,264 @@
   </div>
 </div>
 
-<hr class="full-divider">
+<!-- LOGO MARQUEE -->
+<section class="marquee-section" aria-label="Affiliations and organizations">
+  <div class="marquee-outer">
+    <div class="marquee-track" id="marqueeTrack" aria-hidden="true">
 
-<section class="orgs-wrap reveal" aria-label="Affiliations and organizations">
-  <div class="orgs-inner">
-    <p class="orgs-kicker">Organizations · Open related work</p>
-    <ul class="orgs-grid" role="list">
-      <li>
-        <a class="org-slot" href="projects/iyh-digital-twin.html" title="USC — Iovine &amp; Young Hall digital twin">
-          <picture>
-            <source srcset="assets/logos/usc.png" type="image/png">
-            <source srcset="assets/logos/usc.webp" type="image/webp">
-            <img src="assets/logos/usc.svg" alt="University of Southern California" width="200" height="56" loading="lazy" decoding="async" onerror="this.closest('.org-slot').classList.add('no-logo')">
-          </picture>
-          <span class="org-fallback">USC</span>
-        </a>
-      </li>
-      <li>
-        <a class="org-slot" href="projects/synesthesia.html" title="Iovine &amp; Young Academy — ACAD course project">
-          <picture>
-            <source srcset="assets/logos/iya.png" type="image/png">
-            <source srcset="assets/logos/iya.webp" type="image/webp">
-            <img src="assets/logos/iya.svg" alt="Iovine and Young Academy" width="180" height="56" loading="lazy" decoding="async" onerror="this.closest('.org-slot').classList.add('no-logo')">
-          </picture>
-          <span class="org-fallback">IYA · USC</span>
-        </a>
-      </li>
-      <li>
-        <a class="org-slot" href="#track-xr" title="Edwards — XR &amp; spatial work (swap when you add an Edwards-specific project)">
-          <picture>
-            <source srcset="assets/logos/edwards.png" type="image/png">
-            <source srcset="assets/logos/edwards.webp" type="image/webp">
-            <img src="assets/logos/edwards.svg" alt="Edwards Lifesciences" width="240" height="56" loading="lazy" decoding="async" onerror="this.closest('.org-slot').classList.add('no-logo')">
-          </picture>
-          <span class="org-fallback">Edwards</span>
-        </a>
-      </li>
-      <li>
-        <a class="org-slot" href="#track-brand" title="Jel Sert internship projects">
-          <picture>
-            <source srcset="assets/logos/jelsert.png" type="image/png">
-            <source srcset="assets/logos/jelsert.webp" type="image/webp">
-            <img src="assets/logos/jelsert.svg" alt="Jel Sert" width="200" height="56" loading="lazy" decoding="async" onerror="this.closest('.org-slot').classList.add('no-logo')">
-          </picture>
-          <span class="org-fallback">Jel Sert</span>
-        </a>
-      </li>
-      <li>
-        <a class="org-slot" href="projects/tet2-research.html" title="University of Chicago Medicine — lab research">
-          <picture>
-            <source srcset="assets/logos/uchicago.png" type="image/png">
-            <source srcset="assets/logos/uchicago.webp" type="image/webp">
-            <img src="assets/logos/uchicago.svg" alt="University of Chicago Medicine" width="260" height="56" loading="lazy" decoding="async" onerror="this.closest('.org-slot').classList.add('no-logo')">
-          </picture>
-          <span class="org-fallback">UChicago Medicine</span>
-        </a>
-      </li>
-    </ul>
+      <!-- SET 1 -->
+      <div class="mq-item">
+        <img src="assets/logos/usc.svg" alt="USC" height="28"
+          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>USC</span>'">
+      </div>
+      <div class="mq-dot"></div>
+      <div class="mq-item">
+        <img src="assets/logos/iya.svg" alt="Iovine &amp; Young Academy" height="28"
+          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>IYA · USC</span>'">
+      </div>
+      <div class="mq-dot"></div>
+      <div class="mq-item">
+        <img src="assets/logos/edwards.svg" alt="Edwards Lifesciences" height="28"
+          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>Edwards</span>'">
+      </div>
+      <div class="mq-dot"></div>
+      <div class="mq-item">
+        <img src="assets/logos/uchicago.svg" alt="University of Chicago" height="28"
+          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>UChicago Medicine</span>'">
+      </div>
+      <div class="mq-dot"></div>
+      <div class="mq-item">
+        <img src="assets/logos/jelsert.svg" alt="Jel Sert" height="28"
+          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>Jel Sert</span>'">
+      </div>
+      <div class="mq-dot"></div>
+      <div class="mq-item"><span class="mq-text">Phi Delta Theta</span></div>
+      <div class="mq-dot"></div>
+      <div class="mq-item"><span class="mq-text">Jamba</span></div>
+      <div class="mq-dot"></div>
+      <div class="mq-item"><span class="mq-text">Fla-Vor-Ice</span></div>
+      <div class="mq-dot"></div>
+      <div class="mq-item"><span class="mq-text">Otter Pops</span></div>
+      <div class="mq-dot"></div>
+
+      <!-- SET 2 (duplicate for seamless loop) -->
+      <div class="mq-item">
+        <img src="assets/logos/usc.svg" alt="USC" height="28"
+          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>USC</span>'">
+      </div>
+      <div class="mq-dot"></div>
+      <div class="mq-item">
+        <img src="assets/logos/iya.svg" alt="Iovine &amp; Young Academy" height="28"
+          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>IYA · USC</span>'">
+      </div>
+      <div class="mq-dot"></div>
+      <div class="mq-item">
+        <img src="assets/logos/edwards.svg" alt="Edwards Lifesciences" height="28"
+          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>Edwards</span>'">
+      </div>
+      <div class="mq-dot"></div>
+      <div class="mq-item">
+        <img src="assets/logos/uchicago.svg" alt="University of Chicago" height="28"
+          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>UChicago Medicine</span>'">
+      </div>
+      <div class="mq-dot"></div>
+      <div class="mq-item">
+        <img src="assets/logos/jelsert.svg" alt="Jel Sert" height="28"
+          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>Jel Sert</span>'">
+      </div>
+      <div class="mq-dot"></div>
+      <div class="mq-item"><span class="mq-text">Phi Delta Theta</span></div>
+      <div class="mq-dot"></div>
+      <div class="mq-item"><span class="mq-text">Jamba</span></div>
+      <div class="mq-dot"></div>
+      <div class="mq-item"><span class="mq-text">Fla-Vor-Ice</span></div>
+      <div class="mq-dot"></div>
+      <div class="mq-item"><span class="mq-text">Otter Pops</span></div>
+      <div class="mq-dot"></div>
+
+    </div>
   </div>
 </section>
 
 <hr class="full-divider">
 
-<!-- PROJECTS -->
-<section class="section" id="projects">
-  <div class="section-header reveal">
-    <span class="sec-num">01</span>
-    <h2 class="sec-title">Selected <em>work</em></h2>
-  </div>
+<!-- PROJECTS — horizontal scroll -->
+<section class="hscroll-section" id="projects">
+  <div class="hscroll-outer" id="hscrollOuter">
+    <div class="hscroll-sticky" id="hscrollSticky">
 
-  <div class="filter-bar reveal" id="filterBar">
-    <button class="filter-btn active" onclick="filter('all',this)">All</button>
-    <button class="filter-btn" onclick="filter('xr',this)">XR / 3D</button>
-    <button class="filter-btn" onclick="filter('brand',this)">Brand &amp; Marketing</button>
-    <button class="filter-btn" onclick="filter('innovation',this)">Innovation</button>
-    <button class="filter-btn" onclick="filter('research',this)">Research</button>
-  </div>
-
-  <div class="projects-grid reveal" id="projectsGrid">
-
-    <div class="project-group reveal" id="track-xr" data-topic="xr">
-      <header class="group-head">
-        <p class="group-code">Track A · XR / Spatial <span>/// REALTIME · IMMERSIVE</span></p>
-        <p class="group-desc">Unity, visionOS, Omniverse, shaders, and interaction systems — where hardware limits meet design craft.</p>
-        <span class="group-meta">05 MODULES</span>
-      </header>
-      <div class="group-cards">
-        <a class="project-card featured" data-cat="xr" href="projects/vr-baseball.html" data-slug="vr-baseball">
-          <span class="proj-thumb"><img src="assets/projects/vr-baseball-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
-          <span class="proj-idx" aria-hidden="true">01</span>
-          <h2 class="card-title">VR Baseball Training System</h2>
-          <span class="proj-go" aria-hidden="true">↗</span>
-        </a>
-        <a class="project-card" data-cat="xr" href="projects/iyh-digital-twin.html" data-slug="iyh-digital-twin">
-          <span class="proj-thumb"><img src="assets/projects/iyh-digital-twin-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
-          <span class="proj-idx" aria-hidden="true">02</span>
-          <h2 class="card-title">Iovine &amp; Young Hall Digital Twin</h2>
-          <span class="proj-go" aria-hidden="true">↗</span>
-        </a>
-        <a class="project-card" data-cat="xr" href="projects/synesthesia.html" data-slug="synesthesia">
-          <span class="proj-thumb"><img src="assets/projects/synesthesia-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
-          <span class="proj-idx" aria-hidden="true">03</span>
-          <h2 class="card-title">Synesthesia — Ambient VR App</h2>
-          <span class="proj-go" aria-hidden="true">↗</span>
-        </a>
-        <a class="project-card" data-cat="xr" href="projects/pavilia.html" data-slug="pavilia">
-          <span class="proj-thumb"><img src="assets/projects/pavilia-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
-          <span class="proj-idx" aria-hidden="true">04</span>
-          <h2 class="card-title">Pavilia — Portal Mechanic</h2>
-          <span class="proj-go" aria-hidden="true">↗</span>
-        </a>
-        <a class="project-card" data-cat="xr" href="projects/cyberpunk-twin.html" data-slug="cyberpunk-twin">
-          <span class="proj-thumb"><img src="assets/projects/cyberpunk-twin-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
-          <span class="proj-idx" aria-hidden="true">05</span>
-          <h2 class="card-title">Cyberpunk 2077 Room — Digital Twin</h2>
-          <span class="proj-go" aria-hidden="true">↗</span>
-        </a>
+      <div class="hscroll-header">
+        <span class="sec-num">01</span>
+        <h2 class="sec-title">Selected <em>work</em></h2>
       </div>
-    </div>
 
-    <div class="project-group reveal" id="track-research" data-topic="research">
-      <header class="group-head">
-        <p class="group-code">Track B · Research <span>/// WETLAB · EPIGENETICS</span></p>
-        <p class="group-desc">Bench science, long timelines, and evidence-first storytelling — where protocol meets narrative.</p>
-        <span class="group-meta">01 MODULE</span>
-      </header>
-      <div class="group-cards">
-        <a class="project-card" data-cat="research" href="projects/tet2-research.html" data-slug="tet2-research">
-          <span class="proj-thumb"><img src="assets/projects/tet2-research-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
-          <span class="proj-idx" aria-hidden="true">06</span>
-          <h2 class="card-title">TET2 Inhibition Cancer Research</h2>
-          <span class="proj-go" aria-hidden="true">↗</span>
-        </a>
-      </div>
-    </div>
+      <div class="hscroll-track" id="hscrollTrack">
 
-    <div class="project-group reveal" id="track-innovation" data-topic="innovation">
-      <header class="group-head">
-        <p class="group-code">Track C · Innovation <span>/// PRODUCT · HCD</span></p>
-        <p class="group-desc">Human-centered prototypes at the edge of medicine — translating research into tangible outcomes.</p>
-        <span class="group-meta">01 MODULE</span>
-      </header>
-      <div class="group-cards">
-        <a class="project-card" data-cat="innovation" href="projects/suzchews/" data-slug="suzchews">
-          <span class="proj-thumb"><img src="assets/projects/suzchews-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
-          <span class="proj-idx" aria-hidden="true">07</span>
-          <h2 class="card-title">SuzChews — Cancer Patient Gum</h2>
-          <span class="proj-go" aria-hidden="true">↗</span>
+        <!-- 01 · XR -->
+        <a class="hcard featured" data-cat="xr" href="projects/vr-baseball.html">
+          <div class="hcard-thumb no-img">
+            <img src="assets/projects/vr-baseball-thumb.jpg" alt=""
+              loading="lazy" decoding="async"
+              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
+          </div>
+          <div class="hcard-body">
+            <span class="hcard-tag">XR / Spatial · 01</span>
+            <h2 class="hcard-title">VR Baseball Training System</h2>
+            <p class="hcard-desc">Real-time pitch recognition system in Unity for training hitters inside immersive VR.</p>
+            <span class="hcard-go">View project ↗</span>
+          </div>
         </a>
-      </div>
-    </div>
 
-    <div class="project-group reveal" id="track-brand" data-topic="brand">
-      <header class="group-head">
-        <p class="group-code">Track D · Brand <span>/// CAMPAIGNS · PARTNERSHIPS</span></p>
-        <p class="group-desc">Launch narratives, partnerships, and multi-channel campaigns — where strategy meets execution.</p>
-        <span class="group-meta">03 MODULES</span>
-      </header>
-      <div class="group-cards">
-        <a class="project-card" data-cat="brand" href="projects/flavoice-crayola.html" data-slug="flavoice-crayola">
-          <span class="proj-thumb"><img src="assets/projects/flavoice-crayola-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
-          <span class="proj-idx" aria-hidden="true">08</span>
-          <h2 class="card-title">Fla-Vor-Ice × Crayola</h2>
-          <span class="proj-go" aria-hidden="true">↗</span>
+        <!-- 02 · XR -->
+        <a class="hcard" data-cat="xr" href="projects/iyh-digital-twin.html">
+          <div class="hcard-thumb no-img">
+            <img src="assets/projects/iyh-digital-twin-thumb.jpg" alt=""
+              loading="lazy" decoding="async"
+              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
+          </div>
+          <div class="hcard-body">
+            <span class="hcard-tag">XR / Spatial · 02</span>
+            <h2 class="hcard-title">Iovine &amp; Young Hall Digital Twin</h2>
+            <p class="hcard-desc">Photorealistic Omniverse twin of IYH built for spatial wayfinding and digital experience design.</p>
+            <span class="hcard-go">View project ↗</span>
+          </div>
         </a>
-        <a class="project-card" data-cat="brand" href="projects/purekick-harley.html" data-slug="purekick-harley">
-          <span class="proj-thumb"><img src="assets/projects/purekick-harley-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
-          <span class="proj-idx" aria-hidden="true">09</span>
-          <h2 class="card-title">Pure Kick × Harley-Davidson</h2>
-          <span class="proj-go" aria-hidden="true">↗</span>
-        </a>
-        <a class="project-card" data-cat="brand" href="projects/jelsert-jamba.html" data-slug="jelsert-jamba">
-          <span class="proj-thumb"><img src="assets/projects/jelsert-jamba-thumb.jpg" alt="" loading="lazy" decoding="async" width="240" height="150" onerror="this.closest('.proj-thumb').classList.add('no-img')"></span>
-          <span class="proj-idx" aria-hidden="true">10</span>
-          <h2 class="card-title">Jel Sert × Jamba</h2>
-          <span class="proj-go" aria-hidden="true">↗</span>
-        </a>
-      </div>
-    </div>
 
-  </div>
+        <!-- 03 · XR -->
+        <a class="hcard" data-cat="xr" href="projects/synesthesia.html">
+          <div class="hcard-thumb no-img">
+            <img src="assets/projects/synesthesia-thumb.jpg" alt=""
+              loading="lazy" decoding="async"
+              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
+          </div>
+          <div class="hcard-body">
+            <span class="hcard-tag">XR / Spatial · 03</span>
+            <h2 class="hcard-title">Synesthesia — Ambient VR App</h2>
+            <p class="hcard-desc">Apple Vision Pro app that translates live music into evolving spatial color fields and geometry.</p>
+            <span class="hcard-go">View project ↗</span>
+          </div>
+        </a>
+
+        <!-- 04 · XR -->
+        <a class="hcard" data-cat="xr" href="projects/pavilia.html">
+          <div class="hcard-thumb no-img">
+            <img src="assets/projects/pavilia-thumb.jpg" alt=""
+              loading="lazy" decoding="async"
+              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
+          </div>
+          <div class="hcard-body">
+            <span class="hcard-tag">XR / Spatial · 04</span>
+            <h2 class="hcard-title">Pavilia — Portal Mechanic</h2>
+            <p class="hcard-desc">A Unity portal traversal system that warps players between distinct game worlds in real time.</p>
+            <span class="hcard-go">View project ↗</span>
+          </div>
+        </a>
+
+        <!-- 05 · XR -->
+        <a class="hcard" data-cat="xr" href="projects/cyberpunk-twin.html">
+          <div class="hcard-thumb no-img">
+            <img src="assets/projects/cyberpunk-twin-thumb.jpg" alt=""
+              loading="lazy" decoding="async"
+              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
+          </div>
+          <div class="hcard-body">
+            <span class="hcard-tag">XR / Spatial · 05</span>
+            <h2 class="hcard-title">Cyberpunk 2077 Room — Digital Twin</h2>
+            <p class="hcard-desc">1:1 Blender recreation of a Cyberpunk 2077 bedroom, photo-matched from in-game reference.</p>
+            <span class="hcard-go">View project ↗</span>
+          </div>
+        </a>
+
+        <!-- divider pip -->
+        <div style="width:1px;height:80%;background:var(--border);flex-shrink:0;align-self:center;margin:0 .25rem"></div>
+
+        <!-- 06 · Research -->
+        <a class="hcard" data-cat="research" href="projects/tet2-research.html">
+          <div class="hcard-thumb no-img">
+            <img src="assets/projects/tet2-research-thumb.jpg" alt=""
+              loading="lazy" decoding="async"
+              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
+          </div>
+          <div class="hcard-body">
+            <span class="hcard-tag">Research · 06</span>
+            <h2 class="hcard-title">TET2 Inhibition Cancer Research</h2>
+            <p class="hcard-desc">Wetlab investigation of TET2 enzyme inhibition as a leukemia therapeutic target at UChicago Medicine.</p>
+            <span class="hcard-go">View project ↗</span>
+          </div>
+        </a>
+
+        <!-- 07 · Innovation -->
+        <a class="hcard" data-cat="innovation" href="projects/suzchews/">
+          <div class="hcard-thumb no-img">
+            <img src="assets/projects/suzchews-thumb.jpg" alt=""
+              loading="lazy" decoding="async"
+              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
+          </div>
+          <div class="hcard-body">
+            <span class="hcard-tag">Innovation · 07</span>
+            <h2 class="hcard-title">SuzChews — Cancer Patient Gum</h2>
+            <p class="hcard-desc">Medicated chewing gum formulated to treat chemotherapy-induced taste distortion (dysgeusia).</p>
+            <span class="hcard-go">View project ↗</span>
+          </div>
+        </a>
+
+        <!-- divider pip -->
+        <div style="width:1px;height:80%;background:var(--border);flex-shrink:0;align-self:center;margin:0 .25rem"></div>
+
+        <!-- 08 · Brand -->
+        <a class="hcard" data-cat="brand" href="projects/flavoice-crayola.html">
+          <div class="hcard-thumb no-img">
+            <img src="assets/projects/flavoice-crayola-thumb.jpg" alt=""
+              loading="lazy" decoding="async"
+              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
+          </div>
+          <div class="hcard-body">
+            <span class="hcard-tag">Brand · 08</span>
+            <h2 class="hcard-title">Fla-Vor-Ice × Crayola</h2>
+            <p class="hcard-desc">Co-brand campaign pairing Fla-Vor-Ice flavors with Crayola colors for a summer nostalgia push.</p>
+            <span class="hcard-go">View project ↗</span>
+          </div>
+        </a>
+
+        <!-- 09 · Brand -->
+        <a class="hcard" data-cat="brand" href="projects/purekick-harley.html">
+          <div class="hcard-thumb no-img">
+            <img src="assets/projects/purekick-harley-thumb.jpg" alt=""
+              loading="lazy" decoding="async"
+              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
+          </div>
+          <div class="hcard-body">
+            <span class="hcard-tag">Brand · 09</span>
+            <h2 class="hcard-title">Pure Kick × Harley-Davidson</h2>
+            <p class="hcard-desc">Partnership strategy connecting Pure Kick energy to Harley's freedom-riding identity.</p>
+            <span class="hcard-go">View project ↗</span>
+          </div>
+        </a>
+
+        <!-- 10 · Brand -->
+        <a class="hcard" data-cat="brand" href="projects/jelsert-jamba.html">
+          <div class="hcard-thumb no-img">
+            <img src="assets/projects/jelsert-jamba-thumb.jpg" alt=""
+              loading="lazy" decoding="async"
+              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
+          </div>
+          <div class="hcard-body">
+            <span class="hcard-tag">Brand · 10</span>
+            <h2 class="hcard-title">Jel Sert × Jamba</h2>
+            <p class="hcard-desc">Product development and launch strategy for a Jamba-branded Jel Sert frozen treat line.</p>
+            <span class="hcard-go">View project ↗</span>
+          </div>
+        </a>
+
+        <!-- end padding card -->
+        <div style="width:2rem;flex-shrink:0"></div>
+
+      </div><!-- /hscroll-track -->
+
+      <div class="hscroll-hint" id="hscrollHint">Scroll down to advance</div>
+
+    </div><!-- /hscroll-sticky -->
+  </div><!-- /hscroll-outer -->
 </section>
 
 <hr class="full-divider">
@@ -470,16 +350,16 @@
       </div>
     </div>
     <div class="reveal">
-      <p style="font-family:var(--mono);font-size:.65rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;">Interests &amp; passions — click to explore related work</p>
+      <p style="font-family:var(--mono);font-size:.65rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;">Interests &amp; passions</p>
       <div class="interests-list" id="interestsList">
-        <div class="interest-item" data-filter="xr" onclick="filterFromInterest('xr',this)"><span class="int-num">01</span><span class="int-name">Extended Reality &amp; Spatial Computing</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" data-filter="innovation" onclick="filterFromInterest('innovation',this)"><span class="int-num">02</span><span class="int-name">Biotech &amp; Medical Innovation</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" data-filter="xr" onclick="filterFromInterest('xr',this)"><span class="int-num">03</span><span class="int-name">Video Game Design &amp; World-Building</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" data-filter="innovation" onclick="filterFromInterest('innovation',this)"><span class="int-num">04</span><span class="int-name">Human-Centered Product Design</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" data-filter="research" onclick="filterFromInterest('research',this)"><span class="int-num">05</span><span class="int-name">Cancer Research &amp; Immunology</span><span class="interest-tag">1 project</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" data-filter="brand" onclick="filterFromInterest('brand',this)"><span class="int-num">06</span><span class="int-name">Brand Strategy &amp; Storytelling</span><span class="interest-tag">3 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" data-filter="xr" onclick="filterFromInterest('xr',this)"><span class="int-num">07</span><span class="int-name">Shader Programming &amp; Real-Time Graphics</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" data-filter="innovation" onclick="filterFromInterest('innovation',this)"><span class="int-num">08</span><span class="int-name">Medicine &amp; Therapeutic UX</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">01</span><span class="int-name">Extended Reality &amp; Spatial Computing</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">02</span><span class="int-name">Biotech &amp; Medical Innovation</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">03</span><span class="int-name">Video Game Design &amp; World-Building</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">04</span><span class="int-name">Human-Centered Product Design</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">05</span><span class="int-name">Cancer Research &amp; Immunology</span><span class="interest-tag">1 project</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">06</span><span class="int-name">Brand Strategy &amp; Storytelling</span><span class="interest-tag">3 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">07</span><span class="int-name">Shader Programming &amp; Real-Time Graphics</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">08</span><span class="int-name">Medicine &amp; Therapeutic UX</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
       </div>
     </div>
   </div>
@@ -490,7 +370,7 @@
   <div class="contact-inner">
     <p class="contact-eyebrow">Get in touch</p>
     <h2 class="contact-heading">Let's build something<br><em>worth remembering.</em></h2>
-    <p style="font-size:.9rem;color:var(--muted);max-width:480px;line-height:1.8;margin-bottom:2.5rem;">Open to internships, full-time roles, and collaborations in XR, biotech UX, and human-centered design. Always happy to connect.</p>
+    <p class="contact-p">Open to internships, full-time roles, and collaborations in XR, biotech UX, and human-centered design.</p>
     <div class="contact-links">
       <a class="contact-link link-email" href="mailto:samueljfrausto@gmail.com">
         <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
@@ -510,40 +390,32 @@
 
 <script src="shared.js"></script>
 <script>
-function syncProjectGroups() {
-  document.querySelectorAll('.project-group').forEach(group => {
-    const any = [...group.querySelectorAll('.project-card')].some(c => !c.classList.contains('hidden'));
-    group.classList.toggle('group-hidden', !any);
-  });
-}
+// ── Horizontal scroll mechanic ──────────────────────────────────────────────
+(function(){
+  const outer  = document.getElementById('hscrollOuter');
+  const track  = document.getElementById('hscrollTrack');
+  const hint   = document.getElementById('hscrollHint');
+  if (!outer || !track) return;
 
-function filter(cat, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  document.querySelectorAll('.project-card').forEach(card=>{
-    if(cat==='all'||card.dataset.cat===cat) card.classList.remove('hidden');
-    else card.classList.add('hidden');
-  });
-  document.querySelectorAll('.interest-item').forEach(i=>i.classList.remove('active-interest'));
-  syncProjectGroups();
-  const grid = document.getElementById('projectsGrid');
-  grid.classList.remove('filtered');
-  void grid.offsetWidth;
-  grid.classList.add('filtered');
-}
+  function update() {
+    const rect      = outer.getBoundingClientRect();
+    const scrollable = rect.height - window.innerHeight;
+    if (scrollable <= 0) return;
+    const progress  = Math.max(0, Math.min(1, -rect.top / scrollable));
+    const maxX      = track.scrollWidth - window.innerWidth;
+    track.style.transform = 'translateX(' + (-progress * maxX) + 'px)';
+    // fade hint out once scrolling starts
+    if (hint) hint.style.opacity = progress > 0.02 ? 0 : 1;
+  }
 
-function filterFromInterest(cat, el) {
-  document.querySelectorAll('.interest-item').forEach(i=>i.classList.remove('active-interest'));
-  el.classList.add('active-interest');
-  const matchBtn = [...document.querySelectorAll('.filter-btn')].find(b=>b.textContent.toLowerCase().includes(cat==='xr'?'xr':cat==='brand'?'brand':cat==='innovation'?'innov':cat));
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  if(matchBtn) matchBtn.classList.add('active');
-  document.querySelectorAll('.project-card').forEach(card=>{
-    if(card.dataset.cat===cat) card.classList.remove('hidden');
-    else card.classList.add('hidden');
-  });
-  syncProjectGroups();
-  document.getElementById('projects').scrollIntoView({behavior:'smooth'});
+  window.addEventListener('scroll', update, {passive: true});
+  window.addEventListener('resize', update, {passive: true});
+  update();
+})();
+
+// ── Utility ──────────────────────────────────────────────────────────────────
+function scrollToWork() {
+  document.getElementById('projects').scrollIntoView({behavior: 'smooth'});
 }
 </script>
 </body>

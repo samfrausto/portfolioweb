@@ -1462,3 +1462,81 @@
   .stat-callout{ flex-direction:column; gap:.75rem; padding:1.25rem; }
   .next-page{ padding:1.5rem 1.25rem; }
 }
+
+/* ============================================================
+   §20 WARM CREAM PALETTE — all SuzChews pages
+   Overrides the root portfolio's light-mode tokens with the
+   SuzChews-specific warm cream + dusty rose palette.
+   body-scoped custom properties cascade to all descendants.
+   ============================================================ */
+body{
+  --bg:#F7F2EC;--bg2:#EFE9E1;--bg3:#E6DDD4;--surface:#FDFAF8;
+  --border:rgba(44,31,26,0.09);--border2:rgba(44,31,26,0.18);
+  --text:#2C1F1A;--muted:rgba(44,31,26,0.55);--dim:rgba(44,31,26,0.32);
+  --coral:#C26070;--coral-dim:rgba(194,96,112,0.10);--coral-mid:rgba(194,96,112,0.28);
+  --teal:#4E8A7A;--teal-dim:rgba(78,138,122,0.10);
+  --violet:#7B6A9E;--violet-dim:rgba(123,106,158,0.10);
+  --amber:#C08040;--amber-dim:rgba(192,128,64,0.10);
+  --electric:#2068A8;   /* replaces neon blue with readable ink-blue on cream */
+  --usc-gold:#B88A00;--usc-gold-dim:rgba(184,138,0,0.12);
+  --usc-cardinal:#990000;--usc-cardinal-bright:#c42030;
+  --paper:#EDE6DC;      /* used as card/section fill — warm parchment */
+  --paper-edge:rgba(44,31,26,0.08);
+  --sh-sm:0 1px 3px rgba(44,31,26,0.06),0 4px 12px rgba(44,31,26,0.04);
+  --sh-md:0 2px 8px rgba(44,31,26,0.06),0 8px 24px rgba(44,31,26,0.08);
+  background:var(--bg);
+  color:var(--text);
+}
+/* Dot grid on light bg */
+body::before{
+  background-image:radial-gradient(circle,rgba(44,31,26,0.06) 1px,transparent 0);
+  background-size:28px 28px;
+  opacity:.40;
+  mask-image:radial-gradient(ellipse 100% 55% at 50% 0%,black,transparent);
+  -webkit-mask-image:radial-gradient(ellipse 100% 55% at 50% 0%,black,transparent);
+}
+/* Cursor: dark on light */
+.cursor     { background:var(--text) !important; }
+.cursor-ring{ border-color:rgba(44,31,26,0.20) !important; }
+/* Main nav: cream */
+nav{
+  background:rgba(247,242,236,0.92) !important;
+  backdrop-filter:blur(24px) saturate(1.6) !important;
+  box-shadow:0 1px 0 rgba(44,31,26,0.09) !important;
+}
+.nav-logo,.nav-links a{ color:var(--text) !important; }
+.nav-links a:hover    { color:var(--coral) !important; }
+.nav-dot{ background:var(--teal) !important; box-shadow:0 0 0 3px rgba(78,138,122,0.20) !important; }
+/* Next-page footer: cream */
+.next-page            { background:var(--bg2) !important; border-top-color:var(--border) !important; }
+.next-page-meta       { color:var(--dim) !important; }
+.next-page-link       { color:var(--text) !important; border-color:var(--border2) !important; background:transparent !important; }
+.next-page-link:hover { border-color:var(--coral-mid) !important; background:var(--coral-dim) !important; }
+.np-label             { color:var(--coral) !important; }
+.np-title             { color:var(--text) !important; }
+.np-arrow             { color:var(--dim) !important; }
+/* Manuscript sections: light paper surface */
+.manuscript-head{ background:linear-gradient(180deg,var(--bg),var(--bg2) 55%,var(--surface) 100%) !important; }
+.ms-section     { background:transparent !important; }
+/* Section-number badge: legible on cream */
+.sec-num,.ms-section-num{ background:var(--surface) !important; border-color:var(--border2) !important; color:var(--muted) !important; box-shadow:var(--sh-sm) !important; }
+/* Callout boxes */
+.callout{ background:var(--surface) !important; }
+.callout--info{ border-color:rgba(32,104,168,0.25) !important; background:rgba(32,104,168,0.05) !important; }
+.callout--info .callout-label{ color:var(--electric) !important; }
+.callout--info .callout-label::before{ background:var(--electric) !important; }
+.callout--limit{ border-color:rgba(192,128,64,0.30) !important; background:rgba(192,128,64,0.06) !important; }
+.callout--warn{ border-color:rgba(194,96,112,0.30) !important; background:rgba(194,96,112,0.06) !important; }
+/* Stat callout */
+.stat-callout     { background:var(--surface) !important; border-color:var(--border) !important; box-shadow:var(--sh-sm) !important; }
+.stat-num         { color:var(--text) !important; }
+.stat-unit        { color:var(--coral) !important; }
+.stat-source      { color:var(--dim) !important; }
+/* Persona cards */
+.persona-card     { background:var(--surface) !important; border-color:var(--border) !important; box-shadow:var(--sh-md) !important; }
+/* Calculator */
+.calc-shell       { background:var(--surface) !important; border-color:var(--border) !important; box-shadow:var(--sh-md) !important; }
+.calc-output      { background:var(--bg2) !important; border-color:var(--border) !important; }
+/* Reference list */
+.ref-item         { background:var(--surface) !important; border-color:var(--border) !important; }
+.ref-item:hover   { border-color:var(--coral-mid) !important; }

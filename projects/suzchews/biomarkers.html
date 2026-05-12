@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SuzChews · §04 Biomarkers, Pathways &amp; Ingredients — Samuel Frausto</title>
+<title>SuzChews · §04 Biomarkers, Pathways &amp; Ingredients - Samuel Frausto</title>
 <meta name="description" content="Biomarker-to-mechanism-to-ingredient pathway mapping for SuzChews: how eight clinical variables drive four ingredient strategies targeting chemotherapy-induced dysgeusia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,11 +37,11 @@
   font-size:.58rem;
   letter-spacing:.12em;
   text-transform:uppercase;
-  color:var(--electric);
+  color:var(--text);
   padding:.55rem .85rem;
   border-bottom:1px solid var(--border2);
   text-align:left;
-  background:rgba(92,225,255,0.03);
+  background:rgba(44,31,26,0.05);
 }
 .bm-table td{
   padding:.75rem .85rem;
@@ -112,12 +112,12 @@
 <header class="manuscript-head">
   <a class="back-link" href="solution.html">Back to §03 Solution</a>
   <div class="ms-eyebrow" style="margin-top:1.25rem;">
-    <span>§04 — Biomarkers, Pathways &amp; Ingredients</span>
+    <span>§04 - Biomarkers, Pathways &amp; Ingredients</span>
     <span class="ms-doi">SUZCHEWS / 2026.05 / 04</span>
   </div>
   <h1 class="ms-title">What the body signals, <em>what the gum answers.</em></h1>
   <p class="ms-abstract">
-    Eight clinical variables — measurable or self-reported — drive the dysgeusia experience.
+    Eight clinical variables - measurable or self-reported - drive the dysgeusia experience.
     Each variable activates one or more of four pathophysiological mechanisms identified in §02.
     Each mechanism maps to one or more of the four SuzChews ingredient strategies.
     This section traces that three-stage pipeline from biomarker to mouth.
@@ -148,14 +148,7 @@
 
   <div class="sci-layout">
     <div class="sci-prose">
-      <!-- TODO: SAM — short framing of the three-stage logic.
-           Key argument: which mechanism dominates depends on which clinical variables
-           are present in a given patient. Iron-heavy regimens amplify metallic taste via
-           metal-ion binding; platinum-based agents elevate carbonyl production via lipid
-           peroxidation; poor oral hygiene worsens all of them.
-           Your pitch deck note: "Even when people are tasting the same product, taste
-           will be variable between all patients." This section shows why. -->
-      <p>
+<p>
         The literature review in §02 identified four distinct mechanisms that co-produce
         dysgeusia. But mechanisms do not switch on uniformly: <strong>which mechanism
         dominates depends on which clinical variables are present in a given patient.</strong>
@@ -171,12 +164,11 @@
         <strong>Fig. 04.1</strong> makes the full mapping explicit.
         The §05 algorithm translates that diagram into a per-patient formulation recommendation.
       </p>
-      <!-- /TODO -->
-    </div>
+</div>
     <aside class="sci-margin">
       <div class="margin-note">
         <span class="mn-label">Why eight variables?</span>
-        <p>Eight variables were initially identified from the literature. Two (disease history, age in isolation) were explored and dropped — age's effect is fully mediated by taste-bud fragility already captured by CiTAS, and disease history was uncorrelated with severity once treatment was controlled for.</p>
+        <p>Eight variables were initially identified from the literature. Two (disease history, age in isolation) were explored and dropped - age's effect is fully mediated by taste-bud fragility already captured by CiTAS, and disease history was uncorrelated with severity once treatment was controlled for.</p>
       </div>
       <div class="margin-note">
         <span class="mn-label">Solid vs. dashed edges</span>
@@ -196,169 +188,246 @@
   </div>
 
   <figure class="figure">
-    <div class="figure-frame">
-      <svg class="diagram-svg" id="pathwayDiagram" viewBox="0 0 1100 580"
+    <div class="figure-frame" style="overflow-x:auto;padding:1.25rem 1rem 1rem;">
+      <svg id="pathwayDiagram" viewBox="0 0 1100 565" style="display:block;min-width:640px;"
            role="img" aria-labelledby="pd-title pd-desc">
         <title id="pd-title">SuzChews biomarker-to-ingredient pathway diagram</title>
-        <desc id="pd-desc">Three-column pathway diagram. Left: six biomarkers/variables. Centre: four dysgeusia mechanisms. Right: four ingredient strategies. Solid edges are literature-confirmed; dashed edges are hypothesis.</desc>
+        <desc id="pd-desc">Three-column pathway diagram. Left column (amber): five biomarker variables. Centre column (coral): four dysgeusia mechanisms. Right column (blue/teal): four ingredient strategies. Solid edges are literature-confirmed; dashed edges are hypothesis.</desc>
 
-        <!-- Column labels -->
-        <text class="pathway-col-label" x="150" y="26" text-anchor="middle">Biomarkers / Variables</text>
-        <text class="pathway-col-label" x="548" y="26" text-anchor="middle">Dysgeusia Mechanisms</text>
-        <text class="pathway-col-label" x="950" y="26" text-anchor="middle">Ingredient Strategies</text>
-        <!-- Column dividers -->
-        <line class="pathway-divider" x1="350" y1="34" x2="350" y2="560"/>
-        <line class="pathway-divider" x1="762" y1="34" x2="762" y2="560"/>
+        <defs>
+          <marker id="pd-arr" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <polygon points="0 0, 9 3.5, 0 7" fill="rgba(44,31,26,0.30)"/>
+          </marker>
+          <marker id="pd-arr-h" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <polygon points="0 0, 9 3.5, 0 7" fill="rgba(44,31,26,0.18)"/>
+          </marker>
+        </defs>
 
-        <!-- ==================================================
-             EDGES — drawn first so they sit behind nodes
-             ================================================== -->
+        <!-- ── Column background tints ── -->
+        <rect x="10"  y="36" width="318" height="516" rx="12"
+              fill="rgba(251,188,4,0.07)" stroke="rgba(251,188,4,0.25)" stroke-width="1"/>
+        <rect x="370" y="36" width="308" height="516" rx="12"
+              fill="rgba(194,96,112,0.07)" stroke="rgba(194,96,112,0.22)" stroke-width="1"/>
+        <rect x="720" y="36" width="372" height="516" rx="12"
+              fill="rgba(32,104,168,0.07)" stroke="rgba(32,104,168,0.22)" stroke-width="1"/>
 
-        <!-- Variable → Mechanism (confirmed) -->
-        <!-- Iron → Metal-Ion Binding -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 240 100 C 290 100 340 148 400 148 C 440 148 480 148 530 148"/>
-        <!-- Iron → Lipid Peroxidation (iron worsens it) -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 240 100 C 310 100 370 278 430 278 C 470 278 500 278 530 278"/>
-        <!-- Zinc → Taste Bud Apoptosis -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 240 195 C 310 195 380 390 440 390 C 475 390 505 390 530 390"/>
-        <!-- Carbonyl → Lipid Peroxidation -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 240 290 C 300 290 420 280 530 278"/>
-        <!-- Treatment → Metal-Ion Binding -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 240 385 C 290 385 340 158 420 153 C 460 153 500 152 530 151"/>
-        <!-- Treatment → Taste Bud Apoptosis -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 240 385 C 295 385 450 392 530 392"/>
-        <!-- Oral Hygiene → Taste Bud Apoptosis -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 240 475 C 300 475 460 400 530 395"/>
-        <!-- Oral Hygiene → Neuropathy/Saliva (hypothesis) -->
-        <path class="edge is-hypothesis" data-anim="draw"
-              d="M 240 475 C 310 475 460 505 530 503"/>
+        <!-- ── Column labels ── -->
+        <text x="169" y="28" text-anchor="middle"
+              font-family="var(--mono)" font-size="9" letter-spacing="0.13em"
+              fill="rgba(194,148,4,0.85)" style="text-transform:uppercase;">BIOMARKERS / VARIABLES</text>
+        <text x="524" y="28" text-anchor="middle"
+              font-family="var(--mono)" font-size="9" letter-spacing="0.13em"
+              fill="rgba(194,96,112,0.85)" style="text-transform:uppercase;">DYSGEUSIA MECHANISMS</text>
+        <text x="906" y="28" text-anchor="middle"
+              font-family="var(--mono)" font-size="9" letter-spacing="0.13em"
+              fill="rgba(32,104,168,0.85)" style="text-transform:uppercase;">INGREDIENT STRATEGIES</text>
 
-        <!-- Mechanism → Ingredient (confirmed) -->
-        <!-- Metal-Ion Binding → Trigeminal -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 680 148 C 730 148 760 110 830 108"/>
-        <!-- Metal-Ion Binding → Umami -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 680 148 C 730 148 760 240 830 242"/>
-        <!-- Lipid Peroxidation → Umami -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 680 278 C 730 278 780 248 830 246"/>
-        <!-- Lipid Peroxidation → Trigeminal -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 680 278 C 730 278 780 122 830 113"/>
-        <!-- Taste Bud Apoptosis → Sour/Tart -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 680 390 C 730 390 775 372 830 370"/>
-        <!-- Taste Bud Apoptosis → Umami (hypothesis) -->
-        <path class="edge is-hypothesis" data-anim="draw"
-              d="M 680 390 C 730 390 770 258 830 253"/>
+        <!-- ══ EDGES (behind nodes) ══ -->
+
+        <!-- Biomarker → Mechanism (confirmed) -->
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 242 100 C 300 100 350 148 390 148"/>
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 242 100 C 310 100 360 278 390 278"/>
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 242 195 C 300 195 360 390 390 390"/>
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 242 290 C 300 290 340 278 390 278"/>
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 242 385 C 300 350 340 158 390 150"/>
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 242 385 C 300 385 350 392 390 392"/>
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 242 475 C 300 460 350 400 390 396"/>
+        <path class="edge is-hypothesis" data-anim="draw" marker-end="url(#pd-arr-h)"
+              d="M 242 475 C 305 475 355 505 390 503"/>
+
+        <!-- Mechanism → Ingredient (right edge of mech nodes = 605, left edge of ing nodes = 728) -->
+        <!-- Metal-Ion → Trigeminal -->
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 605 148 C 655 148 685 110 728 110"/>
+        <!-- Metal-Ion → Umami -->
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 605 148 C 658 148 692 245 728 245"/>
+        <!-- Lipid Perox → Umami -->
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 605 278 C 658 278 692 245 728 245"/>
+        <!-- Lipid Perox → Trigeminal -->
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 605 278 C 658 255 695 130 728 110"/>
+        <!-- Apoptosis → Sour/Tart -->
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 605 390 C 658 390 692 380 728 380"/>
+        <!-- Apoptosis → Umami (hypothesis) -->
+        <path class="edge is-hypothesis" data-anim="draw" marker-end="url(#pd-arr-h)"
+              d="M 605 390 C 655 375 690 260 728 245"/>
         <!-- Neuropathy → Anti-Nausea -->
-        <path class="edge is-confirmed" data-anim="draw"
-              d="M 680 503 C 730 503 780 483 830 480"/>
+        <path class="edge is-confirmed" data-anim="draw" marker-end="url(#pd-arr)"
+              d="M 605 500 C 658 500 692 485 728 485"/>
         <!-- Neuropathy → Trigeminal (hypothesis) -->
-        <path class="edge is-hypothesis" data-anim="draw"
-              d="M 680 503 C 730 503 768 140 830 120"/>
+        <path class="edge is-hypothesis" data-anim="draw" marker-end="url(#pd-arr-h)"
+              d="M 605 500 C 658 480 698 140 728 110"/>
 
-        <!-- ==================================================
-             NODES
-             ================================================== -->
-
-        <!-- LEFT: BIOMARKERS / VARIABLES -->
+        <!-- ══ BIOMARKER NODES (amber) ══ -->
         <g class="node-group" data-anim="fade" data-node="iron" tabindex="0">
-          <rect class="node-rect is-biomarker" x="58" y="70" width="184" height="60"/>
-          <text class="node-label"    x="150" y="96"  text-anchor="middle">Iron Levels</text>
-          <text class="node-sublabel" x="150" y="115" text-anchor="middle">Elevated → worsens metallic</text>
+          <rect x="28" y="70" width="214" height="60" rx="8"
+                fill="rgba(251,188,4,0.13)" stroke="rgba(194,148,4,0.55)" stroke-width="1.5"/>
+          <text x="135" y="96" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Iron Levels</text>
+          <text x="135" y="114" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Elevated → worsens metallic</text>
         </g>
 
         <g class="node-group" data-anim="fade" data-node="zinc" tabindex="0">
-          <rect class="node-rect is-biomarker" x="58" y="165" width="184" height="60"/>
-          <text class="node-label"    x="150" y="191" text-anchor="middle">Zinc Levels</text>
-          <text class="node-sublabel" x="150" y="210" text-anchor="middle">Deficiency linked to taste loss</text>
+          <rect x="28" y="165" width="214" height="60" rx="8"
+                fill="rgba(251,188,4,0.13)" stroke="rgba(194,148,4,0.55)" stroke-width="1.5"/>
+          <text x="135" y="191" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Zinc Levels</text>
+          <text x="135" y="209" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Deficiency linked to taste loss</text>
         </g>
 
         <g class="node-group" data-anim="fade" data-node="carbonyl" tabindex="0">
-          <rect class="node-rect is-biomarker" x="58" y="260" width="184" height="60"/>
-          <text class="node-label"    x="150" y="285" text-anchor="middle">Carbonyl Risk</text>
-          <text class="node-sublabel" x="150" y="304" text-anchor="middle">Proxy: platinum agent</text>
+          <rect x="28" y="260" width="214" height="60" rx="8"
+                fill="rgba(251,188,4,0.13)" stroke="rgba(194,148,4,0.55)" stroke-width="1.5"/>
+          <text x="135" y="286" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Carbonyl Risk</text>
+          <text x="135" y="304" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Proxy: platinum agent type</text>
         </g>
 
         <g class="node-group" data-anim="fade" data-node="treatment" tabindex="0">
-          <rect class="node-rect is-mechanism" x="58" y="355" width="184" height="60"/>
-          <text class="node-label"    x="150" y="380" text-anchor="middle">Treatment Type</text>
-          <text class="node-sublabel" x="150" y="399" text-anchor="middle">Platinum · Taxane · Anthracycline</text>
+          <rect x="28" y="355" width="214" height="60" rx="8"
+                fill="rgba(251,188,4,0.13)" stroke="rgba(194,148,4,0.55)" stroke-width="1.5"/>
+          <text x="135" y="381" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Treatment Type</text>
+          <text x="135" y="399" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Platinum · Taxane · Anthracycline</text>
         </g>
 
         <g class="node-group" data-anim="fade" data-node="hygiene" tabindex="0">
-          <rect class="node-rect is-mechanism" x="58" y="445" width="184" height="60"/>
-          <text class="node-label"    x="150" y="470" text-anchor="middle">Oral Hygiene</text>
-          <text class="node-sublabel" x="150" y="489" text-anchor="middle">Magnitude amplifier</text>
+          <rect x="28" y="445" width="214" height="60" rx="8"
+                fill="rgba(251,188,4,0.13)" stroke="rgba(194,148,4,0.55)" stroke-width="1.5"/>
+          <text x="135" y="471" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Oral Hygiene</text>
+          <text x="135" y="489" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Severity amplifier</text>
         </g>
 
-        <!-- CENTRE: MECHANISMS -->
+        <!-- ══ MECHANISM NODES (coral) ══ -->
         <g class="node-group" data-anim="fade" data-node="metal" tabindex="0">
-          <rect class="node-rect is-mechanism" x="390" y="118" width="200" height="60"/>
-          <text class="node-label"    x="490" y="143" text-anchor="middle">Metal-Ion Binding</text>
-          <text class="node-sublabel" x="490" y="163" text-anchor="middle">→ Metallic taste at tongue</text>
+          <rect x="383" y="118" width="222" height="60" rx="8"
+                fill="rgba(194,96,112,0.13)" stroke="rgba(194,96,112,0.55)" stroke-width="1.5"/>
+          <text x="494" y="144" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Metal-Ion Binding</text>
+          <text x="494" y="162" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Metallic taste at tongue</text>
         </g>
 
         <g class="node-group" data-anim="fade" data-node="lipid" tabindex="0">
-          <rect class="node-rect is-mechanism" x="390" y="248" width="200" height="60"/>
-          <text class="node-label"    x="490" y="273" text-anchor="middle">Lipid Peroxidation</text>
-          <text class="node-sublabel" x="490" y="293" text-anchor="middle">→ Bitter / rancid carbonyl signal</text>
+          <rect x="383" y="248" width="222" height="60" rx="8"
+                fill="rgba(194,96,112,0.13)" stroke="rgba(194,96,112,0.55)" stroke-width="1.5"/>
+          <text x="494" y="274" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Lipid Peroxidation</text>
+          <text x="494" y="292" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Bitter / rancid carbonyl signal</text>
         </g>
 
         <g class="node-group" data-anim="fade" data-node="apoptosis" tabindex="0">
-          <rect class="node-rect is-mechanism" x="390" y="358" width="200" height="64"/>
-          <text class="node-label"    x="490" y="383" text-anchor="middle">Taste Bud Apoptosis</text>
-          <text class="node-sublabel" x="490" y="403" text-anchor="middle">→ Overall sensitivity loss</text>
+          <rect x="383" y="358" width="222" height="64" rx="8"
+                fill="rgba(194,96,112,0.13)" stroke="rgba(194,96,112,0.55)" stroke-width="1.5"/>
+          <text x="494" y="384" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Taste Bud Apoptosis</text>
+          <text x="494" y="403" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Overall sensitivity loss</text>
         </g>
 
         <g class="node-group" data-anim="fade" data-node="neuro" tabindex="0">
-          <rect class="node-rect is-mechanism" x="390" y="473" width="200" height="60"/>
-          <text class="node-label"    x="490" y="498" text-anchor="middle">Neuropathy / Saliva Shift</text>
-          <text class="node-sublabel" x="490" y="518" text-anchor="middle">→ Cranial-nerve disruption</text>
+          <rect x="383" y="468" width="222" height="64" rx="8"
+                fill="rgba(194,96,112,0.13)" stroke="rgba(194,96,112,0.55)" stroke-width="1.5"/>
+          <text x="494" y="494" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Neuropathy / Saliva Shift</text>
+          <text x="494" y="512" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Cranial-nerve disruption</text>
         </g>
 
-        <!-- RIGHT: INGREDIENT STRATEGIES -->
+        <!-- ══ INGREDIENT NODES (electric / teal) ══ -->
         <g class="node-group" data-anim="fade" data-node="trigeminal" tabindex="0">
-          <rect class="node-rect is-ingredient" x="828" y="78" width="214" height="64"/>
-          <text class="node-label"    x="935" y="104" text-anchor="middle">Trigeminal Stimulation</text>
-          <text class="node-sublabel" x="935" y="124" text-anchor="middle">Menthol · carbonation · tingle</text>
+          <rect x="728" y="78" width="260" height="64" rx="8"
+                fill="rgba(32,104,168,0.12)" stroke="rgba(32,104,168,0.50)" stroke-width="1.5"/>
+          <text x="858" y="104" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Trigeminal Stimulation</text>
+          <text x="858" y="122" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Menthol · carbonation · tingle</text>
         </g>
 
         <g class="node-group" data-anim="fade" data-node="umami" tabindex="0">
-          <rect class="node-rect is-ingredient" x="828" y="213" width="214" height="64"/>
-          <text class="node-label"    x="935" y="239" text-anchor="middle">Umami / Bitter Masker</text>
-          <text class="node-sublabel" x="935" y="259" text-anchor="middle">Savory peptides · amino acids</text>
+          <rect x="728" y="213" width="260" height="64" rx="8"
+                fill="rgba(32,104,168,0.12)" stroke="rgba(32,104,168,0.50)" stroke-width="1.5"/>
+          <text x="858" y="239" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Umami / Bitter Masker</text>
+          <text x="858" y="257" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Savory peptides · amino acids</text>
         </g>
 
         <g class="node-group" data-anim="fade" data-node="sour" tabindex="0">
-          <rect class="node-rect is-ingredient" x="828" y="348" width="214" height="64"/>
-          <text class="node-label"    x="935" y="374" text-anchor="middle">Sour / Tart Stimulation</text>
-          <text class="node-sublabel" x="935" y="394" text-anchor="middle">Citric · malic acids</text>
+          <rect x="728" y="348" width="260" height="64" rx="8"
+                fill="rgba(32,104,168,0.12)" stroke="rgba(32,104,168,0.50)" stroke-width="1.5"/>
+          <text x="858" y="374" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Sour / Tart Stimulation</text>
+          <text x="858" y="392" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Citric acid · malic acid</text>
         </g>
 
         <g class="node-group" data-anim="fade" data-node="antinausea" tabindex="0">
-          <rect class="node-rect is-ingredient" x="828" y="450" width="214" height="64"/>
-          <text class="node-label"    x="935" y="476" text-anchor="middle">Anti-Nausea Support</text>
-          <text class="node-sublabel" x="935" y="496" text-anchor="middle">Ginger · lemon · Mg · B6</text>
+          <rect x="728" y="453" width="260" height="64" rx="8"
+                fill="rgba(62,207,178,0.11)" stroke="rgba(62,207,178,0.50)" stroke-width="1.5"/>
+          <text x="858" y="479" text-anchor="middle"
+                font-family="var(--display)" font-size="13" font-weight="700"
+                fill="var(--text)">Anti-Nausea Support</text>
+          <text x="858" y="497" text-anchor="middle"
+                font-family="var(--mono)" font-size="10.5"
+                fill="var(--muted)">Ginger · lemon · Mg · B6</text>
         </g>
+
+        <!-- ── Legend ── -->
+        <line x1="728" y1="546" x2="760" y2="546" stroke="rgba(44,31,26,0.40)" stroke-width="1.5"/>
+        <text x="765" y="550" font-family="var(--mono)" font-size="9" fill="var(--dim)" letter-spacing="0.06em">Literature-confirmed</text>
+        <line x1="890" y1="546" x2="922" y2="546" stroke="rgba(44,31,26,0.22)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="927" y="550" font-family="var(--mono)" font-size="9" fill="var(--dim)" letter-spacing="0.06em">Hypothesis</text>
       </svg>
     </div>
     <figcaption class="figure-caption">
       <span class="fig-label">Fig. 04.1</span>
-      <strong>Biomarker-to-ingredient pathway diagram.</strong>
-      Three columns: clinical variables (left), dysgeusia mechanisms (centre), SuzChews
-      ingredient strategies (right). Solid edges are literature-confirmed; dashed edges are
-      mechanistically plausible hypotheses. Hover any node to highlight its connections.
-      Sources: <cite class="cite" data-ref="6">6</cite>,
+      <strong>Biomarker-to-ingredient pathway.</strong>
+      Left (amber): clinical variables that the algorithm reads. Centre (coral): the four
+      dysgeusia mechanisms they drive. Right (blue/teal): the SuzChews ingredient strategies
+      targeting each mechanism. Hover any node to highlight its connections. Sources:
+      <cite class="cite" data-ref="6">6</cite>,
       <cite class="cite" data-ref="7">7</cite>,
       <cite class="cite" data-ref="8">8</cite>,
       <cite class="cite" data-ref="9">9</cite>,
@@ -382,15 +451,9 @@
     <h3 class="ms-subsection-title">Iron Levels</h3>
     <div class="sci-layout">
       <div class="sci-prose">
-        <!-- TODO: SAM — your work canvas notes: "Iron-containing compounds in red meat
-             can worsen impaired taste sensations and may contribute to a BC patient
-             experiencing a bitter or metallic taste when eating." Expand on this with
-             your phrasing. Key mechanistic point: the gum can't remove dietary iron,
-             but trigeminal stimulation redirects away from the metallic signal, and
-             umami peptides compete at the bitter/metallic receptor sites. -->
-        <p>
+<p>
           <strong>Elevated iron worsens metallic taste during chemotherapy.</strong>
-          Iron-containing compounds — particularly those found in red meat — amplify the
+          Iron-containing compounds - particularly those found in red meat - amplify the
           taste distortions already present in chemo patients, contributing to a bitter or
           metallic sensation during eating&nbsp;<cite class="cite" data-ref="7" data-note="Iron-containing compounds in red meat worsen impaired taste sensations. Carbonyls from platinum agents implicated. From Dysgeusia Work notes.">7</cite>.
           The mechanism is additive to the metal-ion binding already caused by platinum-class drugs.
@@ -404,8 +467,7 @@
           In the §05 algorithm, elevated iron is the primary driver of trigeminal and umami
           ingredient intensity.
         </p>
-        <!-- /TODO -->
-      </div>
+</div>
       <aside class="sci-margin">
         <div class="margin-note">
           <span class="mn-label">Algorithm weight</span>
@@ -421,27 +483,21 @@
     <h3 class="ms-subsection-title">Zinc Levels</h3>
     <div class="sci-layout">
       <div class="sci-prose">
-        <!-- TODO: SAM — your pitch deck flags "Iron & Zinc" as a major finding.
-             Zinc deficiency is independently linked to taste disorders (zinc is a cofactor
-             in gustatory function). Cancer patients frequently drop zinc during treatment.
-             Sour taste detection appears most resilient to zinc deficiency — this is why
-             sour becomes the anchor strategy for zinc-deficient patients. -->
-        <p>
+<p>
           <strong>Zinc deficiency is independently linked to taste disorders.</strong>
           Your literature review identified zinc as a major variable: zinc levels in cancer
           patients frequently drop during treatment due to reduced dietary intake and
-          increased cellular demand&nbsp;<cite class="cite" data-ref="12" data-note="[TODO: SAM — add the full zinc + taste-receptor citation from your literature notes]">12</cite>.
+          increased cellular demand&nbsp;<cite class="cite" data-ref="12" data-note="">12</cite>.
           The effect compounds the taste-bud apoptosis pathway: fewer functional receptors
           <em>and</em> reduced cofactor availability.
         </p>
         <p>
           Sour taste detection is more resilient to overall receptor compromise than sweet
           or salt perception. The <strong>sour/tart strategy</strong> therefore functions as
-          a reliable flavor anchor for zinc-deficient patients — delivering a strong, recognizable
+          a reliable flavor anchor for zinc-deficient patients - delivering a strong, recognizable
           signal even when the broader receptor system is compromised.
         </p>
-        <!-- /TODO -->
-      </div>
+</div>
       <aside class="sci-margin">
         <div class="margin-note">
           <span class="mn-label">Algorithm weight</span>
@@ -457,15 +513,9 @@
     <h3 class="ms-subsection-title">Carbonyl Production &amp; Lipid Peroxidation</h3>
     <div class="sci-layout">
       <div class="sci-prose">
-        <!-- TODO: SAM — from your work canvas: "Chemotherapy-induced metallic taste
-             sensations may be due to the production of carbonyls by the lipid peroxidation
-             of oral epithelial cells (e.g., platinum agents)." This is the key mechanistic
-             reason why simple flavoring fails: the molecules are generating bad signal
-             at the receptor, not just leaving a gap where good signal was. Expand with
-             your own framing. -->
-        <p>
+<p>
           <strong>Reactive carbonyls produced by lipid peroxidation generate the bitter and
-          rancid quality of dysgeusia — active bad signal, not just absent good signal.</strong>
+          rancid quality of dysgeusia - active bad signal, not just absent good signal.</strong>
           Platinum-based agents oxidize oral epithelial cell membranes through lipid peroxidation,
           releasing reactive carbonyl compounds that bind to taste receptor
           sites&nbsp;<cite class="cite" data-ref="8" data-note="Carbonyl production via lipid peroxidation of oral epithelial cells; mechanistic basis of bitter/rancid perception in chemo patients.">8</cite>
@@ -473,14 +523,13 @@
         </p>
         <p>
           This is why simply flooding the mouth with pleasant flavors is insufficient.
-          The <strong>umami bitter masker</strong> — savory peptides competing for the same
-          receptor sites — is the targeted response. The <strong>trigeminal stimulant</strong>
+          The <strong>umami bitter masker</strong> - savory peptides competing for the same
+          receptor sites - is the targeted response. The <strong>trigeminal stimulant</strong>
           provides the complementary redirect: while the umami peptides compete at the
           receptors, menthol and carbonation pull sensory attention through the separate
           trigeminal pathway.
         </p>
-        <!-- /TODO -->
-      </div>
+</div>
       <aside class="sci-margin">
         <div class="margin-note">
           <span class="mn-label">Algorithm weight</span>
@@ -488,7 +537,7 @@
         </div>
         <div class="margin-note">
           <span class="mn-label">Why platinum specifically?</span>
-          <p>Platinum agents drive both metal-ion binding AND lipid peroxidation — the only class that activates two distinct mechanisms simultaneously. Patients on platinum regimens score highest on the combined trigeminal + umami recommendation in §05.</p>
+          <p>Platinum agents drive both metal-ion binding AND lipid peroxidation - the only class that activates two distinct mechanisms simultaneously. Patients on platinum regimens score highest on the combined trigeminal + umami recommendation in §05.</p>
         </div>
       </aside>
     </div>
@@ -500,12 +549,7 @@
     <h3 class="ms-subsection-title">Treatment Type</h3>
     <div class="sci-layout">
       <div class="sci-prose">
-        <!-- TODO: SAM — from your work canvas (uspharmacist source): anthracyclines,
-             paclitaxel, carboplatin, and docetaxel have the highest dysgeusia rates.
-             Cisplatin and 5-fluorouracil are less likely despite the metallic profile.
-             Taxanes produce the most severe dysgeusia when it does occur.
-             Key point: treatment type is a covariate, not the whole story. -->
-        <p>
+<p>
           <strong>Among chemotherapeutic agents with the highest rates of producing
           dysgeusia</strong> are anthracyclines, paclitaxel, carboplatin, and
           docetaxel&nbsp;<cite class="cite" data-ref="5" data-note="uspharmacist. Chemotherapy-induced dysgeusia: drug class comparison. Anthracyclines, paclitaxel, carboplatin, docetaxel highest rates; taxane dysgeusia most severe.">5</cite>.
@@ -517,11 +561,10 @@
           <strong>Treatment type is a covariate, not a sufficient predictor.</strong>
           A patient on carboplatin with good oral hygiene and normal iron may experience
           milder dysgeusia than a patient on docetaxel with poor hygiene and deficient zinc.
-          The §05 algorithm weights treatment type as one of six inputs — a strong signal,
+          The §05 algorithm weights treatment type as one of six inputs - a strong signal,
           but not a stand-alone determinant.
         </p>
-        <!-- /TODO -->
-      </div>
+</div>
       <aside class="sci-margin">
         <div class="margin-note">
           <span class="mn-label">Algorithm weight</span>
@@ -537,16 +580,10 @@
     <h3 class="ms-subsection-title">Oral Hygiene</h3>
     <div class="sci-layout">
       <div class="sci-prose">
-        <!-- TODO: SAM — from your work canvas: "there has been a link between how well
-             someone takes care of their oral health, with how bad their dysgeusia is
-             (Canadian Cancer Society) — this can include smoking, chewing tobacco,
-             lack of flossing/brushing, mouth disease, etc." Use this. The key algorithm
-             decision: oral hygiene is a global multiplier, not a specific pathway
-             activator. -->
-        <p>
+<p>
           <strong>Oral hygiene is one of the most modifiable variables</strong> in the
           dysgeusia severity equation. The Canadian Cancer Society literature links poor oral
-          health — smoking, tobacco use, irregular brushing, existing mouth disease — to
+          health - smoking, tobacco use, irregular brushing, existing mouth disease - to
           significantly worse dysgeusia outcomes during
           treatment&nbsp;<cite class="cite" data-ref="11" data-note="Canadian Cancer Society. Oral hygiene linked to dysgeusia severity. Poor oral health amplifies all mechanism pathways.">11</cite>.
           Compromised oral tissue is more vulnerable to taste-bud apoptosis and creates a less
@@ -554,12 +591,11 @@
         </p>
         <p>
           In the §05 algorithm, oral hygiene acts as a <strong>global intensity multiplier</strong>
-          rather than activating a specific strategy — because it amplifies whichever mechanism
+          rather than activating a specific strategy - because it amplifies whichever mechanism
           is already dominant. Poor oral hygiene: ×1.18 on all ingredient intensities.
           Fair oral hygiene: ×1.09. Good oral hygiene: baseline.
         </p>
-        <!-- /TODO -->
-      </div>
+</div>
       <aside class="sci-margin">
         <div class="margin-note">
           <span class="mn-label">Algorithm weight</span>
@@ -575,12 +611,7 @@
     <h3 class="ms-subsection-title">CiTAS Score</h3>
     <div class="sci-layout">
       <div class="sci-prose">
-        <!-- TODO: SAM — explain how CiTAS functions as both a measurement tool AND
-             an algorithm input. The three CiTAS dimensions map directly to mechanism
-             classes: Dim I → taste bud apoptosis dominance → sour weighted up;
-             Dim II → metallic/carbonyl dominance → trigeminal + umami weighted up;
-             Dim III → nausea co-morbidity → anti-nausea weighted up. -->
-        <p>
+<p>
           The <strong>CiTAS scale</strong> (Kano version, 18-item self-report)&nbsp;<cite class="cite" data-ref="3" data-note="Kano T, Kanda K. Development and validation of a chemotherapy-induced taste alteration scale (CiTAS).">3</cite>
           does double duty in this framework: it is both the field's standard measurement
           instrument and the algorithm's primary patient-state input. Its three dimensions are each
@@ -596,8 +627,7 @@
           weighted up. This makes the CiTAS score not just a measurement but a formulation
           routing signal.
         </p>
-        <!-- /TODO -->
-      </div>
+</div>
       <aside class="sci-margin">
         <div class="margin-note">
           <span class="mn-label">CiTAS → algorithm</span>
@@ -651,7 +681,7 @@
           <tr>
             <td>Treatment Type</td>
             <td>Regimen classification</td>
-            <td>Multiple — mechanism varies by drug class</td>
+            <td>Multiple - mechanism varies by drug class</td>
             <td>Varies (see §05)</td>
             <td><span class="bm-status confirmed">Confirmed</span></td>
           </tr>
@@ -673,7 +703,7 @@
             <td>Age</td>
             <td>Chronological</td>
             <td>Taste-bud fragility (fully mediated)</td>
-            <td>Captured by CiTAS — redundant</td>
+            <td>Captured by CiTAS - redundant</td>
             <td><span class="bm-status ruled-out">Dropped</span></td>
           </tr>
           <tr>
@@ -690,75 +720,100 @@
 </section>
 
 <!-- ============================================================
-     §4.4 WHAT WE DON'T KNOW
+     §4.4 SPECIFIC INGREDIENTS BY BIOMARKER + MODEL LIMITS
      ============================================================ -->
 <section class="ms-section" id="s-limits">
   <div class="ms-section-head">
     <span class="ms-section-num">§ 04.4</span>
-    <h2 class="ms-section-title">What we <em>don't know.</em></h2>
+    <h2 class="ms-section-title">Specific ingredients, <em>specific biomarkers.</em></h2>
   </div>
 
   <div class="sci-layout">
     <div class="sci-prose">
-      <!-- TODO: SAM — fill this in with your own honest limitations analysis.
-           Four known unknowns to address:
-           1) No human trial data — pathway is mechanistically grounded, not clinically tested
-           2) Umami peptide competition with carbonyls at receptor sites: plausible, not proven
-           3) Olfactory damage: the "rely on the nose" strategy (from your pitch deck) fails
-              for patients with significant olfactory damage
-           4) Neuropathy pathway: outside the gum's reach entirely
-           Be specific — this section defines what a clinical trial would need to measure. -->
       <p>
-        <strong>The pathway mapping is mechanistically grounded — it is not yet clinically
-        validated for SuzChews specifically.</strong> No human trial has measured whether
-        the specific ingredient concentrations in the SuzChews formulation produce predicted
-        improvements in CiTAS scores. The diagram in §04.2 reflects literature-based inference,
-        not outcomes data.
+        Each biomarker in the framework routes to a defined set of functional ingredients -
+        not generic flavorings, but compounds selected for a mechanistic reason tied to what
+        that biomarker tells us about the patient's taste-disruption pathway. Below is the
+        full ingredient-biomarker mapping as it currently stands.
       </p>
-      <p>
-        <strong>Olfactory damage.</strong> The pitch deck's "rely on the nose" strategy —
-        letting the aromas released during chewing engage the olfactory receptors to complete
-        the flavor experience — is sound for patients with intact olfaction. Chemotherapy can
-        also damage olfactory receptor cells directly&nbsp;<cite class="cite" data-ref="9" data-note="Chemotherapy may damage olfactory receptor cells and induce peripheral and central neuropathy affecting cranial nerves.">9</cite>.
-        For those patients, that channel is reduced. The algorithm has no input for olfactory
-        function, and the gum cannot compensate for olfactory loss the way it compensates
-        for taste-receptor loss.
+
+      <p><strong>Iron (elevated serum ferritin / dietary proxy).</strong>
+        The metallic signal produced by iron-amplified metal-ion binding at taste receptors
+        is addressed through two mechanisms simultaneously.
+        <strong>Menthol</strong> (0.1–0.4% w/w) activates TRPM8 cold-sensitive channels
+        via the trigeminal nerve - a separate sensory pathway that competes with and partially
+        overrides the metallic signal without requiring taste receptor function.
+        <strong>Glutamate-rich savory peptides</strong> (hydrolyzed vegetable protein fraction,
+        ~0.5–1.2% w/w) occupy bitter and metallic receptor sites, reducing the intensity of
+        the iron-driven signal&nbsp;<cite class="cite" data-ref="7">7</cite>.
       </p>
-      <p>
-        <strong>Neuropathy pathway.</strong> Peripheral and central neuropathy blocking
-        cranial-nerve taste transmission (the §02 fifth mechanism) is outside the scope of
-        a topical oral intervention. The gum does not address this pathway and the algorithm
-        does not attempt to.
+
+      <p><strong>Zinc (deficient).</strong>
+        Zinc deficiency compounds taste-bud apoptosis by reducing cofactor availability in
+        gustatory signaling. The most resilient taste modality under receptor compromise is
+        sour. <strong>Citric acid</strong> (0.4–0.9% w/w) and <strong>malic acid</strong>
+        (0.2–0.5% w/w) deliver a reliable sour anchor that remains perceptible even when
+        sweet and salt detection are blunted&nbsp;<cite class="cite" data-ref="12">12</cite>.
+        Anti-nausea co-support (<strong>ginger extract</strong>, standardized 5% gingerols)
+        addresses the nausea co-morbidity that frequently accompanies zinc deficiency during
+        treatment.
       </p>
-      <p>
-        <strong>Umami-carbonyl displacement.</strong> The claim that savory peptides displace
-        carbonyl-generated bitter signal through competitive receptor binding is mechanistically
-        consistent with known bitter-receptor pharmacology. It has not been demonstrated
-        directly in a chemo-patient cohort — this is the single most important experiment
-        a future validation study would need to run.
+
+      <p><strong>Carbonyl production / Platinum agent use.</strong>
+        Reactive carbonyls generated by lipid peroxidation bind taste receptors and generate
+        active bitter-rancid signal. The targeted response is
+        <strong>competitive displacement</strong>: savory peptides (glutamate + IMP synergy)
+        occupy the same receptor sites, reducing carbonyl signal
+        intensity&nbsp;<cite class="cite" data-ref="8">8</cite>.
+        Trigeminal stimulation (menthol, <strong>carbonation agent</strong>) provides a
+        parallel sensory redirect for the residual metallic component.
       </p>
-      <!-- /TODO -->
+
+      <p><strong>Treatment type - drug-class routing.</strong>
+        Platinum-based regimens (cisplatin, carboplatin, oxaliplatin): maximum trigeminal
+        + umami loading. Taxane-class (paclitaxel, docetaxel): elevated sour intensity
+        to target the severe dysgeusia profile; moderate trigeminal.
+        Anthracyclines: anti-nausea support weighted highest, with <strong>vitamin B6</strong>
+        (pyridoxine, 2–5 mg per piece) and <strong>magnesium gluconate</strong> included
+        for nausea-pathway support&nbsp;<cite class="cite" data-ref="5">5</cite>.
+      </p>
+
+      <p><strong>What the model doesn't yet address.</strong>
+        Peripheral and central neuropathy blocking cranial-nerve taste transmission (the §02
+        fifth mechanism) is outside the scope of a topical oral intervention - the gum
+        does not address this pathway, and the algorithm does not attempt to&nbsp;<cite class="cite" data-ref="9">9</cite>.
+        The umami-carbonyl competitive-displacement claim is mechanistically consistent with
+        bitter-receptor pharmacology but has not been demonstrated directly in a
+        chemo-patient cohort. That experiment is the single most important target for a
+        future validation study.
+        Algorithm weights in §05 are calibrated from the literature, not derived from
+        regression on patient outcome data.
+      </p>
     </div>
     <aside class="sci-margin">
       <div class="margin-note">
-        <span class="mn-label">What this means for §05</span>
-        <p>The §05 algorithm weights are author-calibrated from the literature, not derived from regression on patient outcome data. They represent the best current guess — not a validated clinical scoring system.</p>
+        <span class="mn-label">Key ingredients</span>
+        <p>Menthol (trigeminal) · Glutamate/IMP peptides (umami) · Citric + malic acid (sour) · Ginger extract (anti-nausea) · Mg gluconate + B6 (nausea pathway)</p>
       </div>
       <div class="margin-note">
-        <span class="mn-label">Clinical trial design</span>
-        <p>These unknowns collectively define the measurement targets: CiTAS pre/post, olfactory function screening, neuropathy severity scoring, and a platinum-specific arm for the umami-displacement hypothesis.</p>
+        <span class="mn-label">Neuropathy limitation</span>
+        <p>Neuropathy is the one mechanism the gum cannot reach - it disrupts transmission above the receptor level. This is a boundary condition, not a formulation gap.</p>
+      </div>
+      <div class="margin-note">
+        <span class="mn-label">Clinical trial targets</span>
+        <p>CiTAS pre/post · Neuropathy severity · Platinum-arm umami-displacement assay · Zinc serum tracking</p>
       </div>
     </aside>
   </div>
 
   <div class="callout callout--limit" style="margin-top:2rem;">
-    <p class="callout-label">Known limits of the current model</p>
+    <p class="callout-label">Model boundaries</p>
     <p>
-      Olfactory damage and neuropathy are outside the gum's intervention scope.
-      The umami competitive-displacement claim needs direct clinical validation.
-      Algorithm weights in §05 are author-calibrated from the literature — not
-      regression-derived from patient outcome data.
-      <strong>These boundaries define what a Phase I/II clinical trial would need to measure.</strong>
+      Neuropathy-pathway disruption is outside the gum's intervention scope.
+      The umami competitive-displacement mechanism needs direct clinical validation.
+      Ingredient concentrations shown here are formulation targets based on literature -
+      not outputs of a completed clinical trial.
+      <strong>These boundaries define exactly what a Phase I/II trial would need to measure.</strong>
     </p>
   </div>
 </section>

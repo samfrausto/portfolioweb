@@ -13,14 +13,14 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
 // Hover states
 document.addEventListener('mouseover', e => {
   if(e.target.closest('a,button')) {
-    if(cursor) { cursor.style.width='16px'; cursor.style.height='16px'; cursor.style.background='var(--teal)'; }
-    if(ring) { ring.style.width='48px'; ring.style.height='48px'; ring.style.borderColor='rgba(62,207,178,0.3)'; }
+    if(cursor) { cursor.style.width='16px'; cursor.style.height='16px'; cursor.style.background='var(--coral)'; }
+    if(ring) { ring.style.width='48px'; ring.style.height='48px'; ring.style.borderColor='rgba(217,79,43,0.28)'; }
   }
 });
 document.addEventListener('mouseout', e => {
   if(e.target.closest('a,button')) {
-    if(cursor) { cursor.style.width='10px'; cursor.style.height='10px'; cursor.style.background='var(--coral)'; }
-    if(ring) { ring.style.width='32px'; ring.style.height='32px'; ring.style.borderColor='rgba(255,107,74,0.4)'; }
+    if(cursor) { cursor.style.width='10px'; cursor.style.height='10px'; cursor.style.background='var(--text)'; }
+    if(ring) { ring.style.width='32px'; ring.style.height='32px'; ring.style.borderColor='rgba(26,24,23,0.20)'; }
   }
 });
 

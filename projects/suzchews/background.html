@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SuzChews · §02 Background &amp; Rationale — Samuel Frausto</title>
+<title>SuzChews · §02 Background &amp; Rationale - Samuel Frausto</title>
 <meta name="description" content="Literature review of chemotherapy-induced dysgeusia: prevalence, cellular mechanism, time course, and the gap that SuzChews addresses.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +11,93 @@
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="suzchews.css">
 <style>
-/* Page-specific styles for §02 — small horizontal timeline figure */
+/* ─── §02 mechanism cards — horizontal strip layout ─────────── */
+.mech-cards {
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+  margin: 2.5rem 0;
+}
+.mech-card {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--sh-sm);
+  overflow: hidden;
+  position: relative;
+}
+/* Remove old side-bar pseudo element */
+.mech-card::before { display: none; }
+
+.mech-card-accent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.92);
+  letter-spacing: -.04em;
+  min-height: 120px;
+}
+.mc-1 .mech-card-accent { background: var(--coral); }
+.mc-2 .mech-card-accent { background: var(--electric); }
+.mc-3 .mech-card-accent { background: var(--amber); }
+.mc-4 .mech-card-accent { background: var(--violet); }
+
+.mech-card-content {
+  padding: 1.5rem 1.75rem;
+}
+.mech-card-num {
+  font-family: var(--mono);
+  font-size: .55rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: .45rem;
+}
+.mech-card-title {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -.015em;
+  color: var(--text);
+  margin: 0 0 .65rem;
+}
+.mech-card-body {
+  font-size: .83rem;
+  line-height: 1.72;
+  color: var(--muted);
+  margin: 0;
+}
+.mech-card-body strong { color: var(--text); font-weight: 500; }
+.mech-key-point {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .85rem;
+  padding: .38rem .8rem;
+  border-radius: 99px;
+  font-family: var(--mono);
+  font-size: .58rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.mech-card.mc-1 .mech-key-point { background:rgba(194,96,112,.10); color:var(--coral); border:1px solid rgba(194,96,112,.25); }
+.mech-card.mc-2 .mech-key-point { background:rgba(32,104,168,.08); color:var(--electric); border:1px solid rgba(32,104,168,.20); }
+.mech-card.mc-3 .mech-key-point { background:rgba(192,128,64,.10); color:var(--amber); border:1px solid rgba(192,128,64,.25); }
+.mech-card.mc-4 .mech-key-point { background:rgba(123,106,158,.10); color:var(--violet); border:1px solid rgba(123,106,158,.25); }
+@media(max-width:580px){
+  .mech-card { grid-template-columns: 70px 1fr; }
+  .mech-card-accent { font-size:1.9rem; }
+}
+
+/* ─── §02 timeline tweaks for cream bg ─────────────────────── */
+
+/* Page-specific styles for §02 - small horizontal timeline figure */
 .timeline-fig{
   width:100%;
   height:auto;
@@ -21,12 +107,12 @@
 .timeline-fig .tl-axis{ stroke:var(--border2); stroke-width:1; }
 .timeline-fig .tl-tick{ stroke:var(--border2); stroke-width:1; }
 .timeline-fig .tl-tick-label{ fill:var(--dim); font-size:9px; letter-spacing:.06em; text-transform:uppercase; }
-.timeline-fig .tl-window{ fill:rgba(255,107,74,0.12); stroke:rgba(255,107,74,0.35); stroke-width:1; stroke-dasharray:2 3; }
-.timeline-fig .tl-window-label{ fill:var(--coral); font-size:10px; letter-spacing:.08em; text-transform:uppercase; font-weight:500; }
+.timeline-fig .tl-window{ fill:rgba(194,96,112,0.10); stroke:rgba(194,96,112,0.40); stroke-width:1.5; stroke-dasharray:2 3; }
+.timeline-fig .tl-window-label{ fill:var(--coral); font-size:10px; letter-spacing:.08em; text-transform:uppercase; font-weight:600; }
 .timeline-fig .tl-marker{ fill:var(--electric); }
-.timeline-fig .tl-marker-line{ stroke:var(--electric); stroke-width:1; stroke-dasharray:2 2; opacity:.6; }
-.timeline-fig .tl-marker-label{ fill:var(--text); font-size:10px; }
-.timeline-fig .tl-marker-sub{ fill:var(--dim); font-size:8.5px; }
+.timeline-fig .tl-marker-line{ stroke:var(--electric); stroke-width:1.5; stroke-dasharray:2 2; opacity:.75; }
+.timeline-fig .tl-marker-label{ fill:var(--text); font-size:11px; font-weight:600; }
+.timeline-fig .tl-marker-sub{ fill:var(--muted); font-size:9px; }
 
 .severity-fig{
   width:100%;
@@ -34,10 +120,10 @@
   font-family:var(--mono);
 }
 .severity-fig .bar{ transition:fill .25s; }
-.severity-fig .bar-bg{ fill:var(--bg3); }
-.severity-fig .bar-name{ fill:var(--text); font-size:10px; }
-.severity-fig .bar-val{ fill:var(--dim); font-size:9px; font-feature-settings:'tnum' 1; }
-.severity-fig .severity-label{ fill:var(--dim); font-size:9px; letter-spacing:.08em; text-transform:uppercase; }
+.severity-fig .bar-bg{ fill:var(--bg3); rx:3; }
+.severity-fig .bar-name{ fill:var(--text); font-size:11px; font-weight:500; }
+.severity-fig .bar-val{ fill:var(--muted); font-size:9.5px; font-feature-settings:'tnum' 1; }
+.severity-fig .severity-label{ fill:var(--muted); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; }
 </style>
 </head>
 <body class="suzchews-page" data-page="02">
@@ -79,17 +165,13 @@
 <header class="manuscript-head">
   <a class="back-link" href="index.html">Back to §01 Problem</a>
   <div class="ms-eyebrow" style="margin-top:1.25rem;">
-    <span>§02 — Background &amp; Rationale</span>
+    <span>§02 - Background &amp; Rationale</span>
     <span class="ms-doi">SUZCHEWS / 2026.05 / 02</span>
   </div>
   <h1 class="ms-title">Why <em>dysgeusia</em> is the right problem to solve.</h1>
   <p class="ms-abstract">
-    Dysgeusia &mdash; the distortion of taste &mdash; affects between 17 and 86 percent of cancer patients
-    on active treatment. The mechanism is multi-causal: chemotherapeutic agents damage taste bud
-    receptor cells, alter salivary chemistry, bind metal ions to the tongue, and produce reactive
-    carbonyls through oral epithelial lipid peroxidation. The time course is variable but
-    well-bounded. No mouth-resident, continuously stimulating intervention exists today. This
-    section establishes those facts and the gap they reveal.
+    Dysgeusia - the distortion of taste - affects between 17 and 86 percent of cancer patients
+    on active treatment.
   </p>
   <div class="ms-byline">
     <span><strong>Samuel Frausto</strong> &middot; ACAD 432</span>
@@ -117,18 +199,13 @@
 
   <div class="sci-layout">
     <div class="sci-prose">
-      <!-- TODO: SAM — replace with your own framing of the prevalence stats. The numbers below
-           are pulled from your literature notes; the prose around them is scaffolding. Aim to
-           land on (a) prevalence is high, (b) the range is wide because methodology and patient
-           populations vary, and (c) the "wide range" is itself a clue about variability that
-           §02.4 picks up. -->
-        <p>
+<p>
           <strong>Dysgeusia is one of the most under-discussed major side effects of chemotherapy.</strong>
           Prevalence estimates in the literature range from <strong class="tnum">17 percent</strong>
           to <strong class="tnum">86 percent</strong> of patients on active
           treatment&nbsp;<cite class="cite" data-ref="1" data-note="Cleveland Clinic. Dysgeusia overview. Population estimate of 17%.">1</cite>&nbsp;<cite class="cite" data-ref="2" data-note="Imami et al. Taste alteration prevalence study (~75% in elderly chemotherapy patients).">2</cite>.
           That seven-fold range is itself revealing: it reflects how differently dysgeusia presents
-          across drug classes, treatment regimens, and patient populations &mdash; not noise in the data.
+          across drug classes, treatment regimens, and patient populations - not noise in the data.
         </p>
         <p>
           The standard instrument for measuring it is the <strong>CiTAS scale</strong>
@@ -139,8 +216,7 @@
           CiTAS is the closest the field has to a shared vocabulary, and it is what §05 of this
           deliverable uses to map symptom profiles to formulation strategies.
         </p>
-      <!-- /TODO -->
-    </div>
+</div>
 
     <aside class="sci-margin">
       <div class="margin-note">
@@ -166,77 +242,85 @@
 
   <div class="sci-layout">
     <div class="sci-prose">
-      <!-- TODO: SAM — flesh out the mechanism in your own voice. The four pathways below are
-           drawn directly from your literature notes and are the four that §04 builds ingredient
-           strategies against. Keep this section descriptive (what happens) rather than
-           prescriptive (what to do about it). The "what to do about it" lives on §04. -->
       <p>
-        Dysgeusia is not a single failure mode. <strong>Four mechanistically distinct injuries
-        co-occur during chemotherapy</strong>, each contributing to the overall taste disturbance:
+        Dysgeusia in cancer patients on active treatment is not a single failure mode.
+        <strong>Four mechanistically distinct injuries co-occur during chemotherapy,</strong>
+        each contributing independently to the overall taste disturbance. Understanding
+        all four is essential - because a gum that only addresses one will miss the majority
+        of what a patient is experiencing.
       </p>
-
-      <h3>Taste bud receptor cell apoptosis</h3>
-      <p>
-        Taste bud cells turn over rapidly under normal physiology. Cytotoxic chemotherapy agents
-        accelerate apoptosis without proportional regeneration, leaving fewer functional
-        receptors to detect tastants. The effect is most pronounced for <strong>salt</strong>,
-        which is consistently the most compromised primary taste in post-treatment
-        recovery&nbsp;<cite class="cite" data-ref="5" data-note="uspharmacist. Time course of chemotherapy-induced taste recovery; salt most compromised.">5</cite>.
-      </p>
-
-      <h3>Salivary chemistry shift</h3>
-      <p>
-        Saliva is the medium that solubilizes tastants for receptor contact. Chemotherapy alters
-        salivary <strong>pH, protein composition, and buffering capacity</strong>. Counter-intuitively,
-        Jensen et al. found <em>no statistically significant relationship</em> between
-        chemotherapy-induced taste alterations and salivary <em>flow rate</em> per
-        se&nbsp;<cite class="cite" data-ref="6" data-note="Jensen SB et al. Oral mucosal lesions, microbial changes, and taste alterations in adjuvant chemotherapy patients.">6</cite>
-        &mdash; the chemistry of saliva matters more than the volume.
-      </p>
-
-      <h3>Direct metal-ion binding</h3>
-      <p>
-        Several agents &mdash; particularly the <strong>platinum-based class</strong> (cisplatin,
-        carboplatin, oxaliplatin) and iron-containing supplements &mdash; bind metal ions directly
-        to the tongue surface, producing the characteristic <strong>metallic taste</strong> that
-        many patients describe. Iron-rich foods (red meat especially) can worsen the
-        sensation&nbsp;<cite class="cite" data-ref="7" data-note="Literature note: iron worsens metallic taste in chemo patients; red meat avoidance commonly reported.">7</cite>.
-      </p>
-
-      <h3>Reactive carbonyl production via lipid peroxidation</h3>
-      <p>
-        Oral epithelial cells under oxidative stress from chemotherapy undergo lipid peroxidation,
-        producing <strong>reactive carbonyl compounds</strong>. These compounds contribute to the
-        bitter and rancid quality of dysgeusia in a way that is mechanistically separate from the
-        receptor-cell loss, and they are why simply "stimulating" remaining taste buds is
-        insufficient &mdash; the molecules themselves are <em>generating bad signal</em> at the
-        chemoreceptor level&nbsp;<cite class="cite" data-ref="8" data-note="Carbonyl production via lipid peroxidation in oral epithelial cells; mechanistic basis of bitter/rancid perception.">8</cite>.
-      </p>
-
-      <p>
-        A fifth contributor &mdash; <strong>peripheral and central neuropathy</strong> with
-        cranial-nerve neurotransmission blockage &mdash; appears in some regimens and adds a
-        layer that pharmacological taste interventions cannot easily reach&nbsp;<cite class="cite" data-ref="9" data-note="Chemotherapy-induced peripheral neuropathy affecting cranial nerve taste transmission.">9</cite>.
-        Section §04 addresses how the gum strategy targets the four reachable pathways and
-        explicitly acknowledges what it cannot reach.
-      </p>
-      <!-- /TODO -->
     </div>
-
     <aside class="sci-margin">
       <div class="margin-note">
-        <span class="mn-label">Why apoptosis matters</span>
-        <p>Taste bud cells normally regenerate every 10&ndash;14 days. Chemo skews the rate of death-to-renewal, so symptoms peak <em>after</em> first exposure and recover slowly post-treatment.</p>
+        <span class="mn-label">Why four, not one</span>
+        <p>Each mechanism produces a distinct taste symptom profile. Platinum agents drive both metal-ion binding and carbonyl production simultaneously - the worst-case patient is fighting on all four fronts at once.</p>
       </div>
       <div class="margin-note">
         <span class="mn-label">A surprising negative</span>
-        <p>The Jensen et al. finding &mdash; that salivary <em>flow rate</em> is uncorrelated with dysgeusia &mdash; reframes a popular intervention idea (artificial saliva). The chemistry, not the volume, is the lever.</p>
-      </div>
-      <div class="margin-note">
-        <span class="mn-label">Platinum agents</span>
-        <p>Cisplatin, carboplatin, oxaliplatin. These are the regimens most commonly associated with metallic taste.</p>
+        <p>Jensen et al. found salivary <em>flow rate</em> uncorrelated with dysgeusia severity&nbsp;<cite class="cite" data-ref="6">6</cite> - reframing artificial-saliva as the wrong intervention. The chemistry, not the volume, is the lever.</p>
       </div>
     </aside>
+  </div>
+
+  <!-- Four mechanism cards — horizontal strip layout -->
+  <div class="mech-cards">
+    <div class="mech-card mc-1 reveal">
+      <div class="mech-card-accent">01</div>
+      <div class="mech-card-content">
+        <p class="mech-card-num">Mechanism 01</p>
+        <h3 class="mech-card-title">Taste bud receptor cell apoptosis</h3>
+        <p class="mech-card-body">
+          Chemo kills taste bud cells faster than the body can replace them. Fewer functional receptors means weaker signals - or none at all. <strong>Salt is the hardest-hit taste</strong> and the slowest to come back.&nbsp;<cite class="cite" data-ref="5">5</cite>&nbsp;<cite class="cite" data-ref="10">10</cite>
+        </p>
+        <span class="mech-key-point">SuzChews answer: sour / tart stimulation, which stays perceptible even under receptor loss</span>
+      </div>
+    </div>
+
+    <div class="mech-card mc-2 reveal">
+      <div class="mech-card-accent">02</div>
+      <div class="mech-card-content">
+        <p class="mech-card-num">Mechanism 02</p>
+        <h3 class="mech-card-title">Salivary chemistry shift</h3>
+        <p class="mech-card-body">
+          Treatment changes the pH, protein makeup, and buffering of saliva - the fluid that carries flavor to receptors. <strong>Flow rate doesn't matter; the chemistry does.</strong> More saliva doesn't fix it.&nbsp;<cite class="cite" data-ref="6">6</cite>
+        </p>
+        <span class="mech-key-point">SuzChews answer: sustained chewing that stimulates saliva production while delivering active ingredients</span>
+      </div>
+    </div>
+
+    <div class="mech-card mc-3 reveal">
+      <div class="mech-card-accent">03</div>
+      <div class="mech-card-content">
+        <p class="mech-card-num">Mechanism 03</p>
+        <h3 class="mech-card-title">Direct metal-ion binding</h3>
+        <p class="mech-card-body">
+          Platinum drugs and iron compounds bind directly to tongue receptors and produce a persistent <strong>metallic taste</strong>. It's not from the food - it's happening at the receptor itself, before flavor even registers.&nbsp;<cite class="cite" data-ref="7">7</cite>
+        </p>
+        <span class="mech-key-point">SuzChews answer: trigeminal stimulation (separate nerve, unaffected) + umami bitter masker at the receptor</span>
+      </div>
+    </div>
+
+    <div class="mech-card mc-4 reveal">
+      <div class="mech-card-accent">04</div>
+      <div class="mech-card-content">
+        <p class="mech-card-num">Mechanism 04</p>
+        <h3 class="mech-card-title">Reactive carbonyls from lipid peroxidation</h3>
+        <p class="mech-card-body">
+          Platinum agents oxidize cell membranes in the mouth, releasing carbonyl compounds that generate <strong>bitter and rancid signals</strong> on their own. Sweet candy doesn't help because the bad signal is being produced internally - independently of whatever the patient is eating.&nbsp;<cite class="cite" data-ref="8">8</cite>
+        </p>
+        <span class="mech-key-point">SuzChews answer: umami peptides compete at the same receptor sites + trigeminal redirect</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout--info" style="margin-top:1.5rem;">
+    <p class="callout-label">Fifth mechanism - outside scope</p>
+    <p>
+      A fifth contributor - <strong>peripheral and central neuropathy</strong> blocking cranial-nerve
+      taste transmission - appears in some regimens&nbsp;<cite class="cite" data-ref="9" data-note="Chemotherapy-induced peripheral neuropathy affecting cranial nerve taste transmission.">9</cite>.
+      This pathway is outside the reach of a topical oral intervention. SuzChews explicitly
+      acknowledges this limit in §04.4 and the algorithm does not attempt to address it.
+    </p>
   </div>
 </section>
 
@@ -261,7 +345,7 @@
 
         <!-- Window (dysgeusia active) -->
         <rect class="tl-window" x="120" y="80" width="720" height="80" rx="4"/>
-        <text class="tl-window-label" x="180" y="64">Dysgeusia window — symptoms present</text>
+        <text class="tl-window-label" x="180" y="64">Dysgeusia window - symptoms present</text>
 
         <!-- Tick: Day 0 (treatment start) -->
         <line class="tl-tick" x1="60" y1="155" x2="60" y2="170"/>
@@ -314,15 +398,11 @@
 
   <div class="sci-layout">
     <div class="sci-prose">
-      <!-- TODO: SAM — short prose framing the time course implications. The big point: there is a
-           well-bounded WINDOW where intervention is needed (roughly day 4 through 10+ weeks, with
-           a long tail through ~12 months post-treatment). A delivery vehicle that's mouth-resident
-           and continuously stimulating fits this window. Pills don't. -->
-      <p>
+<p>
         The clinical implication of <strong>Fig. 02.1</strong> is that dysgeusia has a
         <strong>well-bounded intervention window</strong>. Symptoms emerge predictably after first
         exposure, escalate over weeks, and recover slowly post-treatment. Any intervention
-        designed to address the experience &mdash; rather than the underlying disease &mdash; needs
+        designed to address the experience - rather than the underlying disease - needs
         to be (a) deployable within days of first exposure, (b) tolerable across weeks-to-months,
         and (c) usable through the long tail of post-treatment recovery.
       </p>
@@ -330,11 +410,10 @@
         That requirement set <strong>excludes most pharmacological options</strong> (which add
         burden to an already over-medicated patient) and <strong>most dietary modifications</strong>
         (which patients lack the energy to maintain). It strongly favors a
-        <em>passive, palatable, mouth-resident</em> intervention &mdash; which is the design
+        <em>passive, palatable, mouth-resident</em> intervention - which is the design
         thesis behind SuzChews.
       </p>
-      <!-- /TODO -->
-    </div>
+</div>
 
     <aside class="sci-margin">
       <div class="margin-note">
@@ -343,7 +422,7 @@
       </div>
       <div class="margin-note">
         <span class="mn-label">Treatment-severity caveat</span>
-        <p>Anthracyclines, paclitaxel, carboplatin, and docetaxel produce the highest dysgeusia rates&nbsp;<cite class="cite" data-ref="5">5</cite>. Cisplatin and 5-fluorouracil are <em>less likely</em> to cause taste alterations, despite cisplatin's metallic-binding profile &mdash; mechanism is not the only factor.</p>
+        <p>Anthracyclines, paclitaxel, carboplatin, and docetaxel produce the highest dysgeusia rates&nbsp;<cite class="cite" data-ref="5">5</cite>. Cisplatin and 5-fluorouracil are <em>less likely</em> to cause taste alterations, despite cisplatin's metallic-binding profile - mechanism is not the only factor.</p>
       </div>
     </aside>
   </div>
@@ -360,14 +439,9 @@
 
   <div class="sci-layout">
     <div class="sci-prose">
-      <!-- TODO: SAM — the key argument here is: aggregate stats hide the fact that two patients
-           on the same regimen at the same week can have totally different dysgeusia profiles.
-           This sets up §06 (the AI patient simulation) and §05 (the personalization algorithm).
-           Use your "Even when people are tasting the same product, taste will be variable
-           between all patients" note from your work canvas. -->
-      <p>
+<p>
         The seven-fold prevalence range from §02.1 is the first hint that
-        <strong>dysgeusia is not one disorder &mdash; it is a family of presentations.</strong>
+        <strong>dysgeusia is not one disorder - it is a family of presentations.</strong>
         Two patients on the same regimen at the same week of treatment can describe wildly
         different experiences: one tastes everything as bitter, one loses salt entirely, one
         experiences metallic intensity that fluctuates by hour.
@@ -380,8 +454,7 @@
         recommends an ingredient mix matched to that patient. That decomposition is what §05
         builds. The simulation in §06 lets a reader experience the variability directly.
       </p>
-      <!-- /TODO -->
-    </div>
+</div>
 
     <aside class="sci-margin">
       <div class="margin-note">
@@ -391,13 +464,24 @@
     </aside>
   </div>
 
+  <!-- Cancer patient specificity callout -->
+  <div class="callout callout--warn" style="margin-top:2rem;margin-bottom:0;">
+    <p class="callout-label">Who this is for</p>
+    <p style="font-size:1.05rem;line-height:1.7;color:var(--text);font-family:var(--display);font-weight:600;">
+      SuzChews is designed specifically for cancer patients experiencing
+      chemotherapy-induced dysgeusia. Not a general wellness product. Not a dry-mouth remedy.
+      For patients who have lost the ability to taste normally because of active treatment -
+      and for whom that loss is compounding an already difficult recovery.
+    </p>
+  </div>
+
   <!-- Variables we ruled out -->
-  <div class="callout callout--info" style="margin-top:2rem;">
-    <p class="callout-label">Variables we explored and ruled out</p>
+  <div class="callout callout--info" style="margin-top:1.25rem;">
+    <p class="callout-label">Variables explored and ruled out</p>
     <p>
-      Two candidate variables &mdash; <strong>generic taste-altering disease history</strong>
+      Two candidate variables - <strong>generic taste-altering disease history</strong>
       (unrelated comorbidities like reflux, diabetes) and <strong>chronological age in isolation</strong>
-      &mdash; were considered and dropped from the algorithm in §05. Disease history was uncorrelated
+      - were considered and dropped from the algorithm in §05. Disease history was uncorrelated
       with dysgeusia severity in the literature once treatment regimen was controlled
       for&nbsp;<cite class="cite" data-ref="11" data-note="Treatment severity dominates over independent disease history per Canadian Cancer Society and Imami et al.">11</cite>;
       age was correlated with severity but the mechanism is mediated entirely through
@@ -413,16 +497,12 @@
 <section class="ms-section" id="s-gap">
   <div class="ms-section-head">
     <span class="ms-section-num">§ 02.5</span>
-    <h2 class="ms-section-title">The <em>gap.</em></h2>
+    <h2 class="ms-section-title">What <em>isn't working.</em></h2>
   </div>
 
   <div class="sci-layout">
     <div class="sci-prose">
-      <!-- TODO: SAM — close out the literature review with the gap argument: there is no
-           mouth-resident, continuously stimulating, dysgeusia-targeted intervention on the
-           market. Existing options are dietary advice, generic candy/lozenges, or
-           pharmacological — none designed for this. End with a transition to §03. -->
-      <p>
+<p>
         Existing strategies for managing chemotherapy-induced dysgeusia fall into three buckets,
         none of which fit the requirement set developed above.
       </p>
@@ -432,19 +512,18 @@
         baseline. <strong>Pharmacological supplementation</strong> (zinc gluconate, glutamine,
         lactoferrin) has weak and inconsistent evidence and adds to medication burden.
         <strong>General-purpose candy and lozenges</strong> are convenient and palatable but were
-        designed for halitosis or dry mouth, not for dysgeusia &mdash; they do not target the
+        designed for halitosis or dry mouth, not for dysgeusia - they do not target the
         mechanisms in §02.2 and they do not address the salt-perception loss that defines
         post-treatment recovery.
       </p>
       <p>
         <strong>SuzChews fills that gap.</strong> A chewing gum is mouth-resident,
         continuously stimulating, requires no behavioral change, and can be formulated to target
-        the four reachable mechanisms simultaneously. The remainder of this site &mdash; §03
-        through §06 &mdash; documents what that gum is, how it was designed, and what the
+        the four reachable mechanisms simultaneously. The remainder of this site - §03
+        through §06 - documents what that gum is, how it was designed, and what the
         evidence and methodology behind it look like.
       </p>
-      <!-- /TODO -->
-    </div>
+</div>
 
     <aside class="sci-margin">
       <div class="margin-note">

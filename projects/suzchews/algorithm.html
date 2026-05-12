@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SuzChews · §05 Mapping Algorithm &amp; Live Calculator — Samuel Frausto</title>
+<title>SuzChews · §05 Mapping Algorithm &amp; Live Calculator - Samuel Frausto</title>
 <meta name="description" content="The SuzChews personalization algorithm: toggle patient inputs and watch the formulation recommendation update live. Pseudocode, methodology, and variable-weighting rationale.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,6 +67,75 @@
   font-size:.8rem;
   color:var(--dim);
   flex-shrink:0;
+}
+
+/* Ingredient prevalence map */
+.ingr-map{
+  margin-top:1.75rem;
+  padding:1.35rem 1.5rem;
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  background:var(--bg2);
+}
+.ingr-map-title{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:1.25rem;
+}
+.ingr-row{
+  display:flex;
+  align-items:center;
+  gap:.85rem;
+  margin-bottom:.75rem;
+}
+.ingr-strategy-label{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--dim);
+  min-width:15ch;
+}
+.ingr-bar-wrap{ flex:1; }
+.ingr-bar-bg{
+  height:26px;
+  background:var(--bg3);
+  border-radius:var(--r);
+  overflow:hidden;
+}
+.ingr-bar-inner{
+  height:100%;
+  border-radius:var(--r);
+  transition:width .55s var(--ease-paper);
+  display:flex;
+  align-items:center;
+  gap:.45rem;
+  padding:0 .7rem;
+  overflow:hidden;
+  min-width:0;
+}
+.ingr-bar-inner.s-trig       { background:linear-gradient(90deg,rgba(32,104,168,.4),rgba(32,104,168,.18)); }
+.ingr-bar-inner.s-umami      { background:linear-gradient(90deg,rgba(62,207,178,.4),rgba(62,207,178,.18)); }
+.ingr-bar-inner.s-sour       { background:linear-gradient(90deg,rgba(194,96,112,.4),rgba(194,96,112,.18)); }
+.ingr-bar-inner.s-antinausea { background:linear-gradient(90deg,rgba(251,188,4,.4),rgba(251,188,4,.18)); }
+.ingr-pill{
+  font-family:var(--mono);
+  font-size:.5rem;
+  letter-spacing:.06em;
+  color:var(--text);
+  white-space:nowrap;
+  opacity:.9;
+}
+.ingr-pct-label{
+  font-family:var(--mono);
+  font-size:.62rem;
+  color:var(--text);
+  min-width:3ch;
+  text-align:right;
+  font-feature-settings:'tnum' 1;
 }
 
 /* Range input theming */
@@ -143,14 +212,14 @@
 <header class="manuscript-head">
   <a class="back-link" href="biomarkers.html">Back to §04 Biomarkers</a>
   <div class="ms-eyebrow" style="margin-top:1.25rem;">
-    <span>§05 — Mapping Algorithm &amp; Live Calculator</span>
+    <span>§05 - Mapping Algorithm &amp; Live Calculator</span>
     <span class="ms-doi">SUZCHEWS / 2026.05 / 05</span>
   </div>
   <h1 class="ms-title">Every patient gets a <em>different gum.</em></h1>
   <p class="ms-abstract">
     The §04 pathway diagram defines the possible mappings. This algorithm operationalizes them.
     Toggle the inputs below to see the recommended formulation update in real time.
-    The weights are author-calibrated from the literature, not regression-derived — the
+    The weights are author-calibrated from the literature, not regression-derived - the
     methodology section at the end of this page explains exactly what that means and why it
     matters for any future validation study.
   </p>
@@ -179,14 +248,9 @@
 
   <div class="sci-layout">
     <div class="sci-prose">
-      <!-- TODO: SAM — your pitch deck described the plan: "I'm mapping variables for each
-           feature, then I'm going to make flavor profiles based on patient data that's
-           available. Based on common profiles between patients, I'm going to map out ideal
-           ingredients that will be the most effective for the most patients."
-           This section explains the operationalized version of that logic. -->
-      <p>
-        The problem §02 identified — that dysgeusia is a family of presentations, not a single
-        disorder — means any single-formulation gum will serve the average patient and miss many
+<p>
+        The problem §02 identified - that dysgeusia is a family of presentations, not a single
+        disorder - means any single-formulation gum will serve the average patient and miss many
         others. The algorithm addresses this by <strong>decomposing the symptom space into its
         mechanism components</strong> and routing each component to the ingredient strategy
         designed to address it.
@@ -200,12 +264,11 @@
         The result is a <strong>relative formulation recommendation</strong>: how much of
         the gum's ingredient budget to allocate to each strategy for this patient.
       </p>
-      <!-- /TODO -->
-    </div>
+</div>
     <aside class="sci-margin">
       <div class="margin-note">
         <span class="mn-label">What the output is</span>
-        <p>The output is a relative allocation across four strategies — not absolute concentrations. A formulation chemist would translate the allocation percentages into actual ingredient ratios and dosages.</p>
+        <p>The output is a relative allocation across four strategies - not absolute concentrations. A formulation chemist would translate the allocation percentages into actual ingredient ratios and dosages.</p>
       </div>
       <div class="margin-note">
         <span class="mn-label">What the output is not</span>
@@ -254,8 +317,7 @@
   <p class="sci-prose" style="max-width:62ch;margin-bottom:2rem;">
     Toggle the inputs on the left. The formulation bars on the right update immediately,
     and the rationale text explains what the algorithm is responding to.
-    <!-- TODO: SAM — tune the delta weights in the JS below as your formulation hypothesis firms up. -->
-  </p>
+</p>
 
   <div class="calc-shell">
     <!-- ---- INPUTS ---- -->
@@ -281,7 +343,7 @@
       <div class="calc-input-group">
         <label class="calc-input-label">
           Oral hygiene
-          <span class="helper">Global multiplier — amplifies all strategies</span>
+          <span class="helper">Global multiplier - amplifies all strategies</span>
         </label>
         <div class="calc-segment">
           <input type="radio" name="hygiene" id="hy-good" value="good" checked>
@@ -360,28 +422,87 @@
           <div class="calc-bar-track">
             <div class="calc-bar-fill" id="bar-fill-trigeminal"></div>
           </div>
-          <p class="calc-bar-value tnum"><span id="bar-val-trigeminal">—</span></p>
+          <p class="calc-bar-value tnum"><span id="bar-val-trigeminal">-</span></p>
         </div>
         <div class="calc-bar">
           <p class="calc-bar-name">Umami / bitter masker</p>
           <div class="calc-bar-track">
             <div class="calc-bar-fill" id="bar-fill-umami"></div>
           </div>
-          <p class="calc-bar-value tnum"><span id="bar-val-umami">—</span></p>
+          <p class="calc-bar-value tnum"><span id="bar-val-umami">-</span></p>
         </div>
         <div class="calc-bar">
           <p class="calc-bar-name">Sour / tart stimulation</p>
           <div class="calc-bar-track">
             <div class="calc-bar-fill" id="bar-fill-sour"></div>
           </div>
-          <p class="calc-bar-value tnum"><span id="bar-val-sour">—</span></p>
+          <p class="calc-bar-value tnum"><span id="bar-val-sour">-</span></p>
         </div>
         <div class="calc-bar">
           <p class="calc-bar-name">Anti-nausea support</p>
           <div class="calc-bar-track">
             <div class="calc-bar-fill" id="bar-fill-antinausea"></div>
           </div>
-          <p class="calc-bar-value tnum"><span id="bar-val-antinausea">—</span></p>
+          <p class="calc-bar-value tnum"><span id="bar-val-antinausea">-</span></p>
+        </div>
+      </div>
+
+      <!-- Ingredient map -->
+      <div class="ingr-map">
+        <p class="ingr-map-title">Specific ingredients - relative prevalence</p>
+        <div class="ingr-row">
+          <span class="ingr-strategy-label">Trigeminal</span>
+          <div class="ingr-bar-wrap">
+            <div class="ingr-bar-bg">
+              <div class="ingr-bar-inner s-trig" id="ingr-fill-trig" style="width:25%">
+                <span class="ingr-pill">menthol</span>
+                <span class="ingr-pill">·</span>
+                <span class="ingr-pill">carbonation</span>
+              </div>
+            </div>
+          </div>
+          <span class="ingr-pct-label" id="ingr-pct-trig">25%</span>
+        </div>
+        <div class="ingr-row">
+          <span class="ingr-strategy-label">Umami / bitter masker</span>
+          <div class="ingr-bar-wrap">
+            <div class="ingr-bar-bg">
+              <div class="ingr-bar-inner s-umami" id="ingr-fill-umami" style="width:25%">
+                <span class="ingr-pill">glutamate peptides</span>
+                <span class="ingr-pill">·</span>
+                <span class="ingr-pill">IMP</span>
+              </div>
+            </div>
+          </div>
+          <span class="ingr-pct-label" id="ingr-pct-umami">25%</span>
+        </div>
+        <div class="ingr-row">
+          <span class="ingr-strategy-label">Sour / tart</span>
+          <div class="ingr-bar-wrap">
+            <div class="ingr-bar-bg">
+              <div class="ingr-bar-inner s-sour" id="ingr-fill-sour" style="width:25%">
+                <span class="ingr-pill">citric acid</span>
+                <span class="ingr-pill">·</span>
+                <span class="ingr-pill">malic acid</span>
+              </div>
+            </div>
+          </div>
+          <span class="ingr-pct-label" id="ingr-pct-sour">25%</span>
+        </div>
+        <div class="ingr-row">
+          <span class="ingr-strategy-label">Anti-nausea</span>
+          <div class="ingr-bar-wrap">
+            <div class="ingr-bar-bg">
+              <div class="ingr-bar-inner s-antinausea" id="ingr-fill-antinausea" style="width:25%">
+                <span class="ingr-pill">ginger extract</span>
+                <span class="ingr-pill">·</span>
+                <span class="ingr-pill">B6</span>
+                <span class="ingr-pill">·</span>
+                <span class="ingr-pill">Mg gluconate</span>
+              </div>
+            </div>
+          </div>
+          <span class="ingr-pct-label" id="ingr-pct-antinausea">25%</span>
         </div>
       </div>
 
@@ -398,18 +519,80 @@
 <section class="ms-section" id="s-pseudocode">
   <div class="ms-section-head">
     <span class="ms-section-num">§ 05.3</span>
-    <h2 class="ms-section-title">The <em>pseudocode.</em></h2>
+    <h2 class="ms-section-title">How the algorithm <em>thinks.</em></h2>
   </div>
 
-  <p class="sci-prose" style="max-width:62ch;">
-    The algorithm running the calculator above in plain language. All weight values are
-    author-calibrated initial estimates — the methodology section (§05.4) explains what
-    it would take to derive them empirically.
-    <!-- TODO: SAM — adjust the delta values below as your formulation hypothesis firms up. -->
-  </p>
+  <div class="sci-layout">
+    <div class="sci-prose">
 
-  <div class="pseudo-block" role="region" aria-label="Algorithm pseudocode">
-<span class="cmt">// SuzChews formulation algorithm — v1.0</span>
+      <p><strong>Step 1 - Start equal.</strong>
+        Every cancer patient starts with the same baseline: 25 points assigned to each of
+        the four ingredient strategies. No assumptions about who they are yet.
+        Equal allocation is the fallback if no clinical information is available.
+      </p>
+
+      <p><strong>Step 2 - Adjust for drug class.</strong>
+        The chemotherapy regimen is the strongest signal.
+        <em>Platinum-based drugs</em> (carboplatin, cisplatin, oxaliplatin) activate two
+        mechanisms at once - metal-ion binding and lipid peroxidation - so both trigeminal
+        stimulation and the umami bitter masker are boosted.
+        <em>Taxane-class drugs</em> (docetaxel, paclitaxel) produce the most severe
+        taste-bud apoptosis; sour/tart is the most resilient remaining signal and is
+        weighted up. <em>Anthracyclines</em> (doxorubicin, epirubicin) are most associated
+        with nausea co-morbidity, so anti-nausea support becomes the priority.
+      </p>
+
+      <p><strong>Step 3 - Adjust for bloodwork.</strong>
+        Elevated iron amplifies the metallic signal - trigeminal and umami bitter masker
+        both increase to compete with it.
+        Zinc deficiency compounds taste-bud apoptosis by removing the cofactor gustatory
+        receptor cells need - sour/tart increases as the most reliable remaining signal,
+        and anti-nausea support gets a secondary boost.
+      </p>
+
+      <p><strong>Step 4 - Adjust for time on treatment.</strong>
+        Early weeks (1–2): baseline. Mid-treatment (3–6 weeks): symptoms established -
+        trigeminal and umami both climb. Late treatment (7–10 weeks): accumulated bitter
+        signal - umami and sour take over. Post-treatment (10+ weeks): recovery arc -
+        sour dominates as metallic signal fades and receptor regrowth begins.
+      </p>
+
+      <p><strong>Step 5 - Adjust for nausea severity.</strong>
+        Each step up in nausea severity (none → mild → moderate → severe) adds 10 points
+        to the anti-nausea strategy. Severe nausea adds 30 points - the largest
+        single-input delta in the algorithm, reflecting how completely nausea can block eating.
+      </p>
+
+      <p><strong>Step 6 - Apply the oral hygiene multiplier.</strong>
+        Oral hygiene amplifies whatever is already happening, not a specific pathway.
+        Poor oral hygiene: all four strategy scores × 1.18. Fair: × 1.09. Good: no change.
+        The formulation direction stays the same - everything intensifies proportionally.
+      </p>
+
+      <p><strong>Step 7 - Normalize to 100%.</strong>
+        All four strategy scores are divided by their total and converted to percentages.
+        The result always sums to exactly 100%: the share of the gum's ingredient budget
+        allocated to each strategy for this specific cancer patient.
+      </p>
+
+    </div>
+    <aside class="sci-margin">
+      <div class="margin-note">
+        <span class="mn-label">Platinum is the heaviest case</span>
+        <p>Platinum + elevated iron boosts trigeminal and umami twice - once for drug class (+20/+15) and again for iron (+18/+12). The metallic pathway is addressed at maximum intensity.</p>
+      </div>
+      <div class="margin-note">
+        <span class="mn-label">Nausea dominates late stage</span>
+        <p>A severe-nausea patient at 10+ weeks: anti-nausea gets +30 from severity, +10 from zinc deficiency. It will dominate the output regardless of drug class.</p>
+      </div>
+    </aside>
+  </div>
+
+  <details style="margin-top:2rem;">
+    <summary style="font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);cursor:pointer;user-select:none;padding:.5rem 0;">Technical pseudocode - expand for the formal version</summary>
+
+  <div class="pseudo-block" role="region" aria-label="Algorithm pseudocode" style="margin-top:1rem;">
+<span class="cmt">// SuzChews formulation algorithm - v1.0</span>
 <span class="cmt">// Inputs → relative ingredient strategy allocation (sums to 100%)</span>
 
 <span class="kw">INPUTS</span>
@@ -428,23 +611,23 @@
 
 <span class="kw">DELTA WEIGHTS</span>  <span class="cmt">// each variable adds to the relevant strategy(s)</span>
 
-  <span class="cmt">// Treatment type — primary mechanism profile</span>
+  <span class="cmt">// Treatment type - primary mechanism profile</span>
   <span class="kw">IF</span> treatment <span class="op">==</span> <span class="val">platinum</span>     <span class="kw">THEN</span>  trigeminal <span class="op">+=</span> <span class="val">20</span>  · umami <span class="op">+=</span> <span class="val">15</span>
   <span class="kw">IF</span> treatment <span class="op">==</span> <span class="val">taxane</span>       <span class="kw">THEN</span>  sour <span class="op">+=</span> <span class="val">12</span>  · trigeminal <span class="op">+=</span> <span class="val">8</span>
   <span class="kw">IF</span> treatment <span class="op">==</span> <span class="val">anthracycline</span> <span class="kw">THEN</span>  anti_nausea <span class="op">+=</span> <span class="val">18</span>  · trigeminal <span class="op">+=</span> <span class="val">7</span>
 
-  <span class="cmt">// Iron levels — metallic taste amplifier</span>
+  <span class="cmt">// Iron levels - metallic taste amplifier</span>
   <span class="kw">IF</span> iron <span class="op">==</span> <span class="val">elevated</span>  <span class="kw">THEN</span>  trigeminal <span class="op">+=</span> <span class="val">18</span>  · umami <span class="op">+=</span> <span class="val">12</span>
 
-  <span class="cmt">// Zinc levels — taste-bud apoptosis compounder</span>
+  <span class="cmt">// Zinc levels - taste-bud apoptosis compounder</span>
   <span class="kw">IF</span> zinc <span class="op">==</span> <span class="val">deficient</span>  <span class="kw">THEN</span>  sour <span class="op">+=</span> <span class="val">16</span>  · anti_nausea <span class="op">+=</span> <span class="val">10</span>
 
-  <span class="cmt">// Weeks on treatment — symptom arc adjustment</span>
+  <span class="cmt">// Weeks on treatment - symptom arc adjustment</span>
   <span class="kw">IF</span> weeks <span class="op">==</span> <span class="val">mid</span>  <span class="kw">THEN</span>   trigeminal <span class="op">+=</span> <span class="val">5</span>   · umami <span class="op">+=</span> <span class="val">5</span>
   <span class="kw">IF</span> weeks <span class="op">==</span> <span class="val">late</span> <span class="kw">THEN</span>   umami <span class="op">+=</span> <span class="val">8</span>      · sour <span class="op">+=</span> <span class="val">5</span>
   <span class="kw">IF</span> weeks <span class="op">==</span> <span class="val">post</span> <span class="kw">THEN</span>   sour <span class="op">+=</span> <span class="val">10</span>     · umami <span class="op">+=</span> <span class="val">5</span>
 
-  <span class="cmt">// Nausea severity — direct anti-nausea scaling</span>
+  <span class="cmt">// Nausea severity - direct anti-nausea scaling</span>
   anti_nausea <span class="op">+=</span> nausea_score <span class="op">×</span> <span class="val">10</span>  <span class="cmt">// 0 · 10 · 20 · 30</span>
 
 <span class="kw">HYGIENE MULTIPLIER</span>  <span class="cmt">// amplifies ALL strategies equally</span>
@@ -462,6 +645,7 @@
 
 <span class="kw">OUTPUT</span>  { trigeminal_pct · umami_pct · sour_pct · anti_nausea_pct }
 </div>
+  </details>
 </section>
 
 <!-- ============================================================
@@ -475,15 +659,7 @@
 
   <div class="sci-layout">
     <div class="sci-prose">
-      <!-- TODO: SAM — fill this in with your honest methodological framing. Key points:
-           1) Weights are author-calibrated from the literature, not statistically derived
-           2) The normalization step means only relative allocations matter, not absolute scores
-           3) The algorithm is a design tool for formulators, not a clinical prescription
-           4) What a proper validation study would look like: n patients, pre-post CiTAS,
-              regimen-stratified arms, maybe n-of-1 adaptive design
-           5) The deterministic nature means the same inputs always produce the same output —
-              which is a feature for reproducibility, not a bug -->
-      <p>
+<p>
         <strong>The weights in this algorithm are author-calibrated from the
         literature, not statistically derived from patient outcome data.</strong>
         Each delta weight was set by asking: given the mechanism this variable activates,
@@ -502,24 +678,31 @@
         produce the same output. This is a deliberate choice. Determinism makes the algorithm
         reproducible, auditable, and explainable to a patient or clinician. Stochastic or
         ML-based approaches could potentially produce better-calibrated weights given outcome
-        data — but they require outcome data that does not yet exist, and they trade
+        data - but they require outcome data that does not yet exist, and they trade
         explainability for precision.
       </p>
       <p>
         <strong>What a proper validation study would need to do.</strong>
-        <!-- TODO: SAM — describe the validation design: n patients per regimen arm,
-             pre-treatment and post-treatment CiTAS assessment, assignment to
-             formulation based on algorithm output, primary endpoint = CiTAS Dim. II
-             score at 6 weeks, secondary endpoints = appetite and nausea sub-scores.
-             N-of-1 adaptive designs may be appropriate given the variability problem. -->
-        [TODO: SAM — add your description of the validation study design here]
+        The ideal design is a regimen-stratified Phase I/II trial with three arms
+        (platinum, taxane, anthracycline) and roughly 20–30 patients per arm.
+        Each patient would complete a baseline CiTAS assessment before starting
+        treatment and receive a formulation recommendation from the algorithm at
+        the time of enrollment. The primary endpoint would be change in CiTAS
+        Dimension II score (qualitative metallic/bitter distortion) at 6 weeks.
+        Secondary endpoints: appetite sub-score, nausea sub-score, body-weight
+        stability. A platinum-specific arm would test the umami competitive-displacement
+        hypothesis directly - comparing patients receiving maximum umami loading against
+        a matched group receiving the trigeminal-only formulation.
+        Given the high intra-patient variability identified in §02, an n-of-1 adaptive
+        design may be more appropriate than a parallel-group design for the later
+        phases: each patient serves as their own control across sequential formulation
+        adjustments.
       </p>
-      <!-- /TODO -->
     </div>
     <aside class="sci-margin">
       <div class="margin-note">
         <span class="mn-label">Calibration vs. derivation</span>
-        <p>Author-calibrated weights are not arbitrary — they are informed by the mechanism literature in §04. They differ from statistically derived weights in that they cannot be evaluated for accuracy without outcome data.</p>
+        <p>Author-calibrated weights are not arbitrary - they are informed by the mechanism literature in §04. They differ from statistically derived weights in that they cannot be evaluated for accuracy without outcome data.</p>
       </div>
       <div class="margin-note">
         <span class="mn-label">Determinism as a feature</span>
@@ -532,7 +715,7 @@
     <p class="callout-label">Limitations of this version</p>
     <p>
       Weights are author-calibrated, not statistically derived. The algorithm has no input for
-      olfactory function or neuropathy severity — two dysgeusia contributors identified in §04.4
+      olfactory function or neuropathy severity - two dysgeusia contributors identified in §04.4
       that are outside the gum's intervention scope. CiTAS dimension scores are estimated from
       the other inputs rather than directly measured. These are the gaps a clinical validation
       study would close.
@@ -546,7 +729,7 @@
   <a class="next-page-link" href="simulation.html">
     <span>
       <span class="np-label">Up next · §06</span>
-      <span class="np-title">Patient simulation — scenario picker</span>
+      <span class="np-title">Patient simulation - scenario picker</span>
     </span>
     <span class="np-arrow">→</span>
   </a>
@@ -617,9 +800,9 @@
     var parts = [];
 
     if (s.treatment === 'platinum') {
-      parts.push('<strong>Platinum agent</strong> activates both metal-ion binding and lipid peroxidation — the two mechanisms that trigeminal stimulation and the umami bitter masker are designed to address. Both strategies are weighted up.');
+      parts.push('<strong>Platinum agent</strong> activates both metal-ion binding and lipid peroxidation - the two mechanisms that trigeminal stimulation and the umami bitter masker are designed to address. Both strategies are weighted up.');
     } else if (s.treatment === 'taxane') {
-      parts.push('<strong>Taxane agent</strong> produces the most severe taste-bud apoptosis. Sour/tart is the most resilient signal channel under apoptosis — it is weighted up as the primary flavor anchor.');
+      parts.push('<strong>Taxane agent</strong> produces the most severe taste-bud apoptosis. Sour/tart is the most resilient signal channel under apoptosis - it is weighted up as the primary flavor anchor.');
     } else if (s.treatment === 'anthracycline') {
       parts.push('<strong>Anthracycline agent</strong> is strongly associated with nausea co-morbidity. Anti-nausea support is weighted up as a primary strategy alongside trigeminal stimulation.');
     } else {
@@ -627,24 +810,24 @@
     }
 
     if (s.iron === 'elevated') {
-      parts.push('Elevated iron amplifies the metallic signal — trigeminal stimulation (+18) and umami bitter masker (+12) receive additional allocation.');
+      parts.push('Elevated iron amplifies the metallic signal - trigeminal stimulation (+18) and umami bitter masker (+12) receive additional allocation.');
     }
     if (s.zinc === 'deficient') {
       parts.push('Zinc deficiency compounds taste-bud apoptosis. Sour/tart is weighted up (+16) as the most resilient remaining signal, and anti-nausea support receives a secondary boost (+10).');
     }
     if (s.weeks === 'mid') {
-      parts.push('Mid-treatment phase (3–6 wks): symptoms established — trigeminal and umami both increase slightly to address the sustained metallic and bitter signal.');
+      parts.push('Mid-treatment phase (3–6 wks): symptoms established - trigeminal and umami both increase slightly to address the sustained metallic and bitter signal.');
     } else if (s.weeks === 'late') {
-      parts.push('Late treatment phase (7–10 wks): prolonged apoptosis dominates — umami and sour are weighted up as the bitter/metallic signal compounds.');
+      parts.push('Late treatment phase (7–10 wks): prolonged apoptosis dominates - umami and sour are weighted up as the bitter/metallic signal compounds.');
     } else if (s.weeks === 'post') {
-      parts.push('Post-treatment phase (10+ wks): recovery arc — sour is the primary remaining signal channel; the metallic pathway is gradually less dominant.');
+      parts.push('Post-treatment phase (10+ wks): recovery arc - sour is the primary remaining signal channel; the metallic pathway is gradually less dominant.');
     }
     if (s.nausea > 0) {
       var nLabel = ['none', 'mild', 'moderate', 'severe'][s.nausea];
       parts.push(nLabel.charAt(0).toUpperCase() + nLabel.slice(1) + ' co-occurring nausea adds ' + (s.nausea * 10) + ' points to anti-nausea support allocation.');
     }
     if (s.hygiene === 'poor') {
-      parts.push('Poor oral hygiene applies a ×1.18 global multiplier — all strategies are intensified proportionally.');
+      parts.push('Poor oral hygiene applies a ×1.18 global multiplier - all strategies are intensified proportionally.');
     } else if (s.hygiene === 'fair') {
       parts.push('Fair oral hygiene applies a ×1.09 global multiplier across all strategies.');
     }
@@ -654,6 +837,7 @@
 
   /* ---- Render ---- */
   var KEYS = ['trigeminal', 'umami', 'sour', 'antinausea'];
+  var INGR_MAP = { trigeminal:'trig', umami:'umami', sour:'sour', antinausea:'antinausea' };
   function render() {
     var r = compute(state);
     KEYS.forEach(function (k) {
@@ -661,6 +845,12 @@
       var val  = document.getElementById('bar-val-'  + k);
       if (fill) fill.style.width = r[k] + '%';
       if (val)  val.textContent  = r[k] + '%';
+      /* Ingredient map */
+      var iKey = INGR_MAP[k];
+      var iFill = document.getElementById('ingr-fill-' + iKey);
+      var iPct  = document.getElementById('ingr-pct-'  + iKey);
+      if (iFill) iFill.style.width = r[k] + '%';
+      if (iPct)  iPct.textContent  = r[k] + '%';
     });
     var rt = document.getElementById('calc-rationale-text');
     if (rt) rt.innerHTML = rationale(state, r);

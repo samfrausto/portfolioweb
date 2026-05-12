@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SuzChews · §06 Patient Simulation — Samuel Frausto</title>
-<meta name="description" content="Five authored patient personas demonstrate how the SuzChews formulation algorithm responds to different dysgeusia profiles. Deterministic scenario picker — no LLM, runs on static hosting.">
+<title>SuzChews · §06 Patient Simulation - Samuel Frausto</title>
+<meta name="description" content="Five authored patient personas demonstrate how the SuzChews formulation algorithm responds to different dysgeusia profiles. Deterministic scenario picker - no LLM, runs on static hosting.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -151,6 +151,73 @@
   font-feature-settings:'tnum' 1;
 }
 
+/* Ingredient prevalence map (same as §05) */
+.ingr-map{
+  margin-top:1.25rem;
+  padding-top:1.25rem;
+  border-top:1px solid var(--border);
+}
+.ingr-map-title{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:1rem;
+}
+.ingr-row{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  margin-bottom:.65rem;
+}
+.ingr-strategy-label{
+  font-family:var(--mono);
+  font-size:.52rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--dim);
+  min-width:14ch;
+}
+.ingr-bar-wrap{ flex:1; }
+.ingr-bar-bg{
+  height:22px;
+  background:var(--bg3);
+  border-radius:var(--r);
+  overflow:hidden;
+}
+.ingr-bar-inner{
+  height:100%;
+  border-radius:var(--r);
+  transition:width .55s var(--ease-paper);
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  padding:0 .6rem;
+  overflow:hidden;
+  min-width:0;
+}
+.ingr-bar-inner.s-trig       { background:linear-gradient(90deg,rgba(32,104,168,.4),rgba(32,104,168,.18)); }
+.ingr-bar-inner.s-umami      { background:linear-gradient(90deg,rgba(62,207,178,.4),rgba(62,207,178,.18)); }
+.ingr-bar-inner.s-sour       { background:linear-gradient(90deg,rgba(194,96,112,.4),rgba(194,96,112,.18)); }
+.ingr-bar-inner.s-antinausea { background:linear-gradient(90deg,rgba(251,188,4,.4),rgba(251,188,4,.18)); }
+.ingr-pill{
+  font-family:var(--mono);
+  font-size:.48rem;
+  letter-spacing:.06em;
+  color:var(--text);
+  white-space:nowrap;
+  opacity:.9;
+}
+.ingr-pct-label{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--text);
+  min-width:3ch;
+  text-align:right;
+  font-feature-settings:'tnum' 1;
+}
+
 /* Empty state */
 .sim-empty{
   padding:3rem 2rem;
@@ -204,7 +271,7 @@
 <header class="manuscript-head">
   <a class="back-link" href="algorithm.html">Back to §05 Algorithm</a>
   <div class="ms-eyebrow" style="margin-top:1.25rem;">
-    <span>§06 — AI Patient Simulation</span>
+    <span>§06 - AI Patient Simulation</span>
     <span class="ms-doi">SUZCHEWS / 2026.05 / 06</span>
   </div>
   <h1 class="ms-title">Five patients. <em>Five different gums.</em></h1>
@@ -213,7 +280,7 @@
     wildly different dysgeusia profiles. This section makes that legible.
     Select a patient scenario below to see their clinical profile, estimated CiTAS dimension
     scores, and the formulation recommendation the §05 algorithm produces for them.
-    All scenarios are deterministic and author-authored — no language model is involved.
+    All scenarios are deterministic and author-authored - no language model is involved.
   </p>
   <div class="ms-byline">
     <span><strong>Samuel Frausto</strong> &middot; ACAD 432</span>
@@ -242,10 +309,7 @@
     Five scenarios were authored to span the clinical variable space: different drug classes,
     biomarker profiles, and treatment phases. The color bar at the top of each card
     corresponds to the dominant drug class.
-    <!-- TODO: SAM — these personas are your authored constructs. Replace or expand them
-         with any actual patient profiles you have access to from your research, or adjust
-         the clinical details to better match profiles you encountered in the literature. -->
-  </p>
+</p>
 
   <!-- Scenario picker buttons -->
   <div class="scenario-picker" id="scenarioPicker" role="listbox" aria-label="Select patient scenario">
@@ -280,36 +344,36 @@
   <div class="persona-shell" id="personaShell">
     <!-- Persona detail card -->
     <div class="persona-card" id="personaCard" style="display:none;">
-      <p class="persona-name" id="p-name">—</p>
-      <p class="persona-meta" id="p-meta">—</p>
+      <p class="persona-name" id="p-name">-</p>
+      <p class="persona-meta" id="p-meta">-</p>
 
       <div class="persona-section">
         <p class="persona-section-label">Clinical profile</p>
-        <p class="persona-section-body" id="p-profile">—</p>
+        <p class="persona-section-body" id="p-profile">-</p>
       </div>
 
       <div class="persona-section">
         <p class="persona-section-label">Dominant dysgeusia presentation</p>
-        <p class="persona-section-body" id="p-presentation">—</p>
+        <p class="persona-section-body" id="p-presentation">-</p>
       </div>
 
       <div class="persona-section">
         <p class="persona-section-label">Estimated CiTAS dimension profile</p>
         <div class="citas-bars">
           <div class="citas-row">
-            <span class="citas-label">Dim. I — quantitative</span>
+            <span class="citas-label">Dim. I - quantitative</span>
             <div class="citas-track"><div class="citas-fill dim1" id="citas-d1"></div></div>
-            <span class="citas-val" id="citas-d1-val">—</span>
+            <span class="citas-val" id="citas-d1-val">-</span>
           </div>
           <div class="citas-row">
-            <span class="citas-label">Dim. II — qualitative</span>
+            <span class="citas-label">Dim. II - qualitative</span>
             <div class="citas-track"><div class="citas-fill dim2" id="citas-d2"></div></div>
-            <span class="citas-val" id="citas-d2-val">—</span>
+            <span class="citas-val" id="citas-d2-val">-</span>
           </div>
           <div class="citas-row">
-            <span class="citas-label">Dim. III — nutrition</span>
+            <span class="citas-label">Dim. III - nutrition</span>
             <div class="citas-track"><div class="citas-fill dim3" id="citas-d3"></div></div>
-            <span class="citas-val" id="citas-d3-val">—</span>
+            <span class="citas-val" id="citas-d3-val">-</span>
           </div>
         </div>
       </div>
@@ -324,39 +388,98 @@
         <div style="padding:1.5rem;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bg2);">
           <p style="font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--electric);margin-bottom:1.25rem;display:flex;align-items:center;gap:.5rem;">
             <span style="width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal);display:inline-block;animation:pulse 2s infinite;"></span>
-            Algorithm output — recommended formulation
+            Algorithm output - recommended formulation
           </p>
           <div class="sim-form-bars">
             <div class="sim-bar-row">
               <span class="sim-bar-name">Trigeminal</span>
               <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-trigeminal"></div></div>
-              <span class="sim-bar-pct" id="sim-val-trigeminal">—</span>
+              <span class="sim-bar-pct" id="sim-val-trigeminal">-</span>
             </div>
             <div class="sim-bar-row">
               <span class="sim-bar-name">Umami / bitter masker</span>
               <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-umami"></div></div>
-              <span class="sim-bar-pct" id="sim-val-umami">—</span>
+              <span class="sim-bar-pct" id="sim-val-umami">-</span>
             </div>
             <div class="sim-bar-row">
               <span class="sim-bar-name">Sour / tart</span>
               <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-sour"></div></div>
-              <span class="sim-bar-pct" id="sim-val-sour">—</span>
+              <span class="sim-bar-pct" id="sim-val-sour">-</span>
             </div>
             <div class="sim-bar-row">
               <span class="sim-bar-name">Anti-nausea</span>
               <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-antinausea"></div></div>
-              <span class="sim-bar-pct" id="sim-val-antinausea">—</span>
+              <span class="sim-bar-pct" id="sim-val-antinausea">-</span>
+            </div>
+          </div>
+
+          <!-- Ingredient map -->
+          <div class="ingr-map">
+            <p class="ingr-map-title">Specific ingredients - relative prevalence</p>
+            <div class="ingr-row">
+              <span class="ingr-strategy-label">Trigeminal</span>
+              <div class="ingr-bar-wrap">
+                <div class="ingr-bar-bg">
+                  <div class="ingr-bar-inner s-trig" id="sim-ingr-trig" style="width:25%">
+                    <span class="ingr-pill">menthol</span>
+                    <span class="ingr-pill">·</span>
+                    <span class="ingr-pill">carbonation</span>
+                  </div>
+                </div>
+              </div>
+              <span class="ingr-pct-label" id="sim-ingr-pct-trig">25%</span>
+            </div>
+            <div class="ingr-row">
+              <span class="ingr-strategy-label">Umami / bitter masker</span>
+              <div class="ingr-bar-wrap">
+                <div class="ingr-bar-bg">
+                  <div class="ingr-bar-inner s-umami" id="sim-ingr-umami" style="width:25%">
+                    <span class="ingr-pill">glutamate peptides</span>
+                    <span class="ingr-pill">·</span>
+                    <span class="ingr-pill">IMP</span>
+                  </div>
+                </div>
+              </div>
+              <span class="ingr-pct-label" id="sim-ingr-pct-umami">25%</span>
+            </div>
+            <div class="ingr-row">
+              <span class="ingr-strategy-label">Sour / tart</span>
+              <div class="ingr-bar-wrap">
+                <div class="ingr-bar-bg">
+                  <div class="ingr-bar-inner s-sour" id="sim-ingr-sour" style="width:25%">
+                    <span class="ingr-pill">citric acid</span>
+                    <span class="ingr-pill">·</span>
+                    <span class="ingr-pill">malic acid</span>
+                  </div>
+                </div>
+              </div>
+              <span class="ingr-pct-label" id="sim-ingr-pct-sour">25%</span>
+            </div>
+            <div class="ingr-row">
+              <span class="ingr-strategy-label">Anti-nausea</span>
+              <div class="ingr-bar-wrap">
+                <div class="ingr-bar-bg">
+                  <div class="ingr-bar-inner s-antinausea" id="sim-ingr-antinausea" style="width:25%">
+                    <span class="ingr-pill">ginger extract</span>
+                    <span class="ingr-pill">·</span>
+                    <span class="ingr-pill">B6</span>
+                    <span class="ingr-pill">·</span>
+                    <span class="ingr-pill">Mg gluconate</span>
+                  </div>
+                </div>
+              </div>
+              <span class="ingr-pct-label" id="sim-ingr-pct-antinausea">25%</span>
             </div>
           </div>
 
           <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border);">
             <p style="font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--electric);margin-bottom:.5rem;">Algorithm rationale</p>
-            <p id="sim-rationale" style="font-size:.78rem;line-height:1.7;color:var(--muted);">—</p>
+            <p id="sim-rationale" style="font-size:.78rem;line-height:1.7;color:var(--muted);">-</p>
           </div>
 
           <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border);">
             <p style="font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:.5rem;">What this patient might experience</p>
-            <p id="sim-experience" style="font-size:.78rem;line-height:1.7;color:var(--muted);font-family:var(--serif);font-style:italic;">—</p>
+            <p id="sim-experience" style="font-size:.78rem;line-height:1.7;color:var(--muted);font-family:var(--serif);font-style:italic;">-</p>
           </div>
         </div>
       </div>
@@ -375,28 +498,17 @@
 
   <div class="sci-layout">
     <div class="sci-prose">
-      <!-- TODO: SAM — fill this in with your honest methodological framing.
-           Key points to address:
-           1) Why deterministic (not live LLM): static hosting, cost, explainability,
-              the fact that the personas are the authored content — an LLM wrapping them
-              would add noise without adding precision
-           2) How personas were authored: from literature, not from actual patient interviews
-              (be honest about this — actual patient interviews would be the next step)
-           3) How CiTAS dimension scores were estimated: from the variable profile,
-              not from actual CiTAS assessments of these patients
-           4) How a live-LLM upgrade would work if pursued: replace the authored
-              experience text with a prompt + the patient's variable state as context -->
-      <p>
+<p>
         <strong>This simulation is entirely deterministic.</strong> No language model is
         involved in generating any of the text. The five patient personas are authored
-        constructs — each variable (treatment type, iron, zinc, hygiene, weeks, nausea) was
+        constructs - each variable (treatment type, iron, zinc, hygiene, weeks, nausea) was
         set to produce a distinct point in the clinical variable space, and the experience
         description was written by me to reflect what the literature says about that profile.
       </p>
       <p>
         The decision to use a deterministic scenario picker rather than a live LLM was made
         for three reasons: <strong>static hosting</strong> (this site runs on Vercel with no
-        server-side logic — a live LLM call would require a backend and API costs);
+        server-side logic - a live LLM call would require a backend and API costs);
         <strong>explainability</strong> (authored text can be reviewed and corrected; LLM
         text cannot be guaranteed to stay accurate); and <strong>scope control</strong>
         (building a reliable deterministic version now is better than an unreliable dynamic
@@ -407,18 +519,17 @@
         produces the patient state as a structured object. That object plus a system prompt
         anchored to the §04 mechanism descriptions would be sufficient context for a capable
         language model to generate accurate, personalized experience descriptions on demand.
-        The architecture is scaffolded for this — the authored text is a drop-in placeholder,
+        The architecture is scaffolded for this - the authored text is a drop-in placeholder,
         not a structural dependency.
       </p>
       <p>
         <strong>Limitation: these are not real patients.</strong> The personas are grounded
         in the literature but were not drawn from actual clinical observations or patient
         interviews. They demonstrate the algorithm's differentiation across the variable space
-        — they are not prevalence-weighted samples of the actual chemo patient population.
+        - they are not prevalence-weighted samples of the actual chemo patient population.
         Actual patient interviews or a clinical survey would be the right next step.
       </p>
-      <!-- /TODO -->
-    </div>
+</div>
     <aside class="sci-margin">
       <div class="margin-note">
         <span class="mn-label">Static vs. dynamic</span>
@@ -435,7 +546,7 @@
     <p class="callout-label">Design rationale summary</p>
     <p>
       Deterministic scenario picker on static hosting. Five personas authored from the
-      literature — not real patients. CiTAS dimension estimates derived from variable profiles,
+      literature - not real patients. CiTAS dimension estimates derived from variable profiles,
       not from actual CiTAS assessments. Scaffolded for a live-LLM upgrade: replace the
       authored experience strings with a structured-context API call. No structural changes
       to the page required for that upgrade.
@@ -467,12 +578,12 @@
   /* ----------------------------------------------------------
      PERSONA DATABASE
      Each persona has:
-       .inputs   — fed into the §05 algorithm function
-       .citas    — estimated dim scores [d1, d2, d3] each 0-100
-       .profile  — clinical profile sentence
-       .presentation — dominant symptom description
-       .traits   — tag chips
-       .experience — first-person-adjacent description of gum effect
+       .inputs   - fed into the §05 algorithm function
+       .citas    - estimated dim scores [d1, d2, d3] each 0-100
+       .profile  - clinical profile sentence
+       .presentation - dominant symptom description
+       .traits   - tag chips
+       .experience - first-person-adjacent description of gum effect
   ---------------------------------------------------------- */
   var PERSONAS = {
     maria: {
@@ -480,55 +591,55 @@
       meta: 'Breast cancer · Carboplatin (platinum) · Week 4 · Elevated iron · Fair oral hygiene',
       inputs: { treatment:'platinum', hygiene:'fair', iron:'elevated', zinc:'normal', weeks:'mid', nausea:1 },
       citas: [42, 78, 35],
-      profile: 'Breast cancer patient in her fourth week of carboplatin therapy. Serum iron elevated (likely dietary — red meat-heavy diet pre-diagnosis). Oral hygiene fair. Nausea mild to moderate. Zinc within normal range.',
-      presentation: 'Dominant presentation: metallic. Everything tastes like a copper coin. Hot food intensifies it. Cold food is more tolerable. Sour foods are the most recognizable still — citrus gives the clearest signal.',
+      profile: 'Breast cancer patient in her fourth week of carboplatin therapy. Serum iron elevated (likely dietary - red meat-heavy diet pre-diagnosis). Oral hygiene fair. Nausea mild to moderate. Zinc within normal range.',
+      presentation: 'Dominant presentation: metallic. Everything tastes like a copper coin. Hot food intensifies it. Cold food is more tolerable. Sour foods are the most recognizable still - citrus gives the clearest signal.',
       traits: ['Platinum agent', 'Elevated iron', 'Metallic dominant', 'Week 4'],
-      experience: 'When Maria chews SuzChews, the first wave of citric sourness cuts through the metallic background — briefly — and the menthol tingle redirects attention away from the taste buds toward the roof of the mouth and throat. The savory undercurrent doesn\'t fully mask the metallic quality, but it competes with it. Food afterward tastes slightly more like food.'
+      experience: 'When Maria chews SuzChews, the first wave of citric sourness cuts through the metallic background - briefly - and the menthol tingle redirects attention away from the taste buds toward the roof of the mouth and throat. The savory undercurrent doesn\'t fully mask the metallic quality, but it competes with it. Food afterward tastes slightly more like food.'
     },
     jake: {
       name: 'Jake, 44',
       meta: 'Colorectal cancer · FOLFOX (platinum + fluorouracil) · Week 6 · Deficient zinc · Good oral hygiene',
       inputs: { treatment:'platinum', hygiene:'good', iron:'normal', zinc:'deficient', weeks:'mid', nausea:1 },
       citas: [68, 55, 40],
-      profile: 'Colorectal cancer patient, mid-career, six weeks into FOLFOX regimen (oxaliplatin + leucovorin + fluorouracil). Zinc deficient — dietary intake severely reduced due to nausea. Good oral hygiene baseline. Normal iron.',
-      presentation: 'Dominant presentation: overall taste loss with a metallic undertone. Food tastes of almost nothing, then occasionally — unpredictably — metallic. The absence of flavor is almost as disorienting as a bad one. Sour is the most intact sense remaining.',
+      profile: 'Colorectal cancer patient, mid-career, six weeks into FOLFOX regimen (oxaliplatin + leucovorin + fluorouracil). Zinc deficient - dietary intake severely reduced due to nausea. Good oral hygiene baseline. Normal iron.',
+      presentation: 'Dominant presentation: overall taste loss with a metallic undertone. Food tastes of almost nothing, then occasionally - unpredictably - metallic. The absence of flavor is almost as disorienting as a bad one. Sour is the most intact sense remaining.',
       traits: ['Platinum agent', 'Zinc deficient', 'Taste loss dominant', 'Week 6'],
-      experience: 'Jake\'s experience with SuzChews centers on the sour first wave — it\'s the clearest flavor signal he\'s had in weeks, and it momentarily reorients his perception of what food is supposed to feel like. The umami sustain doesn\'t produce a flavor he can name, but it fills in a background that makes eating feel less futile.'
+      experience: 'Jake\'s experience with SuzChews centers on the sour first wave - it\'s the clearest flavor signal he\'s had in weeks, and it momentarily reorients his perception of what food is supposed to feel like. The umami sustain doesn\'t produce a flavor he can name, but it fills in a background that makes eating feel less futile.'
     },
     sofia: {
       name: 'Sofia, 15',
       meta: 'Pediatric ALL · Multi-agent chemotherapy · Week 3 · Zinc deficient · Fair oral hygiene',
       inputs: { treatment:'other', hygiene:'fair', iron:'normal', zinc:'deficient', weeks:'early', nausea:2 },
       citas: [55, 38, 62],
-      profile: 'Fifteen-year-old with acute lymphoblastic leukemia (ALL) on a multi-agent induction regimen. Three weeks in. Zinc deficient. Nausea moderate and persistent — the primary complaint alongside taste change. Fair oral hygiene, consistent with the difficulty of maintaining routines during induction.',
-      presentation: 'Dominant presentation: nausea + taste flattening. Foods Sofia loved — Takis, mango, anything spicy — taste like nothing. The nausea is always present. She hasn\'t wanted to eat in two weeks. The ACCO pediatric-patient notes describe this exact profile.',
+      profile: 'Fifteen-year-old with acute lymphoblastic leukemia (ALL) on a multi-agent induction regimen. Three weeks in. Zinc deficient. Nausea moderate and persistent - the primary complaint alongside taste change. Fair oral hygiene, consistent with the difficulty of maintaining routines during induction.',
+      presentation: 'Dominant presentation: nausea + taste flattening. Foods Sofia loved - Takis, mango, anything spicy - taste like nothing. The nausea is always present. She hasn\'t wanted to eat in two weeks. The ACCO pediatric-patient notes describe this exact profile.',
       traits: ['Pediatric ALL', 'Zinc deficient', 'Nausea dominant', 'Taste flattening'],
-      experience: 'For Sofia, the anti-nausea ginger and magnesium base works first — the nausea recedes just enough that eating feels possible. The sour/tart wave gives her a recognizable flavor signal, the one she\'s been missing. It\'s not Takis. But it\'s something. Her mom says she asked for mango two days later.'
+      experience: 'For Sofia, the anti-nausea ginger and magnesium base works first - the nausea recedes just enough that eating feels possible. The sour/tart wave gives her a recognizable flavor signal, the one she\'s been missing. It\'s not Takis. But it\'s something. Her mom says she asked for mango two days later.'
     },
     patricia: {
       name: 'Patricia, 71',
       meta: 'Non-small cell lung cancer · Docetaxel (taxane) · Week 8 · Deficient zinc · Elevated iron · Poor oral hygiene',
       inputs: { treatment:'taxane', hygiene:'poor', iron:'elevated', zinc:'deficient', weeks:'late', nausea:2 },
       citas: [80, 65, 70],
-      profile: 'Seventy-one-year-old lung cancer patient, eight weeks into docetaxel (taxane-class). Multiple compounding variables: zinc deficient, iron elevated, poor oral hygiene (smoking history, irregular dental care). Nausea moderate. The most complex case in the cohort — nearly every variable is unfavorable.',
+      profile: 'Seventy-one-year-old lung cancer patient, eight weeks into docetaxel (taxane-class). Multiple compounding variables: zinc deficient, iron elevated, poor oral hygiene (smoking history, irregular dental care). Nausea moderate. The most complex case in the cohort - nearly every variable is unfavorable.',
       presentation: 'Severe across all CiTAS dimensions. Quantitative loss: almost nothing tastes like it should. Qualitative distortion: what does register is either metallic, bitter, or both. Nutrition impact: Patricia has lost 8 lbs in 8 weeks. Her oncologist has flagged nutritional decline as a treatment concern.',
       traits: ['Taxane agent', 'Poor oral hygiene', 'Zinc deficient', 'Elevated iron', 'Severe all dimensions'],
-      experience: 'Patricia\'s formulation is the most intense of the five — poor oral hygiene applies a ×1.18 multiplier and all strategies are elevated. The sour wave hits hard and is the strongest flavor experience she\'s had in weeks. The menthol tingle lasts into the aftertaste. It won\'t fix the weight loss. But it makes the act of eating less dread-inducing.'
+      experience: 'Patricia\'s formulation is the most intense of the five - poor oral hygiene applies a ×1.18 multiplier and all strategies are elevated. The sour wave hits hard and is the strongest flavor experience she\'s had in weeks. The menthol tingle lasts into the aftertaste. It won\'t fix the weight loss. But it makes the act of eating less dread-inducing.'
     },
     david: {
       name: 'David, 52',
       meta: 'Diffuse large B-cell lymphoma · R-CHOP (anthracycline + others) · Week 2 · Normal iron/zinc · Good oral hygiene',
       inputs: { treatment:'anthracycline', hygiene:'good', iron:'normal', zinc:'normal', weeks:'early', nausea:2 },
       citas: [30, 40, 65],
-      profile: 'Fifty-two-year-old with DLBCL (lymphoma) on R-CHOP regimen. Two weeks in. Good oral hygiene baseline. Normal iron and zinc — earliest stage, biomarkers haven\'t shifted yet. Nausea moderate, which is characteristic of anthracycline-containing regimens.',
-      presentation: 'Early stage: nausea is the primary complaint, with taste change just beginning. CiTAS Dimensions I and II are relatively low — the qualitative metallic distortion and quantitative loss haven\'t set in fully yet. Dimension III (nutritional impact) is already high because of nausea.',
+      profile: 'Fifty-two-year-old with DLBCL (lymphoma) on R-CHOP regimen. Two weeks in. Good oral hygiene baseline. Normal iron and zinc - earliest stage, biomarkers haven\'t shifted yet. Nausea moderate, which is characteristic of anthracycline-containing regimens.',
+      presentation: 'Early stage: nausea is the primary complaint, with taste change just beginning. CiTAS Dimensions I and II are relatively low - the qualitative metallic distortion and quantitative loss haven\'t set in fully yet. Dimension III (nutritional impact) is already high because of nausea.',
       traits: ['Anthracycline agent', 'Early stage', 'Nausea dominant', 'Good hygiene'],
-      experience: 'David is at the window where intervention is easiest — dysgeusia is mild, nausea is the primary barrier. The anti-nausea ginger base and the B6 settle the stomach enough that he eats dinner with his family for the first time since starting treatment. The taste is close to normal. He finishes the whole plate.'
+      experience: 'David is at the window where intervention is easiest - dysgeusia is mild, nausea is the primary barrier. The anti-nausea ginger base and the B6 settle the stomach enough that he eats dinner with his family for the first time since starting treatment. The taste is close to normal. He finishes the whole plate.'
     }
   };
 
   /* ----------------------------------------------------------
-     §05 algorithm (mirrored from algorithm.html — keeps pages independent)
+     §05 algorithm (mirrored from algorithm.html - keeps pages independent)
   ---------------------------------------------------------- */
   function compute(s) {
     var trig = 25, umami = 25, sour = 25, nausea = 25;
@@ -599,11 +710,18 @@
 
     /* Formulation bars */
     var keys = ['trigeminal','umami','sour','antinausea'];
+    var ingrKeys = { trigeminal:'trig', umami:'umami', sour:'sour', antinausea:'antinausea' };
     keys.forEach(function(k){
       var fill = document.getElementById('sim-fill-' + k);
       var val  = document.getElementById('sim-val-'  + k);
       if (fill) fill.style.width = r[k] + '%';
       if (val)  val.textContent  = r[k] + '%';
+      /* Ingredient map */
+      var ik = ingrKeys[k];
+      var iFill = document.getElementById('sim-ingr-' + ik);
+      var iPct  = document.getElementById('sim-ingr-pct-' + ik);
+      if (iFill) iFill.style.width = r[k] + '%';
+      if (iPct)  iPct.textContent  = r[k] + '%';
     });
 
     /* Rationale + experience */
