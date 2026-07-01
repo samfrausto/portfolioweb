@@ -3,11 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Samuel Frausto — Designer & Experience Builder</title>
+<title>Samuel Frausto — XR Engineer & Spatial Designer</title>
+<meta name="description" content="Samuel Frausto — XR engineer and spatial designer building AI-powered VR systems at the edge of spatial computing, biotech, and human-centered design.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=35">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
 </head>
 <body class="home">
 <div class="cursor" id="cursor"></div>
@@ -16,361 +25,311 @@
 <nav>
   <a class="nav-logo" href="index.html">S<span>.</span>Frausto</a>
   <div class="nav-links">
-    <a href="#projects">Work</a>
+    <a href="#work">Work</a>
+    <a href="#now">Now</a>
     <a href="#about">About</a>
     <a href="#contact">Contact</a>
+    <a class="nav-resume" href="assets/Samuel_Frausto_Resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
     <div class="nav-dot" title="Open to opportunities"></div>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg">
-    <div class="orb o1"></div>
-    <div class="orb o2"></div>
-    <div class="orb o3"></div>
-    <div class="orb o4"></div>
+<!-- ───────────────────────────── HERO ───────────────────────────── -->
+<section class="hero" id="top">
+  <div class="hero-grid-lines" aria-hidden="true"></div>
+
+  <!-- giant background wordmark -->
+  <div class="hero-watermark" aria-hidden="true">
+    <span>FRAUSTO</span>
   </div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Designer &amp; Experience Builder</div>
-    <h1 class="hero-name">Samuel<span class="outline">Frausto.</span></h1>
-    <div class="hero-bottom">
-      <p class="hero-desc">
-        Building at the edge of <strong>spatial computing</strong>, <strong>biotech</strong>, and <strong>human-centered design</strong> — from VR training systems to cancer research.<br><br>
-        Biophysics @ USC · Transferring into Human Technology Interaction · XR Intern @ Edwards Lifesciences
-      </p>
-      <div class="hero-pills">
-        <span class="pill hot">XR / VR</span>
-        <span class="pill usc">USC · HTI</span>
-        <span class="pill cool">Digital Twins</span>
-        <span class="pill hot">Biotech</span>
-        <span class="pill vio">Video Game Design</span>
-        <span class="pill cool">visionOS</span>
-        <span class="pill">Medicine &amp; UX</span>
-        <span class="pill hot">Unity &amp; Blender</span>
-      </div>
+
+  <!-- diagonal cycling logo stream: where I've studied & worked -->
+  <div class="logo-stream" aria-label="Studied and worked at">
+    <div class="logo-stream-track">
+      <span class="ls-logo"><img src="assets/logos/mono/edwards.png" alt="Edwards Lifesciences"></span>
+      <span class="ls-logo"><img src="assets/logos/mono/usc.png" alt="USC"></span>
+      <span class="ls-logo"><img src="assets/logos/mono/uchicago.png" alt="University of Chicago Medicine"></span>
+      <span class="ls-logo"><img src="assets/logos/mono/iya.png" alt="USC Iovine and Young Academy"></span>
+      <span class="ls-logo"><img src="assets/logos/mono/jelsert.png" alt="The Jel Sert Company"></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/edwards.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/usc.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/uchicago.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/iya.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/jelsert.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/edwards.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/usc.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/uchicago.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/iya.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/jelsert.png" alt=""></span>
     </div>
   </div>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <span class="stream-label">Studied &amp; worked</span>
+
+  <!-- Portrait blob-reveal centerpiece -->
+  <div class="stage-wrap">
+    <div class="orbit-ring r1" aria-hidden="true"></div>
+    <div class="orbit-ring r2" aria-hidden="true"></div>
+    <div class="stage" id="stage">
+      <img class="portrait-fallback" src="assets/portrait/headset.png" alt="Samuel Frausto wearing a VR headset">
+    </div>
+    <div class="stage-hint" id="stageHint"><span class="drag-ico">✦</span> Move your cursor across the portrait</div>
+  </div>
+
+  <!-- hero copy -->
+  <div class="hero-copy">
+    <div class="hero-eyebrow">XR Engineer &amp; Spatial Designer</div>
+    <h1 class="hero-name">Samuel Frausto</h1>
+    <p class="hero-tag">
+      I build immersive experiences you can step inside — end to end, from the first sketch to the last line of code.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#work">See the work</a>
+      <a class="btn btn-ghost" href="#now">What I'm building now ↘</a>
+    </div>
+  </div>
+
+  <!-- live status -->
+  <a class="hero-now-chip" href="#now">
+    <span class="now-pulse"></span>
+    <span><strong>Now</strong> · Building VR training for clinicians — solo — at Edwards Lifesciences</span>
+  </a>
+
   <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
 
-<!-- STATUS STRIP -->
-<div class="status-strip">
-  <div class="st-item">
-    <div class="st-dot g"></div>
-    <span class="st-label"><strong>Incoming:</strong> XR Learning Design Intern @ Edwards Lifesciences · Summer 2026</span>
-  </div>
-  <div class="st-item">
-    <div class="st-dot a"></div>
-    <span class="st-label"><strong>In Progress:</strong> Transfer application — USC Human Technology Interaction</span>
+<!-- ───────────────────────────── MARQUEE ───────────────────────────── -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Unity</span><i>✦</i><span>visionOS</span><i>✦</i><span>Meta Quest</span><i>✦</i><span>NVIDIA Omniverse</span><i>✦</i><span>Blender</span><i>✦</i><span>Shader Programming</span><i>✦</i><span>AI Systems</span><i>✦</i><span>Digital Twins</span><i>✦</i><span>Figma</span><i>✦</i><span>C# · C++ · Python · Swift</span><i>✦</i>
+    <span>Unity</span><i>✦</i><span>visionOS</span><i>✦</i><span>Meta Quest</span><i>✦</i><span>NVIDIA Omniverse</span><i>✦</i><span>Blender</span><i>✦</i><span>Shader Programming</span><i>✦</i><span>AI Systems</span><i>✦</i><span>Digital Twins</span><i>✦</i><span>Figma</span><i>✦</i><span>C# · C++ · Python · Swift</span><i>✦</i>
   </div>
 </div>
 
-<!-- LOGO MARQUEE -->
-<section class="marquee-section" aria-label="Affiliations and organizations">
-  <div class="marquee-outer">
-    <div class="marquee-track" id="marqueeTrack" aria-hidden="true">
+<!-- ───────────────────────────── NOW / EDWARDS ───────────────────────────── -->
+<section class="now-section" id="now">
+  <div class="now-inner">
+    <div class="now-head reveal">
+      <span class="sec-num">01</span>
+      <div>
+        <span class="now-kicker"><span class="now-pulse"></span> Right now · in progress</span>
+        <h2 class="sec-title">The flagship: <em>VR training for clinicians</em></h2>
+      </div>
+    </div>
 
-      <!-- SET 1 -->
-      <div class="mq-item">
-        <img src="assets/logos/usc.svg" alt="USC" height="28"
-          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>USC</span>'">
+    <div class="now-body reveal">
+      <div class="now-lead">
+        <p>
+          At <strong>Edwards Lifesciences</strong> I'm building a VR platform that trains clinicians for real
+          procedures — and I'm building all of it: the experience, the 3D world, the code, and an AI layer that
+          adapts to each trainee. Just me, end to end.
+        </p>
+        <p class="now-sub">
+          It's the work I've been chasing for years — immersive technology where the stakes are real.
+          Still in progress; here's how it fits together.
+        </p>
       </div>
-      <div class="mq-dot"></div>
-      <div class="mq-item">
-        <img src="assets/logos/iya.svg" alt="Iovine &amp; Young Academy" height="28"
-          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>IYA · USC</span>'">
-      </div>
-      <div class="mq-dot"></div>
-      <div class="mq-item">
-        <img src="assets/logos/edwards.svg" alt="Edwards Lifesciences" height="28"
-          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>Edwards</span>'">
-      </div>
-      <div class="mq-dot"></div>
-      <div class="mq-item">
-        <img src="assets/logos/uchicago.svg" alt="University of Chicago" height="28"
-          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>UChicago Medicine</span>'">
-      </div>
-      <div class="mq-dot"></div>
-      <div class="mq-item">
-        <img src="assets/logos/jelsert.svg" alt="Jel Sert" height="28"
-          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>Jel Sert</span>'">
-      </div>
-      <div class="mq-dot"></div>
-      <div class="mq-item"><span class="mq-text">Phi Delta Theta</span></div>
-      <div class="mq-dot"></div>
-      <div class="mq-item"><span class="mq-text">Jamba</span></div>
-      <div class="mq-dot"></div>
-      <div class="mq-item"><span class="mq-text">Fla-Vor-Ice</span></div>
-      <div class="mq-dot"></div>
-      <div class="mq-item"><span class="mq-text">Otter Pops</span></div>
-      <div class="mq-dot"></div>
 
-      <!-- SET 2 (duplicate for seamless loop) -->
-      <div class="mq-item">
-        <img src="assets/logos/usc.svg" alt="USC" height="28"
-          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>USC</span>'">
+      <div class="now-pillars">
+        <article class="now-pillar">
+          <span class="np-ico">🧑‍💻</span>
+          <h3>Solo, full-stack</h3>
+          <p>One person, the whole pipeline — UX, 3D, engineering, and the AI layer. Design decisions and code are the same hand.</p>
+        </article>
+        <article class="now-pillar">
+          <span class="np-ico">🤖</span>
+          <h3>Adaptive AI layer</h3>
+          <p>An AI system that responds to the trainee in real time, shaping scenarios and guidance to how each clinician performs.</p>
+        </article>
+        <article class="now-pillar">
+          <span class="np-ico">🥽</span>
+          <h3>Built for the headset</h3>
+          <p>Spatial-first interaction designed for VR — not a flat app bolted into 3D, but an experience that only works in the headset.</p>
+        </article>
+        <article class="now-pillar">
+          <span class="np-ico">🏥</span>
+          <h3>Real clinical stakes</h3>
+          <p>Training for high-consequence medical procedures, where getting the interaction and fidelity right actually matters.</p>
+        </article>
       </div>
-      <div class="mq-dot"></div>
-      <div class="mq-item">
-        <img src="assets/logos/iya.svg" alt="Iovine &amp; Young Academy" height="28"
-          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>IYA · USC</span>'">
-      </div>
-      <div class="mq-dot"></div>
-      <div class="mq-item">
-        <img src="assets/logos/edwards.svg" alt="Edwards Lifesciences" height="28"
-          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>Edwards</span>'">
-      </div>
-      <div class="mq-dot"></div>
-      <div class="mq-item">
-        <img src="assets/logos/uchicago.svg" alt="University of Chicago" height="28"
-          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>UChicago Medicine</span>'">
-      </div>
-      <div class="mq-dot"></div>
-      <div class="mq-item">
-        <img src="assets/logos/jelsert.svg" alt="Jel Sert" height="28"
-          onerror="this.closest('.mq-item').innerHTML='<span class=\'mq-text\'>Jel Sert</span>'">
-      </div>
-      <div class="mq-dot"></div>
-      <div class="mq-item"><span class="mq-text">Phi Delta Theta</span></div>
-      <div class="mq-dot"></div>
-      <div class="mq-item"><span class="mq-text">Jamba</span></div>
-      <div class="mq-dot"></div>
-      <div class="mq-item"><span class="mq-text">Fla-Vor-Ice</span></div>
-      <div class="mq-dot"></div>
-      <div class="mq-item"><span class="mq-text">Otter Pops</span></div>
-      <div class="mq-dot"></div>
-
     </div>
   </div>
 </section>
 
 <hr class="full-divider">
 
-<!-- PROJECTS — horizontal scroll -->
-<section class="hscroll-section" id="projects">
-  <div class="hscroll-outer" id="hscrollOuter">
-    <div class="hscroll-sticky" id="hscrollSticky">
+<!-- ───────────────────────────── THE PATH ───────────────────────────── -->
+<section class="path" id="work">
+  <div class="path-grain" aria-hidden="true"></div>
+  <div class="path-intro reveal">
+    <span class="sec-num">02</span>
+    <div>
+      <h2 class="sec-title">The <em>path</em></h2>
+      <p class="path-sub">From the lab bench to the headset — every step started with a real human problem.</p>
+    </div>
+  </div>
 
-      <div class="hscroll-header">
-        <span class="sec-num">01</span>
-        <h2 class="sec-title">Selected <em>work</em></h2>
+  <div class="path-timeline">
+
+    <!-- 01 · UChicago -->
+    <article class="chapter reveal">
+      <div class="chapter-rail"><span class="ch-year">2023</span><span class="ch-num">01</span></div>
+      <div class="chapter-body">
+        <span class="ch-place">University of Chicago</span>
+        <span class="ch-role">ResearcHStart Fellow · Cancer Immunology</span>
+        <p class="ch-note">Where it started with a real person.</p>
+        <p class="ch-desc">300+ hours in Dr. Stephen Kron's lab probing TET2 inhibition as a leukemia target — work that won a research-poster award at UIUC and taught me to begin every project with a patient, not a pixel.</p>
+        <div class="ch-cards">
+          <a class="ch-card" href="projects/tet2-research.html">
+            <img src="assets/projects/tet2-research-01.png" alt="TET2 cancer research" loading="lazy" onerror="this.style.display='none'">
+            <span class="ch-card-t">TET2 Inhibition Research <span class="ch-card-tag">Research</span></span>
+          </a>
+        </div>
       </div>
+    </article>
 
-      <div class="hscroll-track" id="hscrollTrack">
+    <!-- 02 · Jel Sert R&D -->
+    <article class="chapter reveal">
+      <div class="chapter-rail"><span class="ch-year">2024</span><span class="ch-num">02</span></div>
+      <div class="chapter-body">
+        <span class="ch-place">Jel Sert · R&amp;D Lab</span>
+        <span class="ch-role">Research &amp; Development Intern</span>
+        <p class="ch-note">Science meets the real world.</p>
+        <p class="ch-desc">Ran flavor-modulator and stevia-masker studies, stability testing, and sensory panels — learning the biophysics of taste and how science survives contact with a business.</p>
+      </div>
+    </article>
 
-        <!-- 01 · XR -->
-        <a class="hcard featured" data-cat="xr" href="projects/vr-baseball.html">
-          <div class="hcard-thumb no-img">
-            <img src="assets/projects/vr-baseball-thumb.jpg" alt=""
-              loading="lazy" decoding="async"
-              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
-          </div>
-          <div class="hcard-body">
-            <span class="hcard-tag">XR / Spatial · 01</span>
-            <h2 class="hcard-title">VR Baseball Training System</h2>
-            <p class="hcard-desc">Real-time pitch recognition system in Unity for training hitters inside immersive VR.</p>
-            <span class="hcard-go">View project ↗</span>
-          </div>
-        </a>
+    <!-- 03 · Franklin -->
+    <article class="chapter reveal">
+      <div class="chapter-rail"><span class="ch-year">2024</span><span class="ch-num">03</span></div>
+      <div class="chapter-body">
+        <span class="ch-place">Franklin University, Switzerland</span>
+        <span class="ch-role">Semester Abroad · Lugano</span>
+        <p class="ch-note">A wider lens.</p>
+        <p class="ch-desc">A semester in Ticino — new languages, new ways of seeing, and the distance to figure out what I actually wanted to build.</p>
+      </div>
+    </article>
 
-        <!-- 02 · XR -->
-        <a class="hcard" data-cat="xr" href="projects/iyh-digital-twin.html">
-          <div class="hcard-thumb no-img">
-            <img src="assets/projects/iyh-digital-twin-thumb.jpg" alt=""
-              loading="lazy" decoding="async"
-              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
-          </div>
-          <div class="hcard-body">
-            <span class="hcard-tag">XR / Spatial · 02</span>
-            <h2 class="hcard-title">Iovine &amp; Young Hall Digital Twin</h2>
-            <p class="hcard-desc">Photorealistic Omniverse twin of IYH built for spatial wayfinding and digital experience design.</p>
-            <span class="hcard-go">View project ↗</span>
-          </div>
-        </a>
+    <!-- 04 · USC -->
+    <article class="chapter reveal">
+      <div class="chapter-rail"><span class="ch-year">2025</span><span class="ch-num">04</span></div>
+      <div class="chapter-body">
+        <span class="ch-place">USC · Iovine &amp; Young Academy</span>
+        <span class="ch-role">Human Technology Interaction</span>
+        <p class="ch-note">The pivot — where design and engineering became one skill.</p>
+        <p class="ch-desc">I went all-in on spatial computing: building for the Meta Quest, Apple Vision Pro, and NVIDIA Omniverse — and bringing my science background into healthcare-grade design.</p>
+        <div class="ch-cards">
+          <a class="ch-card" href="projects/vr-baseball.html">
+            <img src="assets/projects/vr-baseball-01.png" alt="VR Baseball Training System" loading="lazy" onerror="this.style.display='none'">
+            <span class="ch-card-t">VR Baseball Trainer <span class="ch-card-tag">Unity · Quest</span></span>
+          </a>
+          <a class="ch-card" href="projects/iyh-digital-twin.html">
+            <img src="assets/projects/iyh-digital-twin-01.png" alt="Iovine and Young Hall digital twin" loading="lazy" onerror="this.style.display='none'">
+            <span class="ch-card-t">IYH Digital Twin <span class="ch-card-tag">Omniverse</span></span>
+          </a>
+          <a class="ch-card" href="projects/pavilia.html">
+            <img src="assets/projects/pavilia-01.png" alt="Pavilia portal mechanic" loading="lazy" onerror="this.style.display='none'">
+            <span class="ch-card-t">Pavilia — Portals <span class="ch-card-tag">Vision Pro</span></span>
+          </a>
+          <a class="ch-card" href="projects/suzchews/">
+            <img src="projects/suzchews/assets/process/thumb_full.jpg" alt="SuzChews medicated gum" loading="lazy" onerror="this.style.display='none'">
+            <span class="ch-card-t">SuzChews — Patient Gum <span class="ch-card-tag">Healthcare</span></span>
+          </a>
+          <a class="ch-card" href="projects/cyberpunk-twin.html">
+            <img src="assets/projects/cyberpunk-twin-01.png" alt="Cyberpunk 2077 room digital twin" loading="lazy" onerror="this.style.display='none'">
+            <span class="ch-card-t">Cyberpunk Twin <span class="ch-card-tag">Blender</span></span>
+          </a>
+        </div>
+      </div>
+    </article>
 
-        <!-- 03 · XR -->
-        <a class="hcard" data-cat="xr" href="projects/synesthesia.html">
-          <div class="hcard-thumb no-img">
-            <img src="assets/projects/synesthesia-thumb.jpg" alt=""
-              loading="lazy" decoding="async"
-              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
-          </div>
-          <div class="hcard-body">
-            <span class="hcard-tag">XR / Spatial · 03</span>
-            <h2 class="hcard-title">Synesthesia — Ambient VR App</h2>
-            <p class="hcard-desc">Apple Vision Pro app that translates live music into evolving spatial color fields and geometry.</p>
-            <span class="hcard-go">View project ↗</span>
-          </div>
-        </a>
+    <!-- 05 · Jel Sert Media -->
+    <article class="chapter reveal">
+      <div class="chapter-rail"><span class="ch-year">2025</span><span class="ch-num">05</span></div>
+      <div class="chapter-body">
+        <span class="ch-place">Jel Sert · Media &amp; Comms</span>
+        <span class="ch-role">Media &amp; Communications Intern</span>
+        <p class="ch-note">Learning to make people care.</p>
+        <p class="ch-desc">Produced brand films and campaigns for national partnerships — Crayola, Harley-Davidson, Jamba — and learned that the best technology still needs a story.</p>
+        <div class="ch-cards">
+          <a class="ch-card" href="projects/purekick-harley.html">
+            <img src="assets/projects/jelsert-internship-01.png" alt="Jel Sert brand internship" loading="lazy" onerror="this.style.display='none'">
+            <span class="ch-card-t">Brand Films &amp; Campaigns <span class="ch-card-tag">Crayola · Harley</span></span>
+          </a>
+        </div>
+      </div>
+    </article>
 
-        <!-- 04 · XR -->
-        <a class="hcard" data-cat="xr" href="projects/pavilia.html">
-          <div class="hcard-thumb no-img">
-            <img src="assets/projects/pavilia-thumb.jpg" alt=""
-              loading="lazy" decoding="async"
-              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
-          </div>
-          <div class="hcard-body">
-            <span class="hcard-tag">XR / Spatial · 04</span>
-            <h2 class="hcard-title">Pavilia — Portal Mechanic</h2>
-            <p class="hcard-desc">A Unity portal traversal system that warps players between distinct game worlds in real time.</p>
-            <span class="hcard-go">View project ↗</span>
-          </div>
-        </a>
+    <!-- 06 · Edwards (climax → links to Now) -->
+    <article class="chapter chapter-now reveal">
+      <div class="chapter-rail"><span class="ch-year">2026</span><span class="ch-num">06</span></div>
+      <div class="chapter-body">
+        <span class="ch-place">Edwards Lifesciences</span>
+        <span class="ch-role">Solo XR Engineer–Designer · AI-powered VR training</span>
+        <p class="ch-note">It all led here.</p>
+        <p class="ch-desc">Science, design, and storytelling finally converge: a VR training platform for clinicians I'm building end to end, on my own.</p>
+        <a class="ch-jump" href="#now">See what I'm building now ↑</a>
+      </div>
+    </article>
 
-        <!-- 05 · XR -->
-        <a class="hcard" data-cat="xr" href="projects/cyberpunk-twin.html">
-          <div class="hcard-thumb no-img">
-            <img src="assets/projects/cyberpunk-twin-thumb.jpg" alt=""
-              loading="lazy" decoding="async"
-              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
-          </div>
-          <div class="hcard-body">
-            <span class="hcard-tag">XR / Spatial · 05</span>
-            <h2 class="hcard-title">Cyberpunk 2077 Room — Digital Twin</h2>
-            <p class="hcard-desc">1:1 Blender recreation of a Cyberpunk 2077 bedroom, photo-matched from in-game reference.</p>
-            <span class="hcard-go">View project ↗</span>
-          </div>
-        </a>
+    <!-- 07 · Future -->
+    <article class="chapter chapter-future reveal">
+      <div class="chapter-rail"><span class="ch-year">Next</span><span class="ch-num">07</span></div>
+      <div class="chapter-body">
+        <span class="ch-place">My own company</span>
+        <p class="ch-note">The plan: go deep at a place building the future for a few years — then build my own.</p>
+      </div>
+    </article>
 
-        <!-- divider pip -->
-        <div style="width:1px;height:80%;background:var(--border);flex-shrink:0;align-self:center;margin:0 .25rem"></div>
-
-        <!-- 06 · Research -->
-        <a class="hcard" data-cat="research" href="projects/tet2-research.html">
-          <div class="hcard-thumb no-img">
-            <img src="assets/projects/tet2-research-thumb.jpg" alt=""
-              loading="lazy" decoding="async"
-              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
-          </div>
-          <div class="hcard-body">
-            <span class="hcard-tag">Research · 06</span>
-            <h2 class="hcard-title">TET2 Inhibition Cancer Research</h2>
-            <p class="hcard-desc">Wetlab investigation of TET2 enzyme inhibition as a leukemia therapeutic target at UChicago Medicine.</p>
-            <span class="hcard-go">View project ↗</span>
-          </div>
-        </a>
-
-        <!-- 07 · Innovation -->
-        <a class="hcard" data-cat="innovation" href="projects/suzchews/">
-          <div class="hcard-thumb no-img">
-            <img src="assets/projects/suzchews-thumb.jpg" alt=""
-              loading="lazy" decoding="async"
-              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
-          </div>
-          <div class="hcard-body">
-            <span class="hcard-tag">Innovation · 07</span>
-            <h2 class="hcard-title">SuzChews — Cancer Patient Gum</h2>
-            <p class="hcard-desc">Medicated chewing gum formulated to treat chemotherapy-induced taste distortion (dysgeusia).</p>
-            <span class="hcard-go">View project ↗</span>
-          </div>
-        </a>
-
-        <!-- divider pip -->
-        <div style="width:1px;height:80%;background:var(--border);flex-shrink:0;align-self:center;margin:0 .25rem"></div>
-
-        <!-- 08 · Brand -->
-        <a class="hcard" data-cat="brand" href="projects/flavoice-crayola.html">
-          <div class="hcard-thumb no-img">
-            <img src="assets/projects/flavoice-crayola-thumb.jpg" alt=""
-              loading="lazy" decoding="async"
-              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
-          </div>
-          <div class="hcard-body">
-            <span class="hcard-tag">Brand · 08</span>
-            <h2 class="hcard-title">Fla-Vor-Ice × Crayola</h2>
-            <p class="hcard-desc">Co-brand campaign pairing Fla-Vor-Ice flavors with Crayola colors for a summer nostalgia push.</p>
-            <span class="hcard-go">View project ↗</span>
-          </div>
-        </a>
-
-        <!-- 09 · Brand -->
-        <a class="hcard" data-cat="brand" href="projects/purekick-harley.html">
-          <div class="hcard-thumb no-img">
-            <img src="assets/projects/purekick-harley-thumb.jpg" alt=""
-              loading="lazy" decoding="async"
-              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
-          </div>
-          <div class="hcard-body">
-            <span class="hcard-tag">Brand · 09</span>
-            <h2 class="hcard-title">Pure Kick × Harley-Davidson</h2>
-            <p class="hcard-desc">Partnership strategy connecting Pure Kick energy to Harley's freedom-riding identity.</p>
-            <span class="hcard-go">View project ↗</span>
-          </div>
-        </a>
-
-        <!-- 10 · Brand -->
-        <a class="hcard" data-cat="brand" href="projects/jelsert-jamba.html">
-          <div class="hcard-thumb no-img">
-            <img src="assets/projects/jelsert-jamba-thumb.jpg" alt=""
-              loading="lazy" decoding="async"
-              onerror="this.closest('.hcard-thumb').classList.add('no-img')">
-          </div>
-          <div class="hcard-body">
-            <span class="hcard-tag">Brand · 10</span>
-            <h2 class="hcard-title">Jel Sert × Jamba</h2>
-            <p class="hcard-desc">Product development and launch strategy for a Jamba-branded Jel Sert frozen treat line.</p>
-            <span class="hcard-go">View project ↗</span>
-          </div>
-        </a>
-
-        <!-- end padding card -->
-        <div style="width:2rem;flex-shrink:0"></div>
-
-      </div><!-- /hscroll-track -->
-
-      <div class="hscroll-hint" id="hscrollHint">Scroll down to advance</div>
-
-    </div><!-- /hscroll-sticky -->
-  </div><!-- /hscroll-outer -->
+  </div>
 </section>
 
 <hr class="full-divider">
 
-<!-- ABOUT -->
+<!-- ───────────────────────────── ABOUT ───────────────────────────── -->
 <section class="section" id="about">
   <div class="section-header reveal">
-    <span class="sec-num">02</span>
+    <span class="sec-num">03</span>
     <h2 class="sec-title">About <em>me</em></h2>
   </div>
   <div class="about-layout">
     <div class="reveal">
       <p class="about-intro">"I build things that live at the edge of what's technically possible and deeply human."</p>
       <p class="about-body">
-        I'm a <strong>Biophysics major at USC</strong>, in the process of transferring into the new <strong>Human Technology Interaction</strong> program at the Iovine and Young Academy — a degree built for exactly the kind of work I do.<br><br>
-        This summer I'm joining <strong>Edwards Lifesciences as an Extended Reality Learning Design Intern</strong>, bringing spatial computing into medical education. It's the exact intersection I've been building toward: XR with real clinical stakes.<br><br>
-        My background in <strong>cancer immunology research</strong> shapes how I approach design — every project starts with a real person and a real problem.
+        I study <strong>Human Technology Interaction</strong> at USC's Iovine &amp; Young Academy — a program where design and engineering aren't separate skills.<br><br>
+        Right now I'm at <strong>Edwards Lifesciences</strong>, building a VR training platform on my own — the design, the code, all of it.<br><br>
+        Before XR, I spent years in <strong>cancer-immunology labs</strong>. That's where I learned to start every project with a real person and a real problem.<br><br>
+        The plan from here is simple: spend the next few years building hard things alongside people I can learn from — then start my own company.
       </p>
       <div class="about-cards">
-        <div class="about-card c1"><div class="about-card-icon">⚗️</div><p class="about-card-title">Education</p><p class="about-card-body">USC Biophysics · Transferring to Human Technology Interaction, Iovine and Young Academy</p></div>
-        <div class="about-card c2"><div class="about-card-icon">🏥</div><p class="about-card-title">Upcoming</p><p class="about-card-body">XR Learning Design Intern @ Edwards Lifesciences · Summer 2026</p></div>
-        <div class="about-card c3"><div class="about-card-icon">🎮</div><p class="about-card-title">Toolkit</p><p class="about-card-body">Unity · Blender · Omniverse · visionOS · Meta Quest · Figma · Video Production</p></div>
-        <div class="about-card c4"><div class="about-card-icon">🔬</div><p class="about-card-title">Research</p><p class="about-card-body">Cancer immunology wetlab at UChicago · 2nd place UIUC symposium presenter</p></div>
+        <div class="about-card c1"><div class="about-card-icon">⚗️</div><p class="about-card-title">Education</p><p class="about-card-body">Human Technology Interaction · USC Iovine &amp; Young Academy · studied abroad at Franklin University Switzerland</p></div>
+        <div class="about-card c2"><div class="about-card-icon">🥽</div><p class="about-card-title">Currently</p><p class="about-card-body">Building VR training for clinicians, solo, at Edwards Lifesciences</p></div>
+        <div class="about-card c3"><div class="about-card-icon">🎮</div><p class="about-card-title">Toolkit</p><p class="about-card-body">Unity · Blender · Omniverse · visionOS · Meta Quest · Figma · C# / C++ / Python / Swift</p></div>
+        <div class="about-card c4"><div class="about-card-icon">🔬</div><p class="about-card-title">Research</p><p class="about-card-body">Cancer immunology wetlab @ UChicago · award-winning UIUC symposium presenter</p></div>
       </div>
     </div>
     <div class="reveal">
-      <p style="font-family:var(--mono);font-size:.65rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;">Interests &amp; passions</p>
+      <p class="interests-label">Interests &amp; passions</p>
       <div class="interests-list" id="interestsList">
-        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">01</span><span class="int-name">Extended Reality &amp; Spatial Computing</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">02</span><span class="int-name">Biotech &amp; Medical Innovation</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">03</span><span class="int-name">Video Game Design &amp; World-Building</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">04</span><span class="int-name">Human-Centered Product Design</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">05</span><span class="int-name">Cancer Research &amp; Immunology</span><span class="interest-tag">1 project</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">06</span><span class="int-name">Brand Strategy &amp; Storytelling</span><span class="interest-tag">3 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">07</span><span class="int-name">Shader Programming &amp; Real-Time Graphics</span><span class="interest-tag">5 projects</span><span class="int-arrow">↗</span></div>
-        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">08</span><span class="int-name">Medicine &amp; Therapeutic UX</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">01</span><span class="int-name">Extended Reality &amp; Spatial Computing</span><span class="interest-tag">4 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">02</span><span class="int-name">AI Systems for Immersive Experiences</span><span class="interest-tag">flagship</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">03</span><span class="int-name">Real-Time Graphics &amp; Shader Programming</span><span class="interest-tag">4 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">04</span><span class="int-name">Biotech &amp; Medical Innovation</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">05</span><span class="int-name">Human-Centered Product Design</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">06</span><span class="int-name">Cancer Research &amp; Immunology</span><span class="interest-tag">1 project</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">07</span><span class="int-name">Video Game Design &amp; World-Building</span><span class="interest-tag">4 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">08</span><span class="int-name">Brand Strategy &amp; Storytelling</span><span class="interest-tag">1 internship</span><span class="int-arrow">↗</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
+<!-- ───────────────────────────── CONTACT ───────────────────────────── -->
 <div class="contact-wrap" id="contact">
   <div class="contact-inner">
     <p class="contact-eyebrow">Get in touch</p>
     <h2 class="contact-heading">Let's build something<br><em>worth remembering.</em></h2>
-    <p class="contact-p">Open to internships, full-time roles, and collaborations in XR, biotech UX, and human-centered design.</p>
+    <p class="contact-p">I'm looking for a place to go deep — a team building ambitious things in XR or spatial computing, where I can spend the next few years learning from the best. (Then, one day, build my own.)</p>
     <div class="contact-links">
       <a class="contact-link link-email" href="mailto:samueljfrausto@gmail.com">
         <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
@@ -380,43 +339,22 @@
         <svg class="link-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
         LinkedIn
       </a>
+      <a class="contact-link link-li" href="assets/Samuel_Frausto_Resume.pdf" target="_blank" rel="noopener">
+        <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Résumé
+      </a>
     </div>
     <div class="contact-footer">
       <span class="footer-name">Samuel Frausto</span>
-      <span class="footer-copy">© 2026 — Designer &amp; Experience Builder</span>
+      <span class="footer-copy">© 2026 — XR Engineer &amp; Spatial Designer · Headset model by J-Toastie (CC BY)</span>
     </div>
   </div>
 </div>
 
+<script type="module" src="centerpiece.js?v=29"></script>
 <script src="shared.js"></script>
 <script>
-// ── Horizontal scroll mechanic ──────────────────────────────────────────────
-(function(){
-  const outer  = document.getElementById('hscrollOuter');
-  const track  = document.getElementById('hscrollTrack');
-  const hint   = document.getElementById('hscrollHint');
-  if (!outer || !track) return;
-
-  function update() {
-    const rect      = outer.getBoundingClientRect();
-    const scrollable = rect.height - window.innerHeight;
-    if (scrollable <= 0) return;
-    const progress  = Math.max(0, Math.min(1, -rect.top / scrollable));
-    const maxX      = track.scrollWidth - window.innerWidth;
-    track.style.transform = 'translateX(' + (-progress * maxX) + 'px)';
-    // fade hint out once scrolling starts
-    if (hint) hint.style.opacity = progress > 0.02 ? 0 : 1;
-  }
-
-  window.addEventListener('scroll', update, {passive: true});
-  window.addEventListener('resize', update, {passive: true});
-  update();
-})();
-
-// ── Utility ──────────────────────────────────────────────────────────────────
-function scrollToWork() {
-  document.getElementById('projects').scrollIntoView({behavior: 'smooth'});
-}
+function scrollToWork(){ document.getElementById('work').scrollIntoView({behavior:'smooth'}); }
 </script>
 </body>
 </html>
