@@ -99,13 +99,16 @@ function boot() {
         // ── constant flowing reveal: a liquid 'banner' blob sweeps back & forth on
         //    its own, and follows the cursor when you interact ──
         float n  = fbm(uv*3.0 + vec2(uTime*0.13, -uTime*0.07));
-        float n2 = fbm(uv*6.0 - vec2(uTime*0.20,  uTime*0.10));
-        // env: confine the WHOLE effect (holo + reveal) to the headset/visor region only
-        float env = smoothstep(0.60, 0.05, length((uv - vec2(0.5,0.665))/vec2(0.255,0.135)));
-        // auto: a liquid 'banner' that sweeps back & forth across the visor
-        float sweepX = 0.5 + sin(uTime*0.5)*0.28;
-        float bandCenter = sweepX + (n-0.5)*0.16 + (n2-0.5)*0.06;
-        float banner = smoothstep(0.20, 0.03, abs(uv.x - bandCenter)) * env;
+        // env: confine the WHOLE effect (holo + reveal) to the headset/visor region — widened
+        // in x so the banner can travel across the FULL goggle width, edge to edge.
+        float env = smoothstep(0.60, 0.05, length((uv - vec2(0.5,0.665))/vec2(0.36,0.15)));
+        // auto: a liquid BANNER — a wavy, gooey vertical ribbon that sweeps the whole visor
+        // edge to edge, dissolving the headset to reveal the face as it passes, then re-forming.
+        float bandX = fract(uTime*0.16)*1.4 - 0.2;                                      // constant sweep L→R, wraps off-screen
+        float wave  = sin(uv.y*7.0 + uTime*2.0)*0.05;                                    // rhythmic ripple down the ribbon
+        float goo   = (fbm(uv*vec2(2.5,4.5) + vec2(uTime*0.55, uTime*0.4)) - 0.5)*0.17;  // organic liquid churn
+        float dx    = uv.x - bandX - wave - goo;
+        float banner = smoothstep(0.24, 0.09, abs(dx)) * env;                            // wide fully-revealed ribbon w/ gooey edge
         // cursor: a big blob you can steer — reveals much more of the real face underneath
         float cdist = distance(uv, uMouse) - (n-0.5)*0.10;
         float cblob = smoothstep(0.36, 0.06, cdist);

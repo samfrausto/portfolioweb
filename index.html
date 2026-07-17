@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=35">
+<link rel="stylesheet" href="style.css?v=36">
 <script type="importmap">
 {
   "imports": {
@@ -165,122 +165,138 @@
     <span class="sec-num">02</span>
     <div>
       <h2 class="sec-title">The <em>path</em></h2>
-      <p class="path-sub">From the lab bench to the headset — every step started with a real human problem.</p>
+      <p class="path-sub">The whole story, in order — how a premed kid obsessed with baseball ended up building VR for surgeons.</p>
     </div>
   </div>
 
-  <div class="path-timeline">
+  <div class="path-story">
+    <!-- dotmorph canvas: sticky behind the stations; the dot field re-forms per station -->
+    <div class="path-canvas-wrap" aria-hidden="true"><canvas id="pathCanvas"></canvas></div>
 
-    <!-- 01 · UChicago -->
-    <article class="chapter reveal">
-      <div class="chapter-rail"><span class="ch-year">2023</span><span class="ch-num">01</span></div>
-      <div class="chapter-body">
-        <span class="ch-place">University of Chicago</span>
-        <span class="ch-role">ResearcHStart Fellow · Cancer Immunology</span>
-        <p class="ch-note">Where it started with a real person.</p>
-        <p class="ch-desc">300+ hours in Dr. Stephen Kron's lab probing TET2 inhibition as a leukemia target — work that won a research-poster award at UIUC and taught me to begin every project with a patient, not a pixel.</p>
-        <div class="ch-cards">
-          <a class="ch-card" href="projects/tet2-research.html">
-            <img src="assets/projects/tet2-research-01.png" alt="TET2 cancer research" loading="lazy" onerror="this.style.display='none'">
-            <span class="ch-card-t">TET2 Inhibition Research <span class="ch-card-tag">Research</span></span>
-          </a>
+    <div class="path-stations">
+
+      <!-- 01 · The two lanes -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">–2023</span><span class="ch-num">01</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">The two lanes</span>
+          <span class="ch-role">Science &amp; Baseball</span>
+          <p class="ch-note">For a long time I only had two speeds.</p>
+          <p class="ch-desc">Small build, fast — recruited on speed, strong in the classroom, quietly obsessed with building things from the ground up. The plan wrote itself: premed, a prestigious school, med school. I never questioned it.</p>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <!-- 02 · Jel Sert R&D -->
-    <article class="chapter reveal">
-      <div class="chapter-rail"><span class="ch-year">2024</span><span class="ch-num">02</span></div>
-      <div class="chapter-body">
-        <span class="ch-place">Jel Sert · R&amp;D Lab</span>
-        <span class="ch-role">Research &amp; Development Intern</span>
-        <p class="ch-note">Science meets the real world.</p>
-        <p class="ch-desc">Ran flavor-modulator and stevia-masker studies, stability testing, and sensory panels — learning the biophysics of taste and how science survives contact with a business.</p>
-      </div>
-    </article>
-
-    <!-- 03 · Franklin -->
-    <article class="chapter reveal">
-      <div class="chapter-rail"><span class="ch-year">2024</span><span class="ch-num">03</span></div>
-      <div class="chapter-body">
-        <span class="ch-place">Franklin University, Switzerland</span>
-        <span class="ch-role">Semester Abroad · Lugano</span>
-        <p class="ch-note">A wider lens.</p>
-        <p class="ch-desc">A semester in Ticino — new languages, new ways of seeing, and the distance to figure out what I actually wanted to build.</p>
-      </div>
-    </article>
-
-    <!-- 04 · USC -->
-    <article class="chapter reveal">
-      <div class="chapter-rail"><span class="ch-year">2025</span><span class="ch-num">04</span></div>
-      <div class="chapter-body">
-        <span class="ch-place">USC · Iovine &amp; Young Academy</span>
-        <span class="ch-role">Human Technology Interaction</span>
-        <p class="ch-note">The pivot — where design and engineering became one skill.</p>
-        <p class="ch-desc">I went all-in on spatial computing: building for the Meta Quest, Apple Vision Pro, and NVIDIA Omniverse — and bringing my science background into healthcare-grade design.</p>
-        <div class="ch-cards">
-          <a class="ch-card" href="projects/vr-baseball.html">
-            <img src="assets/projects/vr-baseball-01.png" alt="VR Baseball Training System" loading="lazy" onerror="this.style.display='none'">
-            <span class="ch-card-t">VR Baseball Trainer <span class="ch-card-tag">Unity · Quest</span></span>
-          </a>
-          <a class="ch-card" href="projects/iyh-digital-twin.html">
-            <img src="assets/projects/iyh-digital-twin-01.png" alt="Iovine and Young Hall digital twin" loading="lazy" onerror="this.style.display='none'">
-            <span class="ch-card-t">IYH Digital Twin <span class="ch-card-tag">Omniverse</span></span>
-          </a>
-          <a class="ch-card" href="projects/pavilia.html">
-            <img src="assets/projects/pavilia-01.png" alt="Pavilia portal mechanic" loading="lazy" onerror="this.style.display='none'">
-            <span class="ch-card-t">Pavilia — Portals <span class="ch-card-tag">Vision Pro</span></span>
-          </a>
-          <a class="ch-card" href="projects/suzchews/">
-            <img src="projects/suzchews/assets/process/thumb_full.jpg" alt="SuzChews medicated gum" loading="lazy" onerror="this.style.display='none'">
-            <span class="ch-card-t">SuzChews — Patient Gum <span class="ch-card-tag">Healthcare</span></span>
-          </a>
-          <a class="ch-card" href="projects/cyberpunk-twin.html">
-            <img src="assets/projects/cyberpunk-twin-01.png" alt="Cyberpunk 2077 room digital twin" loading="lazy" onerror="this.style.display='none'">
-            <span class="ch-card-t">Cyberpunk Twin <span class="ch-card-tag">Blender</span></span>
-          </a>
+      <!-- 02 · UChicago -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">2023</span><span class="ch-num">02</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">University of Chicago</span>
+          <span class="ch-role">ResearcHStart Fellow · Cancer Immunology</span>
+          <p class="ch-note">Then cancer walked into my family, and medicine stopped being abstract.</p>
+          <p class="ch-desc">A diagnosis at home sent me into the lab for real — 300+ hours in Dr. Stephen Kron's lab probing TET2 inhibition as a leukemia target, work that won a research-poster award at UIUC. It taught me to start every project with a patient, not a pixel.</p>
+          <div class="ch-cards">
+            <a class="ch-card" href="projects/tet2-research.html">
+              <img src="assets/projects/tet2-research-01.png" alt="TET2 cancer research" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">TET2 Inhibition Research <span class="ch-card-tag">Research</span></span>
+            </a>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <!-- 05 · Jel Sert Media -->
-    <article class="chapter reveal">
-      <div class="chapter-rail"><span class="ch-year">2025</span><span class="ch-num">05</span></div>
-      <div class="chapter-body">
-        <span class="ch-place">Jel Sert · Media &amp; Comms</span>
-        <span class="ch-role">Media &amp; Communications Intern</span>
-        <p class="ch-note">Learning to make people care.</p>
-        <p class="ch-desc">Produced brand films and campaigns for national partnerships — Crayola, Harley-Davidson, Jamba — and learned that the best technology still needs a story.</p>
-        <div class="ch-cards">
-          <a class="ch-card" href="projects/purekick-harley.html">
-            <img src="assets/projects/jelsert-internship-01.png" alt="Jel Sert brand internship" loading="lazy" onerror="this.style.display='none'">
-            <span class="ch-card-t">Brand Films &amp; Campaigns <span class="ch-card-tag">Crayola · Harley</span></span>
-          </a>
+      <!-- 03 · The break -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">2024</span><span class="ch-num">03</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">The break</span>
+          <span class="ch-role">Senior year</span>
+          <p class="ch-note">One year took the two things I was sure of — my speed, and my family's health.</p>
+          <p class="ch-desc">A torn hamstring ended the athlete's path, and a second, harder diagnosis tested my family. Watching someone I love move through chemo, I started sketching what became SuzChews — a small, human answer to a brutal process. I realized there was more to life than the script I'd been following.</p>
         </div>
-      </div>
-    </article>
+      </article>
 
-    <!-- 06 · Edwards (climax → links to Now) -->
-    <article class="chapter chapter-now reveal">
-      <div class="chapter-rail"><span class="ch-year">2026</span><span class="ch-num">06</span></div>
-      <div class="chapter-body">
-        <span class="ch-place">Edwards Lifesciences</span>
-        <span class="ch-role">Solo XR Engineer–Designer · AI-powered VR training</span>
-        <p class="ch-note">It all led here.</p>
-        <p class="ch-desc">Science, design, and storytelling finally converge: a VR training platform for clinicians I'm building end to end, on my own.</p>
-        <a class="ch-jump" href="#now">See what I'm building now ↑</a>
-      </div>
-    </article>
+      <!-- 04 · The reset -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">2024</span><span class="ch-num">04</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">The reset</span>
+          <span class="ch-role">Franklin University, Lugano · Gap semester</span>
+          <p class="ch-note">So I stopped following the script and left.</p>
+          <p class="ch-desc">Enrolled online and backpacked fourteen countries alone before ever setting foot at USC. Meeting people who'd built completely different lives showed me the path I was on wasn't actually mine.</p>
+        </div>
+      </article>
 
-    <!-- 07 · Future -->
-    <article class="chapter chapter-future reveal">
-      <div class="chapter-rail"><span class="ch-year">Next</span><span class="ch-num">07</span></div>
-      <div class="chapter-body">
-        <span class="ch-place">My own company</span>
-        <p class="ch-note">The plan: go deep at a place building the future for a few years — then build my own.</p>
-      </div>
-    </article>
+      <!-- 05 · Jel Sert -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">2024–25</span><span class="ch-num">05</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">Jel Sert</span>
+          <span class="ch-role">R&amp;D → Media &amp; Communications</span>
+          <p class="ch-note">Two internships taught me what school didn't.</p>
+          <p class="ch-desc">In the R&amp;D lab I learned how science survives contact with a business — flavor systems, stability testing, sensory panels. In media, producing brand films for Crayola, Harley-Davidson, and Jamba, I learned that the best technology still needs a story.</p>
+          <div class="ch-cards">
+            <a class="ch-card" href="projects/purekick-harley.html">
+              <img src="assets/projects/jelsert-internship-01.png" alt="Jel Sert brand internship" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">Brand Films &amp; Campaigns <span class="ch-card-tag">Crayola · Harley</span></span>
+            </a>
+          </div>
+        </div>
+      </article>
 
+      <!-- 06 · USC · Iovine & Young -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">2025</span><span class="ch-num">06</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">USC · Iovine &amp; Young Academy</span>
+          <span class="ch-role">Human Technology Interaction</span>
+          <p class="ch-note">Back on the premed track I was miserable — memorizing the Krebs cycle when all I wanted to do was build.</p>
+          <p class="ch-desc">Then I found the Iovine &amp; Young Academy and its brand-new Human Technology Interaction degree — I'm on track to be the first person at USC to earn it. Design and engineering stopped being separate skills, and I went all-in on spatial computing: Meta Quest, Vision Pro, NVIDIA Omniverse — including turning that SuzChews sketch into a real product design.</p>
+          <div class="ch-cards">
+            <a class="ch-card" href="projects/vr-baseball.html">
+              <img src="assets/projects/vr-baseball-01.png" alt="VR Baseball Training System" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">VR Baseball Trainer <span class="ch-card-tag">Unity · Quest</span></span>
+            </a>
+            <a class="ch-card" href="projects/iyh-digital-twin.html">
+              <img src="assets/projects/iyh-digital-twin-01.png" alt="Iovine and Young Hall digital twin" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">IYH Digital Twin <span class="ch-card-tag">Omniverse</span></span>
+            </a>
+            <a class="ch-card" href="projects/pavilia.html">
+              <img src="assets/projects/pavilia-01.png" alt="Pavilia portal mechanic" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">Pavilia — Portals <span class="ch-card-tag">Vision Pro</span></span>
+            </a>
+            <a class="ch-card" href="projects/suzchews/">
+              <img src="projects/suzchews/assets/process/thumb_full.jpg" alt="SuzChews medicated gum" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">SuzChews — Patient Gum <span class="ch-card-tag">Healthcare</span></span>
+            </a>
+            <a class="ch-card" href="projects/cyberpunk-twin.html">
+              <img src="assets/projects/cyberpunk-twin-01.png" alt="Cyberpunk 2077 room digital twin" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">Cyberpunk Twin <span class="ch-card-tag">Blender</span></span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 07 · Edwards (climax → links to Now) -->
+      <article class="chapter chapter-now reveal">
+        <div class="chapter-rail"><span class="ch-year">2026</span><span class="ch-num">07</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">Edwards Lifesciences</span>
+          <span class="ch-role">Solo XR Engineer–Designer · AI-powered VR training</span>
+          <p class="ch-note">It all led here.</p>
+          <p class="ch-desc">Science, design, and storytelling finally converge: a VR training platform for clinicians I'm building end to end, on my own.</p>
+          <a class="ch-jump" href="#now">See what I'm building now ↑</a>
+        </div>
+      </article>
+
+      <!-- 08 · Next -->
+      <article class="chapter chapter-future reveal">
+        <div class="chapter-rail"><span class="ch-year">Next</span><span class="ch-num">08</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">My own company</span>
+          <p class="ch-note">The plan: go deep at a place building the future for a few years — then build my own.</p>
+        </div>
+      </article>
+
+    </div>
   </div>
 </section>
 
@@ -351,7 +367,11 @@
   </div>
 </div>
 
-<script type="module" src="centerpiece.js?v=29"></script>
+<!-- hero→path handoff: the portrait dissolves into dots that ride the scroll down -->
+<canvas class="handoff-canvas" id="handoffCanvas" aria-hidden="true"></canvas>
+
+<script type="module" src="centerpiece.js?v=36"></script>
+<script type="module" src="path-dots.js?v=1"></script>
 <script src="shared.js"></script>
 <script>
 function scrollToWork(){ document.getElementById('work').scrollIntoView({behavior:'smooth'}); }

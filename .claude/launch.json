@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "static",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [".claude/devserver.py", "4599"],
+      "port": 4599
+    }
+  ]
+}

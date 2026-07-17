@@ -70,7 +70,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .logo-stream{position:absolute;left:44%;top:80%;width:172%;height:96px;transform:translate(-50%,-50%) rotate(-30deg);transform-origin:center;overflow:hidden;z-index:1;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
 .logo-stream-track{display:flex;align-items:center;gap:4.5rem;height:100%;width:max-content;animation:streamscroll 44s linear infinite;position:relative}
 .ls-logo{display:grid;place-items:center;height:100%}
-.ls-logo img{height:32.4px;max-width:128px;width:auto;object-fit:contain;opacity:.5;transform:rotate(32deg)}
+.ls-logo img{height:32.4px;max-width:128px;width:auto;object-fit:contain;opacity:.66;transform:rotate(30deg)}
 @keyframes streamscroll{from{transform:translateX(-33.333%)}to{transform:translateX(0)}}
 /* veil: darkens the left so the name reads on a clean field; logos emerge toward the hologram */
 .hero-veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(100deg,var(--ink) 30%,rgba(10,11,15,.85) 48%,transparent 70%)}
@@ -168,7 +168,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .work-card.feat .wc-desc{font-size:.92rem;flex:none}
 
 /* ───────────── THE PATH (chronological chapters) ───────────── */
-.path{background:var(--ink);color:var(--on-dark);padding:6rem 2.5rem 3.5rem;position:relative;overflow:hidden}
+/* NOTE: no overflow:hidden here — it breaks position:sticky on .path-canvas-wrap (nothing in .path overflows anyway) */
+.path{background:var(--ink);color:var(--on-dark);padding:6rem 2.5rem 3.5rem;position:relative}
 .path-grain{position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .path-intro{max-width:1100px;margin:0 auto 2.5rem;display:flex;gap:1.25rem;align-items:flex-start;position:relative;z-index:1}
 .path .sec-num{background:rgba(255,255,255,.05);border:1px solid var(--on-border2);color:var(--on-mute)}
@@ -196,6 +197,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .chapter-future{opacity:.92}
 .chapter-future .ch-place{font-size:2rem}
 .chapter-future .ch-note{color:var(--on-mute);font-size:1.3rem;max-width:680px}
+
+/* ───────────── DOTMORPH (hero handoff + path canvas) ───────────── */
+/* fixed full-viewport canvas for the hero→path handoff; !important beats the
+   body>* position:relative/z-index:1 rule */
+.handoff-canvas{position:fixed!important;inset:0;width:100vw;height:100vh;z-index:5!important;pointer-events:none;opacity:0}
+.path-story{position:relative;max-width:none}
+.path-canvas-wrap{position:sticky;top:0;height:100vh;margin-bottom:-100vh;z-index:0;pointer-events:none}
+.path-canvas-wrap canvas{width:100%;height:100%;display:block}
+.path-stations{position:relative;z-index:1;max-width:1100px;margin:0 auto}
+.path-stations .chapter{border-top:none;min-height:94vh;align-content:center;padding:2rem 0}
+.path-stations .ch-desc{max-width:520px}
+.path-stations .ch-cards{max-width:560px}
+@media (max-width:900px){
+  .handoff-canvas{display:none}
+  .path-stations .chapter{min-height:80vh}
+}
+@media (prefers-reduced-motion:reduce){
+  .handoff-canvas{display:none}
+}
 
 /* ───────────── SECTION SHARED (warm) ───────────── */
 .section{padding:6rem 2.5rem;max-width:1200px;margin:0 auto}

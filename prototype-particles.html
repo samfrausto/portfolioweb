@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Particle morph — prototype</title>
+<style>
+  :root{ --ink:#0d0d0f; --coral:#e0613a; --teal:#5fd3c4; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--ink);color:#f5f4f2;font-family:ui-sans-serif,system-ui,sans-serif}
+  /* tall scroll track so we can scrub the morph */
+  .track{height:400vh;position:relative}
+  .stage{position:fixed;inset:0;width:100vw;height:100vh}
+  canvas{display:block}
+  .hud{position:fixed;left:2rem;bottom:2rem;font-family:ui-monospace,monospace;font-size:.72rem;letter-spacing:.06em;color:#8a8a8a;z-index:5}
+  .cap{position:fixed;left:2rem;top:50%;transform:translateY(-50%);max-width:320px;z-index:5;pointer-events:none}
+  .cap h1{font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:2rem;line-height:1.1;margin-bottom:.6rem}
+  .cap p{font-size:.9rem;color:#b9b7b3;line-height:1.7}
+  .cap .yr{font-family:ui-monospace,monospace;font-size:.7rem;color:var(--coral);letter-spacing:.1em;display:block;margin-bottom:.5rem}
+</style>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+</head>
+<body>
+<div class="stage"><canvas id="c"></canvas></div>
+<div class="cap" id="cap">
+  <span class="yr" id="yr">STATION 01</span>
+  <h1 id="ct">The two lanes</h1>
+  <p id="cd">One dot field. It forms an image of you, then flows into the next. Scroll to move through the story.</p>
+</div>
+<div class="hud" id="hud">morph 0.00 · particles —</div>
+<div class="track"></div>
+
+<script type="module">
+import * as THREE from 'three';
+
+// ── the eight stations. Prototype uses the two ready-made clean portraits as
+//    stand-ins so you can see the mechanic; the real 8 silhouettes drop in here.
+const IMAGES = [
+  { src:'assets/portrait/face.png',    yr:'STATION 01', t:'This is you',      d:'Your face, built from ~12,000 points keyed off the flat-grey studio background.' },
+  { src:'assets/portrait/headset.png', yr:'STATION 02', t:'Into the headset', d:'Every point flies to its position in the next image. That flow is the story — the images are just the anchors.' },
+  { src:'assets/portrait/face.png',    yr:'STATION 03', t:'And back',         d:'Scroll up and down to scrub the morph. Real silhouettes (baseball, travel, VR) will replace these.' },
+];
+
+const N = 12000;                 // particle count
+const KEY = new THREE.Vector3(0.463,0.463,0.463); // grey bg to remove
+const SCALE = 0.92;
+const canvas = document.getElementById('c');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+const scene = new THREE.Scene();
+let cam;
+function sizeCam(){
+  const a = innerWidth/innerHeight;
+  cam = new THREE.OrthographicCamera(-a,a,1,-1,0,10);
+}
+sizeCam();
+function resize(){ renderer.setSize(innerWidth,innerHeight); sizeCam(); }
+addEventListener('resize', resize); resize();
+
+// ── sample one image into N world-space targets, sorted top→bottom so morphs
+//    between aligned portraits move coherently instead of chaotically.
+function sampleImage(src){
+  return new Promise((res)=>{
+    const img = new Image();
+    img.onload = ()=>{
+      const S = 240;                        // downsample res
+      const cv = document.createElement('canvas'); cv.width=cv.height=S;
+      const cx = cv.getContext('2d',{willReadFrequently:true});
+      // contain into square
+      cx.drawImage(img,0,0,S,S);
+      const data = cx.getImageData(0,0,S,S).data;
+      const cand=[];
+      for(let y=0;y<S;y++) for(let x=0;x<S;x++){
+        const i=(y*S+x)*4, a=data[i+3];
+        if(a<20) continue;                  // transparent = bg
+        const r=data[i]/255,g=data[i+1]/255,b=data[i+2]/255;
+        const dist=Math.hypot(r-KEY.x,g-KEY.y,b-KEY.z);
+        if(dist<0.14) continue;             // grey bg = bg
+        const wx=(x/S-0.5)*2*SCALE;
+        const wy=-(y/S-0.5)*2*SCALE;
+        cand.push([wx,wy]);
+      }
+      cand.sort((p,q)=> q[1]-p[1] || p[0]-q[0]); // top→bottom, left→right
+      const out=new Float32Array(N*3);
+      for(let i=0;i<N;i++){
+        const s = cand.length ? cand[Math.floor(i*cand.length/N)] : [0,0];
+        out[i*3]=s[0]; out[i*3+1]=s[1]; out[i*3+2]=0;
+      }
+      res(out);
+    };
+    img.src = src;
+  });
+}
+
+const vert = `
+  uniform float uT; uniform float uPix; uniform float uTime;
+  attribute vec3 aA; attribute vec3 aB; attribute float aR;
+  varying float vR;
+  void main(){
+    vR = aR;
+    float e = smoothstep(0.0,1.0,uT);
+    vec3 p = mix(aA,aB,e);
+    // scatter bulge at mid-transition — the "flow" feel
+    float s = sin(uT*3.14159);
+    float ang = aR*6.2831 + uTime*0.2;
+    p.xy += vec2(cos(ang),sin(ang)) * s * (0.10 + 0.14*aR);
+    p.z  += s * (aR-0.5) * 0.4;
+    // gentle idle drift
+    p.x += sin(uTime*0.6 + aR*10.0)*0.004;
+    p.y += cos(uTime*0.5 + aR*8.0)*0.004;
+    vec4 mv = modelViewMatrix * vec4(p,1.0);
+    gl_Position = projectionMatrix * mv;
+    gl_PointSize = (1.7 + 0.9*aR) * uPix;
+  }`;
+const frag = `
+  varying float vR;
+  uniform float uT;
+  void main(){
+    vec2 d = gl_PointCoord - 0.5;
+    if(dot(d,d) > 0.25) discard;             // round point
+    vec3 face = vec3(0.92,0.90,0.86);
+    vec3 coral= vec3(0.88,0.38,0.23);
+    vec3 teal = vec3(0.37,0.83,0.77);
+    vec3 col = mix(face, mix(teal,coral,vR), sin(uT*3.14159)*0.9);
+    gl_FragColor = vec4(col, 0.9);
+  }`;
+
+let points, mats, targets=[];
+async function build(){
+  targets = await Promise.all(IMAGES.map(im=>sampleImage(im.src)));
+  const geo = new THREE.BufferGeometry();
+  const aA=new Float32Array(N*3), aB=new Float32Array(N*3), aR=new Float32Array(N);
+  aA.set(targets[0]); aB.set(targets[1]);
+  for(let i=0;i<N;i++) aR[i]=Math.random();
+  geo.setAttribute('position', new THREE.BufferAttribute(aA.slice(),3));
+  geo.setAttribute('aA', new THREE.BufferAttribute(aA,3));
+  geo.setAttribute('aB', new THREE.BufferAttribute(aB,3));
+  geo.setAttribute('aR', new THREE.BufferAttribute(aR,1));
+  mats = new THREE.ShaderMaterial({
+    uniforms:{ uT:{value:0}, uPix:{value:Math.min(devicePixelRatio,2)}, uTime:{value:0} },
+    vertexShader:vert, fragmentShader:frag, transparent:true, depthTest:false,
+    blending:THREE.AdditiveBlending
+  });
+  points = new THREE.Points(geo, mats);
+  scene.add(points);
+  document.getElementById('hud').textContent = `morph 0.00 · ${N.toLocaleString()} particles`;
+}
+
+// map scroll → a position along the station chain [0 .. IMAGES.length-1]
+function scrollPos(){
+  const max = document.body.scrollHeight - innerHeight;
+  const f = max>0 ? scrollY/max : 0;
+  return f * (IMAGES.length-1);
+}
+function setSegment(pos){
+  const seg = Math.min(Math.floor(pos), IMAGES.length-2);
+  const local = pos - seg;
+  const A=targets[seg], B=targets[seg+1];
+  points.geometry.getAttribute('aA').array.set(A);
+  points.geometry.getAttribute('aB').array.set(B);
+  points.geometry.getAttribute('aA').needsUpdate=true;
+  points.geometry.getAttribute('aB').needsUpdate=true;
+  mats.uniforms.uT.value = local;
+  const im = IMAGES[local>0.5?seg+1:seg];
+  document.getElementById('yr').textContent=im.yr;
+  document.getElementById('ct').textContent=im.t;
+  document.getElementById('cd').textContent=im.d;
+  document.getElementById('hud').textContent=`morph ${local.toFixed(2)} · station ${seg+1}→${seg+2} · ${N.toLocaleString()} particles`;
+}
+// debug hook for screenshots
+window.__setMorph = (globalT)=>{ if(!points) return; setSegment(globalT*(IMAGES.length-1)); };
+
+let t0=performance.now();
+function loop(){
+  requestAnimationFrame(loop);
+  if(!points) return;
+  mats.uniforms.uTime.value=(performance.now()-t0)/1000;
+  if(!reduce) setSegment(scrollPos());
+  renderer.render(scene,cam);
+}
+build().then(()=>{ setSegment(0); loop(); });
+</script>
+</body>
+</html>
