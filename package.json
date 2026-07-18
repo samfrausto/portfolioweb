@@ -2,6 +2,6 @@
   "name": "portfolioweb",
   "private": true,
   "scripts": {
-    "build": "rm -rf dist && mkdir -p dist && cp index.html style.css shared.js dist/ && cp -R projects dist/projects && cp -R assets dist/"
+    "build": "rm -rf dist && mkdir -p dist && cp index.html style.css shared.js centerpiece.js path-dots.js dist/ && cp -R projects dist/projects && cp -R assets dist/"
   }
 }
