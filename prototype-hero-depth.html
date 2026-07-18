@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samuel Frausto — XR Engineer & Spatial Designer</title>
+<meta name="description" content="Samuel Frausto — XR engineer and spatial designer building AI-powered VR systems at the edge of spatial computing, biotech, and human-centered design.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=36">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body class="home">
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">S<span>.</span>Frausto</a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#now">Now</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a class="nav-resume" href="assets/Samuel_Frausto_Resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+    <div class="nav-dot" title="Open to opportunities"></div>
+  </div>
+</nav>
+
+<!-- ───────────────────────────── HERO ───────────────────────────── -->
+<section class="hero" id="top">
+  <div class="hero-grid-lines" aria-hidden="true"></div>
+
+  <!-- giant background wordmark -->
+  <div class="hero-watermark" aria-hidden="true">
+    <span>FRAUSTO</span>
+  </div>
+
+  <!-- diagonal cycling logo stream: where I've studied & worked -->
+  <div class="logo-stream" aria-label="Studied and worked at">
+    <div class="logo-stream-track">
+      <span class="ls-logo"><img src="assets/logos/mono/edwards.png" alt="Edwards Lifesciences"></span>
+      <span class="ls-logo"><img src="assets/logos/mono/usc.png" alt="USC"></span>
+      <span class="ls-logo"><img src="assets/logos/mono/uchicago.png" alt="University of Chicago Medicine"></span>
+      <span class="ls-logo"><img src="assets/logos/mono/iya.png" alt="USC Iovine and Young Academy"></span>
+      <span class="ls-logo"><img src="assets/logos/mono/jelsert.png" alt="The Jel Sert Company"></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/edwards.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/usc.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/uchicago.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/iya.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/jelsert.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/edwards.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/usc.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/uchicago.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/iya.png" alt=""></span>
+      <span class="ls-logo" aria-hidden="true"><img src="assets/logos/mono/jelsert.png" alt=""></span>
+    </div>
+  </div>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <span class="stream-label">Studied &amp; worked</span>
+
+  <!-- Portrait blob-reveal centerpiece -->
+  <div class="stage-wrap">
+    <div class="orbit-ring r1" aria-hidden="true"></div>
+    <div class="orbit-ring r2" aria-hidden="true"></div>
+    <div class="stage" id="stage">
+      <img class="portrait-fallback" src="assets/portrait/headset.png" alt="Samuel Frausto wearing a VR headset">
+    </div>
+    <div class="stage-hint" id="stageHint"><span class="drag-ico">✦</span> Move your cursor across the portrait</div>
+  </div>
+
+  <!-- hero copy -->
+  <div class="hero-copy">
+    <div class="hero-eyebrow">XR Engineer &amp; Spatial Designer</div>
+    <h1 class="hero-name">Samuel Frausto</h1>
+    <p class="hero-tag">
+      I build immersive experiences you can step inside — end to end, from the first sketch to the last line of code.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#work">See the work</a>
+      <a class="btn btn-ghost" href="#now">What I'm building now ↘</a>
+    </div>
+  </div>
+
+  <!-- live status -->
+  <a class="hero-now-chip" href="#now">
+    <span class="now-pulse"></span>
+    <span><strong>Now</strong> · Building VR training for clinicians — solo — at Edwards Lifesciences</span>
+  </a>
+
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- ───────────────────────────── MARQUEE ───────────────────────────── -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Unity</span><i>✦</i><span>visionOS</span><i>✦</i><span>Meta Quest</span><i>✦</i><span>NVIDIA Omniverse</span><i>✦</i><span>Blender</span><i>✦</i><span>Shader Programming</span><i>✦</i><span>AI Systems</span><i>✦</i><span>Digital Twins</span><i>✦</i><span>Figma</span><i>✦</i><span>C# · C++ · Python · Swift</span><i>✦</i>
+    <span>Unity</span><i>✦</i><span>visionOS</span><i>✦</i><span>Meta Quest</span><i>✦</i><span>NVIDIA Omniverse</span><i>✦</i><span>Blender</span><i>✦</i><span>Shader Programming</span><i>✦</i><span>AI Systems</span><i>✦</i><span>Digital Twins</span><i>✦</i><span>Figma</span><i>✦</i><span>C# · C++ · Python · Swift</span><i>✦</i>
+  </div>
+</div>
+
+<!-- ───────────────────────────── NOW / EDWARDS ───────────────────────────── -->
+<section class="now-section" id="now">
+  <div class="now-inner">
+    <div class="now-head reveal">
+      <span class="sec-num">01</span>
+      <div>
+        <span class="now-kicker"><span class="now-pulse"></span> Right now · in progress</span>
+        <h2 class="sec-title">The flagship: <em>VR training for clinicians</em></h2>
+      </div>
+    </div>
+
+    <div class="now-body reveal">
+      <div class="now-lead">
+        <p>
+          At <strong>Edwards Lifesciences</strong> I'm building a VR platform that trains clinicians for real
+          procedures — and I'm building all of it: the experience, the 3D world, the code, and an AI layer that
+          adapts to each trainee. Just me, end to end.
+        </p>
+        <p class="now-sub">
+          It's the work I've been chasing for years — immersive technology where the stakes are real.
+          Still in progress; here's how it fits together.
+        </p>
+      </div>
+
+      <div class="now-pillars">
+        <article class="now-pillar">
+          <span class="np-ico">🧑‍💻</span>
+          <h3>Solo, full-stack</h3>
+          <p>One person, the whole pipeline — UX, 3D, engineering, and the AI layer. Design decisions and code are the same hand.</p>
+        </article>
+        <article class="now-pillar">
+          <span class="np-ico">🤖</span>
+          <h3>Adaptive AI layer</h3>
+          <p>An AI system that responds to the trainee in real time, shaping scenarios and guidance to how each clinician performs.</p>
+        </article>
+        <article class="now-pillar">
+          <span class="np-ico">🥽</span>
+          <h3>Built for the headset</h3>
+          <p>Spatial-first interaction designed for VR — not a flat app bolted into 3D, but an experience that only works in the headset.</p>
+        </article>
+        <article class="now-pillar">
+          <span class="np-ico">🏥</span>
+          <h3>Real clinical stakes</h3>
+          <p>Training for high-consequence medical procedures, where getting the interaction and fidelity right actually matters.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- ───────────────────────────── THE PATH ───────────────────────────── -->
+<section class="path" id="work">
+  <div class="path-grain" aria-hidden="true"></div>
+  <div class="path-intro reveal">
+    <span class="sec-num">02</span>
+    <div>
+      <h2 class="sec-title">The <em>path</em></h2>
+      <p class="path-sub">The whole story, in order — how a premed kid obsessed with baseball ended up building VR for surgeons.</p>
+    </div>
+  </div>
+
+  <div class="path-story">
+    <!-- dotmorph canvas: sticky behind the stations; the dot field re-forms per station -->
+    <div class="path-canvas-wrap" aria-hidden="true"><canvas id="pathCanvas"></canvas></div>
+
+    <div class="path-stations">
+
+      <!-- 01 · The two lanes -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">–2023</span><span class="ch-num">01</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">The two lanes</span>
+          <span class="ch-role">Science &amp; Baseball</span>
+          <p class="ch-note">For a long time I only had two speeds.</p>
+          <p class="ch-desc">Small build, fast — recruited on speed, strong in the classroom, quietly obsessed with building things from the ground up. The plan wrote itself: premed, a prestigious school, med school. I never questioned it.</p>
+        </div>
+      </article>
+
+      <!-- 02 · UChicago -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">2023</span><span class="ch-num">02</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">University of Chicago</span>
+          <span class="ch-role">ResearcHStart Fellow · Cancer Immunology</span>
+          <p class="ch-note">Then cancer walked into my family, and medicine stopped being abstract.</p>
+          <p class="ch-desc">A diagnosis at home sent me into the lab for real — 300+ hours in Dr. Stephen Kron's lab probing TET2 inhibition as a leukemia target, work that won a research-poster award at UIUC. It taught me to start every project with a patient, not a pixel.</p>
+          <div class="ch-cards">
+            <a class="ch-card" href="projects/tet2-research.html">
+              <img src="assets/projects/tet2-research-01.png" alt="TET2 cancer research" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">TET2 Inhibition Research <span class="ch-card-tag">Research</span></span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03 · The break -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">2024</span><span class="ch-num">03</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">The break</span>
+          <span class="ch-role">Senior year</span>
+          <p class="ch-note">One year took the two things I was sure of — my speed, and my family's health.</p>
+          <p class="ch-desc">A torn hamstring ended the athlete's path, and a second, harder diagnosis tested my family. Watching someone I love move through chemo, I started sketching what became SuzChews — a small, human answer to a brutal process. I realized there was more to life than the script I'd been following.</p>
+        </div>
+      </article>
+
+      <!-- 04 · The reset -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">2024</span><span class="ch-num">04</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">The reset</span>
+          <span class="ch-role">Franklin University, Lugano · Gap semester</span>
+          <p class="ch-note">So I stopped following the script and left.</p>
+          <p class="ch-desc">Enrolled online and backpacked fourteen countries alone before ever setting foot at USC. Meeting people who'd built completely different lives showed me the path I was on wasn't actually mine.</p>
+        </div>
+      </article>
+
+      <!-- 05 · Jel Sert -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">2024–25</span><span class="ch-num">05</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">Jel Sert</span>
+          <span class="ch-role">R&amp;D → Media &amp; Communications</span>
+          <p class="ch-note">Two internships taught me what school didn't.</p>
+          <p class="ch-desc">In the R&amp;D lab I learned how science survives contact with a business — flavor systems, stability testing, sensory panels. In media, producing brand films for Crayola, Harley-Davidson, and Jamba, I learned that the best technology still needs a story.</p>
+          <div class="ch-cards">
+            <a class="ch-card" href="projects/purekick-harley.html">
+              <img src="assets/projects/jelsert-internship-01.png" alt="Jel Sert brand internship" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">Brand Films &amp; Campaigns <span class="ch-card-tag">Crayola · Harley</span></span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 06 · USC · Iovine & Young -->
+      <article class="chapter reveal">
+        <div class="chapter-rail"><span class="ch-year">2025</span><span class="ch-num">06</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">USC · Iovine &amp; Young Academy</span>
+          <span class="ch-role">Human Technology Interaction</span>
+          <p class="ch-note">Back on the premed track I was miserable — memorizing the Krebs cycle when all I wanted to do was build.</p>
+          <p class="ch-desc">Then I found the Iovine &amp; Young Academy and its brand-new Human Technology Interaction degree — I'm on track to be the first person at USC to earn it. Design and engineering stopped being separate skills, and I went all-in on spatial computing: Meta Quest, Vision Pro, NVIDIA Omniverse — including turning that SuzChews sketch into a real product design.</p>
+          <div class="ch-cards">
+            <a class="ch-card" href="projects/vr-baseball.html">
+              <img src="assets/projects/vr-baseball-01.png" alt="VR Baseball Training System" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">VR Baseball Trainer <span class="ch-card-tag">Unity · Quest</span></span>
+            </a>
+            <a class="ch-card" href="projects/iyh-digital-twin.html">
+              <img src="assets/projects/iyh-digital-twin-01.png" alt="Iovine and Young Hall digital twin" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">IYH Digital Twin <span class="ch-card-tag">Omniverse</span></span>
+            </a>
+            <a class="ch-card" href="projects/pavilia.html">
+              <img src="assets/projects/pavilia-01.png" alt="Pavilia portal mechanic" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">Pavilia — Portals <span class="ch-card-tag">Vision Pro</span></span>
+            </a>
+            <a class="ch-card" href="projects/suzchews/">
+              <img src="projects/suzchews/assets/process/thumb_full.jpg" alt="SuzChews medicated gum" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">SuzChews — Patient Gum <span class="ch-card-tag">Healthcare</span></span>
+            </a>
+            <a class="ch-card" href="projects/cyberpunk-twin.html">
+              <img src="assets/projects/cyberpunk-twin-01.png" alt="Cyberpunk 2077 room digital twin" loading="lazy" onerror="this.style.display='none'">
+              <span class="ch-card-t">Cyberpunk Twin <span class="ch-card-tag">Blender</span></span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 07 · Edwards (climax → links to Now) -->
+      <article class="chapter chapter-now reveal">
+        <div class="chapter-rail"><span class="ch-year">2026</span><span class="ch-num">07</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">Edwards Lifesciences</span>
+          <span class="ch-role">Solo XR Engineer–Designer · AI-powered VR training</span>
+          <p class="ch-note">It all led here.</p>
+          <p class="ch-desc">Science, design, and storytelling finally converge: a VR training platform for clinicians I'm building end to end, on my own.</p>
+          <a class="ch-jump" href="#now">See what I'm building now ↑</a>
+        </div>
+      </article>
+
+      <!-- 08 · Next -->
+      <article class="chapter chapter-future reveal">
+        <div class="chapter-rail"><span class="ch-year">Next</span><span class="ch-num">08</span></div>
+        <div class="chapter-body">
+          <span class="ch-place">My own company</span>
+          <p class="ch-note">The plan: go deep at a place building the future for a few years — then build my own.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<hr class="full-divider">
+
+<!-- ───────────────────────────── ABOUT ───────────────────────────── -->
+<section class="section" id="about">
+  <div class="section-header reveal">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">About <em>me</em></h2>
+  </div>
+  <div class="about-layout">
+    <div class="reveal">
+      <p class="about-intro">"I build things that live at the edge of what's technically possible and deeply human."</p>
+      <p class="about-body">
+        I study <strong>Human Technology Interaction</strong> at USC's Iovine &amp; Young Academy — a program where design and engineering aren't separate skills.<br><br>
+        Right now I'm at <strong>Edwards Lifesciences</strong>, building a VR training platform on my own — the design, the code, all of it.<br><br>
+        Before XR, I spent years in <strong>cancer-immunology labs</strong>. That's where I learned to start every project with a real person and a real problem.<br><br>
+        The plan from here is simple: spend the next few years building hard things alongside people I can learn from — then start my own company.
+      </p>
+      <div class="about-cards">
+        <div class="about-card c1"><div class="about-card-icon">⚗️</div><p class="about-card-title">Education</p><p class="about-card-body">Human Technology Interaction · USC Iovine &amp; Young Academy · studied abroad at Franklin University Switzerland</p></div>
+        <div class="about-card c2"><div class="about-card-icon">🥽</div><p class="about-card-title">Currently</p><p class="about-card-body">Building VR training for clinicians, solo, at Edwards Lifesciences</p></div>
+        <div class="about-card c3"><div class="about-card-icon">🎮</div><p class="about-card-title">Toolkit</p><p class="about-card-body">Unity · Blender · Omniverse · visionOS · Meta Quest · Figma · C# / C++ / Python / Swift</p></div>
+        <div class="about-card c4"><div class="about-card-icon">🔬</div><p class="about-card-title">Research</p><p class="about-card-body">Cancer immunology wetlab @ UChicago · award-winning UIUC symposium presenter</p></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="interests-label">Interests &amp; passions</p>
+      <div class="interests-list" id="interestsList">
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">01</span><span class="int-name">Extended Reality &amp; Spatial Computing</span><span class="interest-tag">4 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">02</span><span class="int-name">AI Systems for Immersive Experiences</span><span class="interest-tag">flagship</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">03</span><span class="int-name">Real-Time Graphics &amp; Shader Programming</span><span class="interest-tag">4 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">04</span><span class="int-name">Biotech &amp; Medical Innovation</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">05</span><span class="int-name">Human-Centered Product Design</span><span class="interest-tag">2 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">06</span><span class="int-name">Cancer Research &amp; Immunology</span><span class="interest-tag">1 project</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">07</span><span class="int-name">Video Game Design &amp; World-Building</span><span class="interest-tag">4 projects</span><span class="int-arrow">↗</span></div>
+        <div class="interest-item" onclick="scrollToWork()"><span class="int-num">08</span><span class="int-name">Brand Strategy &amp; Storytelling</span><span class="interest-tag">1 internship</span><span class="int-arrow">↗</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────────── CONTACT ───────────────────────────── -->
+<div class="contact-wrap" id="contact">
+  <div class="contact-inner">
+    <p class="contact-eyebrow">Get in touch</p>
+    <h2 class="contact-heading">Let's build something<br><em>worth remembering.</em></h2>
+    <p class="contact-p">I'm looking for a place to go deep — a team building ambitious things in XR or spatial computing, where I can spend the next few years learning from the best. (Then, one day, build my own.)</p>
+    <div class="contact-links">
+      <a class="contact-link link-email" href="mailto:samueljfrausto@gmail.com">
+        <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        samueljfrausto@gmail.com
+      </a>
+      <a class="contact-link link-li" href="https://www.linkedin.com/in/samuel-frausto/" target="_blank" rel="noopener">
+        <svg class="link-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a class="contact-link link-li" href="assets/Samuel_Frausto_Resume.pdf" target="_blank" rel="noopener">
+        <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Résumé
+      </a>
+    </div>
+    <div class="contact-footer">
+      <span class="footer-name">Samuel Frausto</span>
+      <span class="footer-copy">© 2026 — XR Engineer &amp; Spatial Designer · Headset model by J-Toastie (CC BY)</span>
+    </div>
+  </div>
+</div>
+
+<!-- hero→path handoff: the portrait dissolves into dots that ride the scroll down -->
+<canvas class="handoff-canvas" id="handoffCanvas" aria-hidden="true"></canvas>
+
+<div style="position:fixed;bottom:14px;left:14px;z-index:9000;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#0A0B0F;background:#3ED4C4;padding:6px 12px;border-radius:99px;pointer-events:none">Prototype · Hero depth</div>
+
+<script type="module" src="centerpiece.js?v=36"></script>
+<script type="module" src="path-dots.js?v=1"></script>
+<script src="shared.js"></script>
+<script src="hero-depth.js"></script>
+<script>
+function scrollToWork(){ document.getElementById('work').scrollIntoView({behavior:'smooth'}); }
+</script>
+</body>
+</html>
