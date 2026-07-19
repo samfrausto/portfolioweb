@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavilia — Portal Mechanic — Samuel Frausto</title>
+<meta name="description" content="A custom portal mechanic in Unity — dual-camera math, render textures, and hand-tuned HLSL creating a live window between two student-built worlds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a class="nav-logo" href="../index.html">S<span>.</span>Frausto</a>
+  <div class="nav-links">
+    <a href="../index.html#work">Work</a>
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#contact">Contact</a>
+    <div class="nav-dot"></div>
+  </div>
+</nav>
+
+<header class="case-hero">
+  <a class="back-link" href="../index.html#work">All projects</a>
+  <p class="case-eyebrow">3D · Shader programming · Group project</p>
+  <h1 class="case-title">Pavilia — Portal Mechanic</h1>
+  <p class="case-lead">Two students, two worlds — and a shader that <strong>cuts a live window between them.</strong></p>
+  <div class="case-facts">
+    <div class="fact"><p class="fact-k">Role</p><p class="fact-v">Technical lead — portal system</p></div>
+    <div class="fact"><p class="fact-k">Status</p><p class="fact-v">Completed</p></div>
+    <div class="fact"><p class="fact-k">Engine</p><p class="fact-v">Unity</p></div>
+    <div class="fact"><p class="fact-k">Stack</p><p class="fact-v">HLSL · Render Textures · C#</p></div>
+  </div>
+</header>
+
+<div class="case-media reveal">
+  <figure>
+    <img src="../assets/projects/pavilia-01.png" alt="Portal in the Pavilia scene showing a live view into the second world">
+    <figcaption class="media-caption">Fig 01 · The portal — a live render of the island world, standing in the blossom world</figcaption>
+  </figure>
+</div>
+
+<section class="case-section reveal">
+  <span class="cs-label">The problem</span>
+  <div class="cs-body">
+    <h2>A window into another world <em>can't be a picture of one.</em></h2>
+    <p>My partner built a cherry-blossom tree and an island; I owned the visuals and the mechanic joining them. A portal fails the moment it feels like a flat texture — it has to behave like a hole in space: parallax as you walk past it, the other world tracking your exact perspective, and stepping through has to be seamless.</p>
+    <p>That's not an asset you download. It's <strong>camera math and shader work</strong>, and getting it right was the whole project.</p>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <span class="cs-label">The build</span>
+  <div class="cs-body">
+    <h2>Two cameras, <em>one illusion.</em></h2>
+    <p>The portal works by keeping a second camera in the destination world that mirrors the player's position relative to the portal — then painting what it sees onto the portal surface every frame.</p>
+    <div class="build-list">
+      <div class="build-item"><span class="bi-num">01</span><p class="bi-t">Dual-camera system</p><p class="bi-d">A second camera mathematically replicates the player's movement relative to the far portal, so the view through it is always perspective-true.</p></div>
+      <div class="build-item"><span class="bi-num">02</span><p class="bi-t">Render texture pipeline</p><p class="bi-d">The mirrored camera's output streams onto the portal surface as a live render texture — a real-time window, not a looping video.</p></div>
+      <div class="build-item"><span class="bi-num">03</span><p class="bi-t">Hand-tuned HLSL</p><p class="bi-d">The stock projection clipped the island's edges; I rewrote the shader so the full island reads through the portal from every angle.</p></div>
+      <div class="build-item"><span class="bi-num">04</span><p class="bi-t">Seamless teleport</p><p class="bi-d">Cross the plane and you're in the other world — the portal shuts off behind you with no pop, no fade, no seam.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="case-media reveal" style="margin-top:3rem">
+  <figure>
+    <img src="../assets/projects/pavilia-02.png" alt="The island world seen through the portal shader">
+    <figcaption class="media-caption">Fig 02 · The rewritten HLSL keeps the whole island visible through the frame</figcaption>
+  </figure>
+</div>
+
+<div class="case-outcome reveal">
+  <div class="outcome-inner">
+    <p class="outcome-label">What it proved</p>
+    <p class="outcome-text">The mechanic shipped complete — and the shader work became the foundation for <em>everything I now build in real-time graphics.</em></p>
+  </div>
+</div>
+
+<footer class="case-foot">
+  <div class="tools-row">
+    <span class="tools-k">Tools &amp; tech</span>
+    <div class="tools-list"><span class="tool-chip">Unity</span><span class="tool-chip">HLSL Shader</span><span class="tool-chip">Render Texture</span><span class="tool-chip">C#</span></div>
+  </div>
+  <a class="next-link" href="cyberpunk-twin.v2.html">
+    <div><p class="next-k">Next project</p><p class="next-t">Cyberpunk 2077 Room — Digital Twin</p></div>
+    <span class="next-arrow">→</span>
+  </a>
+</footer>
+
+<script src="../shared.js"></script>
+</body>
+</html>

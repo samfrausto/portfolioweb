@@ -1,0 +1,83 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   CASE STUDY TEMPLATE — shared by the rebuilt project pages
+   Editorial-warm like SuzChews, with the homepage's type system and accents.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.case-hero{padding:8.5rem 2.5rem 0;max-width:1160px;margin:0 auto}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.68rem;color:var(--muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2.5rem;transition:color .2s}
+.back-link:hover{color:var(--coral)}
+.back-link::before{content:'←';font-size:.9rem}
+.case-eyebrow{font-family:var(--mono);font-size:.68rem;color:var(--coral);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.1rem;display:flex;align-items:center;gap:10px}
+.case-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--coral)}
+.case-title{font-size:clamp(2.6rem,6.5vw,4.8rem);font-weight:800;line-height:.98;letter-spacing:-.03em;color:var(--text);margin-bottom:1.6rem;max-width:15ch}
+.case-lead{font-family:var(--serif);font-style:italic;font-size:clamp(1.15rem,2.2vw,1.5rem);color:var(--muted);line-height:1.55;max-width:34ch;margin-bottom:2rem}
+.case-lead strong{color:var(--text);font-weight:400}
+.case-facts{display:flex;gap:2.5rem;flex-wrap:wrap;padding:1.4rem 0;border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);margin-bottom:3rem}
+.fact{min-width:120px}
+.fact-k{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:.35rem}
+.fact-v{font-size:.85rem;font-weight:600;color:var(--text);line-height:1.45}
+.fact-v.accent{color:var(--coral)}
+
+/* media */
+.case-media{max-width:1160px;margin:0 auto;padding:0 2.5rem}
+.case-media img{width:100%;display:block;border-radius:var(--r-lg);border:1px solid var(--border);box-shadow:var(--sh-lg)}
+.media-caption{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:.8rem}
+.media-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1160px;margin:0 auto;padding:0 2.5rem}
+.media-pair figure{margin:0}
+.media-pending{border:1.5px dashed var(--border2);border-radius:var(--r-lg);padding:4rem 2rem;text-align:center;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+
+/* body sections */
+.case-section{max-width:1160px;margin:0 auto;padding:4.5rem 2.5rem 0;display:grid;grid-template-columns:220px 1fr;gap:3rem;align-items:start}
+.cs-label{position:sticky;top:6rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);display:flex;align-items:center;gap:10px}
+.cs-label::before{content:'';width:18px;height:1px;background:var(--coral)}
+.cs-body h2{font-size:clamp(1.4rem,2.6vw,2rem);font-weight:800;letter-spacing:-.02em;line-height:1.15;color:var(--text);margin-bottom:1.1rem}
+.cs-body h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--muted)}
+.cs-body p{font-size:.92rem;color:var(--muted);line-height:1.9;max-width:62ch;margin-bottom:1rem}
+.cs-body p strong{color:var(--text);font-weight:600}
+
+/* the build list — numbered, technical */
+.build-list{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:1.6rem}
+.build-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem 1.3rem;box-shadow:var(--sh-sm)}
+.bi-num{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:var(--coral);display:block;margin-bottom:.55rem}
+.bi-t{font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:.4rem;letter-spacing:-.01em}
+.bi-d{font-size:.78rem;color:var(--muted);line-height:1.7}
+
+/* outcome band */
+.case-outcome{max-width:1160px;margin:4.5rem auto 0;padding:0 2.5rem}
+.outcome-inner{background:var(--ink);color:var(--on-dark);border-radius:var(--r-lg);padding:3rem;position:relative;overflow:hidden}
+.outcome-inner::before{content:'';position:absolute;top:-120px;right:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(217,79,43,.22),transparent 70%);pointer-events:none}
+.outcome-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem}
+.outcome-text{font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:600;letter-spacing:-.01em;line-height:1.5;max-width:32ch;position:relative}
+.outcome-text em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--coral)}
+
+/* tools + next */
+.case-foot{max-width:1160px;margin:0 auto;padding:3.5rem 2.5rem 5rem}
+.tools-row{display:flex;align-items:baseline;gap:1.5rem;flex-wrap:wrap;padding-bottom:2.5rem;border-bottom:1px solid var(--border2)}
+.tools-k{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.tools-list{display:flex;gap:8px;flex-wrap:wrap}
+.tool-chip{font-family:var(--mono);font-size:.66rem;padding:5px 12px;border-radius:99px;border:1px solid var(--border2);color:var(--muted);background:var(--surface)}
+.next-link{display:flex;justify-content:space-between;align-items:center;gap:1rem;text-decoration:none;padding-top:2.5rem;transition:opacity .2s}
+.next-k{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:.5rem}
+.next-t{font-size:clamp(1.4rem,3vw,2.2rem);font-weight:800;letter-spacing:-.02em;color:var(--text);transition:color .2s}
+.next-link:hover .next-t{color:var(--coral)}
+.next-arrow{font-size:1.8rem;color:var(--coral)}
+
+@media(max-width:900px){
+  .case-hero{padding:7rem 1.25rem 0}
+  .case-media,.media-pair,.case-outcome{padding:0 1.25rem}
+  .media-pair{grid-template-columns:1fr}
+  .case-section{grid-template-columns:1fr;gap:1.2rem;padding:3rem 1.25rem 0}
+  .cs-label{position:static}
+  .build-list{grid-template-columns:1fr}
+  .case-foot{padding:3rem 1.25rem 4rem}
+  .outcome-inner{padding:2rem}
+  .case-title{max-width:none}
+  .case-facts{gap:1.25rem 1.75rem}
+}
+@media(max-width:560px){
+  .case-facts{flex-direction:column;gap:1rem}
+  .next-t{font-size:1.25rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+}
