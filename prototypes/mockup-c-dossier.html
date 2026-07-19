@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction C — The Dossier · mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ECEAE4;--bg2:#E3E1DA;--surface:#FFFFFF;
+  --ink:#1A1817;--mute:rgba(26,24,23,.58);--dim:rgba(26,24,23,.36);
+  --line:rgba(26,24,23,.14);--line2:rgba(26,24,23,.3);
+  --coral:#D94F2B;--teal:#0D9E82;
+  --display:'Syne',sans-serif;--serif:'Instrument Serif',Georgia,serif;--mono:'DM Mono',monospace;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--display);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--coral);color:#fff}
+main{max-width:1240px;margin:0 auto;padding:0 clamp(1.2rem,4vw,3rem)}
+
+/* top rule + file header */
+.filebar{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--ink);font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--mute);flex-wrap:wrap}
+.filebar b{color:var(--ink);font-weight:500}
+.stamp{display:inline-block;border:1.5px solid var(--coral);color:var(--coral);padding:.3rem .7rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;transform:rotate(-2deg);text-transform:uppercase}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,4.5rem);align-items:center;padding:clamp(3rem,7vh,5.5rem) 0 4rem;position:relative}
+.hero-type .kicker{font-family:var(--mono);font-size:.64rem;letter-spacing:.22em;color:var(--mute);margin-bottom:1.6rem;text-transform:uppercase}
+.hero-type h1{font-size:clamp(3rem,7.4vw,5.6rem);font-weight:800;letter-spacing:-.035em;line-height:.93}
+.hero-type h1 em{display:block;font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.7rem,3.6vw,2.7rem);letter-spacing:-.01em;color:var(--ink);margin-top:1.2rem}
+.hero-type h1 em u{text-decoration:none;color:var(--coral)}
+.hero-type .abstract{margin-top:2rem;max-width:430px;font-size:.92rem;color:var(--mute);line-height:1.85}
+.hero-type .abstract strong{color:var(--ink);font-weight:600}
+.hero-meta{margin-top:2.2rem;display:flex;gap:2.6rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--dim);flex-wrap:wrap}
+.hero-meta span b{display:block;color:var(--ink);font-weight:500;margin-top:.3rem}
+
+.fig{position:relative}
+.fig-frame{position:relative;border-radius:220px 220px 12px 12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08),0 24px 60px rgba(0,0,0,.14)}
+.fig-frame img{display:block;width:100%;aspect-ratio:.82;object-fit:cover}
+.fig-cap{display:flex;justify-content:space-between;gap:1rem;margin-top:.9rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--mute)}
+.fig-cap b{color:var(--coral);font-weight:500}
+.reg{position:absolute;width:18px;height:18px;z-index:3}
+.reg::before,.reg::after{content:'';position:absolute;background:var(--coral)}
+.reg::before{left:50%;top:0;width:1px;height:100%}
+.reg::after{top:50%;left:0;height:1px;width:100%}
+.reg-tl{top:-9px;left:-9px}.reg-br{bottom:2.2rem;right:-9px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+
+/* EVIDENCE spreads */
+section{padding:4.5rem 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:3rem;flex-wrap:wrap}
+.sec-tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;color:var(--coral)}
+.sec-title{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:700;letter-spacing:-.02em}
+.sec-title em{font-family:var(--serif);font-style:italic;font-weight:400}
+
+.spread{display:grid;grid-template-columns:repeat(12,1fr);gap:1.4rem;margin-bottom:4.5rem;align-items:center}
+.spread:last-child{margin-bottom:0}
+.sp-media{grid-column:1/7;position:relative}
+.sp-media.right{grid-column:7/13;order:2}
+.sp-text{grid-column:7/13;padding-left:1.5rem}
+.sp-text.left{grid-column:1/7;order:1;padding-left:0;padding-right:1.5rem}
+.sp-media .ph{position:relative;overflow:hidden;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.07),0 18px 44px rgba(0,0,0,.12);background:var(--bg2)}
+.ph img{display:block;width:100%;object-fit:cover}
+.ph.rotate{aspect-ratio:4/5}
+.ph.rotate img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.ph-cap{margin-top:.8rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--mute);display:flex;justify-content:space-between;gap:1rem}
+.ph-cap b{color:var(--coral);font-weight:500}
+.sp-text h3{font-size:clamp(1.4rem,2.6vw,2rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:1.1rem}
+.sp-text h3 em{font-family:var(--serif);font-style:italic;font-weight:400}
+.sp-text p{font-size:.9rem;color:var(--mute);line-height:1.9;max-width:420px}
+.sp-text p strong{color:var(--ink);font-weight:600}
+.sp-note{margin-top:1.3rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--dim)}
+.sp-note i{font-style:normal;color:var(--teal)}
+
+/* text-only lab card (TET2 rule: no poster imagery) */
+.labcard{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:2.4rem;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05),0 16px 40px rgba(0,0,0,.08)}
+.labcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teal);border-radius:8px 0 0 8px}
+.labcard .lc-head{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;color:var(--dim);margin-bottom:1.4rem;text-transform:uppercase}
+.labcard h4{font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.45rem;line-height:1.35;margin-bottom:1.2rem}
+.labcard p{font-size:.84rem;color:var(--mute);line-height:1.85}
+.labcard .stamp{position:absolute;right:1.6rem;top:-0.9rem}
+
+/* contact sheet */
+.sheet{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
+.sheet a{display:block;text-decoration:none;color:inherit}
+.sheet .cell{aspect-ratio:4/3;overflow:hidden;border-radius:6px;background:var(--bg2);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.sheet img{width:100%;height:100%;object-fit:cover;filter:saturate(.92);transition:transform .35s}
+.sheet a:hover img{transform:scale(1.04)}
+.sheet .lbl{font-family:var(--mono);font-size:.56rem;letter-spacing:.12em;color:var(--dim);margin-top:.5rem;display:flex;justify-content:space-between}
+@media(max-width:900px){
+  .spread{display:flex;flex-direction:column}
+  .sp-text,.sp-text.left{padding:0}
+  .sheet{grid-template-columns:repeat(2,1fr)}
+}
+
+footer{padding:2.5rem 0 3.5rem;border-top:1px solid var(--ink);font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="filebar">
+    <span>FILE <b>HTI-2026 / FRAUSTO, S.J.</b></span>
+    <span class="stamp">Opened 2003 — Active</span>
+    <span>USC IOVINE &amp; YOUNG · <b>FIRST IN DEGREE</b></span>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-type">
+      <div class="kicker">A field record of one builder</div>
+      <h1>Samuel Frausto
+        <em>the person between <u>people</u> and <u>machines</u>.</em>
+      </h1>
+      <p class="abstract"><strong>Pitcher, wetlab researcher, filmmaker, spatial engineer.</strong> Not a career pivot — one continuous study of how humans read systems, documented here as evidence.</p>
+      <div class="hero-meta">
+        <span>DISCIPLINES<b>7 logged</b></span>
+        <span>CURRENT<b>AI×XR training systems</b></span>
+        <span>CONTACT<b>samueljfrausto@gmail.com</b></span>
+      </div>
+    </div>
+    <figure class="fig">
+      <span class="reg reg-tl"></span><span class="reg reg-br"></span>
+      <div class="fig-frame"><img src="../Pics_of_me/_DSC4502.jpg" alt="Samuel Frausto at the USC colonnade"></div>
+      <figcaption class="fig-cap"><span><b>FIG. 00</b> — THE BUILDER</span><span>USC, LOS ANGELES</span></figcaption>
+    </figure>
+  </div>
+
+  <!-- EVIDENCE -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-tag">EVIDENCE — SELECTED</span>
+      <h2 class="sec-title">Every chapter leaves <em>an artifact.</em></h2>
+    </div>
+
+    <div class="spread reveal">
+      <div class="sp-media">
+        <div class="ph rotate"><img src="../Pics_of_me/DSC_7426.JPG" alt="Samuel pitching"></div>
+        <div class="ph-cap"><span><b>FIG. 01</b> — THE FIRST INTERFACE</span><span>PITCHER'S MOUND</span></div>
+      </div>
+      <div class="sp-text">
+        <h3>Reading a human system <em>at sixty feet, six inches.</em></h3>
+        <p>Before engines and headsets there was a batter, a read, and <strong>400 milliseconds</strong>. Baseball plus premed was the original curriculum: bodies as systems, feedback as coaching, precision under load.</p>
+        <div class="sp-note">CARRIES FORWARD → <i>LATENCY INTUITION, LIVE HUMAN FEEDBACK</i></div>
+      </div>
+    </div>
+
+    <div class="spread reveal">
+      <div class="sp-media right">
+        <div class="labcard">
+          <div class="lc-head">Kron Lab · University of Chicago · typeset from written record — no imagery</div>
+          <h4>"TET2 loss reshapes how tumors present themselves to immune attack."</h4>
+          <p>Cancer-immunology wetlab, real assays, real stakes. The work earned a symposium award — and taught him that rigor is a physical habit before it is an intellectual one.</p>
+          <span class="stamp">Symposium Award</span>
+        </div>
+        <div class="ph-cap" style="margin-top:.8rem"><span><b>FIG. 02</b> — THE RIGOR</span><span>DOCUMENT, NOT PHOTO</span></div>
+      </div>
+      <div class="sp-text left">
+        <h3>Wet hands <em>before wireframes.</em></h3>
+        <p>The medical thread in his XR work isn't branding — it started at the bench. <strong>He has pipetted the thing other people only diagram.</strong></p>
+        <div class="sp-note">CARRIES FORWARD → <i>BIOLOGY LITERACY, HUMAN STAKES</i></div>
+      </div>
+    </div>
+
+    <div class="spread reveal">
+      <div class="sp-media">
+        <div class="ph"><img src="../assets/portrait/headset.png" alt="XR headset — the current instrument" style="background:#1A1817;padding:8%"></div>
+        <div class="ph-cap"><span><b>FIG. 03</b> — THE CURRENT INSTRUMENT</span><span>QUEST / VISIONOS</span></div>
+      </div>
+      <div class="sp-text">
+        <h3>The mound again — <em>this time rendered.</em></h3>
+        <p>At USC IYA the threads reconverge: VR baseball, digital twins, portal architecture, AR products. Now he builds <strong>adaptive AI×XR training</strong> — teaching engineers to talk humans through the machines in their bodies.</p>
+        <div class="sp-note">STATUS → <i>ACTIVE, IN HEADSET</i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SHEET -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-tag">CONTACT SHEET</span>
+      <h2 class="sec-title">The work, <em>unretouched.</em></h2>
+    </div>
+    <div class="sheet reveal">
+      <a href="#"><div class="cell"><img src="../assets/projects/vr-baseball-01.png" alt="VR Baseball"></div><div class="lbl"><span>05·A VR BASEBALL</span><span>QUEST</span></div></a>
+      <a href="#"><div class="cell"><img src="../assets/projects/iyh-digital-twin-01.jpg" alt="IYH digital twin"></div><div class="lbl"><span>05·B IYH TWIN</span><span>OMNIVERSE</span></div></a>
+      <a href="#"><div class="cell"><img src="../assets/projects/pavilia-01.png" alt="Pavilia portals"></div><div class="lbl"><span>05·C PAVILIA</span><span>PORTALS</span></div></a>
+      <a href="#"><div class="cell"><img src="../assets/projects/cyberpunk-twin-01.png" alt="Cyberpunk twin"></div><div class="lbl"><span>05·D CYBER TWIN</span><span>UNITY</span></div></a>
+      <a href="#"><div class="cell"><img src="../assets/projects/jelsert-internship-01.png" alt="Jel Sert films"></div><div class="lbl"><span>04·A BRAND FILMS</span><span>SHIPPED</span></div></a>
+    </div>
+  </section>
+
+  <footer>
+    <span>MOCKUP C — "THE DOSSIER" · NOT LIVE</span>
+    <span>SAMUELJFRAUSTO@GMAIL.COM</span>
+  </footer>
+</main>
+<script>
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction A — The Instrument · mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A0B0F;--ink2:#0E1015;--panel:#101218;
+  --line:rgba(240,239,235,.09);--line2:rgba(240,239,235,.2);
+  --on:#F0EFEB;--mute:rgba(240,239,235,.55);--dim:rgba(240,239,235,.32);
+  --coral:#D94F2B;--teal:#0D9E82;
+  --display:'Syne',sans-serif;--serif:'Instrument Serif',Georgia,serif;--mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--on);font-family:var(--display);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--coral);color:#fff}
+a{color:inherit}
+
+/* instrument frame */
+.frame{position:fixed;inset:10px;border:1px solid var(--line);pointer-events:none;z-index:90}
+.frame::before,.frame::after,
+.frame .tick-a,.frame .tick-b{content:'';position:absolute;width:14px;height:14px;border:1px solid var(--line2)}
+.frame::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.frame::after{top:-1px;right:-1px;border-left:0;border-bottom:0}
+.frame .tick-a{bottom:-1px;left:-1px;border-right:0;border-top:0}
+.frame .tick-b{bottom:-1px;right:-1px;border-left:0;border-top:0}
+
+/* status bar */
+.statusbar{position:fixed;top:10px;left:10px;right:10px;z-index:100;display:flex;align-items:center;gap:1.6rem;padding:.55rem 1.1rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;color:var(--dim);border-bottom:1px solid var(--line);background:rgba(10,11,15,.82);backdrop-filter:blur(12px)}
+.statusbar strong{color:var(--on);font-weight:500}
+.statusbar .ok{color:var(--teal)}
+.statusbar .sig{color:var(--coral)}
+.statusbar .grow{flex:1}
+.sb-item{white-space:nowrap}
+@media(max-width:760px){.sb-hide{display:none}}
+
+main{padding:0 clamp(1.2rem,4vw,3.4rem)}
+
+/* HERO */
+.hero{min-height:100svh;display:grid;grid-template-columns:minmax(180px,1fr) minmax(280px,460px) minmax(180px,1fr);gap:2rem;align-items:center;padding-top:4.5rem;position:relative}
+.boot{font-family:var(--mono);font-size:.64rem;line-height:2.15;letter-spacing:.06em;color:var(--mute)}
+.boot .t{color:var(--dim);margin-right:.9em}
+.boot .ok{color:var(--teal)}
+.boot .warn{color:var(--coral)}
+.boot li{list-style:none;opacity:0;animation:lineup .01s forwards}
+.boot li:nth-child(1){animation-delay:.15s}.boot li:nth-child(2){animation-delay:.5s}
+.boot li:nth-child(3){animation-delay:.85s}.boot li:nth-child(4){animation-delay:1.3s}
+.boot li:nth-child(5){animation-delay:1.75s}.boot li:nth-child(6){animation-delay:2.3s}
+.boot li:nth-child(7){animation-delay:2.75s}.boot li:nth-child(8){animation-delay:3.3s}
+@keyframes lineup{to{opacity:1}}
+
+.reticle{position:relative;aspect-ratio:1;display:grid;place-items:center}
+.reticle img{width:88%;height:88%;object-fit:contain;position:relative;z-index:2;filter:saturate(.7) contrast(1.1) brightness(.82);-webkit-mask-image:radial-gradient(ellipse 44% 56% at 50% 44%,#000 40%,transparent 68%);mask-image:radial-gradient(ellipse 44% 56% at 50% 44%,#000 40%,transparent 68%)}
+.ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--line2)}
+.ring.dash{inset:-6%;border:1px dashed rgba(240,239,235,.14);animation:spin 46s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.crosshair{position:absolute;width:15px;height:15px;z-index:3}
+.crosshair::before,.crosshair::after{content:'';position:absolute;background:var(--coral)}
+.crosshair::before{left:50%;top:0;width:1px;height:100%}
+.crosshair::after{top:50%;left:0;height:1px;width:100%}
+.ch-tl{top:4%;left:4%}.ch-br{bottom:4%;right:4%}
+.scanline{position:absolute;left:6%;right:6%;height:1px;background:linear-gradient(90deg,transparent,rgba(13,158,130,.85),transparent);z-index:3;animation:scan 5.5s ease-in-out infinite;box-shadow:0 0 18px rgba(13,158,130,.5)}
+@keyframes scan{0%,100%{top:12%}50%{top:88%}}
+.ret-label{position:absolute;bottom:-1.4rem;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.58rem;letter-spacing:.22em;color:var(--dim);white-space:nowrap}
+
+.spec{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--mute);justify-self:end;text-align:right;line-height:2.3}
+.spec b{display:block;color:var(--dim);font-weight:400;margin-bottom:.2rem}
+.spec span{color:var(--on)}
+
+.hero-id{position:absolute;left:0;right:0;bottom:clamp(1.2rem,4vh,3rem);display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.hero-name{font-size:clamp(2.6rem,7vw,5.4rem);font-weight:800;letter-spacing:-.035em;line-height:.95}
+.hero-name em{display:block;font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(1.05rem,2.2vw,1.6rem);letter-spacing:0;color:var(--mute);margin-top:.9rem}
+.hero-now{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--mute);border:1px solid var(--line);padding:.8rem 1rem;max-width:300px;line-height:1.9}
+.hero-now i{font-style:normal;color:var(--teal)}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:6rem;min-height:auto;gap:3rem}
+  .spec{justify-self:start;text-align:left}
+  .hero-id{position:static;margin:3rem 0}
+}
+
+/* PROTOCOL */
+section{padding:5.5rem 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:3rem}
+.sec-tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;color:var(--coral)}
+.sec-title{font-size:clamp(1.6rem,3.2vw,2.4rem);font-weight:700;letter-spacing:-.02em}
+.sec-title em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--mute)}
+
+.stage-row{display:grid;grid-template-columns:110px 1fr 1.4fr 200px;gap:1.5rem;align-items:baseline;padding:1.35rem 0;border-bottom:1px solid var(--line);transition:background .25s,padding-left .25s}
+.stage-row:hover{background:rgba(240,239,235,.02);padding-left:.6rem}
+.stage-num{font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;color:var(--dim)}
+.stage-name{font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+.stage-desc{font-size:.8rem;color:var(--mute);line-height:1.75}
+.stage-out{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;color:var(--dim);text-align:right}
+.stage-out i{font-style:normal;color:var(--teal)}
+.stage-row.live .stage-num{color:var(--coral)}
+@media(max-width:900px){.stage-row{grid-template-columns:70px 1fr;gap:.4rem 1rem}.stage-desc,.stage-out{grid-column:2;text-align:left}}
+
+/* BENCH REPORT */
+.bench{display:grid;grid-template-columns:1.1fr 1fr;gap:0;border:1px solid var(--line2);background:var(--panel)}
+.bench-specs{padding:2.2rem;border-right:1px solid var(--line)}
+.bench-title{font-weight:800;font-size:1.5rem;letter-spacing:-.02em;margin-bottom:.4rem}
+.bench-sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--coral);margin-bottom:2rem}
+.bench-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem 2rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em}
+.bench-grid b{display:block;color:var(--dim);font-weight:400;font-size:.56rem;letter-spacing:.16em;margin-bottom:.35rem}
+.bench-grid span{color:var(--on)}
+.bench-grid .hit{color:var(--teal)}
+.bench-constraint{margin-top:2rem;padding-top:1.6rem;border-top:1px solid var(--line);font-size:.8rem;color:var(--mute);line-height:1.8}
+.bench-constraint b{color:var(--coral);font-weight:600}
+.bench-media{position:relative;min-height:320px}
+.bench-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
+.bench-media::after{content:'CAPTURE 01 — QUEST 3, IN-HEADSET';position:absolute;left:1rem;bottom:.9rem;font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;color:rgba(255,255,255,.85);background:rgba(10,11,15,.55);padding:.35rem .6rem;backdrop-filter:blur(6px)}
+@media(max-width:900px){.bench{grid-template-columns:1fr}.bench-specs{border-right:0;border-bottom:1px solid var(--line)}}
+
+/* SIGNAL STRIP */
+.strip{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line)}
+.strip-cell{padding:1.4rem 1.2rem;border-right:1px solid var(--line)}
+.strip-cell:last-child{border-right:0}
+.strip-cell b{display:block;font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;color:var(--dim);font-weight:400;margin-bottom:.7rem;text-transform:uppercase}
+.strip-cell span{font-size:.78rem;color:var(--on);line-height:1.6;display:block}
+.strip-cell i{font-style:normal;display:block;margin-top:.5rem;font-family:var(--mono);font-size:.6rem;color:var(--teal)}
+@media(max-width:900px){.strip{grid-template-columns:1fr 1fr}.strip-cell{border-bottom:1px solid var(--line)}}
+
+footer{padding:2.5rem 0 3.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+
+@media (prefers-reduced-motion: reduce){
+  .ring.dash,.scanline{animation:none}
+  .scanline{display:none}
+  .boot li{animation:none;opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="frame"><span class="tick-a"></span><span class="tick-b"></span></div>
+
+<div class="statusbar">
+  <span class="sb-item"><strong>SJF·01</strong></span>
+  <span class="sb-item sb-hide">INTERFACE INSTRUMENT — MOCKUP A</span>
+  <span class="sb-item grow"></span>
+  <span class="sb-item ok" id="sb-status">● SIGNAL LOCKED</span>
+  <span class="sb-item sb-hide">FPS <strong id="sb-fps">—</strong></span>
+  <span class="sb-item sb-hide">VP <strong id="sb-vp">—</strong></span>
+  <span class="sb-item sb-hide">PTR <strong id="sb-ptr">—,—</strong></span>
+  <span class="sb-item">T <strong id="sb-clock">—</strong></span>
+</div>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" style="border-top:0">
+    <ul class="boot">
+      <li><span class="t">0.000</span>BOOT SEQUENCE INITIATED</li>
+      <li><span class="t">0.142</span>LOADING PROFILE: FRAUSTO, SAMUEL J.</li>
+      <li><span class="t">0.383</span>DISCIPLINES MOUNTED: <span class="ok">7/7</span></li>
+      <li><span class="t">0.617</span>WETLAB → WEARABLE: PATH CONTINUITY <span class="ok">OK</span></li>
+      <li><span class="t">0.808</span>RENDER BUDGET: 16.6ms — <span class="ok">HOLDING</span></li>
+      <li><span class="t">1.044</span>COMFORT MODE: AVAILABLE</li>
+      <li><span class="t">1.271</span><span class="warn">HUMAN STAKES DETECTED</span></li>
+      <li><span class="t">1.502</span>SIGNAL ACQUIRED. <span class="ok">BEGIN SESSION ▍</span></li>
+    </ul>
+
+    <div class="reticle">
+      <div class="ring"></div>
+      <div class="ring dash"></div>
+      <span class="crosshair ch-tl"></span>
+      <span class="crosshair ch-br"></span>
+      <div class="scanline"></div>
+      <img src="../assets/portrait/face.png" alt="Samuel Frausto — scan portrait">
+      <span class="ret-label">SUBJECT / OPERATOR — SAME PERSON</span>
+    </div>
+
+    <div class="spec">
+      <b>TOOLKIT</b>
+      <span>UNITY · BLENDER · OMNIVERSE</span><br>
+      <span>VISIONOS · QUEST · METAL</span><br>
+      <span>C# · C++ · PYTHON · SWIFT</span><br><br>
+      <b>PROGRAM</b>
+      <span>HUMAN TECH INTERACTION</span><br>
+      <span>USC IOVINE &amp; YOUNG · FIRST IN DEGREE</span>
+    </div>
+
+    <div class="hero-id">
+      <h1 class="hero-name">SAMUEL FRAUSTO
+        <em>builds interfaces between people and machines.</em>
+      </h1>
+      <div class="hero-now">CURRENT SESSION<br><i>●</i> AI×XR training systems — teaching engineers to talk humans through the machines in their bodies</div>
+    </div>
+  </section>
+
+  <!-- PROTOCOL -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-tag">02 — PROTOCOL</span>
+      <h2 class="sec-title">Seven calibration stages. <em>One operator.</em></h2>
+    </div>
+
+    <div class="stage-row">
+      <span class="stage-num">STG 01</span>
+      <span class="stage-name">Fastball</span>
+      <span class="stage-desc">Pitching taught the first interface problem: reading a human system in real time and answering with precision under load.</span>
+      <span class="stage-out">OUTPUT → <i>PROPRIOCEPTION</i></span>
+    </div>
+    <div class="stage-row">
+      <span class="stage-num">STG 02</span>
+      <span class="stage-name">Culture</span>
+      <span class="stage-desc">TET2 cancer-immunology research, Kron Lab, UChicago. Wet hands, hard rigor. Symposium award.</span>
+      <span class="stage-out">OUTPUT → <i>RIGOR</i></span>
+    </div>
+    <div class="stage-row">
+      <span class="stage-num">STG 03</span>
+      <span class="stage-name">The Break</span>
+      <span class="stage-desc">Injury and a family health crisis took the plan apart. The rebuild — a gap semester, Switzerland, a backpack — chose the new one.</span>
+      <span class="stage-out">OUTPUT → <i>DIRECTION</i></span>
+    </div>
+    <div class="stage-row">
+      <span class="stage-num">STG 04</span>
+      <span class="stage-name">Product</span>
+      <span class="stage-desc">Jel Sert R&amp;D and brand films — Crayola, Harley-Davidson, Jamba. Shipping things strangers actually touch.</span>
+      <span class="stage-out">OUTPUT → <i>SHIPPING</i></span>
+    </div>
+    <div class="stage-row">
+      <span class="stage-num">STG 05</span>
+      <span class="stage-name">Spatial</span>
+      <span class="stage-desc">USC IYA: VR baseball, a digital twin of the Iovine &amp; Young Hall, portal architecture, SuzChews AR, a cyberpunk city twin.</span>
+      <span class="stage-out">OUTPUT → <i>SPATIAL CRAFT</i></span>
+    </div>
+    <div class="stage-row live">
+      <span class="stage-num">STG 06</span>
+      <span class="stage-name">The Loop</span>
+      <span class="stage-desc">Now: solo-building adaptive AI×VR clinical training. People learn to guide other people through machines that live in bodies.</span>
+      <span class="stage-out">OUTPUT → <i>RUNNING ●</i></span>
+    </div>
+  </section>
+
+  <!-- BENCH REPORT -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-tag">03 — BENCH REPORT</span>
+      <h2 class="sec-title">Every project ships with its numbers. <em>No mood boards.</em></h2>
+    </div>
+    <div class="bench">
+      <div class="bench-specs">
+        <div class="bench-title">VR Baseball</div>
+        <div class="bench-sub">CASE 05·A — SPATIAL TRAINING</div>
+        <div class="bench-grid">
+          <div><b>ENGINE</b><span>Unity / C#</span></div>
+          <div><b>PLATFORM</b><span>Meta Quest 3</span></div>
+          <div><b>FRAME BUDGET</b><span>13.8 ms</span></div>
+          <div><b>ACHIEVED</b><span class="hit">72 fps held</span></div>
+          <div><b>TRACKED INPUT</b><span>6-DoF + hands</span></div>
+          <div><b>ROLE</b><span>Solo — design → code</span></div>
+        </div>
+        <div class="bench-constraint"><b>CONSTRAINT THAT HURT:</b> a pitch is readable for ~400 ms. Every millisecond of render latency is subtracted from a human decision, not from a spec sheet.</div>
+      </div>
+      <div class="bench-media">
+        <img src="../assets/projects/vr-baseball-01.png" alt="VR Baseball in-headset capture">
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNAL STRIP -->
+  <section>
+    <div class="sec-head">
+      <span class="sec-tag">04 — SIGNAL STRIP</span>
+      <h2 class="sec-title">For the reviewer with 90 seconds. <em>Criteria → evidence.</em></h2>
+    </div>
+    <div class="strip">
+      <div class="strip-cell"><b>Systems thinking</b><span>Adaptive training loop, live state machine</span><i>→ THE LOOP</i></div>
+      <div class="strip-cell"><b>Spatial literacy</b><span>Designed in-headset, never ported flat</span><i>→ VR BASEBALL</i></div>
+      <div class="strip-cell"><b>Technical authorship</b><span>This site: hand-rolled WebGL, no template</span><i>→ VIEW SOURCE</i></div>
+      <div class="strip-cell"><b>Human stakes</b><span>Wetlab → clinical training. Bodies, not demos</span><i>→ CULTURE</i></div>
+      <div class="strip-cell"><b>Craft under load</b><span>60 fps budget + comfort mode, worn openly</span><i>→ STATUS BAR</i></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>MOCKUP A — "THE INSTRUMENT" · NOT LIVE</span>
+    <span>SAMUELJFRAUSTO@GMAIL.COM</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var fpsEl=document.getElementById('sb-fps'),vpEl=document.getElementById('sb-vp'),
+      ptrEl=document.getElementById('sb-ptr'),clkEl=document.getElementById('sb-clock');
+  function vp(){vpEl.textContent=innerWidth+'×'+innerHeight}
+  vp();addEventListener('resize',vp);
+  addEventListener('mousemove',function(e){ptrEl.textContent=e.clientX+','+e.clientY});
+  function clock(){var d=new Date();clkEl.textContent=d.toTimeString().slice(0,8)}
+  clock();setInterval(clock,1000);
+  var last=performance.now(),frames=0;
+  function loop(t){frames++;if(t-last>=500){fpsEl.textContent=Math.round(frames*1000/(t-last));frames=0;last=t}requestAnimationFrame(loop)}
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

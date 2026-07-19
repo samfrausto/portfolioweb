@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction B — One Signal · mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0A0B0F;--on:#F5F4F2;--mute:rgba(245,244,242,.6);--dim:rgba(245,244,242,.34);
+  --line:rgba(245,244,242,.1);--coral:#D94F2B;--teal:#0D9E82;
+  --display:'Syne',sans-serif;--serif:'Instrument Serif',Georgia,serif;--mono:'DM Mono',monospace;
+}
+body{background:var(--ink);color:var(--on);font-family:var(--display);line-height:1.6;overflow-x:hidden}
+::selection{background:var(--coral);color:#fff}
+
+/* HERO / FIELD */
+.field{position:relative;height:100svh;overflow:hidden;background:radial-gradient(ellipse 90% 70% at 60% 40%,#14161D 0%,var(--ink) 72%)}
+#dots{position:absolute;inset:0;width:100%;height:100%;display:block}
+.field-veil{position:absolute;inset:0;pointer-events:none;background:linear-gradient(97deg,rgba(10,11,15,.92) 22%,rgba(10,11,15,.55) 42%,transparent 62%)}
+
+.hero-copy{position:absolute;left:clamp(1.4rem,4.5vw,4rem);top:50%;transform:translateY(-50%);z-index:5;max-width:min(440px,86vw)}
+.eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--coral);margin-bottom:1.1rem}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--coral)}
+h1{font-size:clamp(2.7rem,6.5vw,4.8rem);font-weight:800;line-height:.94;letter-spacing:-.03em;margin-bottom:1.3rem}
+.tag{font-size:.94rem;color:var(--mute);line-height:1.8;margin-bottom:1.9rem}
+.tag strong{color:var(--on);font-weight:600}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font-size:.76rem;font-weight:600;letter-spacing:.04em;padding:.8rem 1.45rem;border-radius:99px;text-decoration:none;color:var(--on)}
+.btn-primary{background:var(--coral);border:1px solid var(--coral);color:#fff}
+.btn-ghost{border:1px solid rgba(245,244,242,.22)}
+
+/* chapter HUD */
+.chapter-hud{position:absolute;right:clamp(1.4rem,4vw,3.4rem);bottom:clamp(1.6rem,5vh,3rem);z-index:5;text-align:right;pointer-events:none}
+.ch-num{font-family:var(--mono);font-size:.62rem;letter-spacing:.24em;color:var(--dim);margin-bottom:.5rem}
+.ch-name{font-weight:800;font-size:clamp(1.5rem,3.4vw,2.6rem);letter-spacing:-.02em;line-height:1;transition:opacity .4s}
+.ch-sub{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--mute);margin-top:.45rem}
+.counter{position:absolute;left:clamp(1.4rem,4.5vw,4rem);bottom:clamp(1.6rem,5vh,3rem);z-index:5;font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;color:var(--dim);line-height:2}
+.counter b{color:var(--on);font-weight:500}
+.counter i{font-style:normal;color:var(--teal)}
+.hint{position:absolute;left:50%;bottom:1.2rem;transform:translateX(-50%);z-index:5;font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;color:var(--dim)}
+
+/* BELOW: the argument */
+main{padding:0 clamp(1.4rem,4.5vw,4rem)}
+section{padding:5.5rem 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:2.6rem;flex-wrap:wrap}
+.sec-tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;color:var(--coral)}
+.sec-title{font-size:clamp(1.6rem,3.2vw,2.4rem);font-weight:700;letter-spacing:-.02em}
+.sec-title em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--mute)}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem}
+.col b{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--dim);font-weight:400;margin-bottom:.8rem;text-transform:uppercase}
+.col p{font-size:.86rem;color:var(--mute);line-height:1.85}
+.col p strong{color:var(--on);font-weight:600}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+
+/* handoff demo */
+.handoff{display:grid;grid-template-columns:1fr auto 1fr;gap:1.6rem;align-items:stretch;border:1px solid var(--line)}
+.handoff-cell{position:relative;min-height:300px;overflow:hidden}
+.handoff-cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
+#glyph{position:absolute;inset:0;width:100%;height:100%}
+.handoff-arrow{align-self:center;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--dim);text-align:center;padding:0 .4rem;white-space:nowrap}
+.handoff-cap{position:absolute;left:.9rem;bottom:.8rem;font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;color:rgba(255,255,255,.85);background:rgba(10,11,15,.55);padding:.35rem .6rem;z-index:2}
+@media(max-width:900px){.handoff{grid-template-columns:1fr}.handoff-arrow{padding:1rem 0}}
+
+footer{padding:2.5rem 0 3.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid var(--line)}
+.rm-note{display:none;position:absolute;z-index:6;left:clamp(1.4rem,4.5vw,4rem);bottom:5.4rem;font-family:var(--mono);font-size:.6rem;color:var(--dim);letter-spacing:.12em}
+@media (prefers-reduced-motion: reduce){.rm-note{display:block}}
+</style>
+</head>
+<body>
+
+<div class="field" id="fieldWrap">
+  <canvas id="dots"></canvas>
+  <div class="field-veil"></div>
+
+  <div class="hero-copy">
+    <div class="eyebrow">XR ENGINEER &amp; SPATIAL DESIGNER</div>
+    <h1>Samuel<br>Frausto</h1>
+    <p class="tag"><strong>Seven chapters, one signal.</strong> Pitcher's mound to cancer lab to headset — the same person, reorganized. Watch the points: they never leave.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#how">Enter the path</a>
+      <a class="btn btn-ghost" href="#">Résumé</a>
+    </div>
+  </div>
+
+  <div class="counter">
+    <b id="pt-count">—</b> POINTS · NEVER DESTROYED, ONLY <i>REORGANIZED</i><br>
+    RENDER <b id="fps">—</b> FPS · BUDGET 16.6MS
+  </div>
+
+  <div class="chapter-hud">
+    <div class="ch-num" id="ch-num">00 / 07</div>
+    <div class="ch-name" id="ch-name">SIGNAL</div>
+    <div class="ch-sub" id="ch-sub">acquiring…</div>
+  </div>
+
+  <div class="rm-note">REDUCED MOTION ON — SHOWING STILL FORMATIONS, TAP TO STEP</div>
+  <div class="hint">CLICK / SPACE — NEXT CHAPTER · SCROLL FOR THE ARGUMENT</div>
+</div>
+
+<main>
+  <section id="how">
+    <div class="sec-head">
+      <span class="sec-tag">HOW THIS DIRECTION WORKS</span>
+      <h2 class="sec-title">One particle field is the whole site. <em>Nothing decorative.</em></h2>
+    </div>
+    <div class="cols">
+      <div class="col"><b>Semantic honesty</b><p>Every formation is built from <strong>real geometry</strong> — his face sampled from the actual portrait, seam curves from a regulation ball, colony scatter from wetlab imagery described in text, a valve ring for the clinical work. If a dot can't justify itself, it's cut.</p></div>
+      <div class="col"><b>Abstraction hands off to evidence</b><p>The field never replaces proof. Each chapter's glyph <strong>decomposes into a real capture</strong> — in-headset footage, stills, shipped film frames. Dots make the argument; media closes it.</p></div>
+      <div class="col"><b>Comfort mode is a feature</b><p>Reduced-motion swaps live particles for <strong>pre-rendered stills of the same formations</strong>. Headset work taught him to ship comfort modes; the site wears that discipline visibly.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-tag">THE HANDOFF</span>
+      <h2 class="sec-title">Glyph → capture. <em>Every project page opens this way.</em></h2>
+    </div>
+    <div class="handoff">
+      <div class="handoff-cell">
+        <canvas id="glyph"></canvas>
+        <span class="handoff-cap">CH. 05 GLYPH — TRACKED PITCH ARC</span>
+      </div>
+      <div class="handoff-arrow">DECOMPOSES<br>INTO →</div>
+      <div class="handoff-cell">
+        <img src="../assets/projects/vr-baseball-02.png" alt="VR Baseball capture">
+        <span class="handoff-cap">CAPTURE — VR BASEBALL, QUEST 3</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>MOCKUP B — "ONE SIGNAL" · NOT LIVE</span>
+    <span>SAMUELJFRAUSTO@GMAIL.COM</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var canvas=document.getElementById('dots'),ctx=canvas.getContext('2d');
+  var DPR=Math.min(devicePixelRatio||1,2);
+  var N=2400;
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W,H,CX,CY,S;
+  function resize(){
+    W=canvas.clientWidth;H=canvas.clientHeight;
+    canvas.width=W*DPR;canvas.height=H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    CX=W*0.62;CY=H*0.48;S=Math.min(W,H)*0.36;
+    if(chapters.length)retarget();
+  }
+  // point state
+  var px=new Float32Array(N),py=new Float32Array(N),
+      sx=new Float32Array(N),sy=new Float32Array(N),
+      tx=new Float32Array(N),ty=new Float32Array(N),
+      delay=new Float32Array(N),colors=new Array(N);
+  for(var i=0;i<N;i++){
+    px[i]=Math.random();py[i]=Math.random();
+    delay[i]=Math.random();
+    var r=Math.random();
+    colors[i]=r<0.08?'rgba(217,79,43,.95)':r<0.12?'rgba(13,158,130,.9)':'rgba(245,244,242,.78)';
+  }
+
+  /* ---------- formations (normalized, unit space, centered 0,0) ---------- */
+  function fPortrait(pts){ // sampled from face.png; pts = [[x,y],...] normalized
+    return facePts.length?facePts:fRing();
+  }
+  function fRing(){ // fallback
+    var a=[];for(var i=0;i<N;i++){var t=Math.random()*6.283;a.push([Math.cos(t),Math.sin(t)])}return a;
+  }
+  function fFastball(){
+    var a=[],i,t;
+    for(i=0;i<N;i++){
+      if(i<N*0.5){ t=Math.random()*6.283; var rr=1+(Math.random()-.5)*0.035; a.push([Math.cos(t)*rr,Math.sin(t)*rr]); }
+      else{ // two mirrored seam arcs
+        t=(Math.random()*2-1);           // -1..1 along arc
+        var side=Math.random()<.5?1:-1;
+        var x=side*(0.42+0.22*Math.cos(t*2.4));
+        var y=t*0.86;
+        var j=0.02;
+        a.push([x+(Math.random()-.5)*j,y+(Math.random()-.5)*j]);
+      }
+    }
+    return a;
+  }
+  function fColony(){
+    var centers=[[-0.55,-0.42],[0.18,-0.62],[0.72,-0.18],[-0.7,0.2],[-0.05,0.1],[0.55,0.5],[-0.35,0.68]];
+    var a=[];
+    for(var i=0;i<N;i++){
+      var c=centers[i%centers.length];
+      var t=Math.random()*6.283,r=Math.pow(Math.random(),0.5)*0.26;
+      a.push([c[0]+Math.cos(t)*r,c[1]+Math.sin(t)*r*0.85]);
+    }
+    return a;
+  }
+  function fBreak(){
+    var a=[];for(var i=0;i<N;i++){a.push([(Math.random()*2-1)*1.65,(Math.random()*2-1)*1.15])}return a;
+  }
+  function fAlps(){
+    var a=[];
+    function ridge(x){return -(Math.abs(Math.sin(x*2.1))*0.55+Math.abs(Math.sin(x*4.7+1.3))*0.3)+0.15}
+    for(var i=0;i<N;i++){
+      var x=(Math.random()*2-1)*1.5;
+      var y=ridge(x);
+      if(i%3===0){ y+= Math.random()*0.5; } // scree below the ridge line
+      a.push([x,y+(Math.random()-.5)*0.02]);
+    }
+    return a;
+  }
+  function fFilm(){
+    var a=[];var cols=4,rows=2,fw=0.55,fh=0.42,gx=0.16,gy=0.3;
+    var x0=-(cols*fw+(cols-1)*gx)/2, y0=-(rows*fh+(rows-1)*gy)/2;
+    for(var i=0;i<N;i++){
+      if(i%9===0){ // sprocket dots
+        var sx=(Math.random()*2-1)*1.45;
+        a.push([sx,Math.random()<.5?-0.95:0.95]);
+        continue;
+      }
+      var f=Math.floor(Math.random()*cols*rows),fc=f%cols,fr=Math.floor(f/cols);
+      var bx=x0+fc*(fw+gx),by=y0+fr*(fh+gy);
+      var e=Math.floor(Math.random()*4),t=Math.random();
+      var x,y;
+      if(e===0){x=bx+t*fw;y=by}else if(e===1){x=bx+t*fw;y=by+fh}
+      else if(e===2){x=bx;y=by+t*fh}else{x=bx+fw;y=by+t*fh}
+      a.push([x,y]);
+    }
+    return a;
+  }
+  function fSpatial(){
+    // isometric wireframe cube + view frustum
+    var V=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]];
+    var E=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+    var ca=0.62,sa=Math.sin(0.62),cb=0.42,sb=Math.sin(0.42);
+    function proj(v){
+      var x=v[0]*Math.cos(0.62)-v[2]*sa, z=v[0]*sa+v[2]*Math.cos(0.62);
+      var y=v[1]*Math.cos(0.42)-z*sb;
+      return [x*0.62,y*0.62];
+    }
+    var a=[];
+    for(var i=0;i<N;i++){
+      if(i<N*0.72){
+        var e=E[i%E.length],t=Math.random();
+        var p1=proj(V[e[0]]),p2=proj(V[e[1]]);
+        a.push([p1[0]+(p2[0]-p1[0])*t,p1[1]+(p2[1]-p1[1])*t]);
+      }else{ // frustum rays from eye point
+        var eye=[-1.35,0.95],corner=proj(V[Math.floor(Math.random()*4)]);
+        var t2=Math.random();
+        a.push([eye[0]+(corner[0]-eye[0])*t2,eye[1]+(corner[1]-eye[1])*t2]);
+      }
+    }
+    return a;
+  }
+  function fLoop(){
+    // adaptive training loop: 4 dense nodes on a ring, arc flows between
+    var nodes=[[0,-0.95],[0.95,0],[0,0.95],[-0.95,0]];
+    var a=[];
+    for(var i=0;i<N;i++){
+      if(i%3===0){
+        var nd=nodes[i%4];
+        var t=Math.random()*6.283,r=Math.pow(Math.random(),0.5)*0.2;
+        a.push([nd[0]+Math.cos(t)*r,nd[1]+Math.sin(t)*r]);
+      }else{
+        var ang=Math.random()*6.283;
+        var rr=0.95+(Math.random()-.5)*0.05;
+        a.push([Math.cos(ang)*rr,Math.sin(ang)*rr]);
+      }
+    }
+    return a;
+  }
+
+  var chapters=[
+    {num:'00 / 07',name:'SIGNAL',sub:'the same person, acquired',gen:fPortrait,scale:1.25},
+    {num:'01 / 07',name:'FASTBALL',sub:'baseball & premed — reading humans in real time',gen:fFastball,scale:1},
+    {num:'02 / 07',name:'CULTURE',sub:'TET2 · Kron Lab, UChicago — symposium award',gen:fColony,scale:1},
+    {num:'03 / 07',name:'THE BREAK',sub:'injury, family, the plan comes apart',gen:fBreak,scale:1},
+    {num:'04 / 07',name:'ALTITUDE',sub:'Switzerland — the rebuild chooses a direction',gen:fAlps,scale:1},
+    {num:'05 / 07',name:'PRODUCT',sub:'Jel Sert — Crayola, Harley, Jamba. Shipped.',gen:fFilm,scale:1},
+    {num:'06 / 07',name:'SPATIAL',sub:'USC IYA — twins, portals, headset-first craft',gen:fSpatial,scale:1},
+    {num:'07 / 07',name:'THE LOOP',sub:'now — adaptive AI×XR training, running',gen:fLoop,scale:1}
+  ];
+  var current=0,facePts=[];
+
+  function retarget(){
+    var ch=chapters[current],pts=ch.gen();
+    var sc=S*(ch.scale||1);
+    for(var i=0;i<N;i++){
+      var p=pts[i%pts.length];
+      sx[i]=px[i];sy[i]=py[i];
+      tx[i]=CX+p[0]*sc;
+      ty[i]=CY+p[1]*sc;
+      delay[i]=Math.random()*0.45;
+    }
+    document.getElementById('ch-num').textContent=ch.num;
+    document.getElementById('ch-name').textContent=ch.name;
+    document.getElementById('ch-sub').textContent=ch.sub;
+  }
+  function next(){current=(current+1)%chapters.length;morphStart=performance.now();retarget()}
+
+  /* face sampling */
+  var img=new Image();
+  img.onload=function(){
+    // face.png has an opaque studio background, so alpha is useless here.
+    // Build the portrait from image structure instead: edge magnitude (Sobel-ish)
+    // + darkness fill, restricted to an ellipse around the head.
+    var s=160,oc=document.createElement('canvas');oc.width=s;oc.height=s;
+    var octx=oc.getContext('2d');octx.drawImage(img,0,0,s,s);
+    var d=octx.getImageData(0,0,s,s).data;
+    function lum(x,y){var i=(y*s+x)*4;return (d[i]*0.3+d[i+1]*0.59+d[i+2]*0.11)/255}
+    var cand=[];
+    for(var y=1;y<s-1;y++)for(var x=1;x<s-1;x++){
+      // ellipse gate around head/shoulders
+      var ex=(x/s-0.5)/0.36, ey=(y/s-0.46)/0.44;
+      if(ex*ex+ey*ey>1)continue;
+      var gx=lum(x+1,y)-lum(x-1,y), gy=lum(x,y+1)-lum(x,y-1);
+      var edge=Math.sqrt(gx*gx+gy*gy);          // features & silhouette
+      var dark=Math.max(0,0.62-lum(x,y));       // hair, eyes, suit
+      var w=edge*2.2+dark*0.55;
+      if(w>0.06&&Math.random()<w)cand.push([(x/s)*2-1,(y/s)*2-1]);
+    }
+    if(cand.length>40){
+      facePts=[];
+      for(var i=0;i<N;i++)facePts.push(cand[Math.floor(Math.random()*cand.length)]);
+      if(current===0)retarget();
+    }
+  };
+  img.src='../assets/portrait/face.png';
+
+  /* animation */
+  var morphStart=performance.now(),last=performance.now(),frames=0,fpsT=last;
+  var fpsEl=document.getElementById('fps');
+  document.getElementById('pt-count').textContent=N.toLocaleString();
+  function tick(t){
+    last=t;
+    var morphT=(t-morphStart)/1000; // wall-clock: correct even when rAF throttles
+    frames++;
+    if(t-fpsT>=500){fpsEl.textContent=Math.round(frames*1000/(t-fpsT));frames=0;fpsT=t}
+    ctx.clearRect(0,0,W,H);
+    var jit=chapters[current].name==='THE BREAK'?0.9:0.18;
+    for(var i=0;i<N;i++){
+      // position derived from elapsed time, not frame count — converges even if rAF throttles
+      var prog=Math.max(0,Math.min(1,(morphT-delay[i])/1.1));
+      var e=1-Math.pow(1-prog,3); // ease-out cubic
+      px[i]=sx[i]+(tx[i]-sx[i])*e;
+      py[i]=sy[i]+(ty[i]-sy[i])*e;
+      var jx=(Math.random()-.5)*jit,jy=(Math.random()-.5)*jit;
+      ctx.fillStyle=colors[i];
+      ctx.fillRect(px[i]+jx,py[i]+jy,1.7,1.7);
+    }
+    if(!reduced)requestAnimationFrame(tick);
+  }
+
+  var AUTO=4200,timer=null;
+  function startAuto(){if(timer)clearInterval(timer);timer=setInterval(next,AUTO)}
+  W=canvas.clientWidth;H=canvas.clientHeight;
+  for(var i=0;i<N;i++){px[i]=Math.random()*W;py[i]=Math.random()*H}
+  resize();addEventListener('resize',resize);
+  retarget();
+  if(reduced){
+    // static: draw target formation once per step
+    function drawStatic(){
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<N;i++){ctx.fillStyle=colors[i];ctx.fillRect(tx[i],ty[i],1.7,1.7)}
+      fpsEl.textContent='—';
+    }
+    drawStatic();
+    document.getElementById('fieldWrap').addEventListener('click',function(){next();drawStatic()});
+  }else{
+    requestAnimationFrame(tick);
+    startAuto();
+    document.getElementById('fieldWrap').addEventListener('click',function(){next();startAuto()});
+    addEventListener('keydown',function(e){if(e.code==='Space'){e.preventDefault();next();startAuto()}});
+  }
+
+  /* small glyph canvas: static pitch-arc formation */
+  var g=document.getElementById('glyph'),gctx=g.getContext('2d');
+  function drawGlyph(){
+    var gw=g.clientWidth,gh=g.clientHeight;
+    g.width=gw*DPR;g.height=gh*DPR;gctx.setTransform(DPR,0,0,DPR,0,0);
+    gctx.clearRect(0,0,gw,gh);
+    for(var i=0;i<700;i++){
+      var t=Math.random();
+      var x=gw*0.08+t*gw*0.84;
+      var y=gh*0.75-Math.sin(t*Math.PI)*gh*0.5+(Math.random()-.5)*6;
+      gctx.fillStyle=t>0.86?'rgba(217,79,43,.95)':'rgba(245,244,242,.7)';
+      gctx.fillRect(x,y,1.6,1.6);
+      if(i%14===0){gctx.fillStyle='rgba(13,158,130,.5)';gctx.fillRect(x,gh*0.86,1.4,1.4)}
+    }
+  }
+  drawGlyph();addEventListener('resize',drawGlyph);
+})();
+</script>
+</body>
+</html>
