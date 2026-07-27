@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonar — Phone Preview</title>
+<style>
+  *{box-sizing:border-box}
+  :root{color-scheme:dark}
+  html,body{margin:0;min-height:100%;background:#070b10;color:#eef2f4;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+  body{display:grid;place-items:start center;padding:22px 16px 36px}
+  .preview{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .label{width:390px;max-width:100%;display:flex;justify-content:space-between;gap:16px;color:rgba(235,240,244,.52);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+  .label strong{color:#12b592;font-weight:500}
+  .phone{position:relative;width:410px;height:864px;padding:10px;border:1px solid rgba(235,240,244,.22);border-radius:28px;background:#0b1017;box-shadow:0 24px 80px rgba(0,0,0,.55),0 0 45px rgba(18,181,146,.08)}
+  .phone::before{content:'';position:absolute;z-index:2;left:50%;top:14px;translate:-50% 0;width:72px;height:5px;border-radius:99px;background:rgba(235,240,244,.18);pointer-events:none}
+  iframe{display:block;width:390px;height:844px;border:0;border-radius:19px;background:#0b1017}
+  .note{width:390px;max-width:100%;color:rgba(235,240,244,.38);font-size:9px;line-height:1.6;letter-spacing:.1em}
+  @media(max-width:450px){
+    body{padding:0}
+    .label,.note{display:none}
+    .phone{width:390px;height:844px;padding:0;border:0;border-radius:0;box-shadow:none}
+    .phone::before{display:none}
+    iframe{border-radius:0}
+  }
+</style>
+</head>
+<body>
+  <main class="preview">
+    <div class="label"><span>Sonar mobile viewport</span><strong>390 × 844</strong></div>
+    <div class="phone">
+      <iframe
+        src="mockup-d-sonar.html"
+        title="Sonar portfolio prototype at phone resolution"
+        loading="eager"
+      ></iframe>
+    </div>
+    <p class="note">This is the live Sonar prototype rendered inside a true 390 × 844 viewport. Scroll and interact inside the phone frame.</p>
+  </main>
+</body>
+</html>

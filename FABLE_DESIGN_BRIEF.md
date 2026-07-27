@@ -4,89 +4,228 @@ Use this file as the single source of context when continuing design work in Cla
 
 ---
 
-## ⭐ SESSION HANDOFF — READ THIS FIRST (last updated: current session)
+## ⭐ SESSION HANDOFF — READ THIS FIRST (last updated: 2026-07-27, end-of-session)
 
-**Where we are:** A creative direction has emerged and is being iterated. It is **Direction D — "Sonar"**, a fully custom hero built from Samuel's feedback across several rounds. It is **not yet locked** — Samuel is still refining it. All work lives in `prototypes/` and **nothing live has been touched.**
+**Where we are:** Direction D — **“Sonar”** remains the active prototype direction. Desktop is stable and fully dot-rendered. Mobile has gone through a major fidelity and interaction pass and now uses dots selectively: crisp type and official identity artwork at rest, with a lightweight dot system that detaches from Samuel’s name and the current experience title during scroll and resolves into the threshold above Selected Work. The direction is **not locked** until Samuel explicitly approves it. Everything remains prototype-only; **live `index.html` and `style.css` have not been touched.**
 
-**The one file that matters right now:**
-`prototypes/mockup-d-sonar.html` — the current hero mockup. Open at:
-`http://localhost:4599/prototypes/mockup-d-sonar.html`
-(Dev server should already be running — see command below. If not: `python3 .claude/devserver.py 4599`)
+### Files that matter now
 
-### Non-negotiable working rules (Samuel set these — honor them exactly)
-1. **Everything goes through Samuel.** No decisions locked without his say-so.
-2. **No drastic changes before he sees a mockup.** Always show the change (screenshot / live localhost) before merging anything or moving on.
-3. **Never edit live `index.html` / `style.css`** without explicit approval. Prototype-first, one merge at a time.
-4. **Keep localhost running** so he can watch iterations. Don't kill the dev server on port 4599.
-5. Prefer Fable for important design decisions.
+1. Main responsive prototype:
+   - `prototypes/mockup-d-sonar.html`
+   - `http://localhost:4599/prototypes/mockup-d-sonar.html`
+2. Desktop-accessible phone simulator, fixed at **390×844**:
+   - `prototypes/mockup-d-sonar-phone.html`
+   - `http://localhost:4599/prototypes/mockup-d-sonar-phone.html`
 
-### What "Sonar" is (the agreed hero concept)
-A submarine/sonar-instrument themed hero. Elements currently implemented in `mockup-d-sonar.html`:
-- **Instrument shell:** hairline frame, top status bar (SIGNAL LOCKED, live FPS, DEPTH readout that climbs on scroll, clock), "DIVE ↓" scroll cue, depth-tick markers.
-- **Big hero portrait, centered:** uses `assets/portrait/headset.png` (Samuel wearing an XR headset). The face underneath (`assets/portrait/face.png`) is revealed two ways: (a) a **sonar "ping"** ring that expands from the portrait and resolves the face inside the traveling ring, and (b) a **cursor reveal** — a soft circle following the pointer. The ping + reveal now fire **once per record shift** (not on a loop).
-- **"Service record" dots:** a particle field (~2400 dots) that reorganizes per contact into a **wordmark on the left** and the **company insignia/logo on the right**, plus a **half-transparent background motif** behind the portrait, plus orbiting dots. Each contact re-tints the whole page (glow, sonar ring, crosshairs, chip, dots) to that brand's accent color, with a smooth color transition.
-- **Scroll handoff:** on scroll, the dots peel off the orbit, stream down an arc through the "descent" zone, and land as a dotted underline beneath the "02 — SELECTED WORK" header — literally delivering the viewer into the work section (bench report + project cards below).
+The phone simulator embeds the main responsive prototype, so edits to `mockup-d-sonar.html` automatically appear in both views.
 
-### The five contacts (chronological), their accent colors + background motifs
-1. **UCHICAGO** — `#8A1F35` maroon — motif: Chicago skyline — insignia: maroon shield (cropped from `assets/logos/uchicago.png`) — caption "KRON LAB · CANCER IMMUNOLOGY"
-2. **FRANKLIN SWITZERLAND** — `#4A90D9` alpine blue (Swiss red would collide with Edwards) — motif: 14-node travel route (the 14 countries from his gap semester) — insignia: **procedurally-drawn Swiss cross** (no Franklin logo file exists) — caption "FRANKLIN UNIVERSITY SWITZERLAND · GAP SEMESTER — 14 COUNTRIES"
-3. **THE JEL SERT COMPANY** — `#E4572E` orange — motif: three tilted freezer pops — insignia: blue circle badge (`assets/logos/jelsert.png`) — caption "R&D + BRAND FILMS — CRAYOLA · HARLEY · JAMBA"
-4. **USC IYA** — `#FFC72C` gold (cardinal collides with Edwards red; gold reads more distinct) — motif: Trojan "Fight On" V — insignia: cardinal "USC" (cropped from `assets/logos/usc.png`) **plus ΦΔΘ (Phi Delta Theta) in gold dots below it** — caption "HUMAN TECHNOLOGY INTERACTION · FIRST IN DEGREE · ΦΔΘ"
-5. **EDWARDS LIFESCIENCES** — `#C8102E` red — motif: heart outline + valve ring at its inlet — insignia: Edwards "E" silhouette (samples `assets/logos/mono/edwards.png`, a white-on-alpha silhouette, tinted red) — caption "AI×XR TRAINING SYSTEMS · NOW"
+Dev server command if needed:
+`python3 .claude/devserver.py 4599`
 
-### 🔧 OPEN TODOS (what Samuel wants fixed next — DO THESE, showing mockups each step)
-1. **Background motifs still don't look good** — they read as vague dot-clouds, not clearly like a skyline / route / heart-valve / etc. Needs rework so each motif is recognizable but still subtle (~15% opacity, brand-tinted, behind the portrait). Don't over-clutter.
-2. **Logos/insignias still look weird** — pixel-sampling PNGs is the root problem; fine linework (Edwards circle logo, UChicago full lockup, Jel Sert badge) turns to mush as dots. **Recommended fix: sample from the SVG path files instead** — `assets/logos/*.svg` already exist (edwards.svg, iya.svg, jelsert.svg, uchicago.svg, usc.svg). Rendering clean vector marks to a canvas and sampling those (or simplifying to iconic marks only) will make every insignia crisp at any size. This is the biggest quality lever.
-3. **Show more of the headshot** — the portrait mask currently crops tightly (`radial-gradient(ellipse 42% 54% at 50% 44%, #000 36%, transparent 62%)` on `.layer`). Loosen the mask / enlarge the visible portrait so more of Samuel's face and shoulders show.
-4. Keep tuning color so it stays creative/not gloomy (already moved from near-black to a blue-teal base with aurora — Samuel likes the aurora but wanted it off his face; it's now a rim glow at 68% of the stage).
+Copy-ready continuation prompt:
+- `CONTINUE_IN_CLAUDE.md`
 
-### Key technical notes for whoever picks this up
-- **Dot engine** is vanilla JS + 2D canvas in `mockup-d-sonar.html` (no libraries). Budgets: `WORD` (33%) / `LOGO` (24%) / `MOTIF` (22%) / rest = orbit. Morphs run on **wall-clock time** (`morphStart`), so they converge even if rAF throttles.
-- **`window.__D`** debug hooks exist: `__D.setCi(n)`, `__D.rebuild()`, `__D.step()`, `__D.info()` — used to freeze/step states for screenshots.
-- **Logo sampling** has two paths: colored PNGs (edge-detect + sparse fill) and `mono:true` white-silhouette PNGs (shape sample + brand tint). The SVG-path approach in TODO #2 would replace/augment these.
-- **Motifs** are procedural point generators in the `motifs = {...}` object (skyline/route/pops/victory/valve). This is where TODO #1 work happens.
-- **Verifying visuals:** the in-app browser preview throttles animation; to capture true frames, freeze the cycle (`for(i=1;i<99999;i++)clearInterval(i)`), call `__D.setCi(n)` + `__D.rebuild()`, wait ~2s, screenshot. A Playwright script (`shoot_sonar.py`) was used for this and works headless.
+### Non-negotiable working rules
+1. **Everything goes through Samuel.** Nothing is locked without his approval.
+2. **No drastic changes before he sees a mockup.** Show the change on localhost or by screenshot before continuing.
+3. **Never edit live `index.html` / `style.css`** without Samuel's explicit approval.
+4. Work only in `prototypes/mockup-d-sonar.html`, `prototypes/mockup-d-sonar-phone.html`, and related prototype assets unless Samuel says otherwise.
+5. **Keep localhost running** on port 4599 so Samuel can watch iterations.
+6. Do not commit unless Samuel explicitly asks. The 2026-07-27 checkpoint was explicitly requested so the next session can resume from it.
 
-### The other three mockups (reference only — Sonar supersedes them, but the ideas feed it)
-- `prototypes/mockup-a-instrument.html` — "The Instrument": submarine/HUD shell, boot log, reticle portrait, Path as calibration stages, bench-report case cards, hiring-manager signal strip. **Sonar inherited this shell + bench reports.** Samuel liked this one's vibe most, which is why D is built on it.
-- `prototypes/mockup-b-one-signal.html` — "One Signal": one particle field morphing through 7 biography chapters (face → baseball seams → cell colony → scatter → alps → film → cube → valve). **Sonar inherited the dots**, but repurposed them to companies instead of the 7 abstract chapters (Samuel didn't love those 7).
-- `prototypes/mockup-c-dossier.html` — "The Dossier": warm editorial archive, real photography, figure-numbered evidence spreads, text-only TET2 lab card. Warmest/most personal; hold its evidence-spread language for interior case-study pages later.
+### Shared desktop/mobile hero state
+- The hero now opens on **Edwards Lifesciences** while shuffle/auto mode remains active.
+- Tagline beneath Samuel's name is:
+  **“Looking to join a team designing what comes next.”**
+- Main role label remains **XR ENGINEER & SPATIAL DESIGNER**.
+- Tactical copy was softened:
+  - `EXPERIENCE RECORD — CHAPTERS`
+  - `ROLE // RESOLVED`
+  - `RESOLVING DESIGNER UNDER HEADSET`
+  - `VIEW SELECTED WORK ↓`
+- The first selector control is a shuffle icon instead of `∞`.
+- During auto mode, shuffle receives the main active style and the displayed record gets a secondary current-state style.
+- Manual selection morphs and holds. Shuffle resumes auto-cycle without abruptly changing the current record.
+- Headshot reveal works with hover on desktop and a class-driven tap transition on touch. Enter/Space also toggle it.
+- Mobile tap feedback now includes a sonar ring kick, scan line, circular aperture, headset fade/blur, and uncovered-face resolve. The hint changes to `TAP HEADSHOT TO RESTORE HEADSET`.
+- Reduced motion disables auto-cycle and morphing but preserves manual record switching.
+- The first work proof remains **VR Baseball**, followed by IYH Digital Twin and Pavilia prototype cards.
 
-### Job target this is all aimed at
-Neuralink **UI Design Engineer, BCI Applications** (and similar immersive/spatial internships). They explicitly want: Three.js/WebGPU proficiency (so the site itself is a work sample), end-to-end iteration shown (not just finals), systems thinking, and "obsessive attention to design detail and fluidity" (motion quality is graded). Edwards is intentionally demoted to ONE contact among five — **the focus is Samuel, not Edwards.** He'll be a student contractor there this year building AI-powered XR training for engineers to practice talking patients through device troubleshooting.
+### Desktop Sonar
+- Desktop retains the full **9,000-particle dot-rendered identity system**.
+- Company wordmarks/logos remain reconstructed from dots on the desktop.
+- Edwards is the initial state.
+- Selector is on the left and does not overlap the role/current-session card.
+- Current records:
+  1. UChicago Medicine
+  2. Franklin Switzerland / FUS plus 14-country flag grid
+  3. The Jel Sert Company plus Jel Sert, Otter Pops, Fla-Vor-Ice, and Pure Kick
+  4. USC Iovine and Young Academy plus USC and Phi Delta Theta
+  5. Edwards Lifesciences
+- Desktop layout and desktop logo system should not be redesigned during the current mobile review unless Samuel asks.
 
-### Agreed roadmap (gated — nothing proceeds without Samuel's OK at each gate)
-- **Phase 0 — Lock direction** (we're here; Sonar is the candidate, still being refined). Gate: Samuel says "lock D".
-- **Phase 1 — Full-fidelity hero prototype** (SVG-path insignias, reworked motifs, more headshot, 60fps verified, reduced-motion stills, mobile layout). Prototype-only. Gate: Samuel approves the feel.
-- **Phase 2 — Path + section system** on the prototype. Gate: side-by-side vs live.
-- **Phase 3 — Case-study template** (one page, e.g. VR Baseball, judged vs SuzChews quality bar). Gate: approve → roll out one page at a time.
-- **Phase 4 — Live merges**, section by section into `index.html`, before/after screenshots + rollback each time. Project-page deep content parked until overall design lands.
+### Mobile Sonar — latest state
 
-### 📋 STARTER PROMPT for the next session (copy-paste this)
-```
+The site automatically switches to mobile behavior at **900px wide or below**. Touch/hover capability detection also updates on resize/device changes.
+
+Mobile uses a deliberate **hybrid resolved state**:
+- Samuel’s name and the current experience title remain crisp, solid, legible type with a restrained dotted signal echo behind them.
+- A **600-dot mobile-only transition** is sampled from those two type blocks: 360 dots from `SAMUEL FRAUSTO`, 240 from the active experience title.
+- As the page scrolls, the two dot sources peel away as controlled curved ribbons, merge through the compressed descent, and settle into a dotted horizontal threshold immediately above `02 — SELECTED WORK`.
+- The broad 2,800-particle ambient portrait cloud was removed from mobile. Dots now have a specific narrative job instead of contaminating the portrait, logos, and text.
+- The portrait retains sonar rings, glow, crosshairs, and the new scan/reveal interaction, but not an ambient dot cloud.
+- Official identity artwork inside the experience card uses a dedicated high-resolution mobile canvas. This replaced tiny dot-resampled mobile logos because they looked inaccurate and blurry.
+- Desktop remains fully dot-rendered; the high-resolution identity renderer is mobile-only.
+
+The mobile hero order is:
+1. Samuel's role, name, and recruiting line
+2. Compact headset portrait with tap-to-reveal
+3. Unified experience card containing:
+   - experience record number,
+   - concise mobile title and context,
+   - official resolved identity artwork,
+   - role text
+4. 44px record selector
+5. `VIEW SELECTED WORK ↓`
+
+Mobile identity arrangements:
+- **UChicago:** official UChicago Medicine lockup.
+- **Franklin:** official Franklin Switzerland lockup plus all 14 flags in a centered **5 / 5 / 4** layout. Each flag sits in a consistent slot while preserving its real aspect ratio. The flags are fully contained and no longer clipped or stretched into one strip.
+- **Jel Sert:** weighted composition using official Jel Sert, Otter Pops, Fla-Vor-Ice, and Pure Kick artwork. Jel Sert and Fla-Vor-Ice were enlarged; Otter Pops remains prominent; Pure Kick is secondary.
+- **USC:** IYA and USC were enlarged and given primary visual weight; Phi Delta Theta remains present as the secondary mark.
+- **Edwards:** official Edwards mark.
+
+Mobile-only concise titles are used where the artwork already carries the complete institution name:
+- `FRANKLIN SWITZERLAND`
+- `USC IOVINE & YOUNG`
+
+### Mobile fit and performance
+- At **390×844**, all five states fit the complete hero, experience card, official identities, role, selector, and work cue inside one screen.
+- A special compact breakpoint also fits the full experience at **320×700**.
+- Mobile scroll-transition particle budget is **600**, down from desktop’s 9,000.
+- All mobile identity assets preload so a first tap does not show an empty identity panel.
+- The portrait and experience card are layered above the mobile transition canvas so dots travel behind interactive/fidelity-critical content.
+- Static dotted echoes fade as the canvas dots peel away, preventing a duplicated/noisy type treatment.
+- The mobile descent is compressed before Selected Work.
+
+### Verification completed
+- `npm run build` passes.
+- JavaScript syntax check passes.
+- HTML parsing passes for both prototype files.
+- Local asset-reference checks pass.
+- `git diff --check` passes.
+- Verified at:
+  - 1440×900 desktop
+  - 1280×800 short laptop
+  - 390×844 phone
+  - 320×700 small phone
+  - reduced-motion mode
+- Tested:
+  - manual record selection and hold,
+  - shuffle resume,
+  - current-record state during auto mode,
+  - real emulated touch on the portrait (headset → face → restore),
+  - keyboard reveal,
+  - Selected Work anchor,
+  - all record assets preloaded.
+- The dot transition was visually reviewed at real mobile scroll positions. It forms a visible signal band through the descent and resolves into the threshold above Selected Work.
+
+### Important Chrome testing caveat
+
+Do **not** repeatedly launch `/Applications/Google Chrome.app` as a child of Node for screenshots on this Mac. Those temporary automation launches triggered macOS Chrome crash reports in `HIServices` during `_RegisterApplication → TransformProcessType`; the crash reports showed `Parent Process: node`. This was a test-runner startup issue, not a prototype crash.
+
+For the next session:
+- Prefer the existing browser/in-app browser or Samuel’s manually opened localhost tab.
+- Reuse one browser session when visual testing is necessary.
+- Do not treat a `Parent Process: node` Chrome crash report as a site regression.
+- The Python localhost server itself is safe and should remain running on port 4599.
+
+### Prototype assets included in this checkpoint
+These files are required by the current Sonar prototype. Do not delete them:
+- `assets/logos/fus.png`
+- `assets/logos/otter-pops.webp`
+- `assets/logos/otter-pops-hi.png`
+- `assets/logos/fla-vor-ice.png`
+- `assets/logos/fla-vor-ice-hi.png`
+- `assets/logos/pure-kick.svg`
+- `assets/logos/pure-kick-hi.png`
+- `assets/logos/phi-delta-theta-greek.png`
+- `assets/logos/phi-delta-theta-sword-shield.png`
+- `assets/logos/phi-delta-theta-horizontal.png`
+- `assets/logos/phi-delta-theta-coa.png` — downloaded reference card, not useful artwork
+- `prototypes/mockup-d-sonar-phone.html`
+
+### Current approval gate / next task
+**First:** Samuel should inspect the latest phone preview and review:
+- **Resting typography:** solid, fully legible name/title with the restrained dotted echo behind it.
+- **Scroll transition:** dots should leave the name and experience title, follow two controlled ribbons, and merge into the threshold above Selected Work.
+- **Portrait tap:** the headset should visibly resolve into Samuel’s uncovered face with a satisfying sonar/scan effect, then reverse on the next tap.
+- **Franklin:** all 14 flags should be visible, proportionally correct, and contained.
+- **Jel Sert:** verify the larger Jel Sert and Fla-Vor-Ice weighting alongside Otter Pops and Pure Kick.
+- **USC:** verify the enlarged IYA and USC marks, with Phi Delta Theta secondary.
+- Confirm the complete hero still feels usable rather than over-compressed at 390×844 and 320×700.
+
+Do not call this mobile treatment final without Samuel's approval.
+
+If Samuel approves the hero/mobile system, the next development phase should be the responsive homepage below it:
+1. Design a mobile-first **Selected Systems** section.
+2. Lead with Edwards/current human-critical work.
+3. Follow with VR Baseball/embodied performance.
+4. Then show IYH Digital Twin or Pavilia/spatial experiences.
+5. Continue prototype-first before any live merge.
+
+### Roadmap — still gated
+- **Phase 0 — Lock Sonar direction and responsive hero:** current phase.
+- **Phase 1 — Responsive Selected Systems/homepage narrative:** after Samuel approves the hero.
+- **Phase 2 — Reusable case-study system.**
+- **Phase 3 — Production/performance/accessibility pass.**
+- **Phase 4 — Live merge into `index.html` / `style.css`, one approved section at a time.**
+
+### 📋 STARTER PROMPT for the next session
+```text
 You are design lead continuing Samuel Frausto's XR portfolio redesign.
-Read FABLE_DESIGN_BRIEF.md — start with the "SESSION HANDOFF" section at the top.
+Read FABLE_DESIGN_BRIEF.md and CONTINUE_IN_CLAUDE.md. Begin with the SESSION HANDOFF dated 2026-07-27.
 
-We are iterating Direction D — "Sonar": prototypes/mockup-d-sonar.html
-(view at http://localhost:4599/prototypes/mockup-d-sonar.html — dev server:
-python3 .claude/devserver.py 4599)
+We are iterating Direction D — “Sonar.”
 
-RULES (do not break):
+Main responsive prototype:
+http://localhost:4599/prototypes/mockup-d-sonar.html
+
+Desktop phone simulator at a true 390×844 viewport:
+http://localhost:4599/prototypes/mockup-d-sonar-phone.html
+
+Dev server if needed:
+python3 .claude/devserver.py 4599
+
+RULES:
 - Everything goes through me. Nothing is locked without my approval.
-- No drastic changes before I see a mockup. Show me the change (screenshot or
-  point me at localhost) before moving on.
-- Never touch live index.html / style.css without my explicit OK. Prototype-first.
-- Keep the localhost dev server running so I can watch iterations.
+- Do not make drastic changes before showing me a mockup.
+- Never touch live index.html or style.css without my explicit approval.
+- Work only in prototypes/mockup-d-sonar.html, prototypes/mockup-d-sonar-phone.html, and related prototype assets unless I say otherwise.
+- Keep localhost running.
+- Do not commit unless I explicitly ask.
 
-What I want to work on next (see OPEN TODOS in the handoff):
-1. Fix the background motifs — they look like vague dot-clouds, not recognizable
-   (skyline / travel route / heart+valve / etc). Make each subtle but readable.
-2. Fix the logos/insignias — pixel-sampling PNGs looks mushy. Try sampling the
-   SVG paths in assets/logos/*.svg instead, or simplify to clean iconic marks.
-3. Show more of my headshot — loosen the portrait mask so more of my face/shoulders show.
+CURRENT STATE:
+- Desktop Sonar remains fully dot-rendered and opens on Edwards with shuffle active.
+- Mobile automatically activates at 900px or below.
+- Mobile now fits the complete hero, experience card, identity artwork, selector, and work cue in 390×844; there is also a 320×700 compact breakpoint.
+- Mobile no longer uses the broad ambient particle cloud. Name and experience title are crisp text with restrained dotted echoes.
+- A 600-dot mobile canvas samples the name/title. On scroll, two curved ribbons detach and merge into a dotted threshold above Selected Work.
+- The portrait uses sonar rings and a class-driven tap reveal with a scan line, ring kick, aperture, and headset-to-face transition.
+- Franklin's 14 flags use a centered 5/5/4 proportion-aware grid.
+- Jel Sert uses a weighted official-artwork composition with larger Jel Sert and Fla-Vor-Ice.
+- USC uses larger IYA and USC marks with Phi Delta Theta secondary.
+- The shared line beneath my name is: “Looking to join a team designing what comes next.”
+- Manual selection holds and morphs; shuffle resumes auto-cycle; reduced motion and keyboard/touch controls have been tested.
+- Live index.html/style.css have not been touched.
+- Avoid spawning separate Node-launched Google Chrome instances for screenshots on this Mac; use the existing browser/manual localhost tab.
 
-Work only in prototypes/mockup-d-sonar.html unless I say otherwise. Show me
-each iteration before continuing.
+START HERE:
+1. Review the latest desktop and phone previews without editing.
+2. On the phone preview, test the resting dotted echoes, slow-scroll transition into Selected Work, and portrait tap/reverse.
+3. Inspect all five records—especially Franklin flags, the four Jel Sert logos, and the USC/IYA/Phi Delta Theta composition.
+4. Give me a concise visual/UX assessment. Do not edit until I respond.
+5. Ask for my approval before treating the mobile hero as final or beginning the Selected Systems section.
 ```
 
 ---
