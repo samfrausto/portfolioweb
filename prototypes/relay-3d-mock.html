@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dot Relay — Direction A: Point Clouds · FOR APPROVAL</title>
+<!-- DIRECTION A: relay icons as 3D point clouds. Scroll scrubs morph + rotation.
+     v2 changes: scroll track sized in real px (no vh division), progress read
+     from the pinned container's own rect with a zero-guard, chapter jump buttons,
+     sonar sweep through the volume, interiors, depth fog.
+     Nothing in mockup-d-sonar.html is touched. -->
+<style>
+  :root{--bg:#0B1017;--ink:#F0F2F4;--dim:#6B7684;--teal:#12B592;--warm:#E4572E;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--ink);font-family:ui-monospace,"DM Mono",monospace;}
+  .intro{padding:40px 5vw 22px;}
+  .intro h1{font-size:13px;letter-spacing:.24em;color:var(--dim);font-weight:500;}
+  .intro h1 b{color:var(--ink);}
+  .intro p{font-size:11px;letter-spacing:.06em;color:var(--dim);margin-top:10px;max-width:780px;line-height:1.75;}
+  .intro em{color:var(--teal);font-style:normal;}
+
+  .pin{position:relative;}                    /* height set in px by JS */
+  .stage{position:sticky;top:0;overflow:hidden;}
+  canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+
+  .hud{position:absolute;left:5vw;top:50%;transform:translateY(-50%);pointer-events:none;max-width:290px;}
+  .hud .sys{font-size:10px;letter-spacing:.24em;color:var(--teal);}
+  .hud .nm{font-size:19px;letter-spacing:.02em;margin-top:8px;line-height:1.25;}
+  .hud .ds{font-size:11px;letter-spacing:.04em;color:var(--dim);margin-top:12px;line-height:1.7;}
+
+  .jump{position:absolute;right:5vw;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;}
+  .jump button{font-family:inherit;font-size:9px;letter-spacing:.16em;color:var(--dim);background:transparent;
+    border:1px solid #222C38;padding:9px 12px;cursor:pointer;text-align:left;min-width:104px;}
+  .jump button.on{color:var(--ink);border-color:var(--teal);}
+  .jump button:hover{color:var(--ink);}
+
+  .meta{position:absolute;left:5vw;bottom:24px;font-size:10px;letter-spacing:.16em;color:var(--dim);pointer-events:none;}
+  .ctl{position:absolute;right:5vw;bottom:24px;display:flex;gap:8px;}
+  .ctl button{font-family:inherit;font-size:9px;letter-spacing:.14em;color:var(--dim);background:transparent;
+    border:1px solid #222C38;padding:7px 11px;cursor:pointer;}
+  .ctl button:hover{color:var(--ink);border-color:var(--teal);}
+
+  .tail{padding:56px 5vw 90px;border-top:1px solid #1B2430;}
+  .tail h2{font-size:11px;letter-spacing:.24em;color:var(--teal);font-weight:500;}
+  .tail p{font-size:12px;line-height:1.85;margin-top:10px;max-width:840px;}
+  .tail b{color:var(--warm);font-weight:500;}
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <h1><b>DOT RELAY — DIRECTION A</b> · POINT CLOUDS · v5 · FOR APPROVAL</h1>
+  <p>Four 3D point sets; scroll drives <em>rotation as well as morph</em>. v5 rebuilds 03 (04 approved) on a new diagnosis: this renderer draws <em>curvature</em>, not objects, so anything flat or boxy shears instead of turning. 03 is now the <em>waypoint field</em> — the viewpoints your team built, not the building the class modelled. 04 is a <em>gumball machine</em>, whose contents start colourless and flood back to colour as you scroll. Use the chapter buttons if you'd rather jump than scroll.</p>
+</div>
+
+<div class="pin" id="pin">
+  <div class="stage" id="stage">
+    <canvas id="cv"></canvas>
+    <div class="hud">
+      <div class="sys" id="hSys"></div>
+      <div class="nm"  id="hNm"></div>
+      <div class="ds"  id="hDs"></div>
+    </div>
+    <div class="jump" id="jump"></div>
+    <div class="meta" id="meta"></div>
+    <div class="ctl">
+      <button id="tog" type="button">TURNTABLE: ON</button>
+      <button id="swp" type="button">SWEEP: ON</button>
+    </div>
+  </div>
+</div>
+
+<div class="tail">
+  <h2>WHAT V5 CHANGES</h2>
+  <p><b>02 — Heart.</b> The old shape was the valentine curve lofted into 3D: an emoji, not an organ. This is a loft whose cross-section is the union of two circles — a big left ventricle and a smaller right ventricle that stops short of the apex — sheared down-left and forward into the pose people recognise. The <b>aortic arch and its three branches carry the read</b>; you clock a heart from the arch long before the muscle resolves. Both circuits run inside it in warm.</p>
+  <p><b>Why 03 and 04 kept failing.</b> This engine renders <b>curvature, not objects</b>. A ring of dots around a curved surface produces a silhouette that <em>changes</em> as the form swings, and that change is what reads as volume. The headset and the heart are doubly-curved shells, so rotation earns its keep. A building has near-zero curvature: rotate a box 32&deg; and nothing is revealed, the silhouette just shears — which reads as jitter, and is the literal source of "looks weird." Three attempts kept adding features to a form whose problem was that rotation had nothing to do.</p>
+  <p><b>03 — Navigation pin + route (v5).</b> The waypoint field turned correctly but Samuel could not tell what it was: six spheres in a faint box reads as a molecule. So this time the failure was <em>legibility</em>, not motion, and more detail would not have helped. This draws the most nameable object in navigation — the <b>map pin</b> — which happens to be a surface of revolution (sphere head tapering to a point), so it satisfies the curvature rule for free, and whose through-hole is real interior structure the swing opens and closes. Around it: a domed ground rather than a flat plate, a faint plan outline of an upper floor, an origin marker, and a <b>route tube that crosses the floor and climbs to the pin on the upper level</b> with the glide running along it. The climb is the product — one twin, waypoint navigation, more than one level.</p>
+    <p><b>04 — Gumball machine.</b> A glass globe on a flared pedestal is curvature top to bottom, and the gumballs packed inside are the interior the rotation exists to reveal — the same structure as the headset's loop and the heart's circuits. The cancer aspect is carried without an awareness ribbon: the gumballs start <b>colourless</b> and flood back to colour from the bottom of the pile upward as the chapter resolves, draining again if you scroll back — taste lost and taste restored, in one scrubbable pass. And there is a <b>yellow flower</b> on the glass: Samuel's mother's favourite colour, from when she had cancer, which is where SuzChews came from. It is the only yellow in the entire relay.</p>
+  <p><b>The sweep, fixed.</b> It was keyed to the fraction of the morph, which meant the plane crossed the volume while the dots were still scattered in flight and parked itself in front of the form once it landed. It now runs over the back half of each leg, ignites what it crosses, holds a charge behind it, and fades out at the settle so the resting state is uniformly lit. <b>Still deliberately absent:</b> constellation edges, and any motion that isn't a deterministic scrubbed tween. Both toggles still kill their effect outright.</p>
+</div>
+
+<script src="relay-engine.js"></script>
+<script>
+(function(){
+  'use strict';
+  /* geometry + render loop now live in relay-engine.js, shared with
+     mockup-d-sonar.html so the page and this mock can never drift apart. */
+  Relay.mount({
+    pin:document.getElementById('pin'),
+    stage:document.getElementById('stage'),
+    canvas:document.getElementById('cv'),
+    hud:{sys:document.getElementById('hSys'),nm:document.getElementById('hNm'),ds:document.getElementById('hDs')},
+    jump:document.getElementById('jump'),
+    meta:document.getElementById('meta'),
+    tog:document.getElementById('tog'),
+    swp:document.getElementById('swp'),
+    chapters:[
+      {cloud:'headset',  sys:'SYS 01 · EDWARDS LIFESCIENCES',
+       name:'VR Headset',
+       desc:'A shell with the training loop running inside it — visible only because the form turns.'},
+      {cloud:'heart',    sys:'SYS 02 · HEART FUNCTION INFORMATIONAL SITE',
+       name:'Anatomical Heart',
+       desc:'Two-circle ventricular loft, apex sheared forward, aortic arch and branches carrying the read. Both circuits run inside it.'},
+      {cloud:'waypoints',sys:'SYS 03 · IYH DIGITAL TWIN',
+       name:'Navigation Pin + Route',
+       desc:'v5. A map pin on the upper plate, a station on the ground, and a route that crosses the floor and climbs between them.'},
+      {cloud:'gum',      sys:'SYS 04 · SUZCHEWS',
+       name:'Gumball Machine',
+       desc:'APPROVED. Glass globe on a flared pedestal, gumballs inside seen through it. They start colourless and flood back to colour as you scroll.'}
+    ]
+  });
+})();
+</script>
+</body>
+</html>

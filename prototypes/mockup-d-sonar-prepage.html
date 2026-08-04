@@ -21,10 +21,7 @@
   --display:'Syne',sans-serif;--serif:'Instrument Serif',Georgia,serif;--mono:'DM Mono',monospace;
 }
 html{scroll-behavior:smooth;transition:--accent .9s ease}
-/* overflow-x:clip, NOT hidden — `hidden` makes <body> a scroll container, which
-   silently breaks every position:sticky descendant (i.e. the pinned relay).
-   `clip` gives the same horizontal-bleed protection without that side effect. */
-body{background:var(--ink);color:var(--on);font-family:var(--display);line-height:1.6;overflow-x:clip}
+body{background:var(--ink);color:var(--on);font-family:var(--display);line-height:1.6;overflow-x:hidden}
 ::selection{background:var(--coral);color:#fff}
 
 /* instrument frame */
@@ -199,7 +196,6 @@ section.work{padding:1.5rem 0 5rem;border-top:1px solid var(--line);position:rel
 .bench-grid b{display:block;color:var(--dim);font-weight:400;font-size:.56rem;letter-spacing:.16em;margin-bottom:.35rem}
 .bench-grid span{color:var(--on)}
 .bench-grid .hit{color:var(--teal)}
-.bench-claim{font-size:.86rem;line-height:1.78;color:var(--mute);margin-bottom:1.9rem;max-width:52ch}
 .bench-constraint{margin-top:2rem;padding-top:1.6rem;border-top:1px solid var(--line);font-size:.8rem;color:var(--mute);line-height:1.8}
 .bench-constraint b{color:var(--coral);font-weight:600}
 .bench-media{position:relative;min-height:300px;overflow:hidden}
@@ -402,113 +398,6 @@ span.chip{border-style:dashed;opacity:.72}
   .descent{height:9svh;min-height:64px}
 }
 
-/* ==========================================================================
-   PAGE ARCHITECTURE — added 2026-08-03
-   01 HERO · 02 SELECTED SYSTEMS (relay + sticky bio rail) · 03 ALL PROJECTS
-   · 04 PROFICIENCIES · 05 THE PATH · 06 CONTACT
-   Everything in 02/03/05 is rendered from the SYSTEMS + CASE objects at the
-   top of the last script block (SYSTEMS). Swap a project there and the relay, the HUD and
-   the cards all follow.
-   ========================================================================== */
-
-/* ---- 02 — SELECTED SYSTEMS : relay + sticky bio rail -------------------- */
-.work-body{display:grid;grid-template-columns:228px minmax(0,1fr);gap:clamp(1.6rem,3.4vw,3rem);align-items:start}
-.work-main{min-width:0}
-.who{position:sticky;top:4.2rem}
-.who-shot{position:relative;border:1px solid var(--line2);border-left:2px solid var(--accent);background:var(--panel);overflow:hidden;aspect-ratio:4/5}
-.who-shot img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) contrast(1.02)}
-.who-shot::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(11,16,23,.72));pointer-events:none}
-.who-name{position:absolute;left:.8rem;bottom:.72rem;z-index:2;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;color:var(--on)}
-.who-name b{display:block;font-weight:500;margin-bottom:.22rem}
-.who-name span{color:var(--accent)}
-.who-meta{margin-top:.9rem;display:grid;gap:.6rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;line-height:1.55;color:var(--dim)}
-.who-meta div b{display:block;font-weight:400;font-size:.5rem;letter-spacing:.16em;color:var(--coral);margin-bottom:.22rem}
-.who-meta div span{color:var(--on)}
-
-/* ---- 03 — the pinned relay lives at the top of SELECTED SYSTEMS --------- */
-.relay{position:relative;margin:0 0 2.4rem}
-.relay-stage{position:sticky;top:0;overflow:hidden}
-.relay-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.relay-hud{position:absolute;left:0;top:50%;transform:translateY(-50%);max-width:340px;z-index:2}
-.relay-sys{font-family:var(--mono);font-size:.6rem;letter-spacing:.19em;color:var(--coral)}
-.relay-nm{font-size:clamp(1.5rem,2.9vw,2.15rem);font-weight:800;letter-spacing:-.025em;line-height:1.1;margin-top:.7rem}
-.relay-ds{font-size:.83rem;line-height:1.8;color:var(--mute);margin-top:1rem}
-.relay-link{display:inline-block;margin-top:1.3rem;font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;color:var(--dim);text-decoration:none;border:1px solid var(--line2);padding:.6rem .85rem;transition:color .25s,border-color .25s,box-shadow .25s}
-.relay-link:hover{color:var(--on);border-color:var(--accent);box-shadow:0 0 16px color-mix(in srgb,var(--accent) 18%,transparent)}
-.relay-jump{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.35rem;z-index:2}
-.relay-jump button{font-family:var(--mono);font-size:.52rem;letter-spacing:.14em;color:var(--dim);background:transparent;border:1px solid var(--line);padding:.55rem .7rem;cursor:pointer;text-align:left;min-width:11rem;transition:color .25s,border-color .25s}
-.relay-jump button.on{color:var(--on);border-color:var(--accent)}
-.relay-jump button:hover{color:var(--on)}
-.relay-meta{position:absolute;left:0;bottom:1.4rem;font-family:var(--mono);font-size:.55rem;letter-spacing:.16em;color:var(--dim);z-index:2}
-.relay-ctl{position:absolute;right:0;bottom:1.4rem;display:flex;gap:.4rem;z-index:2}
-.relay-ctl button{font-family:var(--mono);font-size:.5rem;letter-spacing:.13em;color:var(--dim);background:transparent;border:1px solid var(--line);padding:.45rem .6rem;cursor:pointer;transition:color .25s,border-color .25s}
-.relay-ctl button:hover{color:var(--on);border-color:var(--accent)}
-.cards-head{font-family:var(--mono);font-size:.56rem;letter-spacing:.2em;color:var(--dim);margin:0 0 1.3rem;padding-top:1.6rem;border-top:1px solid var(--line)}
-
-/* ---- 04 — ALL PROJECTS band -------------------------------------------- */
-.band{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;width:100%;
-  padding:clamp(1.5rem,3.2vw,2.3rem) clamp(1.2rem,4vw,3.4rem);
-  border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);background:var(--panel);
-  font-family:var(--mono);font-size:clamp(.68rem,1.5vw,.9rem);letter-spacing:.2em;color:var(--on);
-  text-align:left;cursor:pointer;transition:background .3s,color .25s;position:relative;z-index:3}
-/* break out of main's side padding so the band is genuinely full-width */
-.band,.allidx{margin-left:calc(-1 * clamp(1.2rem,4vw,3.4rem));margin-right:calc(-1 * clamp(1.2rem,4vw,3.4rem));width:auto}
-.band:hover{background:color-mix(in srgb,var(--accent) 9%,var(--panel))}
-.band:focus-visible{outline:2px solid var(--accent);outline-offset:-4px}
-.band i{font-style:normal;color:var(--accent);transition:transform .3s}
-.band[aria-expanded="true"] i{transform:rotate(90deg);display:inline-block}
-.band small{font-size:.58rem;letter-spacing:.16em;color:var(--dim)}
-.allidx{display:none;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--line);
-  border-bottom:1px solid var(--line2)}
-.allidx.is-open{display:grid}
-.allidx a{display:block;padding:1.15rem 1.2rem;background:var(--ink);text-decoration:none;transition:background .25s}
-.allidx a:hover{background:var(--panel)}
-.allidx a:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
-.allidx b{display:block;font-size:.9rem;font-weight:700;letter-spacing:-.01em;color:var(--on);margin-bottom:.4rem}
-.allidx span{font-family:var(--mono);font-size:.54rem;letter-spacing:.14em;color:var(--dim)}
-.allidx a:hover span{color:var(--accent)}
-
-/* ---- 05 — PROFICIENCIES ------------------------------------------------ */
-section.prof{padding:1.5rem 0 4.5rem;position:relative;z-index:3}
-#profHead{scroll-margin-top:4.5rem}
-.prof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line2)}
-.prof-col{background:var(--ink);padding:1.5rem 1.35rem 1.7rem}
-.prof-col h3{font-family:var(--mono);font-size:.56rem;font-weight:400;letter-spacing:.19em;color:var(--coral);margin-bottom:1.1rem}
-.prof-col ul{list-style:none}
-.prof-col li{font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;color:var(--on);line-height:1.55;padding:.34rem 0;border-bottom:1px solid rgba(235,240,244,.045)}
-.prof-col li:last-child{border-bottom:0}
-.prof-col li.dim{color:var(--mute)}
-.prof-note{margin-top:1.1rem;font-family:var(--mono);font-size:.55rem;letter-spacing:.13em;color:var(--dim)}
-
-/* ---- 07 — CONTACT ------------------------------------------------------ */
-section.contact{padding:1.5rem 0 5rem;border-top:1px solid var(--line);position:relative;z-index:3}
-.contact-line{font-family:var(--serif);font-size:clamp(1.2rem,2.5vw,1.75rem);line-height:1.5;color:var(--mute);max-width:38ch;margin-bottom:2.2rem}
-.contact-line em{font-style:italic;color:var(--on)}
-.contact-mail{display:inline-block;font-size:clamp(1.3rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.03em;color:var(--on);text-decoration:none;border-bottom:2px solid color-mix(in srgb,var(--accent) 55%,transparent);padding-bottom:.2rem;transition:color .25s,border-color .25s,text-shadow .3s}
-.contact-mail:hover{color:var(--accent);border-color:var(--accent);text-shadow:0 0 26px color-mix(in srgb,var(--accent) 30%,transparent)}
-.contact-mail:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
-.contact-rail{margin-top:2rem;display:flex;flex-wrap:wrap;gap:.5rem}
-
-/* ---- mobile for the new sections only. The approved ≤900 hero/relay above
-        is untouched: the pinned 3D relay is display:none here, so phones keep
-        the existing 600-dot bench relay. --------------------------------- */
-@media(max-width:900px){
-  .relay{display:none}
-  .work-body{grid-template-columns:1fr;gap:1.4rem}
-  .who{position:static;display:grid;grid-template-columns:104px minmax(0,1fr);gap:1rem;align-items:center;
-       padding-bottom:1.3rem;border-bottom:1px solid var(--line)}
-  .who-shot{aspect-ratio:1/1}
-  .who-meta{margin-top:0}
-  .cards-head{padding-top:1rem}
-  .band{padding:1.15rem 1rem;letter-spacing:.14em;font-size:.66rem;flex-wrap:wrap;gap:.5rem}
-  .band small{width:100%}
-  .allidx{grid-template-columns:1fr}
-  section.prof{padding:.5rem 0 3rem}
-  .prof-grid{grid-template-columns:1fr}
-  section.contact{padding:.5rem 0 3rem}
-  .contact-line{font-size:1.1rem;max-width:none;margin-bottom:1.6rem}
-}
-
 footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid var(--line)}
 
 @media (prefers-reduced-motion: reduce){
@@ -620,74 +509,104 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
   <div class="descent-line">Every chapter reorganizes into the next system he builds.</div>
 </section>
 
+<!-- WORK -->
 <main>
-
-<!-- 02 — SELECTED SYSTEMS : the dots come out of the hero straight into the
-     relay. The portrait + NOW/SCHOOL/BEFORE rail sits alongside it, sticky, so
-     the reader always knows whose work they are looking at. Both the relay and
-     the cards below are generated from the SYSTEMS array. -->
 <section class="work">
   <div class="sec-head" id="workHead">
     <span class="sec-tag">02 — SELECTED SYSTEMS</span>
-    <h2 class="sec-title">Four systems. <em>One signal, relayed.</em></h2>
+    <h2 class="sec-title">Surfacing with proof. <em>Systems first.</em></h2>
   </div>
 
-  <div class="work-body">
-    <aside class="who">
-      <div class="who-shot">
-        <img src="../assets/portrait/about.jpg" alt="Samuel Frausto">
-        <div class="who-name"><b>SAMUEL FRAUSTO</b><span id="whoRole"></span></div>
+  <!-- SYS 01 — Edwards VR training -->
+  <div class="bench">
+    <div class="bench-specs">
+      <div class="bench-title">AI-Adaptive VR Clinical Training</div>
+      <div class="bench-sub">SYSTEM 01 · EDWARDS LIFESCIENCES · <i class="live">ACTIVE BUILD</i></div>
+      <div class="bench-grid">
+        <div><b>ROLE</b><span>Solo — UX → 3D → code → AI</span></div>
+        <div><b>STATUS</b><span class="hit">Active build, 2026</span></div>
+        <div><b>SCOPE</b><span>Full-stack VR learning modules</span></div>
+        <div><b>TRAINEES</b><span>Clinicians</span></div>
+        <div><b>AI LAYER</b><span>Adaptive assessment</span></div>
+        <div><b>PUBLIC ARTIFACTS</b><span>2 system architectures</span></div>
       </div>
-      <div class="who-meta" id="whoMeta"></div>
-    </aside>
-
-    <div class="work-main">
-      <div class="relay" id="relayPin">
-        <div class="relay-stage" id="relayStage">
-          <canvas id="relayCv" aria-hidden="true"></canvas>
-          <div class="relay-hud">
-            <div class="relay-sys" id="relaySys"></div>
-            <div class="relay-nm"  id="relayNm"></div>
-            <div class="relay-ds"  id="relayDs"></div>
-            <a class="relay-link" id="relayLink" href="#" hidden></a>
-          </div>
-          <div class="relay-jump" id="relayJump"></div>
-          <div class="relay-meta" id="relayMeta"></div>
-          <div class="relay-ctl">
-            <button id="relayTog" type="button">TURNTABLE: ON</button>
-            <button id="relaySwp" type="button">SWEEP: ON</button>
-          </div>
-        </div>
-      </div>
-
-  <p class="cards-head">THE SAME FOUR, ON THE RECORD</p>
-  <div id="benchHost"></div>
-
-</section>
-
-<!-- 03 — ALL PROJECTS : full-width band into the rest of the pile.
-     There is no projects/index.html in the repo yet, so the band opens the
-     index inline. Point it at a real page later by giving .band an href. -->
-<button class="band" id="allBand" type="button" aria-expanded="false" aria-controls="allIdx">
-  <span>03 — ALL PROJECTS <i>→</i></span>
-  <small id="allCount"></small>
-</button>
-<nav class="allidx" id="allIdx" aria-label="All projects"></nav>
-
-<!-- 04 — PROFICIENCIES : screener-grade. Must land if they read nothing else. -->
-<section class="prof">
-  <div class="sec-head" id="profHead">
-    <span class="sec-tag">04 — PROFICIENCIES</span>
-    <h2 class="sec-title">The toolkit. <em>Plainly stated.</em></h2>
+      <div class="bench-constraint"><b>THE STAKES:</b> the trainee's next patient is real. Every design decision in the loop is downstream of that.</div>
+    </div>
+    <div class="bench-media glyph" data-cap="SYSTEM DIAGRAM — TRAINING LOOP">
+      <canvas id="glyphLoop" aria-label="Animated training loop diagram: trainee, simulation, AI assessment, adaptation"></canvas>
+    </div>
   </div>
-  <div class="prof-grid" id="profGrid"></div>
-  <p class="prof-note" id="profNote"></p>
+
+  <!-- SYS 02 — Heart valve explainer -->
+  <div class="bench flip">
+    <div class="bench-specs">
+      <div class="bench-title">How a Heart Valve Works</div>
+      <div class="bench-sub">SYSTEM 02 · INTERACTIVE EXPLAINER · <i class="live">SHIPS AUGUST</i></div>
+      <div class="bench-grid">
+        <div><b>FORMAT</b><span>Scroll-driven interactive page</span></div>
+        <div><b>SUBJECT</b><span>Valve mechanics</span></div>
+        <div><b>THE BAR</b><span>Ciechanowski-grade interaction</span></div>
+        <div><b>HOST</b><span class="hit">Docks on this site</span></div>
+        <div><b>STATUS</b><span>In build — Aug 2026</span></div>
+        <div><b>BUILD</b><span>Hand-built for the web</span></div>
+      </div>
+      <div class="bench-constraint"><b>THE BET:</b> an explainer earns attention by letting you push on the system until it pushes back.</div>
+      <a class="bench-link" href="../projects/heart-valve/app/index.html">OPEN LIVE PREVIEW →</a>
+    </div>
+    <div class="bench-media glyph" data-cap="LIVE MODEL — VALVE CYCLE">
+      <canvas id="glyphValve" aria-label="Animated heart valve schematic: leaflets opening and closing as flow passes"></canvas>
+    </div>
+  </div>
+
+  <!-- SYS 03 — IYH Digital Twin -->
+  <div class="bench">
+    <div class="bench-specs">
+      <div class="bench-title">IYH Digital Twin</div>
+      <div class="bench-sub">SYSTEM 03 · USC IOVINE &amp; YOUNG</div>
+      <div class="bench-grid">
+        <div><b>PLATFORM</b><span>NVIDIA Omniverse</span></div>
+        <div><b>SUBJECT</b><span>Iovine &amp; Young Hall</span></div>
+        <div><b>TYPE</b><span>Digital twin</span></div>
+        <div><b>ROLE</b><span>Solo — model → material → scene</span></div>
+      </div>
+      <div class="bench-constraint"><b>THE POINT:</b> a twin is only useful if you can trust it. Fidelity isn't polish here — it's the feature.</div>
+      <a class="bench-link" href="../projects/iyh-digital-twin.v2.html">OPEN CASE FILE →</a>
+    </div>
+    <div class="bench-media" data-cap="CAPTURE — OMNIVERSE VIEWPORT">
+      <img src="../assets/projects/iyh-digital-twin-01.jpg" alt="Iovine and Young Hall digital twin, Omniverse viewport">
+      <img class="media-alt" src="../assets/projects/iyh-digital-twin-02.jpg" alt="" aria-hidden="true">
+      <canvas id="glyphScan" class="media-scan" aria-hidden="true"></canvas>
+    </div>
+  </div>
+
+  <!-- SYS 04 — SuzChews -->
+  <div class="bench flip">
+    <div class="bench-specs">
+      <div class="bench-title">SuzChews</div>
+      <div class="bench-sub">SYSTEM 04 · PRODUCT &amp; SYSTEM DESIGN</div>
+      <div class="bench-grid">
+        <div><b>TYPE</b><span>Product + algorithm + brand</span></div>
+        <div><b>SCOPE</b><span>Science → simulation → team</span></div>
+        <div><b>STATUS</b><span class="hit">Complete case study</span></div>
+        <div><b>ROLE</b><span>Founder-designer</span></div>
+      </div>
+      <div class="bench-constraint"><b>ORIGIN:</b> first sketched in 2023, during his dad's health crisis — then built into a full product system at USC.</div>
+      <a class="bench-link" href="../projects/suzchews/index.html">OPEN CASE STUDY →</a>
+    </div>
+    <div class="bench-media" data-cap="CASE FILE — PROCESS BOARD">
+      <img src="../projects/suzchews/assets/process/thumb_full.jpg" alt="SuzChews process board">
+      <div class="media-inset" aria-hidden="true">
+        <span>SIM — FLAVOR CURVE</span>
+        <canvas id="glyphCurve"></canvas>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- 05 — THE PATH : context, not the argument. Demoted below proficiencies. -->
+<!-- PATH -->
 <section class="path">
   <div class="sec-head" id="pathHead">
-    <span class="sec-tag">05 — THE PATH</span>
+    <span class="sec-tag">03 — THE PATH</span>
     <h2 class="sec-title">The full record. <em>Chapters, not a résumé.</em></h2>
   </div>
   <ol class="pathlog">
@@ -728,21 +647,6 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
     </li>
   </ol>
 </section>
-
-<!-- 06 — CONTACT -->
-<section class="contact" id="contact">
-  <div class="sec-head">
-    <span class="sec-tag">06 — CONTACT</span>
-    <h2 class="sec-title">Open the channel.</h2>
-  </div>
-  <p class="contact-line">Looking for a team building what comes next in spatial computing — <em>where the work has to be right, not just impressive.</em></p>
-  <a class="contact-mail" href="mailto:samueljfrausto@gmail.com">samueljfrausto@gmail.com</a>
-  <div class="contact-rail">
-    <a class="chip" href="mailto:samueljfrausto@gmail.com">EMAIL</a>
-    <a class="chip" href="#workHead">↑ BACK TO THE WORK</a>
-  </div>
-</section>
-
 <div class="chip-preview" id="chipPreview" aria-hidden="true"><img alt=""></div>
 </main>
 
@@ -750,202 +654,6 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
   <span>MOCKUP D — "SONAR" · NOT LIVE</span>
   <span>SAMUELJFRAUSTO@GMAIL.COM</span>
 </footer>
-
-<!-- ==========================================================================
-     THE ONE PLACE TO EDIT.
-     SYSTEMS drives the relay chapters, the relay HUD and the four cards.
-     BIO drives the rail. PROF drives section 04. ALL drives section 03.
-     Swapping a featured project = editing one object in SYSTEMS. `cloud` is a
-     key into Relay.CLOUDS (headset | heart | waypoints | gum) in relay-engine.js.
-     This script runs BEFORE the two engine scripts so the cards exist when the
-     dot engine measures them and the glyph engine looks up its canvases.
-     ========================================================================== -->
-<script src="relay-engine.js"></script>
-<script>
-(function(){
-'use strict';
-
-var SYSTEMS=[
-  {
-    id:'edwards', cloud:'headset',
-    sys:'SYS 01 · EDWARDS LIFESCIENCES',
-    what:'AI-Adaptive VR Clinical Training',
-    title:'AI-Adaptive VR Clinical Training',
-    client:'EDWARDS LIFESCIENCES',
-    /* LOCKED — verbatim, do not reword */
-    claim:'IN DEVELOPMENT · Immersive clinical training that doubles efficiency and halves patient call time — built solo to absorb a growing business unit.',
-    metrics:[
-      ['ROLE','Solo — UX → 3D → code → AI'],
-      ['STATUS','In development, 2026',1],
-      ['SCOPE','Full-stack VR learning modules'],
-      ['TRAINEES','Clinicians'],
-      ['AI LAYER','Adaptive assessment'],
-      ['PUBLIC ARTIFACTS','2 system architectures']
-    ],
-    link:null, linkLabel:null,
-    media:{type:'glyph',canvas:'glyphLoop',cap:'SYSTEM DIAGRAM — TRAINING LOOP',
-      aria:'Animated training loop diagram: trainee, simulation, AI assessment, adaptation'}
-  },
-  {
-    id:'heart', cloud:'heart',
-    sys:'SYS 02 · INTERACTIVE EXPLAINER',
-    what:'Heart Function Informational Site',
-    title:'Heart Function Informational Site',
-    client:'INTERACTIVE EXPLAINER',
-    claim:'A scroll-driven web site that explains how the heart and its valves actually work — anatomy, flow and valve mechanics, interactive at every step. Hand-built for the browser.',
-    metrics:[
-      ['FORMAT','Scroll-driven interactive site'],
-      ['SUBJECT','Cardiac anatomy + valve mechanics'],
-      ['PLATFORM','Web — hand-built, no framework kit'],
-      ['STATUS','Live on this site',1],
-      ['HOST','Docks on this site'],
-      ['REFERENCE BAR','Ciechanowski-grade interaction']
-    ],
-    /* built from the Alma repo — refresh command is in FABLE_DESIGN_BRIEF.md */
-    link:'../projects/heart-valve/app/index.html', linkLabel:'OPEN THE LIVE SITE',
-    media:{type:'glyph',canvas:'glyphValve',cap:'LIVE MODEL — VALVE CYCLE',
-      aria:'Animated heart valve schematic: leaflets opening and closing as flow passes'}
-  },
-  {
-    id:'iyh', cloud:'waypoints',
-    sys:'SYS 03 · USC IOVINE &amp; YOUNG',
-    what:'Digital Twin Walkable on Web, Quest &amp; Vision Pro',
-    title:'IYH Digital Twin',
-    client:'USC IOVINE &amp; YOUNG',
-    claim:'A digital twin of USC’s Iovine &amp; Young Hall, delivered to three runtimes from one source — open web, Meta Quest and Apple Vision Pro — with Google-Maps-style waypoint navigation and continuous transitions between viewpoints.',
-    metrics:[
-      ['PLATFORMS','Web · Meta Quest · Vision Pro',1],
-      ['ROLE','Delivery layer — 3-person sub-team'],
-      ['NAVIGATION','Google-Maps-style waypoints'],
-      ['TRANSITIONS','Continuous between viewpoints'],
-      ['SOURCE','One Omniverse twin, three targets'],
-      ['TOOLS','Omniverse · visionOS · JavaScript']
-    ],
-    link:'../projects/iyh-digital-twin.v2.html', linkLabel:'OPEN CASE FILE',
-    media:{type:'img',src:'../assets/projects/iyh-digital-twin-01.jpg',
-      alt:'Iovine and Young Hall digital twin, Omniverse viewport',
-      altSrc:'../assets/projects/iyh-digital-twin-02.jpg',
-      scan:'glyphScan', cap:'CAPTURE — OMNIVERSE VIEWPORT'}
-  },
-  {
-    id:'suzchews', cloud:'gum',
-    sys:'SYS 04 · PRODUCT &amp; SYSTEM DESIGN',
-    what:'Chewing Gum for Chemo-Induced Taste Loss',
-    title:'SuzChews',
-    client:'PRODUCT &amp; SYSTEM DESIGN',
-    claim:'A chewing gum that restores taste for chemotherapy patients with dysgeusia. Flavour-release logic, product system and brand designed end to end, from the science through to the packaging.',
-    metrics:[
-      ['PRODUCT','Functional chewing gum'],
-      ['FOR','Chemo patients with dysgeusia',1],
-      ['SCOPE','Science → simulation → brand'],
-      ['ROLE','Founder-designer'],
-      ['STATUS','Complete case study'],
-      ['OUTPUT','Full case study + brand system']
-    ],
-    link:'../projects/suzchews/index.html', linkLabel:'OPEN CASE STUDY',
-    media:{type:'img',src:'../projects/suzchews/assets/process/thumb_full.jpg',
-      alt:'SuzChews process board',
-      inset:{label:'SIM — FLAVOR CURVE',canvas:'glyphCurve'},
-      cap:'CASE FILE — PROCESS BOARD'}
-  }
-];
-
-/* --- the rail beside SELECTED SYSTEMS: portrait + NOW / SCHOOL / BEFORE --- */
-var BIO={
-  role:'XR / SPATIAL SYSTEMS',
-  meta:[
-    ['NOW','Edwards Lifesciences — XR Learning Design'],
-    ['SCHOOL','USC Iovine &amp; Young — Human Technology Interaction'],
-    ['BEFORE','UChicago cancer-immunology research · Jel Sert R&amp;D']
-  ]
-};
-
-/* --- 05 PROFICIENCIES --- */
-var PROF=[
-  ['ENGINES &amp; RUNTIMES',['Unity','NVIDIA Omniverse','visionOS','WebGL / Canvas 2D']],
-  ['3D &amp; SIMULATION',['Blender','Shader programming','Digital twins','Real-time materials','Point-cloud systems']],
-  ['XR PLATFORMS',['Meta Quest','Apple Vision Pro','Web-delivered XR','Waypoint navigation']],
-  ['LANGUAGES',['C#','C++','Python','Swift','JavaScript','HTML / CSS']],
-  ['DESIGN &amp; AI',['Figma','UX research','AI-adaptive assessment','Systems architecture','Motion &amp; interaction']]
-];
-
-/* --- 04 ALL PROJECTS --- */
-var ALL=[
-  ['IYH Digital Twin','OMNIVERSE · WEB · QUEST · VISION PRO','../projects/iyh-digital-twin.v2.html'],
-  ['VR Baseball — Pitch Study','UNITY · META QUEST','../projects/vr-baseball.v2.html'],
-  ['Pavilia','SPATIAL DESIGN','../projects/pavilia.v2.html'],
-  ['Cyberpunk Twin','BLENDER · REAL-TIME','../projects/cyberpunk-twin.v2.html'],
-  ['Synesthesia','INTERACTION STUDY','../projects/synesthesia.v2.html'],
-  ['Harley-Davidson × Pure Kick','BRAND FILM · JEL SERT','../projects/purekick-harley.v2.html'],
-  ['Crayola × Fla-Vor-Ice','BRAND FILM · JEL SERT','../projects/flavoice-crayola.v2.html'],
-  ['Jamba × Jel Sert','BRAND FILM · JEL SERT','../projects/jelsert-jamba.v2.html'],
-  ['TET2 Cancer-Immunology Research','UCHICAGO · KRON LAB','../projects/tet2-research.html']
-];
-
-/* ---------------------------------------------------------------- renderers */
-function el(id){return document.getElementById(id);}
-
-function benchHTML(s,i){
-  var m=s.media,flip=(i%2===1)?' flip':'';
-  var grid=s.metrics.map(function(r){
-    return '<div><b>'+r[0]+'</b><span'+(r[2]?' class="hit"':'')+'>'+r[1]+'</span></div>';
-  }).join('');
-  var media='';
-  if(m.type==='glyph'){
-    media='<div class="bench-media glyph" data-cap="'+m.cap+'">'+
-          '<canvas id="'+m.canvas+'" aria-label="'+m.aria+'"></canvas></div>';
-  }else{
-    media='<div class="bench-media" data-cap="'+m.cap+'">'+
-          '<img src="'+m.src+'" alt="'+m.alt+'">'+
-          (m.altSrc?'<img class="media-alt" src="'+m.altSrc+'" alt="" aria-hidden="true">':'')+
-          (m.scan?'<canvas id="'+m.scan+'" class="media-scan" aria-hidden="true"></canvas>':'')+
-          (m.inset?'<div class="media-inset" aria-hidden="true"><span>'+m.inset.label+
-                   '</span><canvas id="'+m.inset.canvas+'"></canvas></div>':'')+
-          '</div>';
-  }
-  return '<div class="bench'+flip+'" data-sys="'+s.id+'">'+
-    '<div class="bench-specs">'+
-      '<div class="bench-title">'+s.title+'</div>'+
-      '<div class="bench-sub">'+s.sys+'</div>'+
-      '<p class="bench-claim">'+s.claim+'</p>'+
-      '<div class="bench-grid">'+grid+'</div>'+
-      (s.link?'<a class="bench-link" href="'+s.link+'">'+s.linkLabel+' →</a>':'')+
-    '</div>'+media+'</div>';
-}
-el('benchHost').innerHTML=SYSTEMS.map(benchHTML).join('');
-
-el('whoRole').innerHTML=BIO.role;
-el('whoMeta').innerHTML=BIO.meta.map(function(r){
-  return '<div><b>'+r[0]+'</b><span>'+r[1]+'</span></div>';}).join('');
-
-el('profGrid').innerHTML=PROF.map(function(c){
-  return '<div class="prof-col"><h3>'+c[0]+'</h3><ul>'+
-    c[1].map(function(k){return '<li>'+k+'</li>';}).join('')+'</ul></div>';}).join('');
-el('profNote').innerHTML='Listed only where there is shipped work behind it.';
-
-el('allIdx').innerHTML=ALL.map(function(p){
-  return '<a href="'+p[2]+'"><b>'+p[0]+'</b><span>'+p[1]+'</span></a>';}).join('');
-el('allCount').textContent=ALL.length+' CASE FILES';
-var band=el('allBand'),idx=el('allIdx');
-band.addEventListener('click',function(){
-  var open=idx.classList.toggle('is-open');
-  band.setAttribute('aria-expanded',open?'true':'false');
-});
-
-/* ---------------------------------------------------------------- the relay */
-Relay.mount({
-  pin:el('relayPin'), stage:el('relayStage'), canvas:el('relayCv'),
-  hud:{sys:el('relaySys'),nm:el('relayNm'),ds:el('relayDs'),link:el('relayLink')},
-  jump:el('relayJump'), meta:el('relayMeta'),
-  tog:el('relayTog'), swp:el('relaySwp'),
-  cx:0.66,
-  chapters:SYSTEMS.map(function(s){
-    return {cloud:s.cloud, sys:s.sys, name:s.what, desc:s.claim,
-            link:s.link, linkLabel:s.linkLabel};
-  })
-});
-})();
-</script>
 
 <script>
 (function(){

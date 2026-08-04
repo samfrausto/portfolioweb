@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="SuzChews">
+  <title>SuzChews</title>
+  <!--
+    SuzChews mark.
+    The form is a chew (rounded lozenge) with a bite removed from the upper
+    right. Inside the negative space left by the bite, a release curve rises
+    and decays — the algorithm is literally sitting in the space the bite made.
+    Single path, currentColor, no strokes below 2px at 64. Scales to 16px.
+  -->
+  <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- chew body: rounded square with the upper-right corner bitten out -->
+    <path d="M20 6 H36
+             A10 10 0 0 0 52 22
+             V44
+             A14 14 0 0 1 38 58
+             H20
+             A14 14 0 0 1 6 44
+             V20
+             A14 14 0 0 1 20 6 Z"/>
+    <!-- release curve: rise, peak, decay — the flavor/actives profile -->
+    <path d="M15 44 C22 44 22 26 29 26 C36 26 38 38 45 40" stroke-width="3.4"/>
+    <!-- baseline tick marks: time axis, three intervals only -->
+    <path d="M15 50 H45" stroke-width="2" opacity="0.35"/>
+  </g>
+</svg>
