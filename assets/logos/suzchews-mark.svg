@@ -1,25 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="SuzChews">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"
+     role="img" aria-label="SuzChews">
   <title>SuzChews</title>
   <!--
-    SuzChews mark.
-    The form is a chew (rounded lozenge) with a bite removed from the upper
-    right. Inside the negative space left by the bite, a release curve rises
-    and decays — the algorithm is literally sitting in the space the bite made.
-    Single path, currentColor, no strokes below 2px at 64. Scales to 16px.
+    SuzChews mark — attempt 4, approved 2026-08-05.
+    The gumball machine, reduced to its mass: globe, collar, hopper, foot.
+    Solid fill, zero strokes (the three rejected marks were all monoline and
+    all drew a fungiform papilla, which is itself on the rejected list).
+    The five-petal flower is NOT drawn by eye — it is the relay chapter-04
+    flower at its exact proportions (5 petals, first at 12 o'clock, 72 deg
+    apart, petal r / orbit = 0.565, core r / orbit = 0.259) in the relay's
+    own yellow, tag 3 = rgb(236,199,74).
+    Colours are CSS custom properties with literal fallbacks, so this file is
+    correct as a plain <img> and themeable when inlined into a page.
   -->
-  <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <!-- chew body: rounded square with the upper-right corner bitten out -->
-    <path d="M20 6 H36
-             A10 10 0 0 0 52 22
-             V44
-             A14 14 0 0 1 38 58
-             H20
-             A14 14 0 0 1 6 44
-             V20
-             A14 14 0 0 1 20 6 Z"/>
-    <!-- release curve: rise, peak, decay — the flavor/actives profile -->
-    <path d="M15 44 C22 44 22 26 29 26 C36 26 38 38 45 40" stroke-width="3.4"/>
-    <!-- baseline tick marks: time axis, three intervals only -->
-    <path d="M15 50 H45" stroke-width="2" opacity="0.35"/>
+  <defs>
+    <symbol id="sc-bloom" viewBox="0 0 100 100">
+      <g fill="var(--ink-bloom, #ECC74A)">
+        <circle cx="50"    cy="19"    r="18.2"/>
+        <circle cx="79.49" cy="40.42" r="18.2"/>
+        <circle cx="68.22" cy="75.08" r="18.2"/>
+        <circle cx="31.78" cy="75.08" r="18.2"/>
+        <circle cx="20.51" cy="40.42" r="18.2"/>
+        <circle cx="50"    cy="50"    r="8"/>
+      </g>
+    </symbol>
+  </defs>
+
+  <g fill="var(--ink-body, #C26070)">
+    <circle cx="32" cy="23" r="18"/>
+    <rect x="20.5" y="36.5" width="23" height="5.5" rx="2.4"/>
+    <path d="M22,41.5 H42 C44,47 46,51.2 48.2,55.6 H15.8 C18,51.2 20,47 22,41.5 Z"/>
+    <rect x="13" y="54.6" width="38" height="5.2" rx="2.6"/>
   </g>
+  <circle cx="32" cy="48.6" r="3.7" fill="var(--ink-knock, #FDFAF8)"/>
+  <use href="#sc-bloom" x="19.6" y="10.6" width="24.8" height="24.8"/>
 </svg>

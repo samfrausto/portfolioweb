@@ -2,6 +2,6 @@
   "name": "portfolioweb",
   "private": true,
   "scripts": {
-    "build": "rm -rf dist && mkdir -p dist && cp index.html style.css shared.js centerpiece.js path-dots.js path-dots-morph.js hero-depth.js scroll-travel.js now-system.js prototypes.html prototype-immersive.html prototype-hero-depth.html dist/ && cp -R projects dist/projects && cp -R assets dist/"
+    "build": "rm -rf dist && mkdir -p dist dist/prototypes && cp index.html style.css shared.js centerpiece.js path-dots.js path-dots-morph.js hero-depth.js scroll-travel.js now-system.js prototypes.html prototype-immersive.html prototype-hero-depth.html dist/ && cp prototypes/relay-engine.js dist/prototypes/ && cp -R projects dist/projects && cp -R assets dist/"
   }
 }

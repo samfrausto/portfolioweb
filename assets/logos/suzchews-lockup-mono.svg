@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 80" width="64" height="80"
+     role="img" aria-label="SuzChews">
+  <title>SuzChews</title>
+  <!--
+    SuzChews lockup A, single ink. Mark and wordmark are both currentColor;
+    the flower and the dispenser door are cut with a <mask>, so the holes are
+    genuinely transparent and the lockup sits on any background without a
+    halo. Set the colour with CSS `color`. Same 38-unit tracking as the
+    colour lockup — see suzchews-lockup.svg for the note on the Syne
+    dependency of the live wordmark.
+  -->
+  <defs>
+    <mask id="sc-knockout-lk">
+      <rect width="64" height="80" fill="#fff"/>
+      <g fill="#000">
+        <circle cx="32"     cy="15.312"  r="4.514"/>
+        <circle cx="39.314" cy="20.624"  r="4.514"/>
+        <circle cx="36.519" cy="29.220"  r="4.514"/>
+        <circle cx="27.481" cy="29.220"  r="4.514"/>
+        <circle cx="24.687" cy="20.624"  r="4.514"/>
+        <circle cx="32"     cy="23"      r="1.984"/>
+        <circle cx="32" cy="48.6" r="3.7"/>
+      </g>
+    </mask>
+  </defs>
+
+  <g fill="currentColor" mask="url(#sc-knockout-lk)">
+    <circle cx="32" cy="23" r="18"/>
+    <rect x="20.5" y="36.5" width="23" height="5.5" rx="2.4"/>
+    <path d="M22,41.5 H42 C44,47 46,51.2 48.2,55.6 H15.8 C18,51.2 20,47 22,41.5 Z"/>
+    <rect x="13" y="54.6" width="38" height="5.2" rx="2.6"/>
+  </g>
+
+  <text x="32" y="74.5" text-anchor="middle" textLength="38" lengthAdjust="spacing"
+        font-family="Syne, Syne Variable, ui-sans-serif, system-ui, sans-serif"
+        font-weight="800" font-size="9.4"
+        fill="currentColor">SuzChews</text>
+</svg>

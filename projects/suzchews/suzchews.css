@@ -54,15 +54,41 @@
   gap:1.5rem;
   flex-wrap:wrap;
 }
+/* Header lockup. The bar carries the mark and the wordmark side by side -
+   the horizontal expression of stacked lockup A, which cannot survive a 44px
+   bar (its wordmark would fall to ~4px). Tracking on the wordmark is 0, never
+   negative: Syne's lowercase j has almost no left side bearing. */
 .proj-subnav-id{
-  font-family:var(--mono);
-  font-size:.58rem;
-  letter-spacing:.16em;
-  color:var(--electric);
-  text-transform:uppercase;
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
   white-space:nowrap;
   padding-right:1rem;
   border-right:1px solid var(--border);
+}
+.sc-lockup-mark{
+  display:block;
+  width:22px; height:22px;
+  flex:none;
+}
+/* --on-dark / --on-dim, NOT --text / --dim. The subnav bar is
+   rgba(8,8,10,.82) while §20 rebinds --text to warm ink for the cream pages,
+   so --text here would be ink on near-black. */
+.sc-lockup-wm{
+  font-family:var(--display,'Syne',sans-serif);
+  font-weight:800;
+  font-size:.86rem;
+  letter-spacing:0;
+  line-height:1;
+  color:var(--on-dark);
+}
+.sc-lockup-meta{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--on-dim);
+  padding-left:.15rem;
 }
 .proj-subnav-list{
   display:flex;
@@ -107,7 +133,10 @@
 .proj-subnav-link.is-current .pn-num{ color:var(--coral); opacity:1; }
 @media(max-width:768px){
   .proj-subnav-inner{ padding:.5rem 1rem; gap:.75rem; }
-  .proj-subnav-id{ font-size:.55rem; padding-right:.5rem; }
+  .proj-subnav-id{ gap:.4rem; padding-right:.5rem; }
+  .sc-lockup-mark{ width:18px; height:18px; }
+  .sc-lockup-wm{ font-size:.78rem; }
+  .sc-lockup-meta{ display:none; }   /* the bar is the scarcest space on the site */
   .proj-subnav-link{ padding:.35rem .55rem; font-size:.58rem; }
 }
 

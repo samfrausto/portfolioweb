@@ -10,6 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="suzchews.css">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="assets/brand/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <style>
 /* §06 page-local: scenario picker grid */
 .scenario-picker{
@@ -252,7 +255,16 @@
 
 <nav class="proj-subnav" aria-label="Project sections">
   <div class="proj-subnav-inner">
-    <span class="proj-subnav-id">SuzChews · v1.0 · 2026.05</span>
+    <!-- Header lockup: the approved mark beside the wordmark. Lockup A itself is
+         STACKED and cannot go in a 44px bar - at that height its wordmark falls to
+         about 4px. This is the horizontal expression of the same lockup: same mark,
+         same wordmark, same 1:1 relationship, laid on its side. -->
+    <span class="proj-subnav-id">
+      <img class="sc-lockup-mark" src="../../assets/logos/suzchews-mark.svg"
+           alt="" width="22" height="22" decoding="async">
+      <span class="sc-lockup-wm">SuzChews</span>
+      <span class="sc-lockup-meta">v1.0 · 2026.05</span>
+    </span>
         <ul class="proj-subnav-list">
       <li><a class="proj-subnav-link" data-page="01" href="index.html"><span class="pn-num">§01</span> Problem</a></li>
       <li><a class="proj-subnav-link" data-page="02" href="background.html"><span class="pn-num">§02</span> Background</a></li>

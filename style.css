@@ -18,7 +18,7 @@
   --sh-lg:0 4px 20px rgba(0,0,0,0.08),0 20px 56px rgba(0,0,0,0.12);
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--display);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;cursor:none;position:relative}
+body{font-family:var(--display);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:clip;cursor:none;position:relative}
 body > *:not(.cursor):not(.cursor-ring):not(nav){position:relative;z-index:1}
 
 /* CURSOR — blend so it stays visible on dark + light */

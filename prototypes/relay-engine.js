@@ -5,7 +5,9 @@ var TEAL=[18,181,146],WARM=[228,87,46],PAPER=[240,242,244],BG=[11,16,23];
 var YELL=[236,199,74],GREY=[84,94,106];               /* tag 3 = the flower; GREY = tasteless */
 
 /* ---------- sampling helpers (3D, normalized ~[-1,1]) ---------- */
-function P(a,x,y,z,w,tag,grp){a.push([x,y,z,w==null?.7:w,tag||0,grp||0]);}
+/* slot 6 is the ROUTE ARC POSITION (0..1), -1 when the dot is not on a route.
+   Only chapter 03 sets it; everything else gets -1 for free by not passing it. */
+function P(a,x,y,z,w,tag,grp,s){a.push([x,y,z,w==null?.7:w,tag||0,grp||0,s==null?-1:s]);}
 function ring(a,cx,cy,cz,r,n,axis,w,tag,a0,a1){
   a0=a0==null?0:a0;a1=a1==null?6.2832:a1;
   for(var k=0;k<n;k++){var t=a0+(a1-a0)*k/(n-1||1),c=Math.cos(t)*r,s=Math.sin(t)*r;
@@ -50,7 +52,7 @@ function curvePt(pts,s){
   return [crs(p0[0],p1[0],p2[0],p3[0],t),crs(p0[1],p1[1],p2[1],p3[1],t),crs(p0[2],p1[2],p2[2],p3[2],t)];
 }
 /* swept tube of contour rings along a curve — reads solid from any angle */
-function tube(a,pts,rf,nSeg,nRing,w,tag){
+function tube(a,pts,rf,nSeg,nRing,w,tag,markS){
   for(var i=0;i<=nSeg;i++){
     var s=i/nSeg,c=curvePt(pts,s),
         c1=curvePt(pts,Math.max(0,s-.006)),c2=curvePt(pts,Math.min(1,s+.006));
@@ -63,12 +65,13 @@ function tube(a,pts,rf,nSeg,nRing,w,tag){
     var r=rf(s);
     for(var k=0;k<nRing;k++){
       var th=(k/nRing)*6.2832,cc=Math.cos(th)*r,ss=Math.sin(th)*r;
-      P(a,c[0]+ax*cc+bx*ss,c[1]+ay*cc+by*ss,c[2]+az*cc+bz*ss,w,tag);
+      P(a,c[0]+ax*cc+bx*ss,c[1]+ay*cc+by*ss,c[2]+az*cc+bz*ss,w,tag,0,markS?s:-1);
     }
   }
 }
-function strand(a,pts,n,w,tag){
-  for(var i=0;i<n;i++){var c=curvePt(pts,i/(n-1||1));P(a,c[0],c[1],c[2],w,tag);}
+function strand(a,pts,n,w,tag,markS){
+  for(var i=0;i<n;i++){var s=i/(n-1||1),c=curvePt(pts,s);
+    P(a,c[0],c[1],c[2],w,tag,0,markS?s:-1);}
 }
 /* latitude-ring ellipsoid — see-through, reads as a volume */
 function blob(a,cx,cy,cz,rx,ry,rz,rows,w,tag,grp){
@@ -268,47 +271,97 @@ function mapPin(a,cx,yTip,cz,R,H,w,rows,holeW){
     }
   }
 }
+/* ---------- 03 — IYH DIGITAL TWIN: A ROUTE, BEING TRAVELLED ----------
+   v6. Five attempts preceded this: a walled box, a LiDAR slice stack, an exploded
+   floor-plate axonometric, a waypoint field of six spheres, and (v5) a map pin
+   standing on a shallow plate. v5 was legible — the note was that it "doesn't read
+   like animation" and "the view makes it a bit weird". Both halves have a cause, and
+   neither is fixed by adding detail:
+
+   (1) THE VIEW. Azimuth is global: ang = BASE + sin(p*1.55)*SWING. Across chapter 03
+       (p ≈ 1.5 → 2.5) that walks from ~36° down to ~4° — very nearly dead-on. v5's
+       rectangular floor plate and axis-aligned route are DEGENERATE at 4°: they
+       collapse into flat bars, which is the "weird". The fix is not to retune the
+       swing — chapters 01/02/04 are approved on it — but to build a composition with
+       RADIAL symmetry, which presents the same silhouette from every azimuth. So:
+       circular decks, concentric graticule, a route that curves rather than runs
+       along an axis. Both decks are SPHERICAL CAPS; a flat plate shears, a cap turns.
+   (2) THE ANIMATION. tag 2, "the glide", was only ever a COLOUR — nothing in the
+       render loop moved it, in this chapter or in 01. There was no travel to see
+       because nothing travelled. The route now carries its own arc-length in slot 6
+       and the loop runs a scrubbed bead along it: ahead of the bead the route is
+       faint (not travelled yet), behind it it is warm (travelled). It is driven by
+       the same scroll that drives the morph — deterministic, eased, reversible.
+
+   The subject is right and stays: this three-person sub-team owns the DELIVERY layer
+   — one twin walkable on Web, Quest and Vision Pro, with Google-Maps-style waypoint
+   navigation across more than one level. That is a route, with waypoints on it, being
+   travelled between two decks. So that is what this draws, and nothing else.
+   -------------------------------------------------------- */
 function cloudIso(){
-  var a=[],i,k,rr,n,yy;
-  var GY=.72,UY=.12;                               /* ground level / upper plate */
-  function domeY(x,z){return GY+.17*Math.min(1,(x*x+z*z)/(.86*.86));}
+  var a=[],i,k,th,r,y,n;
+  /* +y is DOWN. Two decks — the twin is not one storey, and the climb is the product. */
+  var LR=.92,LS=1.415,LY=.30;                      /* lower deck: rim r, sphere R, apex y */
+  var UR=.46,US=.78, UY=-.34;                      /* upper deck */
+  function capY(y0,S,R,rr){rr=Math.min(rr,R);return y0+(S-Math.sqrt(Math.max(0,S*S-rr*rr)));}
+  function loY(x,z){return capY(LY,LS,LR,Math.hypot(x,z));}
+  function upY(x,z){return capY(UY,US,UR,Math.hypot(x,z));}
 
-  /* GROUND — domed, not flat. A flat plane shears under the swing; a dome turns. */
-  for(i=1;i<=9;i++){
-    rr=.10+(.86-.10)*(i/9);n=Math.max(10,Math.round(rr*46));
-    yy=GY+.17*Math.pow(rr/.86,2);
-    ring(a,0,yy,0,rr,n,'y',.11+(1-i/9)*.05,0);
+  /* A DECK — concentric graticule + spokes on a spherical cap. Radially symmetric,
+     so it reads identically at 36° of azimuth and at 4°. The rim is the horizon, and
+     watching the horizon ellipse open and close is the whole volume cue. */
+  function deck(y0,S,R,rings,spokes,w,rimW){
+    var i,k,r,y,n,th;
+    for(i=1;i<=rings;i++){
+      r=R*(i/rings);y=capY(y0,S,R,r);n=Math.max(10,Math.round(r*46));
+      ring(a,0,y,0,r,n,'y',i===rings?rimW:w*(1-(i/rings)*.42),0);
+    }
+    for(k=0;k<spokes;k++){
+      th=(k/spokes)*6.2832;
+      for(i=1;i<=14;i++){r=R*(i/14);y=capY(y0,S,R,r);
+        P(a,Math.cos(th)*r,y,Math.sin(th)*r,w*.55,0);}
+    }
   }
-  /* UPPER PLATE — faint plan outline, so it reads as a building and not a street map */
-  var PL=[[-.74,-.44],[.74,-.44],[.74,.44],[-.74,.44]];
-  poly(a,PL,UY,46,.14,0,1);
-  poly(a,PL,UY+.055,26,.07,0,1);
-  [[-1,-1],[1,-1],[1,1],[-1,1]].forEach(function(c){   /* columns between the levels */
-    for(k=0;k<10;k++)P(a,c[0]*.74,UY+(GY-UY)*(k/9),c[1]*.44,.08,0);
-  });
+  deck(LY,LS,LR,8,14,.15,.44);
+  deck(UY,US,UR,5,12,.21,.54);
 
-  /* THE DESTINATION PIN — centre stage, standing on the upper plate */
-  mapPin(a,.02,UY,.06,.30,.74,.82,26,.95);
-  /* a second station pin, down on the ground, small and at depth for parallax */
-  mapPin(a,.66,domeY(.66,-.24),-.24,.145,.36,.46,13,.55);
+  /* the two decks are one building — faint risers, placed on a circle so they never
+     line up into a flat wall no matter which way the swing is pointing */
+  for(k=0;k<6;k++){
+    th=(k/6)*6.2832+.26;
+    var cr=UR*.88,cxx=Math.cos(th)*cr,czz=Math.sin(th)*cr,y0=upY(cxx,czz),y1=loY(cxx,czz);
+    for(i=0;i<=9;i++)P(a,cxx,y0+(y1-y0)*(i/9),czz,.09,0);
+  }
 
-  /* ORIGIN MARKER — flat concentric rings on the ground, the way a map marks "you" */
-  var ox=-.70,oz=-.20,oy=domeY(ox,oz);
-  ring(a,ox,oy,oz,.115,26,'y',.85,1);
-  ring(a,ox,oy,oz,.055,14,'y',.60,1);
+  /* ORIGIN — "you are here", concentric rings on the lower deck */
+  var ox=-.66,oz=-.14,oy=loY(ox,oz);
+  ring(a,ox,oy,oz,.125,26,'y',.80,1);
+  ring(a,ox,oy,oz,.060,14,'y',.56,1);
 
-  /* THE ROUTE — a swept tube, so it is a body in space rather than a connecting edge.
-     Leaves the origin, crosses the floor, ramps up, and lands under the pin. */
-  var RT=[[ox,oy,oz],[-.42,GY+.11,.14],[.02,GY+.07,.34],
-          [.40,GY-.09,.30],[.44,UY+.31,.16],[.05,UY+.02,.09]];
-  tube(a,RT,function(s){return .030-s*.008;},46,7,.62,1);
-  strand(a,RT,26,.72,2);                           /* the glide, warm — as in ch 01 */
-  var mp=curvePt(RT,.70);                          /* and the thing actually moving */
-  blob(a,mp[0],mp[1],mp[2],.052,.052,.052,4,.95,2);
+  /* WAYPOINTS along the way, and the DESTINATION on the upper deck. A pin is a
+     surface of revolution — sphere head tapering to a point — so it satisfies the
+     curvature rule for free, and its through-hole is interior the swing opens. */
+  var w1x=-.16,w1z=.48,w2x=.56,w2z=.10;
+  mapPin(a,w1x,loY(w1x,w1z),w1z,.085,.23,.50,10,0);
+  mapPin(a,w2x,loY(w2x,w2z),w2z,.085,.23,.50,10,0);
+  mapPin(a,0,UY,0,.205,.50,.88,24,.95);
+
+  /* THE ROUTE — leaves the origin, curves across the lower deck through both
+     waypoints, then climbs the gap and lands at the destination on the upper deck.
+     tag 5 + markS: these are the dots the traveller runs along. */
+  var RT=[[ox,oy-.035,oz],
+          [w1x,loY(w1x,w1z)-.035,w1z],
+          [.30,loY(.30,.36)-.035,.36],
+          [w2x,loY(w2x,w2z)-.035,w2z],
+          [.50,UY+.20,-.20],
+          [.17,upY(.17,-.16)-.035,-.16],
+          [0,UY-.035,0]];
+  tube(a,RT,function(s){return .034-s*.011;},52,7,.60,5,1);
+  strand(a,RT,34,.88,5,1);
 
   /* match the optical weight of the other three chapters (verified headlessly:
-     diagonal extent and bbox centre are compared across all four) */
-  for(i=0;i<a.length;i++){a[i][0]*=.92;a[i][1]=(a[i][1]-.30)*.92;a[i][2]*=.92;}
+     diagonal extent and density-weighted vertical centre are compared across all four) */
+  for(i=0;i<a.length;i++){a[i][0]*=.796;a[i][1]=(a[i][1]+.156)*.796;a[i][2]*=.796;}
   return a;
 }
 
@@ -435,6 +488,9 @@ function fit(src,n){
   return out;
 }
 var CLOUDS={headset:cloudHeadset,heart:cloudHeart,waypoints:cloudIso,gum:cloudChew};
+/* stage width below which the frame stacks instead of sitting side by side. The page
+   mirrors this for the hero dot handoff; it is exported so there is one definition. */
+var NARROW_W=980;
 var dly=new Float32Array(N),sxo=new Float32Array(N),syo=new Float32Array(N),szo=new Float32Array(N);
 for(var i=0;i<N;i++){
   dly[i]=((i*2654435761)%1000/1000)*.34;
@@ -460,6 +516,17 @@ function mount(o){
   var W=0,H=0,DPR=1;
   var idle=o.turntable!==false,sweepOn=o.sweep!==false,t0=performance.now();
   var hud=o.hud||{},lastChap=-1,jbtns=null;
+  /* which leg carries the route, so the traveller is not hardcoded to index 2 —
+     swapping a featured project must stay a one-word edit in SYSTEMS */
+  var WPI=-1;for(var wi=0;wi<CHAP.length;wi++)if(CHAP[wi].cloud==='waypoints')WPI=wi;
+
+  /* removeAttribute('href') already makes an <a> unclickable and unfocusable, so this is
+     belt and braces — but the failure it guards against (a disabled control quietly
+     navigating to the previous chapter's project) is exactly the bug just fixed, and it
+     costs one listener to make it impossible rather than merely unlikely. */
+  if(hud.link)hud.link.addEventListener('click',function(e){
+    if(this.getAttribute('aria-disabled')==='true'){e.preventDefault();e.stopPropagation();}
+  });
 
   /* scroll track + stage sized in REAL PIXELS — no vh, so nothing can collapse it */
   function layout(){
@@ -470,6 +537,9 @@ function mount(o){
     W=cv.clientWidth||cv.offsetWidth||0;
     H=cv.clientHeight||cv.offsetHeight||vh;
     if(!W)return;
+    /* the CSS reads this class, so the panel's layout and the cloud's placement are
+       decided by ONE measurement — they cannot disagree at a breakpoint boundary */
+    stage.classList.toggle('is-narrow',W<NARROW_W);
     cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);
   }
   layout();addEventListener('resize',layout);
@@ -482,7 +552,12 @@ function mount(o){
   if(o.jump){
     CHAP.forEach(function(c,k){
       var b=document.createElement('button');
-      b.type='button';b.textContent='0'+(k+1)+'  '+(c.name||'').toUpperCase();
+      /* number only — the chapter's name is already on the left in the HUD, and four
+         labelled boxes on the right pulled attention off the cloud. The name stays as
+         the accessible name and the tooltip, so nothing is lost to a screen reader. */
+      b.type='button';b.textContent='0'+(k+1);
+      b.title=c.name||('Chapter 0'+(k+1));
+      b.setAttribute('aria-label','Go to 0'+(k+1)+' — '+(c.name||''));
       b.addEventListener('click',function(){
         var travel=Math.max(1,pin.offsetHeight-stage.offsetHeight);
         scrollTo({top:pin.offsetTop+travel*(k/(CL.length-1)),behavior:'smooth'});
@@ -501,6 +576,10 @@ function mount(o){
     var prog=Math.max(0,Math.min(1,(-r.top)/travel));
     var p=prog*(CL.length-1);
     var idx=Math.min(CL.length-2,Math.floor(p)),lt=p-idx;
+
+    /* THE TRAVELLER's position along the route, in arc-length. Scrubbed off the same
+       scroll as the morph — not a timer — so it eases, and it reverses. */
+    var travelS=WPI<0?0:Math.max(0,Math.min(1,(p-(WPI-0.46))/0.92));
 
     /* BOUNDED rotation. A full spin turns every form into a blob at some point, so we
        oscillate around a good 3/4 view instead of revolving. */
@@ -521,7 +600,17 @@ function mount(o){
     var igp=(idx===CL.length-2)?ease((lt-0.40)/0.54):1;
 
     ctx.clearRect(0,0,W,H);
-    var S=Math.min(W,H)*0.29,cx=W*(o.cx==null?0.58:o.cx),cyv=H*0.50;
+    /* THE FRAME IS A THREE-WAY BUDGET: text panel + cloud + jump index must fit the
+       stage width. Side by side that works down to about a 980px stage; below it the
+       arithmetic fails (a 340px panel + a 400px cloud + the index is more than 747px),
+       which is why the panel used to sit on top of the dots on smaller screens.
+       Rather than shrink the cloud — it is the thing worth looking at — narrow stages
+       STACK: panel across the top, cloud full-width below it. `narrow` is mirrored onto
+       the stage element as a class in layout(), so the CSS and this cannot disagree. */
+    var narrow=W<NARROW_W;
+    var S  = narrow ? Math.min(W*0.28,H*0.225) : Math.min(W,H)*0.278;
+    var cx = W*(narrow ? 0.50 : (o.cx==null?0.645:o.cx));
+    var cyv= H*(narrow ? 0.655 : 0.50);
     var ca=Math.cos(ang),sa=Math.sin(ang),ct=Math.cos(tilt),stl=Math.sin(tilt);
     var A=CL[idx],B=CL[idx+1];
 
@@ -543,7 +632,7 @@ function mount(o){
       if(px<-40||px>W+40||py<-40||py>H+40)continue;
 
       var dn=Math.max(0,Math.min(1,(1.25-Z2)/2.2));
-      var col=tag===1?TEAL:tag===2?WARM:tag===3?YELL:PAPER;
+      var col=tag===1?TEAL:tag===2||tag===5?WARM:tag===3?YELL:PAPER;
       var al=(0.14+w*0.72)*(0.34+dn*0.66)*(1-sc*0.30);
       var fog=(1-dn)*0.58;
       var R=col[0]+(BG[0]-col[0])*fog,G=col[1]+(BG[1]-col[1])*fog,Bc=col[2]+(BG[2]-col[2])*fog;
@@ -559,9 +648,22 @@ function mount(o){
         R=GREY[0]+(R-GREY[0])*on;G=GREY[1]+(G-GREY[1])*on;Bc=GREY[2]+(Bc-GREY[2])*on;
         al*=0.34+0.66*on;
       }
+      /* CH 03 — THE TRAVELLER. Route dots (tag 5) carry their arc position in slot 6.
+         Behind the bead the route is warm: travelled. Ahead of it, faint: not yet.
+         The bead itself is a symmetric gaussian — a bead, not a tail. */
+      var bead=0;
+      if(tag===5){
+        var s6=e<.5?a[6]:b[6];
+        if(s6>=0){
+          var d6=s6-travelS;
+          bead=Math.exp(-(d6*d6)/0.0018);
+          al*=0.22+(d6<=0?0.58:0)+bead*1.7;
+          if(bead>0.04){R+=(255-R)*bead*0.88;G+=(255-G)*bead*0.88;Bc+=(255-Bc)*bead*0.88;}
+        }
+      }
       al=Math.min(1,al);
       ctx.fillStyle='rgba('+(R|0)+','+(G|0)+','+(Bc|0)+','+al.toFixed(3)+')';
-      var s2=(0.9+dn*1.5)*pr*(1+ig*0.6);
+      var s2=(0.9+dn*1.5)*pr*(1+ig*0.6+bead*0.9);
       ctx.fillRect(px,py,s2,s2);
     }
 
@@ -572,7 +674,24 @@ function mount(o){
       if(hud.sys)hud.sys.innerHTML=c.sys||'';
       if(hud.nm)hud.nm.innerHTML=c.name||'';
       if(hud.ds)hud.ds.innerHTML=c.desc||'';
-      if(hud.link&&c.link){hud.link.href=c.link;hud.link.textContent=(c.linkLabel||'OPEN CASE FILE')+' →';hud.link.hidden=false;}
+      /* BUG, fixed: this used to only ever SHOW the link. A chapter with no link left
+         the previous chapter's link sitting there — so scrolling back to SYS 01 offered
+         the heart site. Now a chapter with `link` is a link, a chapter with only a
+         `linkLabel` is an inert state (SYS 01 = RELEASING SOON), and one with neither
+         hides the control entirely. */
+      if(hud.link){
+        if(c.link){
+          hud.link.href=c.link;
+          hud.link.textContent=(c.linkLabel||'OPEN PROJECT')+' →';
+          hud.link.removeAttribute('aria-disabled');
+          hud.link.hidden=false;
+        }else if(c.linkLabel){
+          hud.link.removeAttribute('href');
+          hud.link.textContent=c.linkLabel;
+          hud.link.setAttribute('aria-disabled','true');
+          hud.link.hidden=false;
+        }else hud.link.hidden=true;
+      }
       else if(hud.link)hud.link.hidden=true;
       if(jbtns)for(var k=0;k<jbtns.length;k++)jbtns[k].className=(k===chap?'on':'');
       if(o.onChapter)o.onChapter(chap,c);
@@ -584,5 +703,5 @@ function mount(o){
   return {layout:layout};
 }
 
-return {mount:mount,CLOUDS:CLOUDS,N:N,fit:fit};
+return {mount:mount,CLOUDS:CLOUDS,N:N,fit:fit,NARROW_W:NARROW_W};
 })();

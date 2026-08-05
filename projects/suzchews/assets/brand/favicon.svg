@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"
+     role="img" aria-label="SuzChews">
+  <title>SuzChews</title>
+  <!--
+    FAVICON ART — deliberately not identical to assets/logos/suzchews-mark.svg.
+    A favicon is size-specific artwork, not a shrunk logo. Two changes from the
+    full mark, both forced by 16px:
+      1. the flower is scaled 18% about the globe centre, because at 16px the
+         petals fall to roughly one pixel across and mush into the globe;
+      2. the dispenser door is dropped, because at 16px it is under a pixel and
+         only reads as dirt in the hopper.
+    The PNG/ICO fallbacks beside this file are rendered from exactly the same
+    two rules (see the rasteriser: variant "small" for <=32px, "full" for >=48).
+    Ground is left transparent so the mark works on light and dark tab bars.
+  -->
+  <g fill="#C26070">
+    <circle cx="32" cy="23" r="18"/>
+    <rect x="20.5" y="36.5" width="23" height="5.5" rx="2.4"/>
+    <path d="M22,41.5 H42 C44,47 46,51.2 48.2,55.6 H15.8 C18,51.2 20,47 22,41.5 Z"/>
+    <rect x="13" y="54.6" width="38" height="5.2" rx="2.6"/>
+  </g>
+  <g fill="#ECC74A">
+    <circle cx="32"     cy="13.928" r="5.326"/>
+    <circle cx="40.63"  cy="20.196" r="5.326"/>
+    <circle cx="37.333" cy="30.340" r="5.326"/>
+    <circle cx="26.667" cy="30.340" r="5.326"/>
+    <circle cx="23.370" cy="20.196" r="5.326"/>
+    <circle cx="32"     cy="23"     r="2.341"/>
+  </g>
+</svg>

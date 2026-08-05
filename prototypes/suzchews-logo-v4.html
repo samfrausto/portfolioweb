@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuzChews — Logo, attempt 4 · FOR APPROVAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<!--
+  ATTEMPT 4. Three previous marks were rejected. The source file shows why:
+  every one of them was fill="none" + 2.4px stroke (monoline, zero mass), and all
+  three were built on the fungiform papilla — which is itself on the rejected list.
+  This set is the inverse: SOLID FILL, NO STROKES ANYWHERE, and each mark is a
+  named object from the world of gum. The flower is not redrawn by eye — it is the
+  chapter-04 flower at its exact proportions (see THE CONSTANT, bottom of page).
+-->
+<style>
+  :root{
+    --bg:#F7F2EC;--paper:#EDE6DC;--surface:#FDFAF8;
+    --text:#2C1F1A;--muted:rgba(44,31,26,.55);--dim:rgba(44,31,26,.34);
+    --border:rgba(44,31,26,.10);
+    --coral:#C26070;--amber:#C08040;--teal:#4E8A7A;
+    --bloom:#ECC74A;                 /* relay tag 3 — rgb(236,199,74) — the flower */
+    --mono:"DM Mono",ui-monospace,monospace;
+    --display:"Syne",sans-serif;
+    --serif:"Instrument Serif",serif;
+    --sh:0 1px 3px rgba(44,31,26,.06),0 6px 18px rgba(44,31,26,.05);
+
+    /* mark inks — every <use> reads these, so a whole variant is one line of CSS */
+    --ink-body:var(--coral);
+    --ink-bloom:var(--bloom);
+    --ink-knock:var(--surface);
+    --ink-gloss:rgba(255,255,255,.34);
+    --ink-shade:rgba(44,31,26,.13);
+    --ink-text:#2C1F1A;
+    --ink-dim:rgba(44,31,26,.46);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:var(--mono);
+       padding:3.5rem 2.5rem 7rem;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1240px;margin:0 auto;}
+
+  .eyebrow{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);
+    display:flex;align-items:center;gap:.75rem;margin-bottom:1.3rem;}
+  .eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--coral);}
+  h1{font-family:var(--display);font-size:2.15rem;font-weight:700;letter-spacing:-.015em;line-height:1.15;}
+  h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--coral);}
+  .lede{font-size:.78rem;line-height:1.9;color:var(--muted);max-width:64ch;margin-top:1.1rem;}
+  .lede b{color:var(--text);font-weight:400;}
+
+  h2{font-family:var(--display);font-size:.72rem;font-weight:600;letter-spacing:.16em;
+     text-transform:uppercase;color:var(--dim);margin:4rem 0 1.4rem;
+     display:flex;align-items:center;gap:.8rem;}
+  h2::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  /* ---------- concept cards ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.5rem;}
+  .card{background:var(--surface);border:1px solid var(--border);box-shadow:var(--sh);
+        padding:1.5rem 1.4rem 1.3rem;display:flex;flex-direction:column;}
+  .tag{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);}
+  .nm{font-family:var(--display);font-size:1.1rem;font-weight:700;margin-top:.45rem;letter-spacing:-.01em;}
+  .sub{font-size:.66rem;color:var(--dim);margin-top:.25rem;}
+
+  .art{background:var(--paper);border:1px solid var(--border);margin-top:1.05rem;
+       padding:1.7rem;display:flex;align-items:center;justify-content:center;min-height:190px;}
+
+  .row{display:flex;align-items:center;gap:1.1rem;margin-top:.7rem;padding:.75rem .9rem;
+       background:var(--paper);border:1px solid var(--border);}
+  .row.dark{background:var(--text);border-color:var(--text);}
+  .row .cap{font-size:.53rem;letter-spacing:.11em;text-transform:uppercase;color:var(--dim);margin-left:auto;}
+  .row.dark .cap{color:rgba(247,242,236,.45);}
+  .ramp{display:flex;align-items:flex-end;gap:1rem;}
+
+  /* variant scopes */
+  .v-ink{--ink-body:var(--text);--ink-bloom:var(--paper);--ink-knock:var(--paper);
+         --ink-gloss:transparent;--ink-shade:transparent;
+         --ink-text:var(--text);--ink-dim:rgba(44,31,26,.46);}
+  .v-rev{--ink-body:var(--bg);--ink-bloom:var(--bloom);--ink-knock:var(--text);
+         --ink-gloss:transparent;--ink-shade:rgba(0,0,0,.14);
+         --ink-text:var(--bg);--ink-dim:rgba(247,242,236,.5);}
+
+  .why{font-size:.72rem;line-height:1.85;color:var(--muted);margin-top:.95rem;}
+  .why b{color:var(--text);font-weight:400;}
+  .risk{font-size:.68rem;line-height:1.8;color:var(--muted);margin-top:.6rem;
+        padding-left:.7rem;border-left:2px solid var(--amber);}
+  .risk b{color:var(--amber);font-weight:400;letter-spacing:.06em;text-transform:uppercase;font-size:.58rem;}
+
+  /* ---------- lockups ---------- */
+  .lockband{background:var(--surface);border:1px solid var(--border);box-shadow:var(--sh);
+            padding:2rem 2rem 1.6rem;display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;}
+  .lockcell{display:flex;flex-direction:column;align-items:flex-start;gap:1.5rem;}
+  .lockcell .cap{font-size:.53rem;letter-spacing:.13em;text-transform:uppercase;color:var(--dim);}
+
+  .lock-h{display:flex;align-items:center;gap:.85rem;}
+  .lock-h svg{flex:none;}
+  .wm{font-family:var(--display);font-weight:800;letter-spacing:-.025em;line-height:1;
+      color:var(--text);font-size:2rem;}
+  .wm .c{color:var(--coral);}
+  .desc{font-family:var(--mono);font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;
+        color:var(--dim);margin-top:.42rem;line-height:1.5;}
+  .lock-v{display:flex;flex-direction:column;align-items:center;gap:.75rem;text-align:center;}
+
+  .darkpanel{background:var(--text);padding:2rem;border:1px solid var(--text);}
+  .darkpanel .wm{color:var(--bg);}
+  .darkpanel .wm .c{color:var(--bloom);}
+  .darkpanel .desc{color:rgba(247,242,236,.42);}
+  .darkpanel .cap{color:rgba(247,242,236,.42);}
+
+  /* ---------- constant / comparison ---------- */
+  .flat{background:var(--surface);border:1px solid var(--border);box-shadow:var(--sh);padding:1.6rem 1.5rem;}
+  .flat .why{margin-top:1rem;}
+  .cmp{display:flex;align-items:center;gap:2.2rem;flex-wrap:wrap;}
+  .cmp .cell{display:flex;flex-direction:column;align-items:center;gap:.5rem;}
+  .cmp .cell span{font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);}
+  .cmp .cell.bad span{color:var(--dim);text-decoration:line-through;}
+  .dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1.1rem;margin-top:1rem;
+      font-size:.68rem;line-height:1.7;}
+  .dl dt{color:var(--dim);letter-spacing:.06em;text-transform:uppercase;font-size:.56rem;padding-top:.16rem;}
+  .dl dd{color:var(--muted);}
+  .dl dd b{color:var(--text);font-weight:400;}
+
+  .note{margin-top:3.4rem;padding-left:1.1rem;border-left:2px solid var(--coral);max-width:76ch;}
+  .note p{font-size:.75rem;line-height:1.95;color:var(--muted);}
+  .note p+p{margin-top:.8rem;}
+  .note b{color:var(--text);font-weight:400;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SYMBOL LIBRARY — every mark is defined exactly once and re-used at
+     every size and in every variant, so nothing can drift between them.
+     No <symbol> below contains a single stroke attribute. That is the point.
+     ══════════════════════════════════════════════════════════════════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+
+  <!-- THE FLOWER, canonical. Ported from prototypes/relay-engine.js CLOUDS.gum:
+       5 petals, first at 12 o'clock, 72° apart, petal r / orbit = 0.565,
+       core r / orbit = 0.259, petals meeting edge-to-edge. -->
+  <symbol id="bloom" viewBox="0 0 100 100">
+    <g fill="var(--ink-bloom)">
+      <circle cx="50"   cy="19"    r="18.2"/>
+      <circle cx="79.49" cy="40.42" r="18.2"/>
+      <circle cx="68.22" cy="75.08" r="18.2"/>
+      <circle cx="31.78" cy="75.08" r="18.2"/>
+      <circle cx="20.51" cy="40.42" r="18.2"/>
+      <circle cx="50"   cy="50"    r="8"/>
+    </g>
+  </symbol>
+
+  <!-- ─── A · THE PELLET ─── a pillowed chew, flower struck into the face -->
+  <symbol id="mkA" viewBox="0 0 64 64">
+    <path fill="var(--ink-body)" d="
+      M18,11 H46 C52.5,11 57,15.5 57,22 Q58.6,32 57,42
+      C57,48.5 52.5,53 46,53 H18 C11.5,53 7,48.5 7,42
+      Q5.4,32 7,22 C7,15.5 11.5,11 18,11 Z"/>
+    <path fill="var(--ink-gloss)" d="
+      M19,14 H42 C46,14 48.5,16 49,18.5 C44,21 36,22.4 28,22.4
+      C21,22.4 15,21.4 11,19.6 C12,16.4 15,14 19,14 Z"/>
+    <use href="#bloom" x="18.4" y="18.4" width="27.2" height="27.2"/>
+  </symbol>
+
+  <!-- ─── B · THE GUMBALL ─── one sphere, coated, flower on the shell -->
+  <symbol id="mkB" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="26" fill="var(--ink-body)"/>
+    <!-- terminator band: outer arc rides the rim (r=26), return arc is a slacker
+         r=34 bowing the SAME way, which leaves a ~4px crescent. Equal radii here
+         would cancel to zero area and the sphere would flatten to a dot. -->
+    <path fill="var(--ink-shade)" d="
+      M32,58 A26,26 0 0,0 55.5,20.5 A34,34 0 0,1 32,58 Z"/>
+    <ellipse cx="20.5" cy="17" rx="9.5" ry="5.5"
+             transform="rotate(-32 20.5 17)" fill="var(--ink-gloss)"/>
+    <use href="#bloom" x="17" y="17" width="30" height="30"/>
+  </symbol>
+
+  <!-- ─── C · THE MACHINE ─── the chapter-04 object, reduced to its mass -->
+  <symbol id="mkC" viewBox="0 0 64 64">
+    <g fill="var(--ink-body)">
+      <circle cx="32" cy="23" r="18"/>
+      <rect x="20.5" y="36.5" width="23" height="5.5" rx="2.4"/>
+      <path d="M22,41.5 H42 C44,47 46,51.2 48.2,55.6 H15.8 C18,51.2 20,47 22,41.5 Z"/>
+      <rect x="13" y="54.6" width="38" height="5.2" rx="2.6"/>
+    </g>
+    <circle cx="32" cy="48.6" r="3.7" fill="var(--ink-knock)"/>
+    <use href="#bloom" x="19.6" y="10.6" width="24.8" height="24.8"/>
+  </symbol>
+
+  <!-- ═══ C WITH THE LETTERS ═══ three ways to put SUZCHEWS into the mark itself,
+       rather than only beside it. Arcs live here in defs; <textPath> reads them in the
+       using symbol's own viewBox space, so one arc serves every size. -->
+  <path id="arcSeal"  d="M5.25,32 A26.75,26.75 0 0,1 58.75,32" fill="none"/>
+  <path id="arcGlass" d="M21,31.5 A12.5,12.5 0 0,0 43,31.5" fill="none"/>
+
+  <!-- C-i · THE SEAL — the band gives the letters somewhere real to live -->
+  <symbol id="mkC1" viewBox="0 0 64 64">
+    <path fill="var(--ink-body)" fill-rule="evenodd" d="
+      M1,32 a31,31 0 1,0 62,0 a31,31 0 1,0 -62,0 Z
+      M9.5,32 a22.5,22.5 0 1,0 45,0 a22.5,22.5 0 1,0 -45,0 Z"/>
+    <text font-family="Syne,sans-serif" font-weight="800" font-size="6.7"
+          letter-spacing="1.45" fill="var(--ink-knock)">
+      <textPath href="#arcSeal" startOffset="50%" text-anchor="middle">SUZCHEWS</textPath>
+    </text>
+    <use href="#bloom" x="27.9" y="54.5" width="8.2" height="8.2"/>
+    <use href="#mkC" x="12.6" y="12.6" width="38.8" height="38.8"/>
+  </symbol>
+
+  <!-- C-ii · THE GLASS LABEL — the name printed on the globe, under the flower -->
+  <symbol id="mkC2" viewBox="0 0 64 64">
+    <g fill="var(--ink-body)">
+      <circle cx="32" cy="23" r="18"/>
+      <rect x="20.5" y="36.5" width="23" height="5.5" rx="2.4"/>
+      <path d="M22,41.5 H42 C44,47 46,51.2 48.2,55.6 H15.8 C18,51.2 20,47 22,41.5 Z"/>
+      <rect x="13" y="54.6" width="38" height="5.2" rx="2.6"/>
+    </g>
+    <circle cx="32" cy="48.6" r="3.7" fill="var(--ink-knock)"/>
+    <use href="#bloom" x="22.5" y="10" width="19" height="19"/>
+    <text font-family="Syne,sans-serif" font-weight="800" font-size="5.2"
+          letter-spacing=".5" fill="var(--ink-knock)">
+      <textPath href="#arcGlass" startOffset="50%" text-anchor="middle">SUZCHEWS</textPath>
+    </text>
+  </symbol>
+
+  <!-- C-iii · THE PLATE — struck into the pedestal, where a real machine carries it.
+       The dispenser door goes; the plate takes its place rather than fighting it. -->
+  <symbol id="mkC3" viewBox="0 0 64 64">
+    <g fill="var(--ink-body)">
+      <circle cx="32" cy="23" r="18"/>
+      <rect x="20.5" y="36.5" width="23" height="5.5" rx="2.4"/>
+      <path d="M22,41.5 H42 C44,47 46,51.2 48.2,55.6 H15.8 C18,51.2 20,47 22,41.5 Z"/>
+      <rect x="13" y="54.6" width="38" height="5.2" rx="2.6"/>
+    </g>
+    <rect x="20.6" y="45.4" width="22.8" height="7.6" rx="1.3" fill="var(--ink-knock)"/>
+    <text x="32" y="50.9" text-anchor="middle" font-family="Syne,sans-serif"
+          font-weight="800" font-size="4.35" letter-spacing=".08"
+          fill="var(--ink-body)">SUZCHEWS</text>
+    <use href="#bloom" x="19.6" y="10.6" width="24.8" height="24.8"/>
+  </symbol>
+
+  <!-- ═══ THE LOCKUP ═══ machine on top, SuzChews directly under it. Built as ONE svg
+       rather than an <svg> beside a <div>, so the proportion between mark and wordmark
+       is locked into the file and cannot drift when someone resizes it in a layout.
+       textLength + lengthAdjust="spacing" tracks the wordmark to an exact width without
+       distorting the glyphs — this is optical tracking, not stretching. -->
+
+  <!-- A · matched — wordmark tracked to the width of the machine's foot (38u) -->
+  <symbol id="lkA" viewBox="0 0 64 80">
+    <use href="#mkC" x="0" y="0" width="64" height="64"/>
+    <text x="32" y="74.5" text-anchor="middle" textLength="38" lengthAdjust="spacing"
+          font-family="Syne,sans-serif" font-weight="800" font-size="9.4"
+          fill="var(--ink-text)">SuzChews</text>
+  </symbol>
+
+  <!-- B · wide — wordmark overhangs the mark, so the machine reads as a crown -->
+  <symbol id="lkB" viewBox="0 0 64 82">
+    <use href="#mkC" x="0" y="0" width="64" height="64"/>
+    <text x="32" y="76.5" text-anchor="middle" textLength="52" lengthAdjust="spacing"
+          font-family="Syne,sans-serif" font-weight="800" font-size="12.4"
+          fill="var(--ink-text)">SuzChews</text>
+  </symbol>
+
+  <!-- C · matched + descriptor, for the places that need to say what it is -->
+  <symbol id="lkC" viewBox="0 0 64 86">
+    <use href="#mkC" x="0" y="0" width="64" height="64"/>
+    <text x="32" y="73.5" text-anchor="middle" textLength="38" lengthAdjust="spacing"
+          font-family="Syne,sans-serif" font-weight="800" font-size="9.4"
+          fill="var(--ink-text)">SuzChews</text>
+    <text x="32" y="81.5" text-anchor="middle" font-family="DM Mono,monospace"
+          font-size="2.5" letter-spacing=".22" fill="var(--ink-dim)"
+          >CHEWING GUM FOR CHEMO-INDUCED TASTE LOSS</text>
+  </symbol>
+
+  <!-- v2, rejected. Kept only for the weight comparison. -->
+  <symbol id="mkOld" viewBox="0 0 64 64">
+    <g fill="none" stroke="var(--coral)" stroke-width="2.6" stroke-linecap="round">
+      <circle cx="32" cy="32" r="7.5"/>
+      <g stroke-width="2.4">
+        <path d="M32 24.5 V13"/><path d="M37.3 26.7 L45.4 18.6"/>
+        <path d="M39.5 32 H51"/><path d="M37.3 37.3 L45.4 45.4"/>
+        <path d="M32 39.5 V51"/><path d="M26.7 37.3 L18.6 45.4"/>
+        <path d="M24.5 32 H13"/><path d="M26.7 26.7 L18.6 18.6"/>
+      </g>
+    </g>
+    <circle cx="32" cy="32" r="2.6" fill="var(--amber)"/>
+  </symbol>
+
+</defs>
+</svg>
+
+
+<div class="eyebrow">SuzChews · identity · attempt 4 · for approval</div>
+<h1>Three marks that <em>weigh something</em>.</h1>
+<p class="lede">
+  The last three were rejected for having no mass, and the file confirms it — all of them were
+  <b>fill:none plus a 2.4px stroke</b>, and all three drew a <b>fungiform papilla</b>, which is on
+  your own rejected-subjects list. So this set inverts both. <b>Every mark below is solid fill with
+  zero strokes</b>, and each one is a named object from the world of gum rather than a diagram of
+  biology. The five-petal flower is not redrawn by eye: it is the chapter-04 flower at its exact
+  proportions, in the relay's own yellow. Details at <b>THE CONSTANT</b>, at the bottom.
+</p>
+
+<h2>The three marks</h2>
+<div class="grid">
+
+  <!-- ═════════ A ═════════ -->
+  <div class="card">
+    <div class="tag">Concept A</div>
+    <div class="nm">The Pellet</div>
+    <div class="sub">a single pillowed chew, flower struck into the face</div>
+    <div class="art"><svg width="128" height="128" viewBox="0 0 64 64" role="img"
+        aria-label="SuzChews pellet mark"><use href="#mkA"/></svg></div>
+
+    <div class="row"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkA"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkA"/></svg>
+      <svg width="16" height="16" viewBox="0 0 64 64"><use href="#mkA"/></svg>
+    </div><span class="cap">40 / 24 / 16 px</span></div>
+
+    <div class="row v-ink"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkA"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkA"/></svg>
+    </div><span class="cap">one ink</span></div>
+
+    <div class="row dark v-rev"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkA"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkA"/></svg>
+    </div><span class="cap">reversed</span></div>
+
+    <div class="why"><b>The chew itself, at actual proportion.</b> A coated pillow pellet is one of
+      the few silhouettes that belongs to gum and to nothing else — it is not a pill (pills are
+      capsules or flat discs) and not a mint tin. The flower is struck into the face the way a
+      brand is struck into a real coated pellet, so the mark holds at 16px: at that size it is a
+      warm rounded mass with a yellow rosette in it, and the rosette is still countable.</div>
+    <div class="risk"><b>Watch</b> — the pillow is the only one of the three that could be misread
+      as a soap bar or a lozenge in isolation. It stops being ambiguous the moment the wordmark
+      is next to it.</div>
+  </div>
+
+  <!-- ═════════ B ═════════ -->
+  <div class="card">
+    <div class="tag">Concept B</div>
+    <div class="nm">The Gumball</div>
+    <div class="sub">one coated sphere, flower on the shell</div>
+    <div class="art"><svg width="128" height="128" viewBox="0 0 64 64" role="img"
+        aria-label="SuzChews gumball mark"><use href="#mkB"/></svg></div>
+
+    <div class="row"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkB"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkB"/></svg>
+      <svg width="16" height="16" viewBox="0 0 64 64"><use href="#mkB"/></svg>
+    </div><span class="cap">40 / 24 / 16 px</span></div>
+
+    <div class="row v-ink"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkB"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkB"/></svg>
+    </div><span class="cap">one ink</span></div>
+
+    <div class="row dark v-rev"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkB"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkB"/></svg>
+    </div><span class="cap">reversed</span></div>
+
+    <div class="why"><b>The densest possible mark.</b> A full disc is the maximum mass a 64-box can
+      carry, and the gloss crescent plus the terminator shadow are what turn it from a dot into a
+      sphere. It is also the literal unit the chapter-04 machine dispenses, and the flower sits on
+      it exactly as it sits on the glass globe — the icon and the identity become the same object
+      at two scales.</div>
+    <div class="risk"><b>Watch</b> — a filled circle with a rosette in it is the shape most likely
+      to read as a generic badge. The gloss is doing the work; if you ever need a one-ink stamp,
+      the gloss goes and it flattens.</div>
+  </div>
+
+  <!-- ═════════ C ═════════ -->
+  <div class="card">
+    <div class="tag">Concept C · closest to the relay</div>
+    <div class="nm">The Machine</div>
+    <div class="sub">chapter 04, reduced to its silhouette</div>
+    <div class="art"><svg width="128" height="128" viewBox="0 0 64 64" role="img"
+        aria-label="SuzChews gumball machine mark"><use href="#mkC"/></svg></div>
+
+    <div class="row"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+      <svg width="16" height="16" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+    </div><span class="cap">40 / 24 / 16 px</span></div>
+
+    <div class="row v-ink"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+    </div><span class="cap">one ink</span></div>
+
+    <div class="row dark v-rev"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+    </div><span class="cap">reversed</span></div>
+
+    <div class="why"><b>The least ambiguous of the three.</b> Globe on a tapered pedestal is a
+      shape nobody misreads — it says gum before the name does, which is the exact test the last
+      three failed. It is also the only mark that is the same object as the relay chapter, so the
+      portfolio and the case study end up quoting each other rather than merely matching colours.</div>
+    <div class="risk"><b>Watch</b> — it is the most complex, so it is the first to lose detail. At
+      16px the door and the collar close up and it becomes a ball on a wedge; still readable, but
+      it is no longer carrying the flower. If a favicon matters more than a letterhead, that
+      argues for A or B.</div>
+  </div>
+
+</div>
+
+
+<h2>Lockups — mark + wordmark</h2>
+<p class="lede" style="margin-top:-.6rem;margin-bottom:1.4rem">
+  Wordmark is <b>Syne 800, −0.025em</b> — the case study's display face, at its heaviest, so the
+  type carries the same weight as the mark. Descriptor is DM Mono, and it is the relay headline
+  verbatim, per the copy rule.
+</p>
+
+<div class="lockband">
+  <div class="lockcell">
+    <span class="cap">A · horizontal</span>
+    <div class="lock-h">
+      <svg width="52" height="52" viewBox="0 0 64 64"><use href="#mkA"/></svg>
+      <div><div class="wm">Suz<span class="c">Chews</span></div>
+        <div class="desc">Chewing gum for chemo-induced taste loss</div></div>
+    </div>
+    <div class="lock-v" style="align-self:center">
+      <svg width="66" height="66" viewBox="0 0 64 64"><use href="#mkA"/></svg>
+      <div><div class="wm" style="font-size:1.6rem">Suz<span class="c">Chews</span></div>
+        <div class="desc">Chewing gum for chemo-induced taste loss</div></div>
+    </div>
+  </div>
+
+  <div class="lockcell">
+    <span class="cap">B · horizontal</span>
+    <div class="lock-h">
+      <svg width="52" height="52" viewBox="0 0 64 64"><use href="#mkB"/></svg>
+      <div><div class="wm">Suz<span class="c">Chews</span></div>
+        <div class="desc">Chewing gum for chemo-induced taste loss</div></div>
+    </div>
+    <div class="lock-v" style="align-self:center">
+      <svg width="66" height="66" viewBox="0 0 64 64"><use href="#mkB"/></svg>
+      <div><div class="wm" style="font-size:1.6rem">Suz<span class="c">Chews</span></div>
+        <div class="desc">Chewing gum for chemo-induced taste loss</div></div>
+    </div>
+  </div>
+
+  <div class="lockcell">
+    <span class="cap">C · horizontal</span>
+    <div class="lock-h">
+      <svg width="52" height="52" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+      <div><div class="wm">Suz<span class="c">Chews</span></div>
+        <div class="desc">Chewing gum for chemo-induced taste loss</div></div>
+    </div>
+    <div class="lock-v" style="align-self:center">
+      <svg width="66" height="66" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+      <div><div class="wm" style="font-size:1.6rem">Suz<span class="c">Chews</span></div>
+        <div class="desc">Chewing gum for chemo-induced taste loss</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="darkpanel v-rev" style="margin-top:1.5rem;display:grid;
+     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;align-items:center">
+  <div class="lock-h"><svg width="52" height="52" viewBox="0 0 64 64"><use href="#mkA"/></svg>
+    <div><div class="wm" style="font-size:1.7rem">Suz<span class="c">Chews</span></div>
+      <div class="desc">Chewing gum for chemo-induced taste loss</div></div></div>
+  <div class="lock-h"><svg width="52" height="52" viewBox="0 0 64 64"><use href="#mkB"/></svg>
+    <div><div class="wm" style="font-size:1.7rem">Suz<span class="c">Chews</span></div>
+      <div class="desc">Chewing gum for chemo-induced taste loss</div></div></div>
+  <div class="lock-h"><svg width="52" height="52" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+    <div><div class="wm" style="font-size:1.7rem">Suz<span class="c">Chews</span></div>
+      <div class="desc">Chewing gum for chemo-induced taste loss</div></div></div>
+</div>
+
+
+<h2>The lockup — machine above, name below</h2>
+<p class="lede" style="margin-top:-.6rem;margin-bottom:1.4rem">
+  The mark stays exactly as approved — nothing struck into it, nothing shrunk to make room —
+  and the name sits underneath. All three below are <b>a single SVG</b>, not an icon parked
+  next to a text element, so the proportion between mark and wordmark is locked into the file
+  and cannot drift when someone drops it into a layout. The wordmark is tracked to an exact
+  width with optical letter-spacing; the glyphs are never stretched.
+</p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="tag">Lockup A · recommended</div>
+    <div class="nm">Matched</div>
+    <div class="sub">wordmark tracked to the width of the machine's foot</div>
+    <div class="art" style="min-height:230px"><svg width="118" height="147.5"
+        viewBox="0 0 64 80" role="img" aria-label="SuzChews lockup"><use href="#lkA"/></svg></div>
+    <div class="row"><div class="ramp">
+      <svg width="56" height="70" viewBox="0 0 64 80"><use href="#lkA"/></svg>
+      <svg width="40" height="50" viewBox="0 0 64 80"><use href="#lkA"/></svg>
+      <svg width="28" height="35" viewBox="0 0 64 80"><use href="#lkA"/></svg>
+    </div><span class="cap">56 / 40 / 28 px wide</span></div>
+    <div class="row v-ink"><div class="ramp">
+      <svg width="52" height="65" viewBox="0 0 64 80"><use href="#lkA"/></svg>
+      <svg width="36" height="45" viewBox="0 0 64 80"><use href="#lkA"/></svg>
+    </div><span class="cap">one ink</span></div>
+    <div class="row dark v-rev"><div class="ramp">
+      <svg width="52" height="65" viewBox="0 0 64 80"><use href="#lkA"/></svg>
+      <svg width="36" height="45" viewBox="0 0 64 80"><use href="#lkA"/></svg>
+    </div><span class="cap">reversed</span></div>
+    <div class="why"><b>The name is exactly as wide as the machine stands.</b> That shared
+      edge is what makes a stacked lockup look drawn rather than assembled — the eye reads one
+      object with a label, not two things that happen to be near each other. It is also the
+      most compact of the three, which matters because a stacked lockup is always taller than
+      it is wide.</div>
+  </div>
+
+  <div class="card">
+    <div class="tag">Lockup B</div>
+    <div class="nm">Wide</div>
+    <div class="sub">wordmark overhangs; the machine reads as a crown</div>
+    <div class="art" style="min-height:230px"><svg width="118" height="151"
+        viewBox="0 0 64 82" role="img" aria-label="SuzChews wide lockup"><use href="#lkB"/></svg></div>
+    <div class="row"><div class="ramp">
+      <svg width="56" height="72" viewBox="0 0 64 82"><use href="#lkB"/></svg>
+      <svg width="40" height="51" viewBox="0 0 64 82"><use href="#lkB"/></svg>
+      <svg width="28" height="36" viewBox="0 0 64 82"><use href="#lkB"/></svg>
+    </div><span class="cap">56 / 40 / 28 px wide</span></div>
+    <div class="row v-ink"><div class="ramp">
+      <svg width="52" height="67" viewBox="0 0 64 82"><use href="#lkB"/></svg>
+      <svg width="36" height="46" viewBox="0 0 64 82"><use href="#lkB"/></svg>
+    </div><span class="cap">one ink</span></div>
+    <div class="why"><b>The name leads and the machine sits on top of it.</b> Bigger type
+      survives small sizes better, and it is the version that holds up best as a header on a
+      wide page. The trade is that the mark stops being the hero — at a glance you read
+      SUZCHEWS first and the machine second.</div>
+  </div>
+
+  <div class="card">
+    <div class="tag">Lockup C</div>
+    <div class="nm">Matched + descriptor</div>
+    <div class="sub">A, plus what the product actually is</div>
+    <div class="art" style="min-height:230px"><svg width="118" height="158.6"
+        viewBox="0 0 64 86" role="img" aria-label="SuzChews lockup with descriptor"><use href="#lkC"/></svg></div>
+    <div class="row"><div class="ramp">
+      <svg width="64" height="86" viewBox="0 0 64 86"><use href="#lkC"/></svg>
+      <svg width="48" height="64.5" viewBox="0 0 64 86"><use href="#lkC"/></svg>
+    </div><span class="cap">64 / 48 px wide</span></div>
+    <div class="why"><b>For the places that have to explain themselves</b> — a case-study
+      header, a deck cover, packaging. The descriptor is the relay headline verbatim, per the
+      copy rule. It is not a tagline and it does not tell a story; it states what the thing is.</div>
+    <div class="risk"><b>Watch</b> — the descriptor sets a hard floor. Below roughly 48px wide
+      it is unreadable, so this is a large-format variant and A is the everyday one.</div>
+  </div>
+
+</div>
+
+<div class="lockband" style="margin-top:1.5rem">
+  <div class="lockcell">
+    <span class="cap">clear space — one foot-bar height on every side</span>
+    <div style="align-self:center;padding:1.4rem;border:1px dashed rgba(44,31,26,.28)">
+      <svg width="80" height="100" viewBox="0 0 64 80"><use href="#lkA"/></svg>
+    </div>
+  </div>
+  <div class="lockcell">
+    <span class="cap">the glyph alone — favicon, app icon, avatar</span>
+    <div class="lock-h" style="align-self:center">
+      <svg width="48" height="48" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+      <svg width="32" height="32" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+      <svg width="16" height="16" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+    </div>
+    <div class="desc" style="max-width:32ch">A stacked lockup can never be a favicon — it goes
+      to a smear at 16px. The mark on its own is the small-size form, and it is the same file.</div>
+  </div>
+  <div class="lockcell">
+    <span class="cap">horizontal — for tight headers and nav bars</span>
+    <div class="lock-h" style="align-self:center">
+      <svg width="46" height="46" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+      <div><div class="wm" style="font-size:1.55rem">Suz<span class="c">Chews</span></div></div>
+    </div>
+    <div class="desc" style="max-width:32ch">Same two elements, laid out sideways for when
+      vertical room runs out. Keep one of the two — do not use both on a single surface.</div>
+  </div>
+</div>
+
+<h2>Rejected — letters inside the mark</h2>
+<p class="lede" style="margin-top:-.6rem;margin-bottom:1.4rem">
+  Kept as a record, not as options. All three put the name <i>into</i> the mark and all three
+  cost something to do it: the seal buries the machine in a band, the glass label shrinks the
+  flower, and the plate sets type too small to survive. The lockup above does the same job
+  without paying any of that.
+</p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="tag">C-i · recommended</div>
+    <div class="nm">The Seal</div>
+    <div class="sub">letters get their own band around the machine</div>
+    <div class="art"><svg width="128" height="128" viewBox="0 0 64 64" role="img"
+        aria-label="SuzChews seal mark"><use href="#mkC1"/></svg></div>
+    <div class="row"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkC1"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkC1"/></svg>
+      <svg width="16" height="16" viewBox="0 0 64 64"><use href="#mkC1"/></svg>
+    </div><span class="cap">40 / 24 / 16 px</span></div>
+    <div class="row v-ink"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkC1"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkC1"/></svg>
+    </div><span class="cap">one ink</span></div>
+    <div class="row dark v-rev"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkC1"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkC1"/></svg>
+    </div><span class="cap">reversed</span></div>
+    <div class="why"><b>The letters stop competing with the object.</b> Giving them a ring of
+      their own means the machine keeps its full silhouette and the name still reads — and it
+      turns the whole thing into one solid disc, which is the most mass any of these carry. The
+      flower sits at six o'clock as the closing device, so it is still the constant. This is the
+      only one of the three where the name is genuinely part of the mark rather than squeezed
+      onto it.</div>
+    <div class="risk"><b>Watch</b> — below about 22px the band type goes to texture. That is
+      normal for a seal; the fix is a second, lettersless size (plain C) for favicons, which
+      you already have.</div>
+  </div>
+
+  <div class="card">
+    <div class="tag">C-ii</div>
+    <div class="nm">The Glass Label</div>
+    <div class="sub">printed on the globe, under the flower</div>
+    <div class="art"><svg width="128" height="128" viewBox="0 0 64 64" role="img"
+        aria-label="SuzChews glass label mark"><use href="#mkC2"/></svg></div>
+    <div class="row"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkC2"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkC2"/></svg>
+      <svg width="16" height="16" viewBox="0 0 64 64"><use href="#mkC2"/></svg>
+    </div><span class="cap">40 / 24 / 16 px</span></div>
+    <div class="row v-ink"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkC2"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkC2"/></svg>
+    </div><span class="cap">one ink</span></div>
+    <div class="why"><b>The most product-like of the three.</b> This is how the name would
+      actually appear on a machine — curved on the glass, flower above it. It keeps C's
+      silhouette completely intact, so from across a room it still reads as the machine and
+      nothing is lost.</div>
+    <div class="risk"><b>Watch</b> — the flower had to shrink to make room, which weakens the
+      one element we agreed is fixed. It is also the first to fall apart small: by 24px the
+      label is a smudge on the glass.</div>
+  </div>
+
+  <div class="card">
+    <div class="tag">C-iii</div>
+    <div class="nm">The Plate</div>
+    <div class="sub">struck into the pedestal, where a real machine carries it</div>
+    <div class="art"><svg width="128" height="128" viewBox="0 0 64 64" role="img"
+        aria-label="SuzChews pedestal plate mark"><use href="#mkC3"/></svg></div>
+    <div class="row"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkC3"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkC3"/></svg>
+      <svg width="16" height="16" viewBox="0 0 64 64"><use href="#mkC3"/></svg>
+    </div><span class="cap">40 / 24 / 16 px</span></div>
+    <div class="row v-ink"><div class="ramp">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkC3"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkC3"/></svg>
+    </div><span class="cap">one ink</span></div>
+    <div class="why"><b>Keeps the flower at full size.</b> The plate replaces the dispenser
+      door rather than fighting it, so the base gets a purpose instead of an extra hole, and
+      the globe is untouched — flower exactly as approved.</div>
+    <div class="risk"><b>Watch</b> — the pedestal is the narrowest part of the mark, so this
+      is the smallest type of the three and the first to disappear. Realistically a
+      large-format-only variant: packaging and letterhead, not a browser tab.</div>
+  </div>
+
+</div>
+
+<div class="lockband" style="margin-top:1.5rem">
+  <div class="lockcell">
+    <span class="cap">C-i seal · standalone, no wordmark needed</span>
+    <div class="lock-v" style="align-self:center">
+      <svg width="96" height="96" viewBox="0 0 64 64"><use href="#mkC1"/></svg>
+      <div class="desc" style="margin-top:.2rem">Chewing gum for chemo-induced taste loss</div>
+    </div>
+  </div>
+  <div class="lockcell">
+    <span class="cap">C-i seal · with wordmark, for wide spaces</span>
+    <div class="lock-h">
+      <svg width="56" height="56" viewBox="0 0 64 64"><use href="#mkC1"/></svg>
+      <div><div class="wm">Suz<span class="c">Chews</span></div>
+        <div class="desc">Chewing gum for chemo-induced taste loss</div></div>
+    </div>
+  </div>
+  <div class="lockcell">
+    <span class="cap">plain C · the small-size fallback</span>
+    <div class="lock-h">
+      <svg width="40" height="40" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+      <svg width="24" height="24" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+      <svg width="16" height="16" viewBox="0 0 64 64"><use href="#mkC"/></svg>
+    </div>
+    <div class="desc" style="max-width:30ch">Every lettered mark needs one of these. The seal
+      is the identity; plain C is what goes in the favicon and the app icon.</div>
+  </div>
+</div>
+
+<h2>The constant — one flower, two places</h2>
+<div class="flat">
+  <div class="cmp">
+    <div class="cell"><svg width="82" height="82" viewBox="0 0 100 100"
+        style="--ink-bloom:var(--bloom)"><use href="#bloom"/></svg>
+      <span>the mark's flower</span></div>
+    <div class="cell"><svg width="82" height="82" viewBox="0 0 100 100"
+        style="--ink-bloom:rgba(44,31,26,.30)"><use href="#bloom"/></svg>
+      <span>same geometry, one ink</span></div>
+    <div style="flex:1;min-width:280px">
+      <dl class="dl">
+        <dt>petals</dt><dd><b>5</b>, first at 12 o'clock, 72° apart — <b>relay-engine.js</b>
+          <code>for(pe=0;pe&lt;5;pe++)</code>, <code>pa2 = pe·1.2566 − 1.5708</code></dd>
+        <dt>petal / orbit</dt><dd><b>0.565</b> — relay <code>.048 / .085</code>. Petals meet
+          edge-to-edge, they do not float.</dd>
+        <dt>core / orbit</dt><dd><b>0.259</b> — relay <code>.022 / .085</code></dd>
+        <dt>yellow</dt><dd><b>#ECC74A</b> — the relay's <code>YELL=[236,199,74]</code>, tag 3, the
+          only colour in the whole cloud set. Same hex, no re-picking.</dd>
+      </dl>
+      <div class="why" style="margin-top:.9rem">The flower is the one element that is not up for
+        discussion, so it is the one element that is <b>measured rather than drawn</b>. Whichever
+        mark you pick, the rosette in it and the rosette on the relay's glass globe are the same
+        shape at two sizes.</div>
+    </div>
+  </div>
+</div>
+
+
+<h2>Why this set is different from the last one</h2>
+<div class="flat">
+  <div class="cmp">
+    <div class="cell bad"><svg width="56" height="56" viewBox="0 0 64 64"><use href="#mkOld"/></svg>
+      <span>v2 — rejected</span></div>
+    <div class="cell"><svg width="56" height="56" viewBox="0 0 64 64"><use href="#mkA"/></svg><span>A</span></div>
+    <div class="cell"><svg width="56" height="56" viewBox="0 0 64 64"><use href="#mkB"/></svg><span>B</span></div>
+    <div class="cell"><svg width="56" height="56" viewBox="0 0 64 64"><use href="#mkC"/></svg><span>C</span></div>
+    <div class="cell bad"><svg width="20" height="20" viewBox="0 0 64 64"><use href="#mkOld"/></svg>
+      <span>v2 @ 20px</span></div>
+    <div class="cell"><svg width="20" height="20" viewBox="0 0 64 64"><use href="#mkB"/></svg>
+      <span>B @ 20px</span></div>
+  </div>
+  <div class="why">Side by side the diagnosis is visible rather than argued: the rejected mark is
+    <b>line</b>, and it thins toward nothing as it shrinks. The new ones are <b>area</b>, and area
+    survives — the 20px pair on the right is the whole case. Nothing in this set uses a stroke
+    attribute, so there is no weight to lose.</div>
+</div>
+
+
+<div class="note">
+  <p><b>My pick is C, with B as the working alternate.</b> C is the only one that passes the test
+    the last three failed — it says <i>gum</i> on sight, with no wordmark helping it — and it makes
+    the case study and relay chapter 04 the same object rather than two things that happen to share
+    a palette. B is what I would actually put in the favicon and the app icon, because a sphere is
+    the densest, most reducible mark of the three. Those two are compatible: <b>C for the lockup,
+    B as the standalone glyph</b>, same flower in both. A is the cleanest single object but it is
+    the one I would have to defend.</p>
+  <p><b>What I did not do:</b> no bitten disc, no pouch, no bubble, no mouth, no tongue or papillae
+    — all previously rejected. No wrapper, no blister strip. The flower carries the reason the
+    project exists and it is the only place that reason appears; there is no origin copy anywhere
+    in this lockup, per the copy rule.</p>
+  <p>Every mark is a single flat SVG, no gradients, no strokes, no filters. Each renders correctly
+    in one ink, reversed on dark, and at 16px — all three states are shown above rather than
+    claimed. Tell me a letter and I will build out the chosen one properly: clear-space rule,
+    minimum sizes, favicon set, and the header lockup wired into
+    <b>projects/suzchews/</b>.</p>
+</div>
+
+</div>
+</body>
+</html>

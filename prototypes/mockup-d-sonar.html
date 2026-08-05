@@ -122,10 +122,16 @@ body{background:var(--ink);color:var(--on);font-family:var(--display);line-heigh
 /* service record — names/logos are dot-only; hidden DOM boxes define layout */
 .record{position:absolute;left:clamp(1.4rem,4vw,3.6rem);top:32%;z-index:4;pointer-events:none}
 .record .rec-eyebrow{font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;color:var(--dim);margin-bottom:.5rem}
-.rec-title{font-size:clamp(1.55rem,3.2vw,2.9rem);font-weight:800;letter-spacing:-.045em;line-height:.9;max-width:min(500px,34vw);opacity:0}
+/* min-height reserves the TALLEST record (three lines — "THE JEL / SERT / COMPANY")
+   for every record, so this block's height is constant. That is what lets the picker
+   below it be placed deterministically instead of being overrun by long records. */
+.rec-title{font-size:clamp(1.55rem,3.2vw,2.9rem);font-weight:800;letter-spacing:-.045em;line-height:.9;min-height:2.7em;max-width:min(500px,34vw);opacity:0}
 .rec-title span{display:block}
 .rec-underline{width:70px;height:2px;margin-top:.9rem;background:var(--accent);box-shadow:0 0 18px color-mix(in srgb,var(--accent) 45%,transparent)}
-.record .rec-sub{position:relative;margin-top:.85rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;color:var(--mute);transition:opacity .4s;max-width:min(460px,30vw)}
+/* min-height reserves THREE lines. Two was not enough: USC's line wraps to three on a
+   narrower window and ran into the picker below, which is the overlap that survived
+   the last fix. Reserve the worst case, not the common case. */
+.record .rec-sub{position:relative;margin-top:.85rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;color:var(--mute);transition:opacity .4s;min-height:4.4em;max-width:min(460px,30vw)}
 .record .rec-sub i{font-style:normal;color:var(--accent)}
 .record-r{position:absolute;right:clamp(1.4rem,4vw,3.6rem);top:32%;z-index:4;pointer-events:none;text-align:right}
 .record-r .rec-eyebrow{font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;color:var(--dim)}
@@ -155,7 +161,11 @@ body{background:var(--ink);color:var(--on);font-family:var(--display);line-heigh
 .hero-scrollcue a{color:inherit;text-decoration:none;transition:color .25s,text-shadow .25s}
 .hero-scrollcue a:hover{color:var(--on);text-shadow:0 0 12px var(--accent)}
 .hero-scrollcue a:focus-visible{outline:2px solid var(--accent);outline-offset:4px;color:var(--on)}
-.record-picker{position:absolute;left:clamp(1.4rem,4vw,3.6rem);top:clamp(28rem,58vh,35rem);right:auto;bottom:auto;z-index:6;display:flex;flex-direction:column;align-items:flex-start;gap:.42rem;pointer-events:auto}
+/* Was top:clamp(28rem,58vh,35rem) — a viewport-relative guess that had no idea how tall
+   the record above it actually was, so three-line records (Jel Sert) and wrapping subs
+   (USC) ran straight into it. Now the record block has a reserved height, so this is
+   simply "232px below where the record starts" and cannot collide with it. */
+.record-picker{position:absolute;left:clamp(1.4rem,4vw,3.6rem);top:calc(32% + var(--rec-stack,252px));right:auto;bottom:auto;z-index:6;display:flex;flex-direction:column;align-items:flex-start;gap:.42rem;pointer-events:auto}
 .picker-label{font-family:var(--mono);font-size:.52rem;letter-spacing:.18em;color:var(--dim);margin-bottom:.1rem}
 .record-controls{display:flex;gap:.38rem;padding:.42rem;border:1px solid rgba(235,240,244,.1);background:rgba(11,16,23,.5);backdrop-filter:blur(10px)}
 .rec-btn{width:30px;height:30px;border:1px solid rgba(235,240,244,.18);background:rgba(235,240,244,.03);color:var(--dim);font-family:var(--mono);font-size:.52rem;letter-spacing:.08em;cursor:pointer;display:grid;place-items:center;transition:background .25s,color .25s,border-color .25s,box-shadow .25s;pointer-events:auto}
@@ -170,9 +180,8 @@ body{background:var(--ink);color:var(--on);font-family:var(--display);line-heigh
 .mobile-record{display:none}
 
 
-/* DESCENT zone — dots reorganize through here into SYS 01 */
-.descent{position:relative;height:52vh}
-.descent-line{position:absolute;right:clamp(1.4rem,4vw,3.6rem);top:30%;max-width:300px;font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--mute);line-height:1.6}
+/* The DESCENT zone and its line are gone — the hero runs straight into SELECTED
+   SYSTEMS, and the dots hand off to the relay rather than pausing at a caption. */
 
 /* WORK */
 main{padding:0 clamp(1.2rem,4vw,3.4rem)}
@@ -180,54 +189,14 @@ section.work{padding:1.5rem 0 5rem;border-top:1px solid var(--line);position:rel
 .sec-head{display:flex;align-items:baseline;gap:1.2rem;margin:2.6rem 0 2.6rem;position:relative}
 #workHead{scroll-margin-top:4.5rem}
 .sec-tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;color:var(--coral)}
-.sec-title{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:700;letter-spacing:-.02em}
+/* Same face and weight as the hero name and the project titles (Syne 800). The old
+   700 + -.02em tracking made these read as a different, tighter typeface than the rest
+   of the white text; explicit line-height stops long titles from packing together. */
+/* letter-spacing is 0, not negative: Syne's lowercase j has a very short descender and
+   almost no side bearing, so any negative tracking lets the next letter crowd it and it
+   reads as an i ("projects" -> "proiects"). Zero tracking gives it the room it needs. */
+.sec-title{font-family:var(--display);font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:800;letter-spacing:0;line-height:1.18}
 .sec-title em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--mute)}
-
-.bench{display:grid;grid-template-columns:1.05fr 1fr;border:1px solid var(--line2);background:var(--panel);margin-bottom:1.4rem;position:relative}
-.bench::before,.bench::after{content:'';position:absolute;width:16px;height:16px;pointer-events:none;border-color:color-mix(in srgb,var(--accent) 62%,transparent);opacity:.85;z-index:2}
-.bench::before{left:-1px;top:-1px;border-left:1px solid;border-top:1px solid}
-.bench::after{right:-1px;bottom:-1px;border-right:1px solid;border-bottom:1px solid}
-@media(prefers-reduced-motion:no-preference){
-  /* opacity-only reveal: transforms would skew the rect measurements the dot engine uses */
-  .bench{opacity:0;transition:opacity .85s ease}
-  .bench.is-in{opacity:1}
-}
-.bench-specs{padding:2.2rem;border-right:1px solid var(--line)}
-.bench-title{font-weight:800;font-size:1.5rem;letter-spacing:-.02em;margin-bottom:.4rem}
-.bench-sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--coral);margin-bottom:2rem}
-.bench-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem 2rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em}
-.bench-grid b{display:block;color:var(--dim);font-weight:400;font-size:.56rem;letter-spacing:.16em;margin-bottom:.35rem}
-.bench-grid span{color:var(--on)}
-.bench-grid .hit{color:var(--teal)}
-.bench-claim{font-size:.86rem;line-height:1.78;color:var(--mute);margin-bottom:1.9rem;max-width:52ch}
-.bench-constraint{margin-top:2rem;padding-top:1.6rem;border-top:1px solid var(--line);font-size:.8rem;color:var(--mute);line-height:1.8}
-.bench-constraint b{color:var(--coral);font-weight:600}
-.bench-media{position:relative;min-height:300px;overflow:hidden}
-.bench-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.9);transition:transform .9s cubic-bezier(.16,.76,.2,1),filter .5s ease,opacity .6s ease}
-@media(hover:hover) and (pointer:fine){
-  .bench-media:hover img{transform:scale(1.025);filter:saturate(1)}
-  .bench-media:hover .media-alt{opacity:1}
-}
-.media-alt{opacity:0;z-index:1}
-.media-scan{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;mix-blend-mode:screen}
-.media-inset{position:absolute;right:.9rem;bottom:.9rem;width:170px;height:104px;z-index:2;border:1px solid var(--line2);border-left:2px solid var(--accent);background:rgba(11,16,23,.88);backdrop-filter:blur(6px)}
-.media-inset span{position:absolute;left:.55rem;top:.42rem;font-family:var(--mono);font-size:.44rem;letter-spacing:.14em;color:var(--dim)}
-.media-inset canvas{position:absolute;left:0;right:0;bottom:0;width:100%;height:calc(100% - 1.3rem)}
-.bench-media::after{content:attr(data-cap);position:absolute;left:1rem;bottom:.9rem;font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;color:rgba(255,255,255,.85);background:rgba(11,16,23,.55);padding:.35rem .6rem;backdrop-filter:blur(6px)}
-.bench-media:not([data-cap])::after,.bench-media[data-cap='']::after{display:none}
-.bench-sub .live{font-style:normal;color:var(--teal);animation:livePulse 2.6s ease-in-out infinite}
-@keyframes livePulse{0%,100%{opacity:1}50%{opacity:.45}}
-.bench.flip .bench-specs{order:2;border-right:0;border-left:1px solid var(--line)}
-.bench.flip .bench-media{order:1}
-.bench-media.glyph{min-height:340px;background:
-  radial-gradient(ellipse 70% 60% at 50% 46%,color-mix(in srgb,var(--accent) 7%,transparent),transparent 74%),
-  linear-gradient(rgba(18,181,146,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(18,181,146,.045) 1px,transparent 1px),var(--ink2);
-  background-size:auto,44px 44px,44px 44px,auto}
-.bench-media.glyph canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.bench-media.glyph::after{bottom:auto;top:.9rem}
-.bench-link{display:inline-block;margin-top:1.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--on);text-decoration:none;border:1px solid var(--line2);border-left:2px solid var(--accent);padding:.55rem .8rem;transition:border-color .25s,box-shadow .25s,color .25s}
-.bench-link:hover{border-color:var(--accent);box-shadow:0 0 16px color-mix(in srgb,var(--accent) 22%,transparent)}
-.bench-link:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
 /* PATH register */
 section.path{padding:.5rem 0 5rem;position:relative;z-index:3}
@@ -340,24 +309,11 @@ span.chip{border-style:dashed;opacity:.72}
   .hero-chip{display:none}
   .hero-scrollcue{position:static;order:5;transform:none;align-self:center;margin-top:.65rem;color:var(--on)}
   .hero-scrollcue a{display:inline-block;font-family:var(--mono);font-size:.56rem;letter-spacing:.17em;padding:.55rem .7rem;border-bottom:1px solid color-mix(in srgb,var(--accent) 55%,transparent)}
-  .descent{height:12svh;min-height:90px}
-  .descent-line{left:1.35rem;right:1.35rem;top:28%;max-width:none;text-align:center;font-size:1.05rem;line-height:1.45}
   main{padding:0 1rem}
   section.work{padding:1rem 0 4rem}
   .sec-head{display:block;margin:1.8rem .25rem 1.5rem}
   .sec-tag{display:block;margin-bottom:.65rem}
   .sec-title{font-size:1.75rem;line-height:1.12}
-  .bench{grid-template-columns:1fr;margin-bottom:1rem}
-  .bench-media{order:-1;min-height:220px}
-  .bench.flip .bench-media{order:-1}
-  .bench.flip .bench-specs{order:2;border-left:0}
-  .bench-media.glyph{min-height:250px}
-  .bench-specs{padding:1.35rem;border-right:0;border-bottom:0}
-  .bench-sub{margin-bottom:1.3rem}
-  .bench-grid{gap:1rem .8rem;font-size:.62rem}
-  .bench-constraint{margin-top:1.4rem;padding-top:1.2rem;font-size:.77rem}
-  .bench-link{margin-top:1.25rem;padding:.62rem .85rem}
-  .media-inset{width:136px;height:84px;right:.6rem;bottom:.6rem}
   .chip-preview{display:none}
   .prow{grid-template-columns:1fr;gap:.55rem;padding:1.2rem .1rem}
   .prow::before{display:none}
@@ -367,7 +323,18 @@ span.chip{border-style:dashed;opacity:.72}
   footer{padding-left:1.35rem;padding-right:1.35rem}
 }
 @media(min-width:901px) and (max-height:850px){
-  .record-picker{top:54vh}
+  /* short screens: lift the whole stack rather than sliding the picker up into it.
+     The reserved block is the same height here — the title font is driven by vw, not
+     vh — so only the anchor moves, never the clearance. */
+  .record{top:21%}
+  .record-picker{--rec-stack:246px;top:calc(21% + var(--rec-stack))}
+}
+/* very short desktop windows: shrink the record title so the whole stack shrinks with
+   it, rather than letting a fixed reserve push the picker into the name at the bottom */
+@media(min-width:901px) and (max-height:700px){
+  .rec-title{font-size:clamp(1.35rem,2.4vw,2rem)}
+  .record{top:19%}
+  .record-picker{--rec-stack:196px;top:calc(19% + var(--rec-stack))}
 }
 @media(max-width:360px){
   .hero-name{font-size:10.1vw}
@@ -399,7 +366,6 @@ span.chip{border-style:dashed;opacity:.72}
   .rec-btn{height:44px}
   .hero-scrollcue{margin-top:.2rem}
   .hero-scrollcue a{font-size:.48rem;padding:.35rem .55rem}
-  .descent{height:9svh;min-height:64px}
 }
 
 /* ==========================================================================
@@ -414,7 +380,10 @@ span.chip{border-style:dashed;opacity:.72}
 /* ---- 02 — SELECTED SYSTEMS : relay + sticky bio rail -------------------- */
 .work-body{display:grid;grid-template-columns:228px minmax(0,1fr);gap:clamp(1.6rem,3.4vw,3rem);align-items:start}
 .work-main{min-width:0}
-.who{position:sticky;top:4.2rem}
+/* Sat at top:4.2rem, which pinned it near the top of the screen while the relay filled
+   the middle — it read as floating high and unrelated. This centres the rail vertically
+   against the pinned relay instead, and falls back to the old offset on short screens. */
+.who{position:sticky;top:clamp(4.2rem,calc(50vh - 13.5rem),18rem)}
 .who-shot{position:relative;border:1px solid var(--line2);border-left:2px solid var(--accent);background:var(--panel);overflow:hidden;aspect-ratio:4/5}
 .who-shot img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) contrast(1.02)}
 .who-shot::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(11,16,23,.72));pointer-events:none}
@@ -426,22 +395,47 @@ span.chip{border-style:dashed;opacity:.72}
 .who-meta div span{color:var(--on)}
 
 /* ---- 03 — the pinned relay lives at the top of SELECTED SYSTEMS --------- */
+/* STACKED FRAME, narrow stages only. `.is-narrow` is set by the engine from the one
+   width measurement it already takes, so this can never disagree with where the cloud
+   is drawn. The panel gets the full width it needs and the cloud drops below it at
+   full size — the dots are the centrepiece, so the text moves, not them. */
+.relay-stage.is-narrow .relay-hud{top:0;transform:none;max-width:min(620px,88%);padding-top:clamp(1rem,5vh,3.2rem)}
+.relay-stage.is-narrow .relay-jump{top:auto;bottom:clamp(3.4rem,9vh,5.4rem);transform:none}
 .relay{position:relative;margin:0 0 2.4rem}
 .relay-stage{position:sticky;top:0;overflow:hidden}
 .relay-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.relay-hud{position:absolute;left:0;top:50%;transform:translateY(-50%);max-width:340px;z-index:2}
+/* Width is a percentage of the STAGE, not a fixed px, because the cloud's radius is
+   also a fraction of the stage — a fixed 340px was fine at 1440 and sat on top of the
+   dots at 1100. 33% is the widest the panel can be while the cloud and the jump index
+   still fit beside it; wide screens get more room via the breakpoint below. */
+.relay-hud{position:absolute;left:0;top:50%;transform:translateY(-50%);max-width:33%;z-index:2}
+@media(min-width:1400px){.relay-hud{max-width:min(430px,36%)}}
 .relay-sys{font-family:var(--mono);font-size:.6rem;letter-spacing:.19em;color:var(--coral)}
-.relay-nm{font-size:clamp(1.5rem,2.9vw,2.15rem);font-weight:800;letter-spacing:-.025em;line-height:1.1;margin-top:.7rem}
-.relay-ds{font-size:.83rem;line-height:1.8;color:var(--mute);margin-top:1rem}
+/* Titles here run long (SYS 01 is a full sentence), so the old -.025em/1.1 packed them
+   into a hard-to-read block. Slightly smaller, looser tracking, real leading. */
+/* text-wrap:balance evens the line lengths instead of leaving a one-word last line,
+   which is most of what made these read as "squished". Zero tracking for the same
+   reason as .sec-title, and leading opened up to 1.34. */
+.relay-nm{font-size:clamp(1.25rem,2.05vw,1.7rem);font-weight:800;letter-spacing:0;line-height:1.34;margin-top:.85rem;text-wrap:balance}
+.relay-ds{font-size:.83rem;line-height:1.85;color:var(--mute);margin-top:1.15rem}
 .relay-link{display:inline-block;margin-top:1.3rem;font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;color:var(--dim);text-decoration:none;border:1px solid var(--line2);padding:.6rem .85rem;transition:color .25s,border-color .25s,box-shadow .25s}
 .relay-link:hover{color:var(--on);border-color:var(--accent);box-shadow:0 0 16px color-mix(in srgb,var(--accent) 18%,transparent)}
-.relay-jump{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.35rem;z-index:2}
-.relay-jump button{font-family:var(--mono);font-size:.52rem;letter-spacing:.14em;color:var(--dim);background:transparent;border:1px solid var(--line);padding:.55rem .7rem;cursor:pointer;text-align:left;min-width:11rem;transition:color .25s,border-color .25s}
-.relay-jump button.on{color:var(--on);border-color:var(--accent)}
-.relay-jump button:hover{color:var(--on)}
+/* SYS 01 has no case file yet — the control states that instead of pointing elsewhere */
+.relay-link[aria-disabled]{cursor:default;color:var(--dim);border-style:dashed;border-color:var(--line)}
+.relay-link[aria-disabled]:hover{color:var(--dim);border-color:var(--line);box-shadow:none}
+/* These were four full-width labelled boxes and they competed with the cloud for
+   attention — which is backwards, the cloud is the thing worth looking at. They are
+   now a quiet numeric index: no panel, no border box, just a tick and a number, with
+   the active chapter marked. The name is already on the left in the HUD, so the label
+   was redundant anyway; it survives as the accessible name and the tooltip. */
+.relay-jump{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.15rem;z-index:2}
+.relay-jump button{font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;color:var(--dim);background:transparent;border:0;border-right:1px solid var(--line);padding:.42rem .7rem .42rem 1.2rem;cursor:pointer;text-align:right;min-width:0;transition:color .25s,border-color .25s}
+.relay-jump button.on{color:var(--on);border-right-color:var(--accent)}
+.relay-jump button:hover{color:var(--on);border-right-color:var(--line2)}
+.relay-jump button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .relay-meta{position:absolute;left:0;bottom:1.4rem;font-family:var(--mono);font-size:.55rem;letter-spacing:.16em;color:var(--dim);z-index:2}
 .relay-ctl{position:absolute;right:0;bottom:1.4rem;display:flex;gap:.4rem;z-index:2}
-.relay-ctl button{font-family:var(--mono);font-size:.5rem;letter-spacing:.13em;color:var(--dim);background:transparent;border:1px solid var(--line);padding:.45rem .6rem;cursor:pointer;transition:color .25s,border-color .25s}
+.relay-ctl button{font-family:var(--mono);font-size:.5rem;letter-spacing:.13em;color:rgba(235,240,244,.26);background:transparent;border:1px solid rgba(235,240,244,.07);padding:.45rem .6rem;cursor:pointer;transition:color .25s,border-color .25s}
 .relay-ctl button:hover{color:var(--on);border-color:var(--accent)}
 .cards-head{font-family:var(--mono);font-size:.56rem;letter-spacing:.2em;color:var(--dim);margin:0 0 1.3rem;padding-top:1.6rem;border-top:1px solid var(--line)}
 
@@ -453,6 +447,18 @@ span.chip{border-style:dashed;opacity:.72}
   text-align:left;cursor:pointer;transition:background .3s,color .25s;position:relative;z-index:3}
 /* break out of main's side padding so the band is genuinely full-width */
 .band,.allidx{margin-left:calc(-1 * clamp(1.2rem,4vw,3.4rem));margin-right:calc(-1 * clamp(1.2rem,4vw,3.4rem));width:auto}
+
+/* THE FOUR SYSTEMS, PHONES ONLY. The pinned relay is display:none under 900px, so
+   without this the SELECTED SYSTEMS heading stands over an empty column. Deliberately
+   compact: the heavy cards were scrapped for repeating the relay, and on a phone there
+   is no relay to repeat — so this states the four and links out, nothing more. */
+.sys-mobile{display:none}
+/* THE LANDING WELL, PHONES ONLY. Reserved empty space for the hero dots to
+   resolve into. Desktop dots land in the relay's cloud and dissolve as the
+   relay comes up; the relay is display:none under 900px, so the phone needs
+   somewhere of its own for the same form to arrive. Empty by design — the
+   only thing that ever draws here is the hero canvas. */
+.relay-well{display:none}
 .band:hover{background:color-mix(in srgb,var(--accent) 9%,var(--panel))}
 .band:focus-visible{outline:2px solid var(--accent);outline-offset:-4px}
 .band i{font-style:normal;color:var(--accent);transition:transform .3s}
@@ -461,7 +467,10 @@ span.chip{border-style:dashed;opacity:.72}
 .allidx{display:none;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--line);
   border-bottom:1px solid var(--line2)}
 .allidx.is-open{display:grid}
-.allidx a{display:block;padding:1.15rem 1.2rem;background:var(--ink);text-decoration:none;transition:background .25s}
+.allidx a,.allidx .norow{display:block;padding:1.15rem 1.2rem;background:var(--ink);text-decoration:none;transition:background .25s}
+/* the featured four lead this index — flagged, so the relay and the pile are one list */
+.allidx .feat{font-style:normal;font-family:var(--mono);font-size:.46rem;letter-spacing:.16em;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);padding:.16rem .32rem;margin-left:.5rem;vertical-align:middle}
+.allidx .norow{opacity:.7;cursor:default}
 .allidx a:hover{background:var(--panel)}
 .allidx a:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
 .allidx b{display:block;font-size:.9rem;font-weight:700;letter-spacing:-.01em;color:var(--on);margin-bottom:.4rem}
@@ -484,10 +493,17 @@ section.prof{padding:1.5rem 0 4.5rem;position:relative;z-index:3}
 section.contact{padding:1.5rem 0 5rem;border-top:1px solid var(--line);position:relative;z-index:3}
 .contact-line{font-family:var(--serif);font-size:clamp(1.2rem,2.5vw,1.75rem);line-height:1.5;color:var(--mute);max-width:38ch;margin-bottom:2.2rem}
 .contact-line em{font-style:italic;color:var(--on)}
-.contact-mail{display:inline-block;font-size:clamp(1.3rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.03em;color:var(--on);text-decoration:none;border-bottom:2px solid color-mix(in srgb,var(--accent) 55%,transparent);padding-bottom:.2rem;transition:color .25s,border-color .25s,text-shadow .3s}
+/* max-width + break-word are load-bearing at 320px: the address is 24 unbroken
+   characters and at the 1.3rem clamp floor it lands within ~13px of the column.
+   body{overflow-x:clip} would have swallowed the overflow silently rather than
+   showing it. Nothing changes at any width where it already fits. */
+.contact-mail{display:inline-block;max-width:100%;overflow-wrap:break-word;font-size:clamp(1.3rem,3.6vw,2.6rem);font-weight:800;letter-spacing:-.03em;color:var(--on);text-decoration:none;border-bottom:2px solid color-mix(in srgb,var(--accent) 55%,transparent);padding-bottom:.2rem;transition:color .25s,border-color .25s,text-shadow .3s}
 .contact-mail:hover{color:var(--accent);border-color:var(--accent);text-shadow:0 0 26px color-mix(in srgb,var(--accent) 30%,transparent)}
 .contact-mail:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
 .contact-rail{margin-top:2rem;display:flex;flex-wrap:wrap;gap:.5rem}
+/* the resume is the one thing a recruiter is actually hunting for, so it gets weight */
+.chip-cta{color:var(--on);border-color:var(--line2);border-left:2px solid var(--accent)}
+.chip-cta:hover{border-color:var(--accent);box-shadow:0 0 16px color-mix(in srgb,var(--accent) 20%,transparent)}
 
 /* ---- mobile for the new sections only. The approved ≤900 hero/relay above
         is untouched: the pinned 3D relay is display:none here, so phones keep
@@ -502,11 +518,32 @@ section.contact{padding:1.5rem 0 5rem;border-top:1px solid var(--line);position:
   .cards-head{padding-top:1rem}
   .band{padding:1.15rem 1rem;letter-spacing:.14em;font-size:.66rem;flex-wrap:wrap;gap:.5rem}
   .band small{width:100%}
+  /* main's padding drops to 1rem here, but the bleed still used the desktop clamp —
+     up to 36px of over-bleed at 900px, silently clipped by body{overflow-x:clip}.
+     Match the bleed to the actual padding. */
+  .band,.allidx{margin-left:-1rem;margin-right:-1rem}
   .allidx{grid-template-columns:1fr}
+  /* Height is the whole point: the cloud needs room, and the row of systems
+     below it must not be sitting inside the cloud. min() so a short phone in
+     landscape does not give the well half the viewport. */
+  .relay-well{display:block;height:min(64vw,40vh);margin:.2rem 0 1.5rem}
+  .sys-mobile{display:grid;gap:1px;background:var(--line);border:1px solid var(--line2)}
+  .sys-row{display:block;background:var(--ink);padding:1.15rem 1.1rem;text-decoration:none}
+  .sys-row .r-tag{display:block;font-family:var(--mono);font-size:.52rem;letter-spacing:.16em;color:var(--coral);margin-bottom:.5rem}
+  .sys-row .r-nm{display:block;font-size:1.02rem;font-weight:700;letter-spacing:-.01em;color:var(--on);line-height:1.25}
+  .sys-row .r-ds{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--dim);margin-top:.4rem;line-height:1.5}
+  .sys-row .r-go{display:inline-block;margin-top:.8rem;font-family:var(--mono);font-size:.55rem;letter-spacing:.16em;color:var(--on);border-bottom:1px solid color-mix(in srgb,var(--accent) 55%,transparent);padding-bottom:.15rem}
+  .sys-row .r-go.is-off{color:var(--dim);border-bottom-style:dashed;border-bottom-color:var(--line)}
+  .sys-row:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
   section.prof{padding:.5rem 0 3rem}
   .prof-grid{grid-template-columns:1fr}
   section.contact{padding:.5rem 0 3rem}
   .contact-line{font-size:1.1rem;max-width:none;margin-bottom:1.6rem}
+}
+/* Under reduced motion the dot stream never travels (p is pinned to 0), so the
+   well would be a hole in the page with nothing arriving in it. Take it out. */
+@media(max-width:900px) and (prefers-reduced-motion:reduce){
+  .relay-well{display:none}
 }
 
 footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid var(--line)}
@@ -526,11 +563,11 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
 
 <div class="statusbar">
   <span class="sb-item"><strong>SJF·02</strong></span>
-  <span class="sb-item sb-hide">SONAR — MOCKUP D</span>
   <span class="sb-item grow"></span>
-  <span class="sb-item ok">● SIGNAL LOCKED</span>
+  <span class="sb-item ok">● OPEN TO WORK</span>
   <a class="sb-item acc" id="sb-contact" href="mailto:samueljfrausto@gmail.com" aria-label="Email Samuel Frausto">CONTACT</a>
-  <span class="sb-item sb-mobile-hide">DEPTH <strong id="sb-depth">000M</strong></span>
+  <a class="sb-item acc" id="sb-resume" href="../assets/Samuel_Frausto_Resume.pdf" target="_blank" rel="noopener" aria-label="Open Samuel Frausto's resume (PDF, new tab)">RESUME</a>
+  <span class="sb-item sb-mobile-hide">SCROLLED <strong id="sb-depth">0%</strong></span>
   <span class="sb-item sb-mobile-hide">T <strong id="sb-clock">—</strong></span>
 </div>
 
@@ -542,14 +579,14 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
   <div class="sonar" aria-hidden="true"></div>
 
   <div class="record">
-    <div class="rec-eyebrow">EXPERIENCE RECORD — CHAPTERS</div>
+    <div class="rec-eyebrow">WHERE I'VE WORKED</div>
     <div class="rec-title" id="rec-title"><span>EDWARDS</span><span>LIFESCIENCES</span></div>
     <div class="rec-underline"></div>
     <div class="rec-sub" id="rec-sub"><i>●</i> AI×XR TRAINING SYSTEMS · NOW</div>
   </div>
   <div class="record-r">
-    <div class="rec-eyebrow">ROLE — ON RECORD</div>
-    <div class="rec-role" id="rec-role"><span class="role-label">ROLE // RESOLVED</span><strong class="role-text" id="role-text">Extended Reality Learning Design Intern</strong></div>
+    <div class="rec-eyebrow">ROLE</div>
+    <div class="rec-role" id="rec-role"><span class="role-label">ROLE</span><strong class="role-text" id="role-text">Extended Reality Learning Design Intern</strong></div>
     <div class="logo-lockup logo-wide" id="logo-lockup" hidden>
       <img id="logo-img" src="../assets/logos/uchicago.png" alt="University of Chicago logo">
       <div class="franklin-logo" id="franklin-logo"><b>Franklin University<br>Switzerland</b><span>14-COUNTRY ROUTE</span></div>
@@ -557,9 +594,9 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
   </div>
 
   <div class="hero-id">
-    <div class="hero-eyebrow">XR ENGINEER &amp; SPATIAL DESIGNER</div>
+    <div class="hero-eyebrow">ADVANCED TECH DESIGNER</div>
     <h1 class="hero-name"><span class="hero-name-text" data-text="SAMUEL FRAUSTO">SAMUEL FRAUSTO</span>
-      <em>Looking to join a team designing what comes next.</em>
+      <em>Looking to design what comes next.</em>
     </h1>
   </div>
 
@@ -573,27 +610,28 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
     <div class="layer cursor"><img src="../assets/portrait/face.png" alt="" id="cursorFace"></div>
     <div class="holo-tint" aria-hidden="true"></div>
     <span class="face-switch-fx" aria-hidden="true"></span>
-    <span class="scan-label">SONAR PING — RESOLVING DESIGNER UNDER HEADSET</span>
-    <span class="hover-hint">HOVER HEADSHOT TO REVEAL FACE</span>
+    <!-- the SONAR PING label is gone; the hover hint below already says the useful
+         half of it, and two labels on one portrait was one label too many -->
+    <span class="hover-hint">HOVER TO SEE MY FACE</span>
   </div>
 
   <div class="mobile-record" aria-live="polite">
-    <div class="mobile-record-head"><span>EXPERIENCE RECORD</span><span id="mobile-record-index">05 / 05</span></div>
+    <div class="mobile-record-head"><span>WHERE I'VE WORKED</span><span id="mobile-record-index">05 / 05</span></div>
     <div class="mobile-record-title" id="mobile-record-title" data-text="EDWARDS LIFESCIENCES">EDWARDS LIFESCIENCES</div>
     <div class="mobile-record-sub" id="mobile-record-sub"><i>●</i> AI×XR TRAINING SYSTEMS · NOW</div>
     <div class="mobile-signal-bay" id="mobile-signal-bay" aria-hidden="true">
-      <div class="mobile-signal-head"><span>RESOLVED IDENTITY</span><span id="mobile-signal-code">EL // 05</span></div>
+      <div class="mobile-signal-head"><span>ME</span><span id="mobile-signal-code">EL // 05</span></div>
       <div class="mobile-signal-axis"></div>
       <canvas class="mobile-identity-canvas" id="mobile-identity-canvas"></canvas>
     </div>
     <div class="mobile-role">
-      <span>ROLE // RESOLVED</span>
+      <span>ROLE</span>
       <strong id="mobile-role-text">Extended Reality Learning Design Intern</strong>
     </div>
   </div>
 
   <div class="record-picker" aria-label="Service record selector">
-    <div class="picker-label">SELECT RECORD</div>
+    <div class="picker-label">SELECT COMPANY</div>
     <div class="record-controls" id="record-controls">
       <button class="rec-btn is-active" data-mode="auto" type="button" aria-label="Auto cycle records">
         <svg class="shuffle-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -611,13 +649,8 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
       <button class="rec-btn is-current" data-record="4" type="button" aria-label="Select Edwards record">EL</button>
     </div>
   </div>
-  <div class="hero-chip">CURRENT SESSION<br><i>●</i> AI×XR TRAINING SYSTEMS<br>DESIGN → CODE, SOLO</div>
-  <div class="hero-scrollcue"><a href="#workHead">VIEW SELECTED WORK ↓</a></div>
-</section>
-
-<!-- DESCENT -->
-<section class="descent">
-  <div class="descent-line">Every chapter reorganizes into the next system he builds.</div>
+  <div class="hero-chip">RIGHT NOW<br><i>●</i> AI×XR TRAINING SYSTEMS<br>I DO THE DESIGN AND THE CODE</div>
+  <div class="hero-scrollcue"><a href="#workHead">SEE MY WORK ↓</a></div>
 </section>
 
 <main>
@@ -628,8 +661,8 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
      the cards below are generated from the SYSTEMS array. -->
 <section class="work">
   <div class="sec-head" id="workHead">
-    <span class="sec-tag">02 — SELECTED SYSTEMS</span>
-    <h2 class="sec-title">Four systems. <em>One signal, relayed.</em></h2>
+    <span class="sec-tag">02 — SELECTED WORK</span>
+    <h2 class="sec-title">My four latest projects.</h2>
   </div>
 
   <div class="work-body">
@@ -660,25 +693,36 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
         </div>
       </div>
 
-  <p class="cards-head">THE SAME FOUR, ON THE RECORD</p>
-  <div id="benchHost"></div>
+      <!-- Phone-only landing well. Nothing is ever rendered into this element; it
+           exists to reserve the space the hero dots resolve into, in the place the
+           relay would have occupied. See .relay-well and buildLanding(). -->
+      <div class="relay-well" id="relayWell" aria-hidden="true"></div>
+
+      <!-- The four cards that used to sit here were the same four the relay had just
+           shown, stated twice. Scrapped. Their links did not go with them: the featured
+           four now lead ALL PROJECTS, flagged, so nothing became unreachable. -->
+      <div class="sys-mobile" id="sysMobile"></div>
+    </div><!-- /.work-main -->
+  </div><!-- /.work-body -->
 
 </section>
 
 <!-- 03 — ALL PROJECTS : full-width band into the rest of the pile.
      There is no projects/index.html in the repo yet, so the band opens the
      index inline. Point it at a real page later by giving .band an href. -->
-<button class="band" id="allBand" type="button" aria-expanded="false" aria-controls="allIdx">
+<button class="band" id="allBand" type="button" aria-expanded="true" aria-controls="allIdx">
   <span>03 — ALL PROJECTS <i>→</i></span>
   <small id="allCount"></small>
 </button>
-<nav class="allidx" id="allIdx" aria-label="All projects"></nav>
+<!-- open by default: this band is the focus of the page now, not a disclosure.
+     The button still collapses it — it just no longer starts closed. -->
+<nav class="allidx is-open" id="allIdx" aria-label="All projects"></nav>
 
 <!-- 04 — PROFICIENCIES : screener-grade. Must land if they read nothing else. -->
 <section class="prof">
   <div class="sec-head" id="profHead">
-    <span class="sec-tag">04 — PROFICIENCIES</span>
-    <h2 class="sec-title">The toolkit. <em>Plainly stated.</em></h2>
+    <span class="sec-tag">04 — SKILLS</span>
+    <h2 class="sec-title">What I work with.</h2>
   </div>
   <div class="prof-grid" id="profGrid"></div>
   <p class="prof-note" id="profNote"></p>
@@ -687,43 +731,38 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
 <!-- 05 — THE PATH : context, not the argument. Demoted below proficiencies. -->
 <section class="path">
   <div class="sec-head" id="pathHead">
-    <span class="sec-tag">05 — THE PATH</span>
-    <h2 class="sec-title">The full record. <em>Chapters, not a résumé.</em></h2>
+    <span class="sec-tag">05 — BACKGROUND</span>
+    <h2 class="sec-title">How I got here.</h2>
   </div>
   <ol class="pathlog">
     <li class="prow">
-      <span class="p-yr">2019–23</span>
-      <div class="p-main"><b>TWO LANES</b><p>Pitching and premed, in parallel — performance and medicine from the start.</p></div>
-      <div class="p-chips"></div>
-    </li>
-    <li class="prow">
       <span class="p-yr">2023</span>
-      <div class="p-main"><b>UCHICAGO — KRON LAB</b><p>Cancer-immunology research on TET2; symposium award. Then a pitching injury and his dad's diagnosis ended both lanes in the same season.</p></div>
-      <div class="p-chips"><span class="chip" data-prev="../assets/projects/tet2-research-01.jpg">TET2 RESEARCH</span></div>
+      <div class="p-main"><b>UCHICAGO — KRON LAB</b><p>I did cancer-immunology research on TET2 and won a symposium award. I stopped pitching and left premed the same year.</p></div>
+      <div class="p-chips"><a class="chip" href="../projects/tet2-research.html">TET2 RESEARCH</a></div>
     </li>
     <li class="prow">
       <span class="p-yr">2024</span>
-      <div class="p-main"><b>FRANKLIN SWITZERLAND</b><p>The reset — a semester in Lugano, fourteen countries with a backpack.</p></div>
+      <div class="p-main"><b>FRANKLIN SWITZERLAND</b><p>A semester in Lugano. I travelled to fourteen countries.</p></div>
       <div class="p-chips"></div>
     </li>
     <li class="prow">
       <span class="p-yr">2024–25</span>
-      <div class="p-main"><b>THE JEL SERT COMPANY</b><p>R&amp;D bench by day; brand films on the side.</p></div>
+      <div class="p-main"><b>THE JEL SERT COMPANY</b><p>I started in the R&amp;D lab as an intern, then came back the next summer to do media and brand work and widen what I could do.</p></div>
       <div class="p-chips"><a class="chip" href="../projects/purekick-harley.v2.html">HARLEY-DAVIDSON × PURE KICK</a><a class="chip" href="../projects/flavoice-crayola.v2.html">CRAYOLA × FLA-VOR-ICE</a><a class="chip" href="../projects/jelsert-jamba.v2.html">JAMBA × JEL SERT</a></div>
     </li>
     <li class="prow">
       <span class="p-yr">2025</span>
-      <div class="p-main"><b>USC IOVINE &amp; YOUNG</b><p>The pivot to spatial computing — building toward the first Human Technology Interaction degree.</p></div>
-      <div class="p-chips"><a class="chip" href="../projects/vr-baseball.v2.html" data-prev="../assets/projects/vr-baseball-01.png">VR BASEBALL — PITCH STUDY</a><a class="chip" href="../projects/pavilia.v2.html" data-prev="../assets/projects/pavilia-01.png">PAVILIA</a><a class="chip" href="../projects/cyberpunk-twin.v2.html" data-prev="../assets/projects/cyberpunk-twin-01.png">CYBERPUNK TWIN</a><a class="chip" href="../projects/synesthesia.v2.html">SYNESTHESIA</a></div>
+      <div class="p-main"><b>USC IOVINE &amp; YOUNG</b><p>I moved into spatial computing. First cohort of the Human Technology Interaction degree.</p></div>
+      <div class="p-chips"><a class="chip" href="../projects/vr-baseball.v2.html" data-prev="../assets/projects/vr-baseball-01.png">VR BASEBALL — PITCH STUDY</a><a class="chip" href="../projects/pavilia.v2.html" data-prev="../assets/projects/pavilia-01.png">PAVILIA</a><a class="chip" href="../projects/cyberpunk-twin.v2.html">CYBERPUNK TWIN</a><a class="chip" href="../projects/synesthesia.v2.html">SYNESTHESIA</a></div>
     </li>
     <li class="prow">
       <span class="p-yr">2026</span>
-      <div class="p-main"><b>EDWARDS LIFESCIENCES</b><p>Solo designer-engineer on the systems in 02 — plus the tools nobody asked him to build.</p></div>
+      <div class="p-main"><b>EDWARDS LIFESCIENCES</b><p>Solo designer-engineer on the XR clinical training in 02. I also built internal tools for the team.</p></div>
       <div class="p-chips"><span class="chip">SCRIBE APP</span><span class="chip">MDM ARCHITECTURE</span><a class="chip" href="#workHead">↑ SYSTEMS 01–02</a></div>
     </li>
     <li class="prow next">
       <span class="p-yr">NEXT</span>
-      <div class="p-main"><b>WHAT COMES NEXT</b><p>Go deep on a team designing what comes next. Then build his own.</p></div>
+      <div class="p-main"><b>WHAT'S NEXT</b><p>I want to design what comes next on a team doing it well.</p></div>
       <div class="p-chips"></div>
     </li>
   </ol>
@@ -733,13 +772,14 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
 <section class="contact" id="contact">
   <div class="sec-head">
     <span class="sec-tag">06 — CONTACT</span>
-    <h2 class="sec-title">Open the channel.</h2>
+    <h2 class="sec-title">Get in touch.</h2>
   </div>
-  <p class="contact-line">Looking for a team building what comes next in spatial computing — <em>where the work has to be right, not just impressive.</em></p>
+  <p class="contact-line">I want to build what comes next.</p>
   <a class="contact-mail" href="mailto:samueljfrausto@gmail.com">samueljfrausto@gmail.com</a>
   <div class="contact-rail">
     <a class="chip" href="mailto:samueljfrausto@gmail.com">EMAIL</a>
-    <a class="chip" href="#workHead">↑ BACK TO THE WORK</a>
+    <a class="chip chip-cta" href="../assets/Samuel_Frausto_Resume.pdf" target="_blank" rel="noopener">RESUME (PDF) ↗</a>
+    <a class="chip" href="#workHead">↑ BACK TO MY WORK</a>
   </div>
 </section>
 
@@ -747,18 +787,17 @@ footer{padding:2.5rem clamp(1.2rem,4vw,3.4rem) 3.5rem;font-family:var(--mono);fo
 </main>
 
 <footer>
-  <span>MOCKUP D — "SONAR" · NOT LIVE</span>
+  <span>SAMUEL FRAUSTO · 2026</span>
   <span>SAMUELJFRAUSTO@GMAIL.COM</span>
 </footer>
 
 <!-- ==========================================================================
      THE ONE PLACE TO EDIT.
-     SYSTEMS drives the relay chapters, the relay HUD and the four cards.
+     SYSTEMS drives the relay chapters, the relay HUD, the phone list and the
+     featured rows in the project index.
      BIO drives the rail. PROF drives section 04. ALL drives section 03.
      Swapping a featured project = editing one object in SYSTEMS. `cloud` is a
      key into Relay.CLOUDS (headset | heart | waypoints | gum) in relay-engine.js.
-     This script runs BEFORE the two engine scripts so the cards exist when the
-     dot engine measures them and the glyph engine looks up its canvases.
      ========================================================================== -->
 <script src="relay-engine.js"></script>
 <script>
@@ -769,22 +808,13 @@ var SYSTEMS=[
   {
     id:'edwards', cloud:'headset',
     sys:'SYS 01 · EDWARDS LIFESCIENCES',
-    what:'AI-Adaptive VR Clinical Training',
-    title:'AI-Adaptive VR Clinical Training',
+    what:'AI Adaptive Immersive Training for Patient Facing Employees',
+    title:'AI Adaptive Immersive Training for Patient Facing Employees',
     client:'EDWARDS LIFESCIENCES',
     /* LOCKED — verbatim, do not reword */
     claim:'IN DEVELOPMENT · Immersive clinical training that doubles efficiency and halves patient call time — built solo to absorb a growing business unit.',
-    metrics:[
-      ['ROLE','Solo — UX → 3D → code → AI'],
-      ['STATUS','In development, 2026',1],
-      ['SCOPE','Full-stack VR learning modules'],
-      ['TRAINEES','Clinicians'],
-      ['AI LAYER','Adaptive assessment'],
-      ['PUBLIC ARTIFACTS','2 system architectures']
-    ],
-    link:null, linkLabel:null,
-    media:{type:'glyph',canvas:'glyphLoop',cap:'SYSTEM DIAGRAM — TRAINING LOOP',
-      aria:'Animated training loop diagram: trainee, simulation, AI assessment, adaptation'}
+    /* no case file yet — the control says so instead of pointing somewhere else */
+    link:null, linkLabel:'RELEASING SOON'
   },
   {
     id:'heart', cloud:'heart',
@@ -792,19 +822,9 @@ var SYSTEMS=[
     what:'Heart Function Informational Site',
     title:'Heart Function Informational Site',
     client:'INTERACTIVE EXPLAINER',
-    claim:'A scroll-driven web site that explains how the heart and its valves actually work — anatomy, flow and valve mechanics, interactive at every step. Hand-built for the browser.',
-    metrics:[
-      ['FORMAT','Scroll-driven interactive site'],
-      ['SUBJECT','Cardiac anatomy + valve mechanics'],
-      ['PLATFORM','Web — hand-built, no framework kit'],
-      ['STATUS','Live on this site',1],
-      ['HOST','Docks on this site'],
-      ['REFERENCE BAR','Ciechanowski-grade interaction']
-    ],
+    claim:'An interactive site that explains how the heart and its valves work — anatomy, blood flow, valve mechanics. I built it for the browser by hand.',
     /* built from the Alma repo — refresh command is in FABLE_DESIGN_BRIEF.md */
-    link:'../projects/heart-valve/app/index.html', linkLabel:'OPEN THE LIVE SITE',
-    media:{type:'glyph',canvas:'glyphValve',cap:'LIVE MODEL — VALVE CYCLE',
-      aria:'Animated heart valve schematic: leaflets opening and closing as flow passes'}
+    link:'../projects/heart-valve/app/index.html', linkLabel:'OPEN THE LIVE SITE'
   },
   {
     id:'iyh', cloud:'waypoints',
@@ -812,20 +832,8 @@ var SYSTEMS=[
     what:'Digital Twin Walkable on Web, Quest &amp; Vision Pro',
     title:'IYH Digital Twin',
     client:'USC IOVINE &amp; YOUNG',
-    claim:'A digital twin of USC’s Iovine &amp; Young Hall, delivered to three runtimes from one source — open web, Meta Quest and Apple Vision Pro — with Google-Maps-style waypoint navigation and continuous transitions between viewpoints.',
-    metrics:[
-      ['PLATFORMS','Web · Meta Quest · Vision Pro',1],
-      ['ROLE','Delivery layer — 3-person sub-team'],
-      ['NAVIGATION','Google-Maps-style waypoints'],
-      ['TRANSITIONS','Continuous between viewpoints'],
-      ['SOURCE','One Omniverse twin, three targets'],
-      ['TOOLS','Omniverse · visionOS · JavaScript']
-    ],
-    link:'../projects/iyh-digital-twin.v2.html', linkLabel:'OPEN CASE FILE',
-    media:{type:'img',src:'../assets/projects/iyh-digital-twin-01.jpg',
-      alt:'Iovine and Young Hall digital twin, Omniverse viewport',
-      altSrc:'../assets/projects/iyh-digital-twin-02.jpg',
-      scan:'glyphScan', cap:'CAPTURE — OMNIVERSE VIEWPORT'}
+    claim:'A digital twin of USC’s Iovine &amp; Young Hall you can walk through on the web, Meta Quest and Vision Pro — all from one source. My three-person team built the delivery layer and the waypoint navigation.',
+    link:'../projects/iyh-digital-twin.v2.html', linkLabel:'OPEN PROJECT'
   },
   {
     id:'suzchews', cloud:'gum',
@@ -833,26 +841,14 @@ var SYSTEMS=[
     what:'Chewing Gum for Chemo-Induced Taste Loss',
     title:'SuzChews',
     client:'PRODUCT &amp; SYSTEM DESIGN',
-    claim:'A chewing gum that restores taste for chemotherapy patients with dysgeusia. Flavour-release logic, product system and brand designed end to end, from the science through to the packaging.',
-    metrics:[
-      ['PRODUCT','Functional chewing gum'],
-      ['FOR','Chemo patients with dysgeusia',1],
-      ['SCOPE','Science → simulation → brand'],
-      ['ROLE','Founder-designer'],
-      ['STATUS','Complete case study'],
-      ['OUTPUT','Full case study + brand system']
-    ],
-    link:'../projects/suzchews/index.html', linkLabel:'OPEN CASE STUDY',
-    media:{type:'img',src:'../projects/suzchews/assets/process/thumb_full.jpg',
-      alt:'SuzChews process board',
-      inset:{label:'SIM — FLAVOR CURVE',canvas:'glyphCurve'},
-      cap:'CASE FILE — PROCESS BOARD'}
+    claim:'A chewing gum that restores taste for chemotherapy patients with dysgeusia. I designed the flavour-release logic, the product system and the brand.',
+    link:'../projects/suzchews/index.html', linkLabel:'OPEN CASE STUDY'
   }
 ];
 
 /* --- the rail beside SELECTED SYSTEMS: portrait + NOW / SCHOOL / BEFORE --- */
 var BIO={
-  role:'XR / SPATIAL SYSTEMS',
+  role:'ADVANCED TECH DESIGNER',
   meta:[
     ['NOW','Edwards Lifesciences — XR Learning Design'],
     ['SCHOOL','USC Iovine &amp; Young — Human Technology Interaction'],
@@ -885,34 +881,17 @@ var ALL=[
 /* ---------------------------------------------------------------- renderers */
 function el(id){return document.getElementById(id);}
 
-function benchHTML(s,i){
-  var m=s.media,flip=(i%2===1)?' flip':'';
-  var grid=s.metrics.map(function(r){
-    return '<div><b>'+r[0]+'</b><span'+(r[2]?' class="hit"':'')+'>'+r[1]+'</span></div>';
-  }).join('');
-  var media='';
-  if(m.type==='glyph'){
-    media='<div class="bench-media glyph" data-cap="'+m.cap+'">'+
-          '<canvas id="'+m.canvas+'" aria-label="'+m.aria+'"></canvas></div>';
-  }else{
-    media='<div class="bench-media" data-cap="'+m.cap+'">'+
-          '<img src="'+m.src+'" alt="'+m.alt+'">'+
-          (m.altSrc?'<img class="media-alt" src="'+m.altSrc+'" alt="" aria-hidden="true">':'')+
-          (m.scan?'<canvas id="'+m.scan+'" class="media-scan" aria-hidden="true"></canvas>':'')+
-          (m.inset?'<div class="media-inset" aria-hidden="true"><span>'+m.inset.label+
-                   '</span><canvas id="'+m.inset.canvas+'"></canvas></div>':'')+
-          '</div>';
-  }
-  return '<div class="bench'+flip+'" data-sys="'+s.id+'">'+
-    '<div class="bench-specs">'+
-      '<div class="bench-title">'+s.title+'</div>'+
-      '<div class="bench-sub">'+s.sys+'</div>'+
-      '<p class="bench-claim">'+s.claim+'</p>'+
-      '<div class="bench-grid">'+grid+'</div>'+
-      (s.link?'<a class="bench-link" href="'+s.link+'">'+s.linkLabel+' →</a>':'')+
-    '</div>'+media+'</div>';
-}
-el('benchHost').innerHTML=SYSTEMS.map(benchHTML).join('');
+/* the phone-only four. Same SYSTEMS array — still one place to edit. `what` is only
+   printed when it says something the title does not, so nothing is stated twice. */
+el('sysMobile').innerHTML=SYSTEMS.map(function(s){
+  var body='<span class="r-tag">'+s.sys+'</span>'+
+           '<span class="r-nm">'+s.title+'</span>'+
+           (s.what!==s.title?'<span class="r-ds">'+s.what+'</span>':'')+
+           (s.link?'<span class="r-go">'+s.linkLabel+' →</span>'
+                 :s.linkLabel?'<span class="r-go is-off">'+s.linkLabel+'</span>':'');
+  return s.link?'<a class="sys-row" href="'+s.link+'" data-dotstop>'+body+'</a>'
+              :'<div class="sys-row" data-dotstop>'+body+'</div>';
+}).join('');
 
 el('whoRole').innerHTML=BIO.role;
 el('whoMeta').innerHTML=BIO.meta.map(function(r){
@@ -921,11 +900,22 @@ el('whoMeta').innerHTML=BIO.meta.map(function(r){
 el('profGrid').innerHTML=PROF.map(function(c){
   return '<div class="prof-col"><h3>'+c[0]+'</h3><ul>'+
     c[1].map(function(k){return '<li>'+k+'</li>';}).join('')+'</ul></div>';}).join('');
-el('profNote').innerHTML='Listed only where there is shipped work behind it.';
+el('profNote').innerHTML='I only list things I have shipped work with.';
 
-el('allIdx').innerHTML=ALL.map(function(p){
-  return '<a href="'+p[2]+'"><b>'+p[0]+'</b><span>'+p[1]+'</span></a>';}).join('');
-el('allCount').textContent=ALL.length+' CASE FILES';
+/* ALL PROJECTS is now the ONE complete index. The featured four lead it, flagged, and
+   anything already in ALL under the same href is dropped so IYH does not appear twice.
+   This is what replaced the four repeated cards — same links, one list, no duplication. */
+var IDX=SYSTEMS.map(function(s){return [s.title,s.client,s.link,true];})
+  .concat(ALL.filter(function(p){
+      return !SYSTEMS.some(function(s){return s.link===p[2];});
+    }).map(function(p){return [p[0],p[1],p[2],false];}));
+
+el('allIdx').innerHTML=IDX.map(function(p){
+  var body='<b>'+p[0]+(p[3]?'<i class="feat">FEATURED</i>':'')+'</b><span>'+p[1]+'</span>';
+  return p[2]?'<a href="'+p[2]+'">'+body+'</a>'
+            :'<div class="norow">'+body+'</div>';
+}).join('');
+el('allCount').textContent=IDX.length+' PROJECTS';
 var band=el('allBand'),idx=el('allIdx');
 band.addEventListener('click',function(){
   var open=idx.classList.toggle('is-open');
@@ -938,7 +928,11 @@ Relay.mount({
   hud:{sys:el('relaySys'),nm:el('relayNm'),ds:el('relayDs'),link:el('relayLink')},
   jump:el('relayJump'), meta:el('relayMeta'),
   tog:el('relayTog'), swp:el('relaySwp'),
-  cx:0.66,
+  /* 0.66 put the cloud under the jump rail on the right. 0.575 seats it in the gap
+     between the HUD (max 340px, left) and that rail (11rem, right). Published on
+     window because the hero dot stream in the other script block aims at the same
+     point — one number, so the handoff cannot drift out of register with the cloud. */
+  cx:(window.__relayCX=0.645),
   chapters:SYSTEMS.map(function(s){
     return {cloud:s.cloud, sys:s.sys, name:s.what, desc:s.claim,
             link:s.link, linkLabel:s.linkLabel};
@@ -1154,6 +1148,11 @@ Relay.mount({
   }
 
   var W,H,heroH,anchorX,anchorY,portCX,portCY,portR,mobileStops=[];
+  /* where the relay's cloud will sit once its stage pins — the hero dots are aimed at
+     THAT now, not at a line under the heading */
+  var relayVis=false,relayTop=0,relayX=0,relayY=0,relayR=0;
+  /* the phone's stand-in for that cloud — the reserved well in SELECTED WORK */
+  var wellVis=false,wellX=0,wellY=0,wellR=0;
   var renderDirty=true,lastRenderY=NaN,morphActive=true;
   function layout(){
     W=innerWidth;
@@ -1165,10 +1164,39 @@ Relay.mount({
     anchorX=hr.left+8;anchorY=hr.top+scrollY+hr.height+18;
     var st=stage.getBoundingClientRect();
     portCX=st.left+st.width/2;portCY=st.top+scrollY+st.height/2;portR=st.width/2;
-    H=Math.ceil(anchorY+80);
+
+    var rp=document.getElementById('relayPin'),rs=document.getElementById('relayStage');
+    var vh=document.documentElement.clientHeight||innerHeight||800;
+    relayVis=!!(rp&&rs&&rs.offsetParent!==null);
+    if(relayVis){
+      var pr2=rp.getBoundingClientRect(),sr2=rs.getBoundingClientRect();
+      relayTop=pr2.top+scrollY;                 /* scroll at which the stage pins */
+      /* mirror the relay's own frame maths, including the narrow/stacked case, so the
+         hero dots land exactly where the cloud will be at any window size */
+      var nw=sr2.width<(window.Relay&&Relay.NARROW_W||980);
+      relayX=sr2.left+sr2.width*(nw?0.50:(window.__relayCX||0.645));
+      relayY=relayTop+vh*(nw?0.655:0.50);       /* stage fills the viewport when pinned */
+      relayR=nw?Math.min(sr2.width*0.28,vh*0.225):Math.min(sr2.width,vh)*0.278;
+    }
+    /* PHONE LANDING WELL. Same measurement discipline as the relay above: read the
+       reserved element, do not guess. offsetParent===null covers both the >900px
+       case (display:none) and reduced motion (also display:none), so when the well
+       is not there the old under-the-heading landing is used unchanged. */
+    var wl=document.getElementById('relayWell');
+    wellVis=!!(wl&&wl.offsetParent!==null);
+    if(wellVis){
+      var wr=wl.getBoundingClientRect();
+      wellX=wr.left+wr.width/2;
+      wellY=wr.top+scrollY+wr.height/2;
+      /* fit inside the well with a margin, and never wider than the column */
+      wellR=Math.max(40,Math.min(wr.width*0.42,wr.height*0.46));
+    }
+
+    H=Math.ceil(relayVis?relayY+relayR+60:anchorY+80);
+    if(wellVis)H=Math.max(H,Math.ceil(wellY+wellR+60));
     mobileStops=[];
     if(W<=900){
-      document.querySelectorAll('.bench').forEach(function(el){
+      document.querySelectorAll('[data-dotstop]').forEach(function(el){
         var r=el.getBoundingClientRect();
         mobileStops.push({x:r.left,y:r.top+scrollY,w:r.width});
       });
@@ -1561,7 +1589,7 @@ Relay.mount({
     if(!ok){
       g.clearRect(0,0,w,h);g.fillStyle='rgba(235,240,244,.42)';
       g.font='500 9px "DM Mono", monospace';g.textAlign='center';g.textBaseline='middle';
-      g.fillText('ACQUIRING IDENTITY SIGNAL',w/2,h/2);
+      g.fillText('LOADING',w/2,h/2);
     }
     el.classList.remove('is-resolving');
     if(!reduced){void el.offsetWidth;el.classList.add('is-resolving')}
@@ -1578,18 +1606,28 @@ Relay.mount({
   }
 
   function buildMobileStream(){
-    var head=document.getElementById('workHead'),hr=head.getBoundingClientRect();
-    var lineX=hr.left+8,lineW=Math.max(120,Math.min(hr.width-16,W-40));
-    var lineY=hr.top+scrollY-10;
-    for(var i=0;i<renderCount;i++){
-      var u=(i*.61803398875)%1;
-      if(i<renderCount*.95){
-        tB[2*i]=lineX+u*lineW+(Math.random()-.5)*3;
-        tB[2*i+1]=lineY+(Math.random()-.5)*4;
-      }else{
-        var a=u*6.283,r=3+((i%7)/6)*13;
-        tB[2*i]=lineX+Math.min(lineW*.12,38)+Math.cos(a)*r;
-        tB[2*i+1]=lineY+Math.sin(a)*r*.5;
+    /* THIS IS THE ONE THAT WINS. buildRecord()'s W<=900 branch runs after
+       buildStream(), so whatever tB this writes is what the phone actually shows.
+       Phase 1 is now the same landing the desktop uses — same function, same form —
+       aimed at the reserved well instead of the relay's cloud. */
+    if(wellVis){
+      buildLanding(wellX,wellY,wellR);
+    }else{
+      /* fallback: the old line under the section head, for reduced motion and for
+         any width where the well is not laid out */
+      var head=document.getElementById('workHead'),hr=head.getBoundingClientRect();
+      var lineX=hr.left+8,lineW=Math.max(120,Math.min(hr.width-16,W-40));
+      var lineY=hr.top+scrollY-10;
+      for(var i=0;i<renderCount;i++){
+        var u=(i*.61803398875)%1;
+        if(i<renderCount*.95){
+          tB[2*i]=lineX+u*lineW+(Math.random()-.5)*3;
+          tB[2*i+1]=lineY+(Math.random()-.5)*4;
+        }else{
+          var a=u*6.283,r=3+((i%7)/6)*13;
+          tB[2*i]=lineX+Math.min(lineW*.12,38)+Math.cos(a)*r;
+          tB[2*i+1]=lineY+Math.sin(a)*r*.5;
+        }
       }
     }
     /* phase 2 — the threshold signal redistributes onto each proof card as it enters */
@@ -1805,22 +1843,54 @@ Relay.mount({
     });
   }
 
-  function buildStream(){
-    var sx0=portCX,sy0=heroH*0.72,cx=W*0.30,cy=heroH*1.45;
+  /* THE LANDING, one definition for both screens.
+     An orthographic projection of a dot sphere: 55% on the shell, the rest filling
+     the interior, which is what a dotted sphere actually looks like from outside.
+     Desktop aims it at the relay's cloud; the phone aims it at the reserved well.
+     It lives in one function on purpose — there are two stream builders on this page
+     (buildStream and buildMobileStream, and the mobile one overwrites tB from inside
+     buildRecord), and the landing must not be able to differ between them. */
+  function buildLanding(cx,cy,r){
     for(var i=0;i<renderCount;i++){
-      var t=i/renderCount;
-      if(t<0.86){
-        var tt=t/0.86;
-        var x=(1-tt)*(1-tt)*sx0+2*(1-tt)*tt*cx+tt*tt*anchorX;
-        var y=(1-tt)*(1-tt)*sy0+2*(1-tt)*tt*cy+tt*tt*anchorY;
-        var spread=(1-tt)*70+7;
-        tB[2*i]=x+(Math.random()-.5)*spread;
-        tB[2*i+1]=y+(Math.random()-.5)*spread*0.6;
-      }else{
-        tB[2*i]=anchorX+Math.random()*300;
-        tB[2*i+1]=anchorY+(Math.random()-.5)*5;
-      }
+      var u=Math.random()*2-1,th=Math.random()*6.2832,sr=Math.sqrt(1-u*u);
+      var rad=r*(Math.random()<0.55?1:Math.cbrt(Math.random()));
+      tB[2*i]=cx+Math.cos(th)*sr*rad;
+      tB[2*i+1]=cy+u*rad*0.94;
     }
+  }
+
+  function buildStream(){
+    var i;
+    if(W<=900||!relayVis){
+      /* PHONE. The relay is display:none here, so there is nothing to hand off to —
+         but the dots now resolve into the same form anyway, in the reserved well,
+         and the per-stop hops onto the four systems take over from there.
+         The old bezier-into-a-line under the heading is the fallback for when the
+         well is absent (reduced motion, or a desktop window with no relay). */
+      if(wellVis){buildLanding(wellX,wellY,wellR);return;}
+      var sx0=portCX,sy0=heroH*0.72,cx=W*0.30,cy=heroH*1.45;
+      for(i=0;i<renderCount;i++){
+        var t=i/renderCount;
+        if(t<0.86){
+          var tt=t/0.86;
+          var x=(1-tt)*(1-tt)*sx0+2*(1-tt)*tt*cx+tt*tt*anchorX;
+          var y=(1-tt)*(1-tt)*sy0+2*(1-tt)*tt*cy+tt*tt*anchorY;
+          var spread=(1-tt)*70+7;
+          tB[2*i]=x+(Math.random()-.5)*spread;
+          tB[2*i+1]=y+(Math.random()-.5)*spread*0.6;
+        }else{
+          tB[2*i]=anchorX+Math.random()*300;
+          tB[2*i+1]=anchorY+(Math.random()-.5)*5;
+        }
+      }
+      return;
+    }
+    /* DESKTOP — no landing line any more. The hero dots resolve into the SAME FORM the
+       relay draws, at the relay's own radius, centred where the relay's cloud will be
+       once the stage pins. They then fade to nothing across the half screen before the
+       pin (see `handoff`), which is exactly where the relay's own dots come up — so one
+       set becomes the other instead of arriving somewhere and stopping. */
+    buildLanding(relayX,relayY,relayR);
   }
 
   setTimeout(function(){
@@ -1834,7 +1904,9 @@ Relay.mount({
   function tick(t){
     if(!W){requestAnimationFrame(tick);return}
     var sy=(window.__forceY!=null?window.__forceY:scrollY);
-    depthEl.textContent=String(Math.round(sy/8)).padStart(3,'0')+'M';
+    /* was a sonar-flavoured "000M" depth gauge; it is just scroll position, so say that */
+    var maxSy=Math.max(1,document.documentElement.scrollHeight-innerHeight);
+    depthEl.textContent=Math.round(Math.min(1,sy/maxSy)*100)+'%';
     var p=reduced?0:ease(Math.max(0,Math.min(1,sy/(heroH*0.95))));
     var mt=(t-morphStart)/1000;
     var morphing=!reduced&&mt<1.55;
@@ -1843,7 +1915,16 @@ Relay.mount({
     if(!morphing&&!finalMorphFrame&&!yChanged&&!renderDirty){
       requestAnimationFrame(tick);return;
     }
+    /* THE HANDOFF. Hero dots go to nothing across the half screen before the relay
+       pins — the same stretch over which the relay's own cloud comes up. Below zero
+       there is nothing left to draw, so skip the whole pass. */
+    var handoff=1;
+    if(W>900&&relayVis)
+      handoff=1-Math.max(0,Math.min(1,(sy-(relayTop-innerHeight*0.75))/(innerHeight*0.55)));
+
     ctx.clearRect(0,0,W,H);
+    if(handoff<=0){lastRenderY=sy;renderDirty=false;morphActive=morphing;
+      requestAnimationFrame(tick);return;}
     var stopQ=null;
     if(W<=900&&!reduced&&mobileStops.length){
       stopQ=[];
@@ -1876,7 +1957,11 @@ Relay.mount({
       }
       ctx.fillStyle=colors[i]||'rgba(235,240,244,.8)';
       var sz=sizeA[i]||(i<WORD?1.9:(i<WORD+LOGO?1.6:(i<WORD+LOGO+MOTIF?2.2:1.7)));
-      ctx.globalAlpha=W<=900?Math.min(.9,.12+bend*.64+pp*.2):1;
+      /* Phones: bend carries the flight and falls back to 0 on arrival, so the
+         arrival term is what you actually see standing still. It used to be .2,
+         which was right for a thin line under a heading and far too faint for the
+         landing cloud, which is now the phone's whole payoff for that section. */
+      ctx.globalAlpha=W<=900?Math.min(.9,.12+bend*.6+pp*(wellVis?.46:.2)):handoff;
       ctx.fillRect(px[i],py[i],sz,sz);
     }
     ctx.globalAlpha=1;
@@ -1937,247 +2022,8 @@ Relay.mount({
 })();
 </script>
 <script>
-/* ---------- proof glyphs: dots explain, stills prove ---------- */
 (function(){
   'use strict';
-  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var accent='#12B592',accTick=0;
-  function refreshAccent(){accent=getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()||'#12B592'}
-  refreshAccent();
-
-  function setup(id){
-    var cv=document.getElementById(id);if(!cv)return null;
-    var ctx=cv.getContext('2d'),w=0,h=0,top=0,left=0;
-    function size(){
-      var r=cv.getBoundingClientRect();if(!r.width)return;
-      var dpr=Math.min(devicePixelRatio||1,2);
-      w=r.width;h=r.height;top=r.top+scrollY;left=r.left;
-      cv.width=w*dpr;cv.height=h*dpr;
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-    }
-    size();
-    /* charge stays 1 unless a future pass publishes window.__pingR (sonar gating currently inert) */
-    return {cv:cv,ctx:ctx,size:size,W:function(){return w},H:function(){return h},top:function(){return top},left:function(){return left},charge:1};
-  }
-  function sonarPass(o){
-    if(!o)return;
-    var R=window.__pingR;
-    if(innerWidth<=900||reduced||R==null){o.charge=1;o.cv.style.opacity='';return}
-    var C=window.__pingC||{x:innerWidth/2,y:0};
-    var pcx=o.left()+o.W()/2,pcy=o.top()+o.H()/2;
-    var d0=Math.hypot(pcx-C.x,pcy-C.y);
-    var half=Math.max(120,o.H()*.6);
-    if(Math.abs(R-d0)<half)o.charge=1;
-    else if(R>d0+half)o.charge=Math.max(.62,o.charge*.99);
-    else o.charge*=.9;
-    o.cv.style.opacity=o.charge.toFixed(3);
-    /* the wavefront arc crossing this instrument panel */
-    if(R>40&&Math.abs(R-d0)<half+o.W()*.5&&o.charge>.03){
-      var c=o.ctx,lx=C.x-o.left(),ly=C.y-o.top();
-      c.globalAlpha=.55;c.fillStyle=accent;
-      var step=6/R;
-      for(var a2=0;a2<6.2832;a2+=step){
-        var xx=lx+Math.cos(a2)*R,yy=ly+Math.sin(a2)*R;
-        if(xx<0||xx>o.W()||yy<0||yy>o.H())continue;
-        c.fillRect(xx,yy,1.6,1.6);
-      }
-      c.globalAlpha=1;
-    }
-  }
-  function dot(ctx,x,y,r,style,a){ctx.globalAlpha=a;ctx.fillStyle=style;ctx.beginPath();ctx.arc(x,y,r,0,6.2832);ctx.fill()}
-
-  /* SYS 01 — training loop */
-  var loop=setup('glyphLoop');
-  var LN=[{a:Math.PI,t:'TRAINEE',ax:'right'},{a:-Math.PI/2,t:'SIMULATION',ax:'center'},{a:0,t:'AI ASSESSMENT',ax:'left'},{a:Math.PI/2,t:'ADAPTATION',ax:'center'}];
-  function drawLoop(now){
-    if(!loop)return;
-    var ctx=loop.ctx,w=loop.W(),h=loop.H();if(!w)return;
-    var cx=w/2,cy=h/2,rx=Math.min(w*.33,215),ry=Math.min(h*.29,118);
-    ctx.clearRect(0,0,w,h);
-    /* Reorganize handoff: the page dots BECOME this glyph; we fade in as they settle */
-    var hp=window.__loopHandoff==null?1:window.__loopHandoff;
-    var ho=Math.max(0,Math.min(1,(hp-.82)/.18));
-    if(ho<=0)return;
-    var i,a,x,y;
-    for(i=0;i<96;i++){
-      a=(i/96)*6.2832;
-      dot(ctx,cx+Math.cos(a)*rx,cy+Math.sin(a)*ry,.9,'#F0F2F4',.16*ho);
-    }
-    var t=now*.000055;
-    var flowA=[];
-    for(i=0;i<26;i++){
-      a=((i/26)+t)%1*6.2832;
-      flowA.push(a);
-      x=cx+Math.cos(a)*rx;y=cy+Math.sin(a)*ry;
-      dot(ctx,cx+Math.cos(a-.05)*rx,cy+Math.sin(a-.05)*ry,1,accent,.28*ho);
-      dot(ctx,x,y,1.5,accent,.9*ho);
-    }
-    ctx.font='500 9px "DM Mono",monospace';
-    for(i=0;i<4;i++){
-      var n=LN[i];x=cx+Math.cos(n.a)*rx;y=cy+Math.sin(n.a)*ry;
-      var near=flowA.some(function(fa){var d=Math.abs(((fa-n.a)%6.2832+6.2832)%6.2832);return Math.min(d,6.2832-d)<.16});
-      ctx.globalAlpha=ho;ctx.strokeStyle=accent;ctx.lineWidth=1;
-      ctx.beginPath();ctx.arc(x,y,near?6:4.5,0,6.2832);ctx.stroke();
-      if(near){ctx.globalAlpha=.35*ho;ctx.beginPath();ctx.arc(x,y,10,0,6.2832);ctx.stroke()}
-      dot(ctx,x,y,1.6,accent,ho);
-      ctx.globalAlpha=.6*ho;ctx.fillStyle='#F0F2F4';ctx.textAlign=n.ax;
-      var lx=x,ly=y,tw=ctx.measureText(n.t).width;
-      if(n.ax==='right')lx=Math.max(lx-14,tw+8);else if(n.ax==='left')lx=Math.min(lx+14,w-8-tw);else ly+=(n.a>0?21:-15);
-      ctx.fillText(n.t,lx,ly+3);
-    }
-    ctx.globalAlpha=1;
-  }
-
-  /* SYS 02 — valve cycle */
-  var valve=setup('glyphValve');
-  var FP=[];for(var q=0;q<46;q++)FP.push({u:Math.random(),y:Math.random()*2-1,s:.65+Math.random()*.7});
-  function ease(k){k=Math.max(0,Math.min(1,k));return k*k*(3-2*k)}
-  function valveOpen(now){
-    var p=(now%2600)/2600;
-    if(p<.3)return ease(p/.14);           /* opening */
-    if(p<.52)return 1;                    /* systole hold */
-    if(p<.7)return 1-ease((p-.52)/.18);   /* closing */
-    return 0;                             /* diastole */
-  }
-  function drawValve(now){
-    if(!valve)return;
-    var ctx=valve.ctx,w=valve.W(),h=valve.H();if(!w)return;
-    var cx=w/2,cy=h/2,R=Math.min(h*.24,74),x0=w*.1,x1=w*.9;
-    ctx.clearRect(0,0,w,h);
-    var o=reduced?1:valveOpen(now),i,x;
-    for(i=0;i<44;i++){
-      x=x0+(i/43)*(x1-x0);
-      dot(ctx,x,cy-R,1,'#F0F2F4',.3);
-      dot(ctx,x,cy+R,1,'#F0F2F4',.3);
-    }
-    /* flow */
-    for(i=0;i<FP.length;i++){
-      var f=FP[i];
-      if(!reduced){
-        var gate=o>.35||f.u*(x1-x0)+x0<cx-8;
-        var v=(o*.9+.1)*f.s*.0022;
-        if(o<=.35&&f.u*(x1-x0)+x0>cx-30&&f.u*(x1-x0)+x0<cx-6)v*=.12; /* pool behind sealed valve */
-        if(o<=.35&&f.u*(x1-x0)+x0>=cx-8&&f.u*(x1-x0)+x0<cx+2)v=0;
-        f.u+=v*16.6;
-        if(f.u>1){f.u=0;f.y=Math.random()*2-1}
-      }
-      x=x0+f.u*(x1-x0);
-      dot(ctx,x,cy+f.y*R*.72,1.3,accent,x>cx?.9:.62);
-    }
-    /* leaflets */
-    var closedA=1.396,openA=.31; /* radians from wall toward centerline */
-    var aTop=closedA-(closedA-openA)*o,len=R*.96;
-    var leaf=function(hy,dir){
-      for(var j=0;j<=13;j++){
-        var k=j/13,lx=cx+Math.cos(aTop)*len*k,ly=hy+dir*Math.sin(aTop)*len*k;
-        dot(ctx,lx,ly,j===13?2:1.4,accent,j===13?1:.85);
-      }
-      dot(ctx,cx,hy,2,'#F0F2F4',.8);
-    };
-    leaf(cy-R,1);leaf(cy+R,-1);
-    /* state label */
-    ctx.font='500 9px "DM Mono",monospace';ctx.textAlign='right';
-    ctx.globalAlpha=.62;ctx.fillStyle='#F0F2F4';
-    ctx.fillText(o>.5?'SYSTOLE — FLOW':'DIASTOLE — SEALED',w-14,18);
-    ctx.globalAlpha=1;
-  }
-
-  /* SYS 03 — Omniverse scan sweep over the IYH still */
-  var scan=setup('glyphScan'),scanPts=null;
-  function buildScan(){
-    var cv=document.getElementById('glyphScan');if(!cv)return;
-    var img=cv.parentElement.querySelector('img');
-    if(!img||!img.complete||!img.naturalWidth){if(img)img.addEventListener('load',buildScan,{once:true});return}
-    var gw=110,gh=66,oc=document.createElement('canvas');
-    oc.width=gw;oc.height=gh;
-    var octx=oc.getContext('2d');
-    /* mimic object-fit:cover */
-    var br=cv.getBoundingClientRect(),s=Math.max(br.width/img.naturalWidth,br.height/img.naturalHeight);
-    var sw=br.width/s,sh=br.height/s,sx=(img.naturalWidth-sw)/2,sy=(img.naturalHeight-sh)/2;
-    try{
-      octx.drawImage(img,sx,sy,sw,sh,0,0,gw,gh);
-      var d=octx.getImageData(0,0,gw,gh).data;
-    }catch(e){return}
-    scanPts=[];
-    for(var yy=0;yy<gh;yy++)for(var xx=0;xx<gw;xx++){
-      var k=(yy*gw+xx)*4,lum=(d[k]*.299+d[k+1]*.587+d[k+2]*.114)/255;
-      if(lum>.16)scanPts.push([(xx+.5)/gw,(yy+.5)/gh,Math.min(1,lum*1.2)]);
-    }
-  }
-  buildScan();
-  function drawScan(now){
-    if(!scan)return;
-    var ctx=scan.ctx,w=scan.W(),h=scan.H();if(!w)return;
-    ctx.clearRect(0,0,w,h);
-    if(!scanPts||reduced)return;
-    var period=7200,ph=(now%period)/period;
-    if(ph>.42)return; /* idle between sweeps */
-    var bx=(ph/.42)*(w+160)-80,half=68;
-    for(var i=0;i<scanPts.length;i++){
-      var p=scanPts[i],x=p[0]*w,dx=bx-x;
-      if(dx<0||dx>half)continue; /* dots trail behind the leading edge */
-      var f=1-dx/half;
-      dot(ctx,x,p[1]*h,1.1,accent,p[2]*.8*f);
-    }
-    ctx.globalAlpha=.8;ctx.fillStyle=accent;
-    ctx.fillRect(bx,0,1,h);
-    ctx.globalAlpha=1;
-  }
-
-  /* SYS 04 — flavor-release curve, replotted on a cycle */
-  var curve=setup('glyphCurve'),curveSeed=0;
-  function drawCurve(now){
-    if(!curve)return;
-    var ctx=curve.ctx,w=curve.W(),h=curve.H();if(!w)return;
-    ctx.clearRect(0,0,w,h);
-    var period=4600,cyc=Math.floor(now/period),ph=reduced?1:Math.min(1,(now%period)/3100);
-    if(cyc!==curveSeed)curveSeed=cyc;
-    var pk=.32+((cyc*2654435761)%97)/97*.2; /* per-cycle variation */
-    var x0=10,x1=w-10,y0=h-9,amp=h-20;
-    for(var i=0;i<=24;i++)dot(ctx,x0+(i/24)*(x1-x0),y0,.8,'#F0F2F4',.28);
-    var n=46,lim=Math.floor(n*ph);
-    for(var j=0;j<=lim;j++){
-      var t=j/n,y=Math.pow(t,1.55)*Math.exp(-4.2*Math.max(0,t-pk));
-      var yy=y0-Math.min(1,y*2.6)*amp;
-      dot(ctx,x0+t*(x1-x0),yy,j===lim?1.8:1.05,accent,j===lim?1:.7);
-    }
-  }
-
-  var running=false,raf=0;
-  function frame(now){
-    if(++accTick%30===0)refreshAccent();
-    drawLoop(now);drawValve(now);drawScan(now);drawCurve(now);
-    sonarPass(loop);sonarPass(valve);sonarPass(scan);sonarPass(curve);
-    if(running)raf=requestAnimationFrame(frame);
-  }
-  function start(){if(!running&&!reduced){running=true;raf=requestAnimationFrame(frame)}}
-  function stop(){running=false;cancelAnimationFrame(raf)}
-
-  var vis=0,targets=[loop,valve,scan,curve].filter(Boolean).map(function(o){return o.cv});
-  if('IntersectionObserver' in window&&targets.length){
-    var io=new IntersectionObserver(function(es){
-      es.forEach(function(e){vis+=e.isIntersecting?1:-1});
-      vis=Math.max(0,vis);
-      if(vis>0)start();else stop();
-    },{rootMargin:'80px'});
-    targets.forEach(function(t){io.observe(t)});
-  }else start();
-  addEventListener('resize',function(){
-    if(loop)loop.size();if(valve)valve.size();if(scan)scan.size();if(curve)curve.size();
-    buildScan();
-    var n2=performance.now();
-    drawLoop(n2);drawValve(n2);drawScan(n2);drawCurve(n2);
-  });
-  drawLoop(0);drawValve(0);drawCurve(0);
-
-  /* bench reveal */
-  if('IntersectionObserver' in window){
-    var rio=new IntersectionObserver(function(es){
-      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-in');rio.unobserve(e.target)}});
-    },{rootMargin:'-40px'});
-    document.querySelectorAll('.bench').forEach(function(b){rio.observe(b)});
-  }else document.querySelectorAll('.bench').forEach(function(b){b.classList.add('is-in')});
-
   /* path chip hover previews (fine pointers only) */
   var prev=document.getElementById('chipPreview');
   if(prev&&matchMedia('(hover: hover) and (pointer: fine)').matches){

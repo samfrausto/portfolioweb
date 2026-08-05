@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VR Baseball Training System — Samuel Frausto</title>
-<meta name="description" content="An immersive VR training environment simulating realistic baseball scenarios — custom ball physics, pitch simulation, and strike-zone detection, built solo in Unity and Blender.">
+<title>VR Baseball Training System | Samuel Frausto</title>
+<meta name="description" content="An immersive VR training environment with custom ball physics, pitch simulation, and strike-zone detection, built solo in Unity and Blender.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -29,9 +29,9 @@
   <a class="back-link" href="../index.html#work">All projects</a>
   <p class="case-eyebrow">XR / 3D · Independent project</p>
   <h1 class="case-title">VR Baseball Training System</h1>
-  <p class="case-lead">Ten years behind the plate, one torn hamstring — and a question: <strong>could a headset give a catcher their reps back?</strong></p>
+  <p class="case-lead">A VR training environment for catchers with <strong>custom pitch physics, receiving drills, and strike-zone detection.</strong></p>
   <div class="case-facts">
-    <div class="fact"><p class="fact-k">Role</p><p class="fact-v">Solo — design, code, 3D</p></div>
+    <div class="fact"><p class="fact-k">Role</p><p class="fact-v">Solo: design, code, 3D</p></div>
     <div class="fact"><p class="fact-k">Status</p><p class="fact-v accent">In progress</p></div>
     <div class="fact"><p class="fact-k">Platform</p><p class="fact-v">Meta Quest</p></div>
     <div class="fact"><p class="fact-k">Stack</p><p class="fact-v">Unity · Blender · C#</p></div>
@@ -40,30 +40,30 @@
 
 <div class="case-media reveal">
   <figure>
-    <img src="../assets/projects/vr-baseball-01.png" alt="VR baseball training environment — view from behind the plate">
-    <figcaption class="media-caption">Fig 01 · The training environment, from the catcher's crouch</figcaption>
+    <img src="../assets/projects/vr-baseball-01.png" alt="VR baseball training environment viewed from behind the plate">
+    <figcaption class="media-caption">Training environment from the catcher's position</figcaption>
   </figure>
 </div>
 
 <section class="case-section reveal">
-  <span class="cs-label">The problem</span>
+  <span class="cs-label">The project</span>
   <div class="cs-body">
-    <h2>Real reps are expensive. <em>Injured reps are impossible.</em></h2>
-    <p>I was recruited to play baseball on speed and a decade of catching instincts — until a torn hamstring ended that path. But the training problem stuck with me: a catcher's hardest skill, reading a pitch in the quarter-second after release, can only be practiced against live arms. Pitchers' arms wear out. Facilities cost money. And an injured player gets zero reps at all.</p>
-    <p>VR flips that constraint. A headset can throw <strong>unlimited pitches with perfect variety</strong> — every speed, every break, any count — with no arm fatigue and no facility. The catch: it only works if the ball behaves exactly like a real one.</p>
+    <h2>Repeatable catcher training without a live pitcher.</h2>
+    <p>The system gives catchers repeatable practice reading and receiving pitches in a headset. It can run drills without using a pitcher's arm or reserving a field.</p>
+    <p>The core requirement is believable ball behavior. Each pitch needs the speed, spin, and break that makes the drill useful.</p>
   </div>
 </section>
 
 <section class="case-section reveal">
   <span class="cs-label">The build</span>
   <div class="cs-body">
-    <h2>Physics first — <em>everything else follows.</em></h2>
+    <h2>Custom physics drive every drill.</h2>
     <p>The whole experience lives or dies on whether a fastball feels like a fastball. So the core of the project is a custom ball-physics engine, with the environment and interaction built around it.</p>
     <div class="build-list">
-      <div class="build-item"><span class="bi-num">01</span><p class="bi-t">Custom ball physics</p><p class="bi-d">Pitch-type simulation — fastball, curve, slider — each with authentic spin, break, and velocity profiles rather than canned animations.</p></div>
-      <div class="build-item"><span class="bi-num">02</span><p class="bi-t">Real-time trajectory model</p><p class="bi-d">Trajectories computed live with speed variation, so no two pitches arrive identically — the way a real arm works.</p></div>
+      <div class="build-item"><span class="bi-num">01</span><p class="bi-t">Custom ball physics</p><p class="bi-d">Fastball, curveball, and slider profiles use defined spin, break, and velocity instead of canned animations.</p></div>
+      <div class="build-item"><span class="bi-num">02</span><p class="bi-t">Real-time trajectory model</p><p class="bi-d">Pitch trajectories are calculated live with controlled speed variation.</p></div>
       <div class="build-item"><span class="bi-num">03</span><p class="bi-t">Catcher scenarios</p><p class="bi-d">Interactive drills built around the receiving position, with strike-zone detection judging every catch and frame.</p></div>
-      <div class="build-item"><span class="bi-num">04</span><p class="bi-t">Ground-up 3D</p><p class="bi-d">Every asset in the scene — field, gear, environment — modeled from scratch in Blender and brought into Unity.</p></div>
+      <div class="build-item"><span class="bi-num">04</span><p class="bi-t">Ground-up 3D</p><p class="bi-d">The field, gear, and environment were modeled in Blender and assembled in Unity.</p></div>
     </div>
   </div>
 </section>
@@ -71,14 +71,14 @@
 <div class="case-media reveal" style="margin-top:3rem">
   <figure>
     <img src="../assets/projects/vr-baseball-02.png" alt="VR baseball pitch simulation in Unity">
-    <figcaption class="media-caption">Fig 02 · Pitch simulation — trajectory and strike-zone detection in Unity</figcaption>
+    <figcaption class="media-caption">Pitch simulation and strike-zone detection in Unity</figcaption>
   </figure>
 </div>
 
 <div class="case-outcome reveal">
   <div class="outcome-inner">
     <p class="outcome-label">Where it stands</p>
-    <p class="outcome-text">The physics engine and catcher drills are working in-headset. Next: <em>batter scenarios and pitch-recognition scoring</em> — turning reps into measurable progress.</p>
+    <p class="outcome-text">The physics engine and catcher drills work in-headset. Next: <em>batter scenarios and pitch-recognition scoring.</em></p>
   </div>
 </div>
 
