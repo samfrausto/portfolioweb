@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Explore the cardiac cycle in nine interactive chapters.">
+  <title>The Cardiac Cycle</title>
+  <link rel="stylesheet" href="./assets/index-BH9j2uQx.css"><link rel="stylesheet" href="./mobile-proof.css"><link rel="stylesheet" href="./mobile-book.css?v=heart-sync-20260909">
+  <script type="module" src="./mobile-book.js?v=heart-sync-20260909"></script>
+</head>
+<body>
+  <main id="reader">
+    <header class="masthead"><span>The cardiac cycle</span><button id="chapters-button">Chapters</button></header>
+    <section class="intro" aria-labelledby="chapter-title">
+      <h1 id="chapter-title" tabindex="-1">The four chambers</h1>
+      <p id="chapter-description">Four rooms in two pairs. The top two only collect blood. The bottom two do the pumping, and they pump to very different places.</p>
+    </section>
+    <div id="reading-stage" class="stage-slot">
+      <div id="model-stage"><canvas id="scene" aria-label="Heart model" tabindex="-1"></canvas><div id="pins" aria-hidden="true"></div><p id="load-status" role="status">Loading the heart…</p><button id="show-all" hidden>Show all four</button></div>
+    </div>
+    <section id="finale" hidden aria-label="Wiggers diagram">
+      <div id="finale-heart" class="stage-slot" aria-label="Heart synchronized with the diagram"></div><div id="finale-phases" aria-label="Choose a phase"></div><div class="finale-caption"><p id="finale-caption"></p><span id="finale-time"></span></div>
+      <div class="finale-values"><span>Pressure · mmHg</span><button id="finale-lv" aria-label="Enlarge ventricular pressure">LV</button><button id="finale-ao" aria-label="Enlarge aortic pressure">Ao</button><button id="finale-la" aria-label="Enlarge atrial pressure">LA</button></div>
+      <div id="finale-plot"></div><p class="finale-hint">Drag to follow the beat · tap a label to enlarge</p>
+    </section>
+    <div id="reading-labels"><div id="labels" class="labels" aria-label="Anatomy labels"></div></div>
+    <div id="reading-phase"><label id="beat-control" hidden><span id="beat-phase">Beat</span><input id="beat" type="range" min="0" max="1000" value="0" aria-label="Scrub the heartbeat"></label><div id="phase-controls" class="phase-controls" aria-label="Valve pair"></div></div>
+    <div class="reading-actions"><button id="read-more">Read more <span aria-hidden="true">+</span></button><button id="play-beat" hidden disabled aria-pressed="false">Play beat</button><button id="explore" disabled>Explore model <span aria-hidden="true">↗</span></button></div>
+    <nav class="page-turner" aria-label="Chapters"><button id="previous" disabled><span aria-hidden="true">←</span> Back</button><span id="page-position" aria-live="polite">1 / 9</span><button id="next">Next <span aria-hidden="true">→</span></button></nav>
+  </main>
+  <dialog id="exploration" aria-labelledby="explore-title">
+    <header class="explore-header"><div><p class="eyebrow">Explore</p><h2 id="explore-title">The four chambers</h2></div><button id="done">Done</button></header>
+    <div class="explore-tools"><button id="labels-toggle" aria-pressed="true">Labels</button><span>Drag to turn</span><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-in" aria-label="Zoom in">+</button><button id="reset" aria-label="Reset model view">Reset</button></div>
+    <div id="tool-tabs" aria-label="Explore views"><button data-tool="heart" aria-pressed="true">Heart</button><button data-tool="timeline">Timeline</button><button data-tool="controls">Controls</button></div><div id="tools-area"><div id="timeline-content"></div><div id="controls-content"></div></div><div id="native-actions"><button id="native-help" hidden>How to use</button></div><div id="explore-stage" class="stage-slot"></div>
+    <div id="explore-labels"></div><div id="explore-phase"></div>
+  </dialog>
+  <dialog id="details" class="sheet" aria-labelledby="details-title"><header><h2 id="details-title">The four chambers</h2><button id="close-details" aria-label="Close details">Close</button></header><div id="details-copy" class="sheet-copy"></div><button id="study" hidden>Study this valve ↗</button></dialog>
+  <dialog id="chart-detail" class="sheet" aria-labelledby="chart-detail-title"><header><h2 id="chart-detail-title">Wiggers diagram</h2><button id="close-chart">Close</button></header><output id="chart-detail-live"></output><div id="chart-enlarged"></div><p id="chart-detail-note"></p></dialog>
+  <div id="annotations" aria-hidden="true"></div><dialog id="chapter-menu" class="sheet" aria-labelledby="menu-title"><header><h2 id="menu-title">Chapters</h2><button id="close-menu">Close</button></header><nav id="chapter-list"></nav></dialog><noscript><p class="no-script">JavaScript is needed for the interactive model. <a href="./index.html?legacy=1">Read the full heart site</a>.</p></noscript>
+</body>
+</html>
