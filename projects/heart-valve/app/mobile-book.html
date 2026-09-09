@@ -3,13 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="Explore the cardiac cycle in nine interactive chapters.">
+  <meta name="description" content="An interactive crash course in heart anatomy and function.">
   <title>The Cardiac Cycle</title>
-  <link rel="stylesheet" href="./assets/index-BH9j2uQx.css"><link rel="stylesheet" href="./mobile-proof.css"><link rel="stylesheet" href="./mobile-book.css?v=av-connector-20260909">
-  <script type="module" src="./mobile-book.js?v=heart-sync-20260909"></script>
+  <link rel="stylesheet" href="./assets/index-BH9j2uQx.css"><link rel="stylesheet" href="./mobile-proof.css"><link rel="stylesheet" href="./mobile-book.css?v=title-20260909">
+  <script type="module" src="./mobile-book.js?v=title-20260909"></script>
 </head>
 <body>
-  <main id="reader">
+  <main id="cover" aria-labelledby="cover-title">
+    <header class="cover-masthead">The cardiac cycle</header>
+    <section class="cover-intro">
+      <p class="cover-kicker">Anatomy in motion</p>
+      <h1 id="cover-title" tabindex="-1">The heart,<br>made clear.</h1>
+      <p class="cover-description">An interactive crash course in heart anatomy and function.</p>
+      <p class="cover-note">Explore the chambers and valves, follow a heartbeat, and see how it all connects.</p>
+    </section>
+    <footer class="cover-footer"><span>Nine chapters. One heartbeat.</span><button id="start-course">Start exploring <span aria-hidden="true">→</span></button></footer>
+  </main>
+  <main id="reader" hidden>
     <header class="masthead"><span>The cardiac cycle</span><button id="chapters-button">Chapters</button></header>
     <section class="intro" aria-labelledby="chapter-title">
       <h1 id="chapter-title" tabindex="-1">The four chambers</h1>
