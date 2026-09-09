@@ -44,3 +44,7 @@ body[data-finale=true][data-large-text=true] #finale{display:grid;height:900px;g
 body[data-finale=true] .reading-actions{gap:8px}body[data-finale=true] .reading-actions button{gap:0}body[data-finale=true] .reading-actions span{display:none}#play-beat{color:var(--accent);min-width:76px}
 @media(max-height:600px) and (orientation:portrait){body[data-finale=true] #finale{grid-template-rows:88px 0 44px minmax(0,1fr) 18px}body[data-finale=true] .finale-caption{display:none}}
 @media(orientation:landscape) and (max-height:600px){body[data-finale=true] #finale-phases button{min-height:44px}body[data-finale=true] #finale-heart{height:174px}body[data-finale=true] .finale-caption{min-height:26px;font-size:.65rem}}
+
+/* Page 5's status label lives below the model on mobile, so its desktop
+   connector has no destination here. Keep the AV-node pin and 3D pathway. */
+body[data-section="profile"] #annotations > svg > line[stroke-dasharray="3 3"]{display:none}
