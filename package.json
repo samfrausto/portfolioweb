@@ -2,6 +2,7 @@
   "name": "portfolioweb",
   "private": true,
   "scripts": {
-    "build": "rm -rf dist && mkdir -p dist dist/prototypes && cp index.html style.css shared.js centerpiece.js path-dots.js path-dots-morph.js hero-depth.js scroll-travel.js now-system.js prototypes.html prototype-immersive.html prototype-hero-depth.html dist/ && cp prototypes/relay-engine.js dist/prototypes/ && cp -R projects dist/projects && cp -R assets dist/"
+    "build": "node scripts/build.mjs",
+    "check:workshop": "node --check app.js && node --check scene.js && node --check display.js && node --check portfolio.js && node --check project-views.js && node --check heart-media.js && node --check heart-engine.js && node --check scripts/build.mjs"
   }
 }
