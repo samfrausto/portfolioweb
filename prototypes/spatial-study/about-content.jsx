@@ -3,7 +3,7 @@ import {Button} from '@cloudflare/kumo/components/button';
 import {skills,allSkills} from './content.js';
 export function AboutContent({open}){
  return <div className="about-story">
- <div className="about-profile"><img src="/personal/portrait.jpg" alt="Samuel Frausto in Lugano"/><div><h3>Samuel “Frosty” Frausto</h3><p>I’m a designer and creative technologist from Illinois, studying in USC’s first Human-Technology Interaction cohort and developing XR + AI systems at Edwards Lifesciences.</p><p className="availability">Looking for Summer 2027.</p></div></div>
+ <div className="about-profile"><img src="/personal/portrait.jpg" alt="Samuel Frausto beneath a stone arcade"/><div><h3>Samuel “Frosty” Frausto</h3><p>I’m a designer and creative technologist from Illinois, studying in USC’s first Human-Technology Interaction cohort and developing XR + AI systems at Edwards Lifesciences.</p><p className="availability">Looking for Summer 2027.</p></div></div>
  <h3>A change of direction</h3>
  <p>One week after my 19th birthday, shortly after graduating high school, I moved by myself to Lugano, Switzerland, without much of a plan. I was on a premedical track and expected to spend at least nine more years in school. Four months somewhere completely unfamiliar changed that. Seeing different cultures and histories firsthand made me reconsider what I wanted to build, and how I wanted to make an impact.</p>
  <p>That brought me to USC’s Iovine and Young Academy and Viterbi School of Engineering. I’m part of the inaugural Human-Technology Interaction cohort, working across design, engineering and emerging technology. I’m drawn to the moment when a new tool becomes something people can actually use—and to the teams figuring out what should come next.</p>
