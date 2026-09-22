@@ -210,7 +210,7 @@ export const PORTFOLIO={
       "featured": false,
       "url": "https://www.samfrausto.com/projects/synesthesia.v2.html",
       "live": false,
-      "team": "My teammates owned modeling and visual design. I owned interaction and runtime mechanics.",
+      "team": "I was the technical lead only and had no control over the design. My teammates owned modeling and visual design; I implemented interaction and runtime mechanics.",
       "mediaCaption": "Scene switching and color controls · Recorded in the Apple Vision Pro simulator.",
       "video": "media/synesthesia-controls.mp4",
       "gallery": [

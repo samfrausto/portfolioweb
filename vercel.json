@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "",
+  "installCommand": "npm ci --prefix prototypes/spatial-study",
   "buildCommand": "npm run build",
   "outputDirectory": "dist"
 }

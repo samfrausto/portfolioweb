@@ -1,0 +1,1 @@
+{"name":"workshop-spatial-study","private":true,"type":"module","scripts":{"dev":"vite --host 127.0.0.1 --port 8782 --strictPort","build":"vite build"},"dependencies":{"@cloudflare/kumo":"2.14.0","react":"^19.0.0","react-dom":"^19.0.0","@phosphor-icons/react":"^2.1.10"},"devDependencies":{"vite":"^7.0.0"}}

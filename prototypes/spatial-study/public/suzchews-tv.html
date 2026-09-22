@@ -1,0 +1,2497 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SuzChews patient simulation</title><link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400&display=swap" rel="stylesheet"><style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ECEAE4;--bg2:#E4E2DB;--bg3:#DCDAD2;--surface:#FFFFFF;
+  --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);
+  --text:#1A1817;--muted:rgba(26,24,23,0.55);--dim:rgba(26,24,23,0.35);
+  --coral:#D94F2B;--coral-dim:rgba(217,79,43,0.10);--coral-mid:rgba(217,79,43,0.30);
+  --teal:#0D9E82;--teal-dim:rgba(13,158,130,0.10);
+  --violet:#7251D8;--violet-dim:rgba(114,81,216,0.10);
+  --amber:#C98800;--amber-dim:rgba(201,136,0,0.10);
+  --usc-cardinal:#990000;--usc-gold:#c49600;
+  /* dark tokens */
+  --ink:#0A0B0F;--ink2:#0F1117;--ink3:#15171F;
+  --on-dark:#F5F4F2;--on-mute:rgba(245,244,242,0.62);--on-dim:rgba(245,244,242,0.38);--on-border:rgba(255,255,255,0.10);--on-border2:rgba(255,255,255,0.18);
+  --display:'Syne',sans-serif;--serif:'Instrument Serif',Georgia,serif;--mono:'DM Mono',monospace;
+  --r:10px;--r-lg:16px;
+  --sh-sm:0 1px 3px rgba(0,0,0,0.06),0 4px 12px rgba(0,0,0,0.05);
+  --sh-md:0 2px 8px rgba(0,0,0,0.06),0 8px 28px rgba(0,0,0,0.09);
+  --sh-lg:0 4px 20px rgba(0,0,0,0.08),0 20px 56px rgba(0,0,0,0.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--display);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:clip;cursor:none;position:relative}
+body > *:not(.cursor):not(.cursor-ring):not(nav){position:relative;z-index:1}
+
+/* CURSOR — blend so it stays visible on dark + light */
+.cursor{width:10px;height:10px;background:#fff;border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s,opacity .25s}
+.cursor-ring{width:32px;height:32px;border:1px solid rgba(255,255,255,.5);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .25s,height .25s,opacity .25s}
+/* reveal cursor: the coral glow that follows the pointer across the hero portrait zone */
+.reveal-cursor{position:fixed;top:0;left:0;width:30px;height:30px;border-radius:50%;pointer-events:none;z-index:450;transform:translate(-50%,-50%);opacity:0;transition:opacity .3s;background:radial-gradient(circle,rgba(255,140,90,.9),rgba(217,79,43,.32) 45%,transparent 72%);mix-blend-mode:screen}
+body.reveal-zone .reveal-cursor{opacity:1}
+body.reveal-zone .cursor,body.reveal-zone .cursor-ring{opacity:0}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1.15rem 2.5rem;background:rgba(10,11,15,0.55);backdrop-filter:blur(20px) saturate(1.4);border-bottom:1px solid var(--on-border);transition:background .4s,border-color .4s}
+.nav-logo{font-size:.9rem;font-weight:700;letter-spacing:.04em;color:var(--on-dark);text-decoration:none}
+.nav-logo span{color:var(--coral)}
+.nav-links{display:flex;gap:1.6rem;align-items:center}
+.nav-links a{font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--on-mute);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--on-dark)}
+.nav-resume{padding:.45rem .9rem;border:1px solid var(--on-border2);border-radius:99px;color:var(--on-dark)!important}
+.nav-resume:hover{background:var(--coral);border-color:var(--coral)}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px rgba(13,158,130,0.22);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* UTILITIES */
+.full-divider{border:none;border-top:1px solid var(--border)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.sec-num{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;padding:6px 12px;border-radius:6px}
+.sec-title{font-size:clamp(2rem,4vw,2.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.sec-title em{font-family:var(--serif);font-style:italic;font-weight:400}
+.now-pulse{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 3px rgba(13,158,130,.2),0 0 12px 2px rgba(13,158,130,.6);animation:pulse 2s infinite;flex-shrink:0}
+
+/* ───────────── HERO ───────────── */
+.hero{min-height:84svh;background:radial-gradient(ellipse 90% 70% at 50% 30%,#16181F 0%,var(--ink) 70%);color:var(--on-dark);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 2.5rem 2.5rem}
+.hero-grid-lines{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 70% 70% at 50% 45%,black 0%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 45%,black 0%,transparent 80%)}
+.hero-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;pointer-events:none;overflow:hidden}
+.hero-watermark span{font-weight:800;font-size:17vw;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(245,244,242,.07);white-space:nowrap;line-height:1}
+
+/* portrait blob-reveal stage */
+.stage-wrap{position:absolute;bottom:0;top:auto;right:2%;left:auto;transform:none;width:min(46vw,80vh,440px);aspect-ratio:1;z-index:3}
+.stage-wrap::before{content:'';position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);width:90%;height:90%;border-radius:50%;background:radial-gradient(circle,rgba(217,79,43,.30),rgba(114,81,216,.15) 45%,transparent 70%);filter:blur(30px);z-index:0;pointer-events:none}
+.orbit-ring{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(245,244,242,.06);pointer-events:none;z-index:0}
+.orbit-ring.r1{width:112%;height:112%}
+.orbit-ring.r2{width:142%;height:142%;border-style:dashed;border-color:rgba(245,244,242,.04)}
+.stage{position:absolute;inset:0;z-index:2}
+.stage canvas{display:block;width:100%!important;height:100%!important}
+.portrait-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:1;transition:opacity .8s;-webkit-mask-image:radial-gradient(ellipse 60% 68% at 50% 40%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 60% 68% at 50% 40%,#000 58%,transparent 100%)}
+.stage.ready .portrait-fallback{opacity:0}
+/* diagonal cycling logo stream — clean white mono logos riding a glowing beam */
+.logo-stream{position:absolute;left:44%;top:80%;width:172%;height:96px;transform:translate(-50%,-50%) rotate(-30deg);transform-origin:center;overflow:hidden;z-index:1;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.logo-stream-track{display:flex;align-items:center;gap:4.5rem;height:100%;width:max-content;animation:streamscroll 44s linear infinite;position:relative}
+.ls-logo{display:grid;place-items:center;height:100%}
+.ls-logo img{height:32.4px;max-width:128px;width:auto;object-fit:contain;opacity:.66;transform:rotate(30deg)}
+@keyframes streamscroll{from{transform:translateX(-33.333%)}to{transform:translateX(0)}}
+/* veil: darkens the left so the name reads on a clean field; logos emerge toward the hologram */
+.hero-veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(100deg,var(--ink) 30%,rgba(10,11,15,.85) 48%,transparent 70%)}
+.stream-label{position:absolute;left:2.5rem;bottom:2.1rem;z-index:4;font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--on-dim)}
+.stage-hint{position:absolute;bottom:-2.2rem;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dim);white-space:nowrap;display:flex;align-items:center;gap:7px;z-index:3;transition:opacity .6s}
+.stage-hint.hide{opacity:0}
+.drag-ico{color:var(--coral);font-size:.7rem}
+
+/* hero copy */
+.hero-copy{position:absolute;left:2.5rem;top:50%;transform:translateY(calc(-50% + 2.6rem));z-index:4;max-width:min(480px,48vw)}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.72rem;color:var(--coral);letter-spacing:.08em;margin-bottom:1rem;animation:fadeup .8s .2s both}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--coral)}
+.hero-name{font-size:clamp(2.9rem,8vw,5.2rem);font-weight:800;line-height:.92;letter-spacing:-.03em;margin-bottom:1.4rem;animation:fadeup .8s .3s both}
+.hero-tag{font-size:.95rem;color:var(--on-mute);line-height:1.75;max-width:480px;margin-bottom:1.8rem;animation:fadeup .8s .45s both}
+.hero-tag strong{color:var(--on-dark);font-weight:600}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;animation:fadeup .8s .6s both}
+.btn{font-size:.78rem;font-weight:600;letter-spacing:.04em;padding:.85rem 1.5rem;border-radius:99px;text-decoration:none;transition:transform .2s,background .2s,border-color .2s;cursor:none}
+.btn-primary{background:var(--coral);color:#fff;border:1px solid var(--coral)}
+.btn-primary:hover{background:#c0391a;transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--on-dark);border:1px solid var(--on-border2)}
+.btn-ghost:hover{border-color:var(--on-dark);transform:translateY(-2px)}
+@keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.hero-now-chip{position:absolute;left:2.5rem;right:auto;bottom:3.9rem;z-index:4;display:flex;align-items:center;gap:10px;max-width:330px;padding:.7rem 1rem;border-radius:14px;background:rgba(245,244,242,.04);border:1px solid var(--on-border);backdrop-filter:blur(10px);text-decoration:none;color:var(--on-mute);font-size:.74rem;line-height:1.5;transition:border-color .25s,background .25s;animation:fadeup .8s .8s both}
+.hero-now-chip:hover{border-color:var(--on-border2);background:rgba(245,244,242,.07)}
+.hero-now-chip strong{color:var(--on-dark);font-weight:600}
+.hero-scroll{position:absolute;bottom:1.3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;font-family:var(--mono);font-size:.58rem;color:var(--on-dim);letter-spacing:.1em;text-transform:uppercase;z-index:3;animation:fadeup 1s 1.2s both}
+.scroll-line{width:1px;height:34px;background:linear-gradient(to bottom,var(--coral),transparent);animation:scr 2.85s ease-in-out infinite}
+@keyframes scr{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ───────────── MARQUEE ───────────── */
+.marquee{background:var(--ink);border-top:1px solid var(--on-border);border-bottom:1px solid var(--on-border);overflow:hidden;padding:.9rem 0}
+.marquee-track{display:flex;align-items:center;gap:1.6rem;width:max-content;animation:marq 32s linear infinite}
+.marquee-track span{font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;color:var(--on-mute);white-space:nowrap}
+.marquee-track i{color:var(--coral);font-style:normal;font-size:.65rem}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ───────────── NOW / EDWARDS ───────────── */
+.now-section{background:var(--ink2);color:var(--on-dark);padding:6rem 2.5rem;position:relative;overflow:hidden}
+.now-section::before{content:'';position:absolute;top:-180px;right:-120px;width:560px;height:560px;background:radial-gradient(circle,rgba(217,79,43,.16),transparent 70%);pointer-events:none}
+.now-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.now-head{display:flex;gap:1.25rem;align-items:flex-start;margin-bottom:2.5rem}
+.now-section .sec-num{background:rgba(255,255,255,.05);border:1px solid var(--on-border2);color:var(--on-mute)}
+.now-section .sec-title{color:var(--on-dark)}
+.now-section .sec-title em{color:var(--coral)}
+.now-kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.75rem}
+.now-body{display:grid;grid-template-columns:1fr;gap:2.5rem}
+.now-lead{max-width:760px}
+.now-lead p{font-size:1.02rem;color:var(--on-mute);line-height:1.85}
+.now-lead strong{color:var(--on-dark);font-weight:600}
+.now-sub{font-size:.92rem!important;margin-top:1rem;color:var(--on-dim)!important}
+.now-pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.now-pillar{background:rgba(245,244,242,.03);border:1px solid var(--on-border);border-radius:var(--r-lg);padding:1.4rem;transition:transform .26s,border-color .26s,background .26s}
+.now-pillar:hover{transform:translateY(-4px);border-color:var(--on-border2);background:rgba(245,244,242,.05)}
+.np-ico{font-size:1.4rem;display:block;margin-bottom:.8rem}
+.now-pillar h3{font-size:.95rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.5rem;color:var(--on-dark)}
+.now-pillar p{font-size:.78rem;color:var(--on-mute);line-height:1.7}
+.now-section + .full-divider{border-color:var(--on-border)}
+
+/* ───────────── SELECTED WORK ───────────── */
+.work-section{background:var(--ink);color:var(--on-dark);padding:6rem 2.5rem}
+.work-inner{max-width:1200px;margin:0 auto}
+.work-head{display:flex;gap:1.25rem;align-items:flex-start;margin-bottom:2.75rem}
+.work-section .sec-num{background:rgba(255,255,255,.05);border:1px solid var(--on-border2);color:var(--on-mute)}
+.work-section .sec-title{color:var(--on-dark)}
+.work-section .sec-title em{color:var(--on-mute)}
+.work-copy{font-size:.85rem;color:var(--on-mute);max-width:620px;line-height:1.8;margin-top:.6rem}
+.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.work-card{display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1px solid var(--on-border);border-radius:18px;background:rgba(245,244,242,.02);overflow:hidden;transition:transform .34s cubic-bezier(.2,.85,.2,1),border-color .3s,box-shadow .3s;cursor:none;position:relative}
+.work-card:hover{transform:translateY(-6px);border-color:var(--on-border2);box-shadow:0 24px 50px rgba(0,0,0,.45)}
+.wc-media{position:relative;aspect-ratio:16/10;background:linear-gradient(140deg,#12141B,#0E0F15);overflow:hidden}
+.wc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.85,.2,1)}
+.wc-img.hover{opacity:0;transition:opacity .4s ease}
+.work-card:hover .wc-img.hover{opacity:1}
+.work-card:hover .wc-img.base{transform:scale(1.04)}
+.wc-meta{padding:1.3rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
+.wc-tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-dim);display:flex;align-items:center;gap:7px}
+.wc-tag::before{content:'';width:14px;height:1px;background:currentColor;opacity:.6}
+.wc-title{font-size:1.15rem;font-weight:700;letter-spacing:-.02em;line-height:1.2;color:var(--on-dark)}
+.wc-desc{font-size:.82rem;color:var(--on-mute);line-height:1.7;flex:1}
+.wc-go{font-family:var(--mono);font-size:.72rem;color:var(--on-dim);margin-top:.55rem;transition:color .22s,transform .28s;display:inline-flex;align-items:center;gap:5px}
+.work-card:hover .wc-go{color:var(--coral);transform:translate(2px,-2px)}
+/* left accent on hover */
+.work-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;opacity:0;transition:opacity .3s;z-index:3}
+.work-card:hover::before{opacity:1}
+.work-card[data-cat="xr"]::before{background:linear-gradient(to bottom,var(--teal),var(--violet))}
+.work-card[data-cat="research"]::before{background:var(--violet)}
+.work-card[data-cat="innovation"]::before{background:linear-gradient(to bottom,var(--coral),var(--amber))}
+.work-card[data-cat="brand"]::before{background:var(--amber)}
+/* featured spans full width, horizontal on wide screens */
+.work-card.feat{grid-column:1 / -1;flex-direction:row}
+.work-card.feat .wc-media{flex:1.25;aspect-ratio:auto;min-height:340px}
+.work-card.feat .wc-meta{flex:1;justify-content:center;padding:2.2rem}
+.work-card.feat .wc-title{font-size:1.7rem}
+.work-card.feat .wc-desc{font-size:.92rem;flex:none}
+
+/* ───────────── THE PATH (chronological chapters) ───────────── */
+/* NOTE: no overflow:hidden here — it breaks position:sticky on .path-canvas-wrap (nothing in .path overflows anyway) */
+.path{background:var(--ink);color:var(--on-dark);padding:6rem 2.5rem 3.5rem;position:relative}
+.path-grain{position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.path-intro{max-width:1100px;margin:0 auto 2.5rem;display:flex;gap:1.25rem;align-items:flex-start;position:relative;z-index:1}
+.path .sec-num{background:rgba(255,255,255,.05);border:1px solid var(--on-border2);color:var(--on-mute)}
+.path .sec-title{color:var(--on-dark)}.path .sec-title em{color:var(--coral)}
+.path-sub{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--on-mute);margin-top:.5rem;max-width:620px;line-height:1.5}
+.path-timeline{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.chapter{display:grid;grid-template-columns:108px 1fr;gap:2.5rem;padding:3rem 0;border-top:1px solid var(--on-border)}
+.chapter:first-of-type{border-top:none}
+.chapter-rail{display:flex;flex-direction:column;align-items:flex-start;gap:.3rem}
+.ch-year{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--coral)}
+.ch-num{font-size:2rem;font-weight:800;letter-spacing:-.03em;color:rgba(245,244,242,.13);line-height:1}
+.ch-place{display:block;font-size:1.55rem;font-weight:800;letter-spacing:-.02em;color:var(--on-dark);line-height:1.12;margin-bottom:.35rem}
+.ch-role{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--on-dim);margin-bottom:1rem}
+.ch-note{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--coral);margin-bottom:.7rem;line-height:1.4}
+.ch-desc{font-size:.88rem;color:var(--on-mute);line-height:1.8;max-width:640px;margin-bottom:1.3rem}
+.ch-cards{display:flex;flex-wrap:wrap;gap:14px}
+.ch-card{width:190px;border:1px solid var(--on-border);border-radius:12px;overflow:hidden;text-decoration:none;background:rgba(245,244,242,.02);transition:transform .3s,border-color .3s}
+.ch-card:hover{transform:translateY(-4px);border-color:var(--on-border2)}
+.ch-card img{width:100%;height:115px;object-fit:cover;display:block}
+.ch-card-t{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.6rem .7rem;font-size:.72rem;font-weight:600;color:var(--on-dark)}
+.ch-card-tag{font-family:var(--mono);font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;color:var(--on-dim);font-weight:400;white-space:nowrap}
+.ch-jump{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.72rem;color:var(--coral);text-decoration:none;border:1px solid var(--coral-mid);padding:.6rem 1rem;border-radius:99px;transition:background .2s}
+.ch-jump:hover{background:var(--coral-dim)}
+.chapter-now .ch-place{color:var(--coral)}
+.chapter-future{opacity:.92}
+.chapter-future .ch-place{font-size:2rem}
+.chapter-future .ch-note{color:var(--on-mute);font-size:1.3rem;max-width:680px}
+
+/* ───────────── DOTMORPH (hero handoff + path canvas) ───────────── */
+/* fixed full-viewport canvas for the hero→path handoff; !important beats the
+   body>* position:relative/z-index:1 rule */
+.handoff-canvas{position:fixed!important;inset:0;width:100vw;height:100vh;z-index:5!important;pointer-events:none;opacity:0}
+.path-story{position:relative;max-width:none}
+.path-canvas-wrap{position:sticky;top:0;height:100vh;margin-bottom:-100vh;z-index:0;pointer-events:none}
+.path-canvas-wrap canvas{width:100%;height:100%;display:block}
+.path-stations{position:relative;z-index:1;max-width:1100px;margin:0 auto}
+.path-stations .chapter{border-top:none;min-height:94vh;align-content:center;padding:2rem 0}
+.path-stations .ch-desc{max-width:520px}
+.path-stations .ch-cards{max-width:560px}
+@media (max-width:900px){
+  .handoff-canvas{display:none}
+  .path-stations .chapter{min-height:80vh}
+}
+@media (prefers-reduced-motion:reduce){
+  .handoff-canvas{display:none}
+}
+
+/* ───────────── SECTION SHARED (warm) ───────────── */
+.section{padding:6rem 2.5rem;max-width:1200px;margin:0 auto}
+.section-header{display:flex;align-items:flex-end;gap:1.25rem;margin-bottom:3rem;flex-wrap:wrap}
+.section .sec-num,.company-showcase .sec-num{color:var(--muted);border:1px solid var(--border2);background:var(--surface);box-shadow:var(--sh-sm)}
+.section .sec-title,.company-showcase .sec-title{color:var(--text)}
+.section .sec-title em,.company-showcase .sec-title em{color:var(--muted)}
+.section-header::after{content:'';flex:1;min-width:120px;height:1px;background:linear-gradient(90deg,var(--border2),transparent);margin-bottom:.35rem}
+
+/* ABOUT */
+.about-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:3.5rem;align-items:start}
+.about-intro{font-family:var(--serif);font-style:italic;font-size:1.6rem;line-height:1.5;color:var(--text);margin-bottom:1.5rem;letter-spacing:-.01em}
+.about-body{font-size:.9rem;color:var(--muted);line-height:1.9;margin-bottom:2rem}
+.about-body strong{color:var(--text);font-weight:600}
+.about-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.about-card{background:var(--surface);border-radius:var(--r);padding:1.25rem;border:1px solid var(--border);position:relative;overflow:hidden;box-shadow:var(--sh-sm)}
+.about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.c1::before{background:linear-gradient(90deg,var(--usc-cardinal),var(--usc-gold))}.c2::before{background:var(--coral)}.c3::before{background:var(--violet)}.c4::before{background:var(--amber)}
+.about-card-icon{font-size:1.2rem;margin-bottom:.7rem}
+.about-card-title{font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:6px}
+.about-card-body{font-size:.76rem;color:var(--muted);line-height:1.7}
+.interests-label{font-family:var(--mono);font-size:.65rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.interests-list{display:flex;flex-direction:column}
+.interest-item{display:flex;align-items:center;gap:1rem;padding:1rem .25rem;border-bottom:1px solid var(--border);font-size:.9rem;color:var(--muted);transition:color .2s,padding-left .2s;cursor:none}
+.interest-item:hover{color:var(--text);padding-left:.6rem}
+.interest-item:first-child{border-top:1px solid var(--border)}
+.int-num{font-family:var(--mono);font-size:.65rem;color:var(--dim);min-width:20px}
+.int-name{flex:1;font-weight:500}
+.int-arrow{font-size:.8rem;color:var(--dim);transition:transform .2s,color .2s}
+.interest-item:hover .int-arrow{transform:translateX(3px);color:var(--coral)}
+.interest-tag{font-family:var(--mono);font-size:.6rem;padding:2px 8px;border-radius:99px;background:var(--coral-dim);color:var(--coral);border:1px solid var(--coral-mid)}
+
+/* COMPANIES */
+.company-showcase{padding:6rem 2.5rem;background:linear-gradient(180deg,var(--surface),rgba(255,255,255,0.55))}
+.company-head{max-width:1200px;margin:0 auto 2.5rem;display:flex;gap:1.25rem;align-items:flex-start}
+.company-copy{font-size:.85rem;color:var(--muted);max-width:640px;line-height:1.8;margin-top:.5rem}
+.company-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.company-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.25rem;box-shadow:var(--sh-sm);transition:transform .26s,box-shadow .26s,border-color .26s}
+.company-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md);border-color:var(--border2)}
+.company-logo-wrap{height:58px;border-radius:10px;border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;margin-bottom:.95rem;overflow:hidden}
+.company-logo-wrap img{max-width:78%;max-height:32px;object-fit:contain;opacity:.88}
+.company-name{font-size:.88rem;line-height:1.3;letter-spacing:-.01em;margin-bottom:.35rem}
+.company-role{font-size:.72rem;color:var(--muted);line-height:1.6}
+
+/* CONTACT */
+.contact-wrap{background:var(--ink);padding:6rem 2.5rem;position:relative;overflow:hidden}
+.contact-wrap::before{content:'';position:absolute;bottom:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(ellipse,rgba(217,79,43,.2),transparent 70%);pointer-events:none}
+.contact-wrap::after{content:'';position:absolute;top:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(ellipse,rgba(13,158,130,.12),transparent 70%);pointer-events:none}
+.contact-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.contact-eyebrow{font-family:var(--mono);font-size:.65rem;color:var(--coral);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
+.contact-eyebrow::before{content:'';width:24px;height:1px;background:var(--coral)}
+.contact-heading{font-size:clamp(2.5rem,6vw,5.5rem);font-weight:800;line-height:1.0;letter-spacing:-.03em;color:#fff;margin-bottom:2rem}
+.contact-heading em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--coral)}
+.contact-p{font-size:.92rem;color:rgba(255,255,255,.52);max-width:500px;line-height:1.8;margin-bottom:2.5rem}
+.contact-links{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:4rem}
+.contact-link{display:flex;align-items:center;gap:10px;font-size:.78rem;font-weight:700;letter-spacing:.04em;padding:14px 24px;border-radius:var(--r);text-decoration:none;transition:all .2s;cursor:none}
+.link-email{background:var(--coral);color:#fff;border:1px solid var(--coral)}
+.link-email:hover{background:#c0391a;transform:translateY(-2px)}
+.link-li{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.22)}
+.link-li:hover{border-color:rgba(255,255,255,.45);background:rgba(255,255,255,.06);transform:translateY(-2px)}
+.link-icon{width:14px;height:14px;flex-shrink:0}
+.contact-footer{padding-top:2rem;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-name{font-weight:700;font-size:.9rem;color:rgba(255,255,255,.4);letter-spacing:.04em}
+.footer-copy{font-family:var(--mono);font-size:.62rem;color:rgba(255,255,255,.28)}
+
+/* ───────────── MOTION / RESPONSIVE ───────────── */
+@media(prefers-reduced-motion:reduce){
+  .scroll-line,.marquee-track,.now-pulse,.nav-dot,.logo-strip-track{animation:none!important}
+  .work-card,.wc-img{transition:none!important}
+}
+@media(max-width:1024px){
+  .now-pillars{grid-template-columns:repeat(2,1fr)}
+  .company-grid{grid-template-columns:repeat(3,1fr)}
+  .hero-now-chip,.hero-scroll{display:none}
+}
+@media(max-width:768px){
+  nav{padding:1rem 1.25rem}
+  .nav-links{gap:1rem}
+  .nav-links a:not(.nav-resume):not(:last-of-type){display:none}
+  body{cursor:auto}
+  .cursor,.cursor-ring{display:none}
+  .hero-watermark span{font-size:24vw}
+  .section,.now-section,.work-section,.company-showcase,.contact-wrap{padding:3.5rem 1.25rem}
+  .about-layout{grid-template-columns:1fr;gap:2.5rem}
+  .about-cards{grid-template-columns:1fr}
+  .now-pillars{grid-template-columns:1fr}
+  .work-grid{grid-template-columns:1fr}
+  .work-card.feat{flex-direction:column}
+  .work-card.feat .wc-media{min-height:0;aspect-ratio:16/10}
+  .work-card.feat .wc-title{font-size:1.3rem}
+  .company-grid{grid-template-columns:1fr 1fr}
+  .section-header::after{display:none}
+  .now-head,.work-head,.company-head,.path-intro{flex-direction:column;gap:.75rem}
+  .chapter{grid-template-columns:1fr;gap:1rem;padding:2.5rem 0}
+  .chapter-rail{flex-direction:row;align-items:baseline;gap:.75rem}
+  .ch-card{width:calc(50% - 7px)}
+  .ch-card img{height:96px}
+}
+
+/* phones: stack the asymmetric hero (diagonal layout stays for tablet/desktop ≥560px) */
+@media(max-width:560px){
+  .hero{padding:0 1.25rem 2rem;justify-content:flex-end}
+  .stage-wrap{position:relative;top:auto;left:auto;right:auto;transform:none;width:min(78vw,320px);aspect-ratio:1;height:auto;margin:4.5rem auto 1.25rem}
+  .hero-copy{position:static;transform:none;top:auto;left:auto;max-width:100%;margin:0}
+  .stage-hint{bottom:-1.6rem}
+  .logo-stream{position:relative;left:auto;top:auto;width:100%;height:42px;transform:none;margin:.5rem 0 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .ls-logo img{transform:none;height:20px}
+  .stream-label{position:static;display:block;text-align:center;margin:.35rem 0 0;left:auto;bottom:auto}
+}
+
+/* ============================================================
+   SUZCHEWS PROJECT STYLES
+   Extends portfolio /style.css. Component library for all 7 pages.
+   Author: Samuel Frausto
+   ============================================================ */
+
+/* ============================================================
+   §0 PROJECT-LOCAL TOKENS
+   ============================================================ */
+:root{
+  /* Semantic palette extensions for science pages */
+  --sci-data:        var(--teal);                    /* measured values, results */
+  --sci-mechanism:   var(--violet);                  /* biology, mechanism */
+  --sci-limit:       var(--amber);                   /* limitations, unknowns */
+  --sci-narrative:   var(--coral);                   /* story, emphasis */
+  --sci-affil:       var(--usc-cardinal-bright);     /* affiliations */
+  --sci-affil-2:     var(--usc-gold);
+
+  /* Reading widths, paper-like */
+  --col-prose:    66ch;
+  --col-margin:   24ch;
+
+  /* Project-scoped surfaces */
+  --paper:        #0d0d12;
+  --paper-edge:   rgba(255,255,255,0.06);
+
+  /* Animation */
+  --ease-paper:   cubic-bezier(.2,.8,.2,1);
+}
+
+/* Scientific tabular numerals utility */
+.tnum{ font-feature-settings: 'tnum' 1, 'lnum' 1; font-variant-numeric: tabular-nums lining-nums; }
+.smcp{ font-feature-settings: 'smcp' 1; font-variant-caps: small-caps; letter-spacing:.06em; }
+
+/* ============================================================
+   §1 PROJECT SUB-NAV (sticky)
+   Sits below the main site nav. Shows the 7-page strip.
+   ============================================================ */
+.proj-subnav{
+  position:sticky;
+  top:60px;                       /* below main nav */
+  z-index:400;
+  background:rgba(8,8,10,0.82);
+  backdrop-filter:blur(18px) saturate(1.3);
+  border-bottom:1px solid var(--border);
+  border-top:1px solid var(--border);
+}
+.proj-subnav-inner{
+  max-width:1200px;
+  margin:0 auto;
+  padding:.65rem 2.5rem;
+  display:flex;
+  align-items:center;
+  gap:1.5rem;
+  flex-wrap:wrap;
+}
+/* Header lockup. The bar carries the mark and the wordmark side by side -
+   the horizontal expression of stacked lockup A, which cannot survive a 44px
+   bar (its wordmark would fall to ~4px). Tracking on the wordmark is 0, never
+   negative: Syne's lowercase j has almost no left side bearing. */
+.proj-subnav-id{
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+  white-space:nowrap;
+  padding-right:1rem;
+  border-right:1px solid var(--border);
+}
+.sc-lockup-mark{
+  display:block;
+  width:22px; height:22px;
+  flex:none;
+}
+/* --on-dark / --on-dim, NOT --text / --dim. The subnav bar is
+   rgba(8,8,10,.82) while §20 rebinds --text to warm ink for the cream pages,
+   so --text here would be ink on near-black. */
+.sc-lockup-wm{
+  font-family:var(--display,'Syne',sans-serif);
+  font-weight:800;
+  font-size:.86rem;
+  letter-spacing:0;
+  line-height:1;
+  color:var(--on-dark);
+}
+.sc-lockup-meta{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--on-dim);
+  padding-left:.15rem;
+}
+.proj-subnav-list{
+  display:flex;
+  gap:.25rem;
+  flex-wrap:wrap;
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.proj-subnav-list li{ list-style:none; margin:0; padding:0; }
+.proj-subnav-link{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--dim);
+  text-decoration:none;
+  padding:.45rem .7rem;
+  border-radius:6px;
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  transition:color .2s, background .2s, border-color .2s;
+  border:1px solid transparent;
+}
+.proj-subnav-link .pn-num{
+  color:var(--dim);
+  font-size:.55rem;
+  opacity:.7;
+}
+.proj-subnav-link:hover{
+  color:var(--text);
+  background:rgba(92,225,255,0.05);
+  border-color:rgba(92,225,255,0.18);
+}
+.proj-subnav-link:hover .pn-num{ color:var(--electric); opacity:1; }
+.proj-subnav-link.is-current{
+  color:var(--text);
+  background:linear-gradient(135deg,rgba(255,107,74,0.18),rgba(255,199,44,0.06));
+  border-color:rgba(255,107,74,0.32);
+}
+.proj-subnav-link.is-current .pn-num{ color:var(--coral); opacity:1; }
+@media(max-width:768px){
+  .proj-subnav-inner{ padding:.5rem 1rem; gap:.75rem; }
+  .proj-subnav-id{ gap:.4rem; padding-right:.5rem; }
+  .sc-lockup-mark{ width:18px; height:18px; }
+  .sc-lockup-wm{ font-size:.78rem; }
+  .sc-lockup-meta{ display:none; }   /* the bar is the scarcest space on the site */
+  .proj-subnav-link{ padding:.35rem .55rem; font-size:.58rem; }
+}
+
+/* ============================================================
+   §2 MANUSCRIPT HEADER
+   Page-top block with DOI-style ID, title, abstract, byline.
+   ============================================================ */
+.manuscript-head{
+  max-width:1100px;
+  margin:0 auto;
+  padding:5rem 2.5rem 2.5rem;
+  border-bottom:1px solid var(--border);
+}
+.ms-eyebrow{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--coral);
+  margin-bottom:1rem;
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  flex-wrap:wrap;
+}
+.ms-eyebrow::before{
+  content:'';
+  display:block;
+  width:24px;
+  height:1px;
+  background:var(--coral);
+}
+.ms-doi{
+  font-family:var(--mono);
+  font-size:.58rem;
+  color:var(--dim);
+  letter-spacing:.12em;
+  padding:3px 8px;
+  border:1px solid var(--border);
+  border-radius:4px;
+  background:rgba(0,0,0,0.25);
+}
+.ms-title{
+  font-family:var(--display);
+  font-size:clamp(2.25rem,5vw,4.25rem);
+  font-weight:800;
+  line-height:1.04;
+  letter-spacing:-.03em;
+  color:var(--text);
+  margin:.75rem 0 1.5rem;
+}
+.ms-title em{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  color:var(--muted);
+}
+.ms-abstract{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.15rem;
+  line-height:1.6;
+  color:var(--text);
+  max-width:62ch;
+  margin-bottom:2rem;
+  letter-spacing:-.005em;
+}
+.ms-byline{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:1rem 2rem;
+  font-family:var(--mono);
+  font-size:.65rem;
+  letter-spacing:.08em;
+  color:var(--dim);
+  text-transform:uppercase;
+  padding-top:1rem;
+  border-top:1px solid var(--border);
+}
+.ms-byline strong{
+  color:var(--text);
+  font-weight:500;
+}
+.ms-byline .read-time::before{ content:'⌖ '; color:var(--electric); }
+.ms-byline .updated::before{ content:'≡ '; color:var(--electric); }
+.ms-keywords{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:1.25rem;
+}
+.ms-kw{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.06em;
+  padding:3px 9px;
+  border-radius:99px;
+  background:rgba(92,225,255,0.06);
+  border:1px solid rgba(92,225,255,0.2);
+  color:var(--electric);
+  text-transform:lowercase;
+}
+
+/* ============================================================
+   §3 SECTION + SUB-SECTION HEADERS
+   ============================================================ */
+.ms-section{
+  max-width:1100px;
+  margin:0 auto;
+  padding:4rem 2.5rem;
+  scroll-margin-top:120px;        /* offset for sticky sub-nav */
+}
+.ms-section + .ms-section{ border-top:1px solid var(--border); }
+.ms-section-head{
+  display:flex;
+  align-items:flex-end;
+  gap:1rem;
+  margin-bottom:2.5rem;
+  flex-wrap:wrap;
+}
+.ms-section-num{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.14em;
+  color:var(--text);
+  padding:5px 11px;
+  border-radius:5px;
+  border:1px solid rgba(255,199,44,0.28);
+  background:linear-gradient(155deg,rgba(153,0,0,.18),rgba(92,225,255,.06));
+  white-space:nowrap;
+}
+.ms-section-title{
+  font-family:var(--display);
+  font-size:clamp(1.65rem,3vw,2.4rem);
+  font-weight:700;
+  letter-spacing:-.02em;
+  line-height:1.1;
+  color:var(--text);
+  margin:0;
+}
+.ms-section-title em{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  color:var(--muted);
+}
+.ms-section-head::after{
+  content:'';
+  flex:1;
+  min-width:60px;
+  height:1px;
+  background:linear-gradient(90deg,rgba(255,199,44,0.32),var(--border),transparent);
+  margin-bottom:.4rem;
+}
+.ms-subsection{
+  margin-top:3rem;
+  scroll-margin-top:120px;
+}
+.ms-subsection-head{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--electric);
+  margin-bottom:.5rem;
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+}
+.ms-subsection-head::before{
+  content:'';
+  width:18px; height:1px; background:var(--electric); opacity:.6;
+}
+.ms-subsection-title{
+  font-family:var(--display);
+  font-size:clamp(1.2rem,2vw,1.6rem);
+  font-weight:600;
+  letter-spacing:-.01em;
+  color:var(--text);
+  margin:0 0 1.5rem;
+}
+
+/* ============================================================
+   §4 TWO-COLUMN SCIENTIFIC LAYOUT
+   prose | margin-notes (becomes single-column on mobile)
+   ============================================================ */
+.sci-layout{
+  display:grid;
+  grid-template-columns:minmax(0, var(--col-prose)) minmax(0, var(--col-margin));
+  gap:3rem;
+  align-items:start;
+}
+.sci-prose{
+  font-family:var(--display);
+  font-size:1rem;
+  line-height:1.78;
+  color:var(--muted);
+}
+.sci-prose > * + *{ margin-top:1.25em; }
+.sci-prose strong{ color:var(--text); font-weight:500; }
+.sci-prose p:first-letter{ /* optional drop cap, off by default */ }
+.sci-prose h3{
+  font-family:var(--display);
+  font-size:1.15rem;
+  font-weight:600;
+  color:var(--text);
+  letter-spacing:-.01em;
+  margin-top:2.5em;
+  margin-bottom:0.75em;
+}
+.sci-prose h4{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--electric);
+  margin-top:2em;
+  margin-bottom:.5em;
+}
+.sci-prose blockquote{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.25rem;
+  line-height:1.55;
+  color:var(--text);
+  border-left:2px solid var(--coral);
+  padding:.5rem 0 .5rem 1.5rem;
+  margin:2em 0;
+}
+.sci-prose ul, .sci-prose ol{
+  padding-left:1.5em;
+  margin-top:1em;
+}
+.sci-prose li{ margin-bottom:.5em; }
+
+.sci-margin{
+  font-family:var(--mono);
+  font-size:.7rem;
+  line-height:1.65;
+  color:var(--dim);
+  position:sticky;
+  top:120px;                       /* below sub-nav */
+  align-self:start;
+}
+.sci-margin > * + *{ margin-top:1.5rem; }
+.margin-note{
+  padding:.85rem 1rem;
+  border-left:2px solid var(--border2);
+  background:rgba(255,255,255,0.015);
+  border-radius:0 6px 6px 0;
+}
+.margin-note .mn-label{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--electric);
+  margin-bottom:.35rem;
+  display:block;
+}
+.margin-note p{ margin:0; color:var(--muted); font-size:.72rem; line-height:1.6; }
+
+@media(max-width:900px){
+  .sci-layout{ grid-template-columns:1fr; gap:2rem; }
+  .sci-margin{ position:static; }
+}
+
+/* ============================================================
+   §5 CITATIONS — numeric pills with hover footnote
+   Usage: <cite class="cite" data-ref="12" data-note="Author et al. ...">12</cite>
+   ============================================================ */
+.cite{
+  display:inline-block;
+  font-family:var(--mono);
+  font-size:.62rem;
+  font-weight:500;
+  letter-spacing:.04em;
+  padding:1px 7px;
+  margin:0 2px;
+  border-radius:99px;
+  background:rgba(92,225,255,0.08);
+  color:var(--electric);
+  border:1px solid rgba(92,225,255,0.22);
+  text-decoration:none;
+  cursor:none;
+  vertical-align:0.15em;
+  position:relative;
+  transition:background .15s, border-color .15s, color .15s;
+}
+.cite::before{ content:'['; opacity:.6; }
+.cite::after{ content:']'; opacity:.6; }
+.cite:hover{
+  background:rgba(92,225,255,0.18);
+  border-color:rgba(92,225,255,0.5);
+  color:#fff;
+}
+/* Hover footnote tooltip */
+.cite[data-note]:hover::after,
+.cite[data-note]:hover::before{ /* keep the brackets */ }
+.cite[data-note]{ position:relative; }
+.cite[data-note] .cite-tip{
+  position:absolute;
+  bottom:calc(100% + 8px);
+  left:50%;
+  transform:translateX(-50%) translateY(4px);
+  width:max-content;
+  max-width:30ch;
+  padding:.6rem .75rem;
+  background:var(--bg3);
+  border:1px solid var(--border2);
+  border-radius:6px;
+  font-family:var(--display);
+  font-weight:400;
+  font-size:.72rem;
+  line-height:1.5;
+  color:var(--text);
+  letter-spacing:0;
+  text-transform:none;
+  vertical-align:0;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .15s, transform .15s;
+  z-index:50;
+  box-shadow:0 12px 36px rgba(0,0,0,.5);
+}
+.cite[data-note] .cite-tip::before{ content:''; opacity:1; }
+.cite[data-note] .cite-tip::after{ content:''; opacity:1; }
+.cite[data-note]:hover .cite-tip{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* ============================================================
+   §6 FIGURES — numbered captions, accessible
+   ============================================================ */
+.figure{
+  margin:2.5rem 0;
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  background:linear-gradient(180deg,rgba(255,255,255,0.012),rgba(0,0,0,0.2));
+  overflow:hidden;
+  position:relative;
+}
+.figure-frame{
+  padding:1.25rem;
+  position:relative;
+}
+.figure-frame::before{
+  /* subtle HUD corner detail, matches main site aesthetic */
+  content:'';
+  position:absolute;
+  top:8px; left:8px;
+  width:16px; height:16px;
+  border-top:1px solid rgba(92,225,255,0.4);
+  border-left:1px solid rgba(92,225,255,0.4);
+  pointer-events:none;
+}
+.figure-frame::after{
+  content:'';
+  position:absolute;
+  bottom:8px; right:8px;
+  width:16px; height:16px;
+  border-bottom:1px solid rgba(92,225,255,0.4);
+  border-right:1px solid rgba(92,225,255,0.4);
+  pointer-events:none;
+}
+.figure img,
+.figure svg,
+.figure video{
+  display:block;
+  max-width:100%;
+  height:auto;
+}
+.figure-caption{
+  border-top:1px solid var(--border);
+  padding:.85rem 1.25rem;
+  font-size:.78rem;
+  line-height:1.55;
+  color:var(--muted);
+  background:rgba(0,0,0,0.25);
+}
+.figure-caption .fig-label{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--electric);
+  margin-right:.6rem;
+  white-space:nowrap;
+}
+.figure-caption strong{ color:var(--text); font-weight:500; }
+
+/* ============================================================
+   §7 PULL QUOTE & STAT CALLOUT
+   ============================================================ */
+.pull-quote{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:clamp(1.5rem,2.6vw,2.1rem);
+  line-height:1.45;
+  color:var(--text);
+  letter-spacing:-.01em;
+  border-left:2px solid var(--coral);
+  padding:.5rem 0 .5rem 1.75rem;
+  margin:2.5rem 0;
+  max-width:42rem;
+}
+.pull-quote-attr{
+  display:block;
+  margin-top:1rem;
+  font-family:var(--mono);
+  font-style:normal;
+  font-size:.65rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--dim);
+}
+
+.stat-callout{
+  display:flex;
+  align-items:baseline;
+  gap:1.25rem;
+  padding:1.5rem 1.75rem;
+  border:1px solid rgba(92,225,255,0.18);
+  border-radius:var(--r-lg);
+  background:linear-gradient(120deg,rgba(92,225,255,0.05),rgba(167,139,250,0.03));
+  margin:2rem 0;
+}
+.stat-num{
+  font-family:var(--display);
+  font-size:clamp(2.5rem,5vw,3.75rem);
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-.04em;
+  color:var(--text);
+  font-feature-settings:'tnum' 1, 'lnum' 1;
+}
+.stat-num .stat-unit{
+  font-size:.55em;
+  color:var(--muted);
+  font-weight:600;
+  margin-left:.15em;
+  letter-spacing:0;
+}
+.stat-text{
+  font-size:.85rem;
+  line-height:1.6;
+  color:var(--muted);
+  max-width:34ch;
+}
+.stat-text strong{ color:var(--text); font-weight:500; }
+.stat-source{
+  display:block;
+  margin-top:.5rem;
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--dim);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+/* ============================================================
+   §8 RULED-OUT / LIMITATIONS CALLOUT
+   ============================================================ */
+.callout{
+  padding:1.25rem 1.5rem;
+  border-radius:var(--r);
+  margin:2rem 0;
+  border:1px solid var(--border2);
+  background:var(--bg2);
+}
+.callout-label{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:.6rem;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
+.callout-label::before{
+  content:'';
+  width:14px; height:1px;
+}
+.callout--limit{ border-color:rgba(251,188,4,0.3); background:rgba(251,188,4,0.04); }
+.callout--limit .callout-label{ color:var(--amber); }
+.callout--limit .callout-label::before{ background:var(--amber); }
+.callout--info{ border-color:rgba(92,225,255,0.25); background:rgba(92,225,255,0.04); }
+.callout--info .callout-label{ color:var(--electric); }
+.callout--info .callout-label::before{ background:var(--electric); }
+.callout--warn{ border-color:rgba(255,107,74,0.3); background:rgba(255,107,74,0.04); }
+.callout--warn .callout-label{ color:var(--coral); }
+.callout--warn .callout-label::before{ background:var(--coral); }
+.callout p{ font-size:.8rem; line-height:1.65; color:var(--muted); margin:0; }
+.callout p + p{ margin-top:.75em; }
+
+/* ============================================================
+   §9 PATHWAY / SYSTEMS DIAGRAM PRIMITIVES (inline SVG)
+   These are the SVG class hooks used in §3.2 systems model
+   and §4 pathway diagram.
+   ============================================================ */
+.diagram-svg{
+  width:100%;
+  height:auto;
+  display:block;
+  font-family:var(--mono);
+}
+.diagram-svg .node-rect{
+  fill:rgba(28,28,38,0.85);
+  stroke:var(--border2);
+  stroke-width:1;
+  rx:8;
+  transition:stroke .25s, fill .25s, filter .25s;
+}
+.diagram-svg .node-rect.is-biomarker{ stroke:rgba(167,139,250,0.55); }
+.diagram-svg .node-rect.is-ingredient{ stroke:rgba(62,207,178,0.55); }
+.diagram-svg .node-rect.is-mechanism{ stroke:rgba(251,188,4,0.5); }
+.diagram-svg .node-rect.is-feature{   stroke:rgba(92,225,255,0.5); }
+.diagram-svg .node-rect.is-team{      stroke:rgba(255,199,44,0.55); }
+.diagram-svg .node-rect.is-process{   stroke:rgba(255,107,74,0.55); }
+.diagram-svg .node-label{
+  fill:var(--text);
+  font-size:11px;
+  font-weight:500;
+  font-family:var(--display);
+  pointer-events:none;
+}
+.diagram-svg .node-sublabel{
+  fill:var(--dim);
+  font-size:8.5px;
+  font-family:var(--mono);
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  pointer-events:none;
+}
+.diagram-svg .edge{
+  fill:none;
+  stroke:var(--border2);
+  stroke-width:1.5;
+  transition:stroke .25s, opacity .25s;
+}
+.diagram-svg .edge.is-confirmed{ stroke:rgba(62,207,178,0.55); }
+.diagram-svg .edge.is-hypothesis{ stroke-dasharray:4 4; stroke:rgba(251,188,4,0.45); }
+.diagram-svg .edge-label{
+  fill:var(--dim);
+  font-size:9px;
+  font-family:var(--mono);
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  pointer-events:none;
+}
+.diagram-svg .node-group{
+  cursor:none;
+}
+.diagram-svg .node-group:hover .node-rect{
+  fill:rgba(40,40,52,0.95);
+  filter:drop-shadow(0 0 12px rgba(92,225,255,0.25));
+}
+.diagram-svg.is-dimmed .node-group:not(.is-active),
+.diagram-svg.is-dimmed .edge:not(.is-active){
+  opacity:.18;
+}
+.diagram-svg .node-group.is-active .node-rect{
+  fill:rgba(50,50,68,1);
+  stroke-width:2;
+  filter:drop-shadow(0 0 18px rgba(92,225,255,0.4));
+}
+.diagram-svg .edge.is-active{
+  stroke-width:2.5;
+  opacity:1;
+  stroke:var(--electric);
+}
+
+/* Animated edge draw on viewport-enter */
+.diagram-svg .edge[data-anim="draw"]{
+  stroke-dasharray:1000;
+  stroke-dashoffset:1000;
+}
+.diagram-svg.in-view .edge[data-anim="draw"]{
+  animation:edge-draw 1.4s var(--ease-paper) forwards;
+}
+.diagram-svg.in-view .edge[data-anim="draw"]:nth-child(2n){ animation-delay:.15s; }
+.diagram-svg.in-view .edge[data-anim="draw"]:nth-child(3n){ animation-delay:.3s; }
+.diagram-svg.in-view .edge[data-anim="draw"]:nth-child(4n){ animation-delay:.45s; }
+@keyframes edge-draw{
+  to{ stroke-dashoffset:0; }
+}
+.diagram-svg .node-group[data-anim="fade"]{
+  opacity:0;
+  transform:translateY(8px);
+}
+.diagram-svg.in-view .node-group[data-anim="fade"]{
+  animation:node-fade .55s var(--ease-paper) forwards;
+}
+.diagram-svg.in-view .node-group[data-anim="fade"]:nth-child(odd){ animation-delay:.1s; }
+.diagram-svg.in-view .node-group[data-anim="fade"]:nth-child(even){ animation-delay:.25s; }
+@keyframes node-fade{
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* ============================================================
+   §10 FLAVOR PROFILE CURVE (interactive SVG, §3.1)
+   ============================================================ */
+.flavor-curve{
+  width:100%;
+  height:auto;
+  display:block;
+  font-family:var(--mono);
+}
+.flavor-curve .axis{
+  stroke:var(--border2);
+  stroke-width:1;
+}
+.flavor-curve .axis-label{
+  fill:var(--dim);
+  font-size:9px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.flavor-curve .ingredient-line{
+  fill:none;
+  stroke-width:2;
+  transition:opacity .25s, stroke-width .25s;
+  cursor:none;
+}
+.flavor-curve .ingredient-line[data-ing="sour"]{       stroke:#FF6B4A; }
+.flavor-curve .ingredient-line[data-ing="sweet"]{      stroke:#FFC72C; }
+.flavor-curve .ingredient-line[data-ing="stimulant"]{  stroke:#5ce1ff; }
+.flavor-curve .ingredient-line[data-ing="ginger"]{     stroke:#3ECFB2; }
+.flavor-curve .ingredient-line[data-ing="umami"]{      stroke:#A78BFA; }
+.flavor-curve.is-focused .ingredient-line:not(.is-active){
+  opacity:.18;
+}
+.flavor-curve .ingredient-line.is-active{
+  stroke-width:3.5;
+  filter:drop-shadow(0 0 8px currentColor);
+}
+.ingredient-legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+  margin-top:1rem;
+}
+.ingredient-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:.45rem .85rem;
+  border-radius:99px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  font-family:var(--mono);
+  font-size:.65rem;
+  letter-spacing:.06em;
+  color:var(--muted);
+  cursor:none;
+  transition:color .2s, background .2s, border-color .2s;
+}
+.ingredient-chip::before{
+  content:'';
+  width:10px; height:10px; border-radius:50%;
+  background:currentColor;
+}
+.ingredient-chip[data-ing="sour"]{       color:#FF6B4A; }
+.ingredient-chip[data-ing="sweet"]{      color:#FFC72C; }
+.ingredient-chip[data-ing="stimulant"]{  color:#5ce1ff; }
+.ingredient-chip[data-ing="ginger"]{     color:#3ECFB2; }
+.ingredient-chip[data-ing="umami"]{      color:#A78BFA; }
+.ingredient-chip:hover,
+.ingredient-chip.is-active{
+  background:rgba(255,255,255,0.06);
+  border-color:rgba(255,255,255,0.18);
+}
+.ingredient-detail{
+  margin-top:1.25rem;
+  padding:1.25rem 1.5rem;
+  border-radius:var(--r);
+  border:1px solid var(--border);
+  background:var(--bg2);
+  min-height:120px;
+  transition:border-color .25s;
+}
+.ingredient-detail-name{
+  font-family:var(--display);
+  font-size:1.05rem;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:.4rem;
+}
+.ingredient-detail-purpose{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--electric);
+  margin-bottom:.75rem;
+}
+.ingredient-detail-body{
+  font-size:.82rem;
+  line-height:1.65;
+  color:var(--muted);
+}
+.ingredient-detail.is-empty .ingredient-detail-name{ color:var(--dim); }
+
+/* ============================================================
+   §11 STAKEHOLDER MAP CARDS (§3.3)
+   ============================================================ */
+.stakeholder-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:14px;
+  margin-top:1.5rem;
+}
+.stakeholder-card{
+  padding:1.25rem 1.35rem;
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  background:var(--surface);
+  position:relative;
+  overflow:hidden;
+}
+.stakeholder-card::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:var(--border2);
+}
+.stakeholder-card[data-tier="patient"]::before{      background:var(--coral); }
+.stakeholder-card[data-tier="caregiver"]::before{    background:var(--violet); }
+.stakeholder-card[data-tier="clinician"]::before{    background:var(--teal); }
+.stakeholder-card[data-tier="formulator"]::before{   background:var(--amber); }
+.stakeholder-card[data-tier="distributor"]::before{  background:var(--electric); }
+.stakeholder-card[data-tier="regulator"]::before{    background:var(--usc-gold); }
+.stakeholder-card[data-tier="advocacy"]::before{     background:var(--usc-cardinal-bright); }
+.sh-role{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--dim);
+  margin-bottom:.3rem;
+}
+.sh-name{
+  font-family:var(--display);
+  font-size:1rem;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:.5rem;
+}
+.sh-cares,
+.sh-engage{
+  font-size:.74rem;
+  line-height:1.6;
+  color:var(--muted);
+  margin-top:.5rem;
+}
+.sh-cares::before,
+.sh-engage::before{
+  content:attr(data-label);
+  display:block;
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--electric);
+  margin-bottom:.25rem;
+  opacity:.7;
+}
+
+/* ============================================================
+   §12 ALGORITHM CALCULATOR (§5)
+   ============================================================ */
+.calc-shell{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);
+  gap:1.5rem;
+  margin-top:1.5rem;
+}
+.calc-inputs{
+  padding:1.5rem;
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.2));
+  position:sticky;
+  top:130px;
+  align-self:start;
+}
+.calc-input-group{ margin-bottom:1.4rem; }
+.calc-input-group:last-child{ margin-bottom:0; }
+.calc-input-label{
+  display:block;
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--electric);
+  margin-bottom:.5rem;
+}
+.calc-input-label .helper{
+  display:block;
+  margin-top:.2rem;
+  color:var(--dim);
+  font-size:.55rem;
+  letter-spacing:.06em;
+  text-transform:none;
+  font-weight:400;
+}
+.calc-select,
+.calc-range{
+  width:100%;
+  background:var(--bg3);
+  border:1px solid var(--border2);
+  color:var(--text);
+  font-family:var(--mono);
+  font-size:.78rem;
+  padding:.6rem .75rem;
+  border-radius:6px;
+  cursor:none;
+}
+.calc-select:focus,
+.calc-range:focus{
+  outline:none;
+  border-color:var(--electric);
+  box-shadow:0 0 0 2px rgba(92,225,255,0.2);
+}
+.calc-segment{
+  display:flex;
+  gap:0;
+  border:1px solid var(--border2);
+  border-radius:6px;
+  overflow:hidden;
+}
+.calc-segment input[type="radio"]{ display:none; }
+.calc-segment label{
+  flex:1;
+  text-align:center;
+  padding:.55rem .4rem;
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--dim);
+  cursor:none;
+  background:var(--bg3);
+  border-right:1px solid var(--border2);
+  transition:background .15s, color .15s;
+}
+.calc-segment label:last-child{ border-right:none; }
+.calc-segment input[type="radio"]:checked + label{
+  background:linear-gradient(135deg,var(--coral),#ff9a6e);
+  color:#fff;
+}
+.calc-output{
+  padding:1.5rem;
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  background:var(--bg2);
+}
+.calc-output-label{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--electric);
+  margin-bottom:1rem;
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
+.calc-output-label::before{
+  content:'';
+  width:8px; height:8px; border-radius:50%;
+  background:var(--teal); box-shadow:0 0 8px var(--teal);
+  animation:pulse 2s infinite;
+}
+.calc-result-formulation{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+  gap:10px;
+  margin-bottom:1.5rem;
+}
+.calc-bar{
+  padding:.85rem 1rem;
+  border-radius:var(--r);
+  border:1px solid var(--border);
+  background:rgba(0,0,0,0.25);
+}
+.calc-bar-name{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin-bottom:.4rem;
+  text-transform:uppercase;
+}
+.calc-bar-track{
+  height:6px;
+  background:var(--bg3);
+  border-radius:3px;
+  overflow:hidden;
+  position:relative;
+}
+.calc-bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--electric),var(--coral));
+  width:0%;
+  transition:width .45s var(--ease-paper);
+}
+.calc-bar-value{
+  margin-top:.35rem;
+  font-family:var(--mono);
+  font-size:.7rem;
+  color:var(--text);
+  font-feature-settings:'tnum' 1;
+}
+.calc-rationale{
+  margin-top:1rem;
+  padding-top:1rem;
+  border-top:1px solid var(--border);
+  font-size:.78rem;
+  line-height:1.7;
+  color:var(--muted);
+}
+.calc-rationale strong{ color:var(--text); font-weight:500; }
+
+@media(max-width:900px){
+  .calc-shell{ grid-template-columns:1fr; }
+  .calc-inputs{ position:static; }
+}
+
+/* ============================================================
+   §13 PERSONA / SCENARIO PICKER (§6)
+   ============================================================ */
+.persona-shell{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);
+  gap:1.5rem;
+  margin-top:1.5rem;
+}
+.persona-card{
+  padding:2rem;
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  background:linear-gradient(160deg,rgba(167,139,250,0.06),rgba(8,8,10,0.92));
+  position:relative;
+  overflow:hidden;
+}
+.persona-card::before{
+  content:'';
+  position:absolute;
+  top:0; left:0;
+  width:3px; height:100%;
+  background:linear-gradient(to bottom,var(--violet),var(--coral));
+}
+.persona-name{
+  font-family:var(--display);
+  font-size:1.4rem;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:.4rem;
+  letter-spacing:-.01em;
+}
+.persona-meta{
+  font-family:var(--mono);
+  font-size:.65rem;
+  letter-spacing:.1em;
+  color:var(--electric);
+  text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.persona-section{ margin-top:1.25rem; }
+.persona-section-label{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--violet);
+  margin-bottom:.4rem;
+}
+.persona-section-body{
+  font-size:.85rem;
+  line-height:1.7;
+  color:var(--muted);
+}
+.persona-section-body strong{ color:var(--text); font-weight:500; }
+.persona-trait-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:.5rem;
+}
+.persona-trait{
+  font-family:var(--mono);
+  font-size:.6rem;
+  padding:3px 9px;
+  border-radius:99px;
+  background:rgba(167,139,250,0.1);
+  color:var(--violet);
+  border:1px solid rgba(167,139,250,0.25);
+  letter-spacing:.04em;
+}
+
+@media(max-width:900px){
+  .persona-shell{ grid-template-columns:1fr; }
+}
+
+/* ============================================================
+   §14 REFERENCES LIST (§7)
+   ============================================================ */
+.ref-controls{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:.75rem;
+  margin-bottom:2rem;
+  padding:.85rem;
+  border-radius:var(--r);
+  border:1px solid var(--border);
+  background:var(--bg2);
+}
+.ref-search{
+  flex:1;
+  min-width:180px;
+  background:transparent;
+  border:none;
+  color:var(--text);
+  font-family:var(--mono);
+  font-size:.78rem;
+  padding:.4rem .6rem;
+  outline:none;
+}
+.ref-search::placeholder{ color:var(--dim); }
+.ref-filter-bar{
+  display:flex;
+  gap:4px;
+  flex-wrap:wrap;
+}
+.ref-filter{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:.4rem .7rem;
+  border-radius:99px;
+  border:1px solid transparent;
+  background:transparent;
+  color:var(--dim);
+  cursor:none;
+  transition:color .15s, background .15s, border-color .15s;
+}
+.ref-filter:hover{ color:var(--text); border-color:var(--border2); }
+.ref-filter.is-active{
+  color:#fff;
+  background:linear-gradient(135deg,var(--coral),#ff9a6e);
+  border-color:transparent;
+}
+
+.ref-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+  counter-reset:ref-counter;
+}
+.ref-item{
+  display:grid;
+  grid-template-columns:46px 1fr;
+  gap:1rem;
+  padding:1.25rem 0;
+  border-bottom:1px solid var(--border);
+  scroll-margin-top:120px;
+  transition:background .2s;
+}
+.ref-item:target{
+  background:linear-gradient(90deg,rgba(255,107,74,0.08),transparent 60%);
+  border-radius:var(--r);
+  padding-left:.75rem;
+  padding-right:.75rem;
+}
+.ref-item.is-hidden{ display:none; }
+.ref-num{
+  font-family:var(--mono);
+  font-size:.78rem;
+  font-weight:500;
+  color:var(--electric);
+  letter-spacing:.04em;
+  font-feature-settings:'tnum' 1;
+  padding-top:.15rem;
+}
+.ref-num::before{ content:'['; opacity:.6; }
+.ref-num::after{ content:']'; opacity:.6; }
+.ref-body{ min-width:0; }
+.ref-citation{
+  font-size:.85rem;
+  line-height:1.6;
+  color:var(--text);
+  margin:0;
+}
+.ref-citation em{ font-style:italic; color:var(--muted); }
+.ref-citation strong{ font-weight:500; }
+.ref-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:.6rem;
+}
+.ref-tag{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:2px 8px;
+  border-radius:99px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  color:var(--dim);
+}
+.ref-tag[data-type="peer-reviewed"]{ color:var(--violet); border-color:rgba(167,139,250,0.3); background:rgba(167,139,250,0.08); }
+.ref-tag[data-type="clinical"]{      color:var(--teal);   border-color:rgba(62,207,178,0.3);  background:rgba(62,207,178,0.08); }
+.ref-tag[data-type="industry"]{      color:var(--amber);  border-color:rgba(251,188,4,0.3);   background:rgba(251,188,4,0.08); }
+.ref-tag[data-type="interview"]{     color:var(--coral);  border-color:rgba(255,107,74,0.3);  background:rgba(255,107,74,0.08); }
+.ref-tag[data-type="lay"]{           color:var(--electric); border-color:rgba(92,225,255,0.3); background:rgba(92,225,255,0.08); }
+.ref-supports{
+  margin-top:.5rem;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  align-items:center;
+}
+.ref-supports-label{
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--dim);
+}
+.ref-support-link{
+  font-family:var(--mono);
+  font-size:.6rem;
+  padding:2px 7px;
+  border-radius:4px;
+  background:rgba(92,225,255,0.06);
+  color:var(--electric);
+  border:1px solid rgba(92,225,255,0.18);
+  text-decoration:none;
+  letter-spacing:.04em;
+  transition:background .15s;
+}
+.ref-support-link:hover{ background:rgba(92,225,255,0.18); }
+
+/* ============================================================
+   §15 GLITCH TEXT EFFECT (§1 hero)
+   For the word "Dysgeusia" — communicates taste distortion typographically.
+   ============================================================ */
+.glitch{
+  position:relative;
+  display:inline-block;
+  color:var(--text);
+}
+.glitch::before,
+.glitch::after{
+  content:attr(data-text);
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  pointer-events:none;
+  opacity:.55;
+}
+.glitch::before{
+  color:var(--coral);
+  transform:translate(2px,0);
+  mix-blend-mode:screen;
+  animation:glitch-1 3.6s infinite steps(1,end);
+}
+.glitch::after{
+  color:var(--electric);
+  transform:translate(-2px,0);
+  mix-blend-mode:screen;
+  animation:glitch-2 4.1s infinite steps(1,end);
+}
+@keyframes glitch-1{
+  0%,90%,100%{ transform:translate(2px,0); }
+  91%{ transform:translate(2px,1px); }
+  93%{ transform:translate(-2px,-1px); }
+  95%{ transform:translate(2px,2px); }
+  97%{ transform:translate(-3px,0); }
+}
+@keyframes glitch-2{
+  0%,88%,100%{ transform:translate(-2px,0); }
+  89%{ transform:translate(-1px,-2px); }
+  92%{ transform:translate(3px,1px); }
+  94%{ transform:translate(-2px,2px); }
+  96%{ transform:translate(1px,-1px); }
+}
+
+/* "taste" word that cycles through alternates on viewport-enter */
+.word-cycle{
+  display:inline-block;
+  position:relative;
+  color:var(--coral);
+  font-style:italic;
+}
+.word-cycle::after{
+  content:attr(data-cycle);
+  display:inline-block;
+}
+
+/* ============================================================
+   §16 MISC — back link, section divider, deliverable strip
+   ============================================================ */
+.back-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--muted);
+  text-decoration:none;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  transition:color .15s, transform .15s;
+}
+.back-link:hover{ color:var(--coral); transform:translateX(-2px); }
+.back-link::before{ content:'←'; }
+
+.section-divider{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  margin:3rem 0;
+  font-family:var(--mono);
+  font-size:.55rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--dim);
+}
+.section-divider::before,
+.section-divider::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border2),transparent);
+}
+
+.next-page{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1rem;
+  padding:2rem 2.5rem;
+  margin:4rem auto 0;
+  max-width:1100px;
+  border-top:1px solid var(--border);
+}
+.next-page-meta{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--dim);
+}
+.next-page-link{
+  display:inline-flex;
+  align-items:baseline;
+  gap:1rem;
+  text-decoration:none;
+  color:var(--text);
+  padding:.85rem 1.25rem;
+  border:1px solid var(--border2);
+  border-radius:var(--r);
+  background:rgba(255,255,255,0.02);
+  transition:border-color .2s, background .2s, transform .2s;
+}
+.next-page-link:hover{
+  border-color:rgba(255,107,74,0.45);
+  background:rgba(255,107,74,0.06);
+  transform:translateX(2px);
+}
+.next-page-link .np-label{
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--coral);
+}
+.next-page-link .np-title{
+  font-family:var(--display);
+  font-size:1rem;
+  font-weight:600;
+}
+.next-page-link .np-arrow{
+  margin-left:.4rem;
+  color:var(--coral);
+  transition:transform .2s;
+}
+.next-page-link:hover .np-arrow{ transform:translateX(4px); }
+
+/* ============================================================
+   §17 ACCESSIBILITY — reduced-motion fallbacks
+   ============================================================ */
+@media(prefers-reduced-motion:reduce){
+  .glitch::before,
+  .glitch::after{ animation:none !important; opacity:0 !important; }
+  .diagram-svg .edge[data-anim="draw"]{ stroke-dashoffset:0 !important; animation:none !important; }
+  .diagram-svg .node-group[data-anim="fade"]{ opacity:1 !important; transform:none !important; animation:none !important; }
+  .calc-bar-fill{ transition:none !important; }
+  .next-page-link,
+  .next-page-link:hover{ transform:none !important; }
+}
+
+/* ============================================================
+   §18 PRINT
+   Strip animations, expand tooltips inline, page numbers.
+   ============================================================ */
+@media print{
+  body{ background:white !important; color:black !important; cursor:auto !important; }
+  body::before, body::after, .scanlines, .cursor, .cursor-ring,
+  .proj-subnav, nav{ display:none !important; }
+  .ms-section, .manuscript-head{ page-break-inside:avoid; }
+  .figure{ page-break-inside:avoid; border:1px solid #999 !important; background:white !important; }
+  .figure-caption{ background:white !important; color:#333 !important; }
+  .cite{ color:#0066cc !important; background:transparent !important; border:none !important; }
+  .cite[data-note] .cite-tip{
+    /* Render tooltips inline as footnote markers in print */
+    position:static !important;
+    transform:none !important;
+    opacity:1 !important;
+    display:inline !important;
+    background:transparent !important;
+    border:none !important;
+    box-shadow:none !important;
+    color:#666 !important;
+    font-size:.7rem !important;
+    margin-left:.4em;
+  }
+  .ms-title, .ms-section-title, .ms-subsection-title{ color:black !important; }
+  .sci-prose, .sci-prose strong{ color:black !important; }
+  .sci-margin{ display:none !important; }
+  .sci-layout{ grid-template-columns:1fr !important; }
+}
+
+/* ============================================================
+   §19 MOBILE BREAKPOINTS
+   ============================================================ */
+@media(max-width:768px){
+  .manuscript-head{ padding:4rem 1.25rem 2rem; }
+  .ms-section{ padding:3rem 1.25rem; }
+  .ms-byline{ font-size:.6rem; gap:.75rem 1.25rem; }
+  .stat-callout{ flex-direction:column; gap:.75rem; padding:1.25rem; }
+  .next-page{ padding:1.5rem 1.25rem; }
+}
+
+/* ============================================================
+   §20 WARM CREAM PALETTE — all SuzChews pages
+   Overrides the root portfolio's light-mode tokens with the
+   SuzChews-specific warm cream + dusty rose palette.
+   body-scoped custom properties cascade to all descendants.
+   ============================================================ */
+body{
+  --bg:#F7F2EC;--bg2:#EFE9E1;--bg3:#E6DDD4;--surface:#FDFAF8;
+  --border:rgba(44,31,26,0.09);--border2:rgba(44,31,26,0.18);
+  --text:#2C1F1A;--muted:rgba(44,31,26,0.55);--dim:rgba(44,31,26,0.32);
+  --coral:#C26070;--coral-dim:rgba(194,96,112,0.10);--coral-mid:rgba(194,96,112,0.28);
+  --teal:#4E8A7A;--teal-dim:rgba(78,138,122,0.10);
+  --violet:#7B6A9E;--violet-dim:rgba(123,106,158,0.10);
+  --amber:#C08040;--amber-dim:rgba(192,128,64,0.10);
+  --electric:#2068A8;   /* replaces neon blue with readable ink-blue on cream */
+  --usc-gold:#B88A00;--usc-gold-dim:rgba(184,138,0,0.12);
+  --usc-cardinal:#990000;--usc-cardinal-bright:#c42030;
+  --paper:#EDE6DC;      /* used as card/section fill — warm parchment */
+  --paper-edge:rgba(44,31,26,0.08);
+  --sh-sm:0 1px 3px rgba(44,31,26,0.06),0 4px 12px rgba(44,31,26,0.04);
+  --sh-md:0 2px 8px rgba(44,31,26,0.06),0 8px 24px rgba(44,31,26,0.08);
+  background:var(--bg);
+  color:var(--text);
+}
+/* Dot grid on light bg */
+body::before{
+  background-image:radial-gradient(circle,rgba(44,31,26,0.06) 1px,transparent 0);
+  background-size:28px 28px;
+  opacity:.40;
+  mask-image:radial-gradient(ellipse 100% 55% at 50% 0%,black,transparent);
+  -webkit-mask-image:radial-gradient(ellipse 100% 55% at 50% 0%,black,transparent);
+}
+/* Cursor: dark on light */
+.cursor     { background:var(--text) !important; }
+.cursor-ring{ border-color:rgba(44,31,26,0.20) !important; }
+/* Main nav: cream */
+nav{
+  background:rgba(247,242,236,0.92) !important;
+  backdrop-filter:blur(24px) saturate(1.6) !important;
+  box-shadow:0 1px 0 rgba(44,31,26,0.09) !important;
+}
+.nav-logo,.nav-links a{ color:var(--text) !important; }
+.nav-links a:hover    { color:var(--coral) !important; }
+.nav-dot{ background:var(--teal) !important; box-shadow:0 0 0 3px rgba(78,138,122,0.20) !important; }
+/* Next-page footer: cream */
+.next-page            { background:var(--bg2) !important; border-top-color:var(--border) !important; }
+.next-page-meta       { color:var(--dim) !important; }
+.next-page-link       { color:var(--text) !important; border-color:var(--border2) !important; background:transparent !important; }
+.next-page-link:hover { border-color:var(--coral-mid) !important; background:var(--coral-dim) !important; }
+.np-label             { color:var(--coral) !important; }
+.np-title             { color:var(--text) !important; }
+.np-arrow             { color:var(--dim) !important; }
+/* Manuscript sections: light paper surface */
+.manuscript-head{ background:linear-gradient(180deg,var(--bg),var(--bg2) 55%,var(--surface) 100%) !important; }
+.ms-section     { background:transparent !important; }
+/* Section-number badge: legible on cream */
+.sec-num,.ms-section-num{ background:var(--surface) !important; border-color:var(--border2) !important; color:var(--muted) !important; box-shadow:var(--sh-sm) !important; }
+/* Callout boxes */
+.callout{ background:var(--surface) !important; }
+.callout--info{ border-color:rgba(32,104,168,0.25) !important; background:rgba(32,104,168,0.05) !important; }
+.callout--info .callout-label{ color:var(--electric) !important; }
+.callout--info .callout-label::before{ background:var(--electric) !important; }
+.callout--limit{ border-color:rgba(192,128,64,0.30) !important; background:rgba(192,128,64,0.06) !important; }
+.callout--warn{ border-color:rgba(194,96,112,0.30) !important; background:rgba(194,96,112,0.06) !important; }
+/* Stat callout */
+.stat-callout     { background:var(--surface) !important; border-color:var(--border) !important; box-shadow:var(--sh-sm) !important; }
+.stat-num         { color:var(--text) !important; }
+.stat-unit        { color:var(--coral) !important; }
+.stat-source      { color:var(--dim) !important; }
+/* Persona cards */
+.persona-card     { background:var(--surface) !important; border-color:var(--border) !important; box-shadow:var(--sh-md) !important; }
+/* Calculator */
+.calc-shell       { background:var(--surface) !important; border-color:var(--border) !important; box-shadow:var(--sh-md) !important; }
+.calc-output      { background:var(--bg2) !important; border-color:var(--border) !important; }
+/* Reference list */
+.ref-item         { background:var(--surface) !important; border-color:var(--border) !important; }
+.ref-item:hover   { border-color:var(--coral-mid) !important; }
+
+
+/* §06 page-local: scenario picker grid */
+.scenario-picker{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+  gap:10px;
+  margin-bottom:2rem;
+}
+.scenario-btn{
+  padding:1.1rem 1.25rem;
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  background:var(--surface);
+  text-align:left;
+  cursor:none;
+  transition:border-color .2s, background .2s;
+  position:relative;
+  overflow:hidden;
+}
+.scenario-btn::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background:var(--border2);
+  transition:background .2s;
+}
+.scenario-btn[data-regimen="platinum"]::before    { background:var(--electric); }
+.scenario-btn[data-regimen="taxane"]::before      { background:var(--violet); }
+.scenario-btn[data-regimen="anthracycline"]::before{ background:var(--coral); }
+.scenario-btn[data-regimen="other"]::before       { background:var(--teal); }
+.scenario-btn:hover{
+  border-color:rgba(255,255,255,0.18);
+  background:rgba(255,255,255,0.03);
+}
+.scenario-btn.is-active{
+  border-color:rgba(92,225,255,0.45);
+  background:rgba(92,225,255,0.06);
+}
+.scenario-btn.is-active::before{ background:var(--electric); }
+.sb-name{
+  font-family:var(--display);
+  font-size:.95rem;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:.2rem;
+  display:block;
+}
+.sb-meta{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.08em;
+  color:var(--dim);
+  text-transform:uppercase;
+}
+
+/* CiTAS dimension mini-bars */
+.citas-bars{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-top:1rem;
+}
+.citas-row{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+}
+.citas-label{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.08em;
+  color:var(--dim);
+  text-transform:uppercase;
+  min-width:10ch;
+}
+.citas-track{
+  flex:1;
+  height:5px;
+  background:var(--bg3);
+  border-radius:3px;
+  overflow:hidden;
+}
+.citas-fill{
+  height:100%;
+  border-radius:3px;
+  transition:width .5s var(--ease-paper);
+}
+.citas-fill.dim1{ background:linear-gradient(90deg,var(--teal),var(--electric)); }
+.citas-fill.dim2{ background:linear-gradient(90deg,var(--coral),var(--violet)); }
+.citas-fill.dim3{ background:linear-gradient(90deg,var(--amber),var(--coral)); }
+.citas-val{
+  font-family:var(--mono);
+  font-size:.62rem;
+  color:var(--text);
+  min-width:3ch;
+  text-align:right;
+  font-feature-settings:'tnum' 1;
+}
+
+/* Formulation output bars (mini version inside persona panel) */
+.sim-form-bars{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:1rem;
+}
+.sim-bar-row{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+}
+.sim-bar-name{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--dim);
+  min-width:16ch;
+}
+.sim-bar-track{
+  flex:1;
+  height:6px;
+  background:var(--bg3);
+  border-radius:3px;
+  overflow:hidden;
+}
+.sim-bar-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--electric),var(--coral));
+  transition:width .55s var(--ease-paper);
+}
+.sim-bar-pct{
+  font-family:var(--mono);
+  font-size:.65rem;
+  color:var(--text);
+  min-width:3.5ch;
+  text-align:right;
+  font-feature-settings:'tnum' 1;
+}
+
+/* Ingredient prevalence map (same as §05) */
+.ingr-map{
+  margin-top:1.25rem;
+  padding-top:1.25rem;
+  border-top:1px solid var(--border);
+}
+.ingr-map-title{
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:1rem;
+}
+.ingr-row{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  margin-bottom:.65rem;
+}
+.ingr-strategy-label{
+  font-family:var(--mono);
+  font-size:.52rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--dim);
+  min-width:14ch;
+}
+.ingr-bar-wrap{ flex:1; }
+.ingr-bar-bg{
+  height:22px;
+  background:var(--bg3);
+  border-radius:var(--r);
+  overflow:hidden;
+}
+.ingr-bar-inner{
+  height:100%;
+  border-radius:var(--r);
+  transition:width .55s var(--ease-paper);
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  padding:0 .6rem;
+  overflow:hidden;
+  min-width:0;
+}
+.ingr-bar-inner.s-trig       { background:linear-gradient(90deg,rgba(32,104,168,.4),rgba(32,104,168,.18)); }
+.ingr-bar-inner.s-umami      { background:linear-gradient(90deg,rgba(62,207,178,.4),rgba(62,207,178,.18)); }
+.ingr-bar-inner.s-sour       { background:linear-gradient(90deg,rgba(194,96,112,.4),rgba(194,96,112,.18)); }
+.ingr-bar-inner.s-antinausea { background:linear-gradient(90deg,rgba(251,188,4,.4),rgba(251,188,4,.18)); }
+.ingr-pill{
+  font-family:var(--mono);
+  font-size:.48rem;
+  letter-spacing:.06em;
+  color:var(--text);
+  white-space:nowrap;
+  opacity:.9;
+}
+.ingr-pct-label{
+  font-family:var(--mono);
+  font-size:.6rem;
+  color:var(--text);
+  min-width:3ch;
+  text-align:right;
+  font-feature-settings:'tnum' 1;
+}
+
+/* Empty state */
+.sim-empty{
+  padding:3rem 2rem;
+  text-align:center;
+  font-family:var(--mono);
+  font-size:.72rem;
+  color:var(--dim);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  border:1px dashed var(--border);
+  border-radius:var(--r-lg);
+}
+
+html,body{margin:0!important;padding:0!important;min-width:0!important;cursor:auto!important;background:#F7F2EC!important;color:#2C1F1A!important}body{font-size:14px!important}*{cursor:auto!important}button{cursor:pointer!important}#s-picker{margin:0!important;padding:10px 14px!important;max-width:none!important}#s-picker>.ms-section-head,#s-picker>.sci-prose{display:none}.scenario-picker{grid-template-columns:repeat(5,1fr)!important;gap:5px!important;margin:0 0 10px!important;position:sticky;top:0;background:#F7F2EC;z-index:3;padding:4px 0}.scenario-btn{padding:8px!important;min-height:44px!important}.sb-name{font-size:14px!important}.sb-meta{display:none}.persona-shell{display:grid!important;grid-template-columns:1fr 1fr!important;gap:12px!important}.persona-card{padding:14px!important}.persona-name{font-size:24px!important}.persona-meta{font-size:11px!important}.persona-section-body{font-size:13px!important;line-height:1.4!important}.persona-section-label{font-size:10px!important}.tv-note{font:12px sans-serif;margin:0;padding:4px 14px;background:#EFE9E1}.persona-trait{font-size:11px!important}.scanlines{display:none}button:focus-visible{outline:2px solid #547867;outline-offset:2px}</style></head><body class="suzchews-page"><p class="tv-note">Five authored fictional scenarios · Research concept, not validated treatment results</p><section class="ms-section" id="s-picker">
+  <div class="ms-section-head">
+    <span class="ms-section-num">§ 06.1</span>
+    <h2 class="ms-section-title">Select a <em>patient scenario.</em></h2>
+  </div>
+
+  <p class="sci-prose" style="max-width:62ch;margin-bottom:2rem;">
+    Five scenarios were authored to span the clinical variable space: different drug classes,
+    biomarker profiles, and treatment phases. The color bar at the top of each card
+    corresponds to the dominant drug class.
+</p>
+
+  <!-- Scenario picker buttons -->
+  <div class="scenario-picker" id="scenarioPicker" role="listbox" aria-label="Select patient scenario">
+    <button type="button" class="scenario-btn" data-scenario="maria" data-regimen="platinum"
+            role="option" aria-selected="false">
+      <span class="sb-name">Maria, 58</span>
+      <span class="sb-meta">Breast · Carboplatin · Wk 4</span>
+    </button>
+    <button type="button" class="scenario-btn" data-scenario="jake" data-regimen="platinum"
+            role="option" aria-selected="false">
+      <span class="sb-name">Jake, 44</span>
+      <span class="sb-meta">Colorectal · FOLFOX · Wk 6</span>
+    </button>
+    <button type="button" class="scenario-btn" data-scenario="sofia" data-regimen="other"
+            role="option" aria-selected="false">
+      <span class="sb-name">Sofia, 15</span>
+      <span class="sb-meta">Pediatric ALL · Various · Wk 3</span>
+    </button>
+    <button type="button" class="scenario-btn" data-scenario="patricia" data-regimen="taxane"
+            role="option" aria-selected="false">
+      <span class="sb-name">Patricia, 71</span>
+      <span class="sb-meta">Lung · Docetaxel · Wk 8</span>
+    </button>
+    <button type="button" class="scenario-btn" data-scenario="david" data-regimen="anthracycline"
+            role="option" aria-selected="false">
+      <span class="sb-name">David, 52</span>
+      <span class="sb-meta">Lymphoma · Doxorubicin · Wk 2</span>
+    </button>
+  </div>
+
+  <!-- Persona shell: card + formulation output -->
+  <div class="persona-shell" id="personaShell">
+    <!-- Persona detail card -->
+    <div class="persona-card" id="personaCard" style="display:none;">
+      <p class="persona-name" id="p-name">-</p>
+      <p class="persona-meta" id="p-meta">-</p>
+
+      <div class="persona-section">
+        <p class="persona-section-label">Clinical profile</p>
+        <p class="persona-section-body" id="p-profile">-</p>
+      </div>
+
+      <div class="persona-section">
+        <p class="persona-section-label">Dominant dysgeusia presentation</p>
+        <p class="persona-section-body" id="p-presentation">-</p>
+      </div>
+
+      <div class="persona-section">
+        <p class="persona-section-label">Estimated CiTAS dimension profile</p>
+        <div class="citas-bars">
+          <div class="citas-row">
+            <span class="citas-label">Dim. I - quantitative</span>
+            <div class="citas-track"><div class="citas-fill dim1" id="citas-d1"></div></div>
+            <span class="citas-val" id="citas-d1-val">-</span>
+          </div>
+          <div class="citas-row">
+            <span class="citas-label">Dim. II - qualitative</span>
+            <div class="citas-track"><div class="citas-fill dim2" id="citas-d2"></div></div>
+            <span class="citas-val" id="citas-d2-val">-</span>
+          </div>
+          <div class="citas-row">
+            <span class="citas-label">Dim. III - nutrition</span>
+            <div class="citas-track"><div class="citas-fill dim3" id="citas-d3"></div></div>
+            <span class="citas-val" id="citas-d3-val">-</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="persona-trait-list" id="p-traits"></div>
+    </div>
+
+    <!-- Formulation output -->
+    <div id="simOutput">
+      <div class="sim-empty" id="simEmpty">← Select a patient to see the formulation</div>
+      <div id="simResult" style="display:none;">
+        <div style="padding:1.5rem;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bg2);">
+          <p style="font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--electric);margin-bottom:1.25rem;display:flex;align-items:center;gap:.5rem;">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal);display:inline-block;animation:pulse 2s infinite;"></span>
+            Algorithm output - recommended formulation
+          </p>
+          <div class="sim-form-bars">
+            <div class="sim-bar-row">
+              <span class="sim-bar-name">Trigeminal</span>
+              <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-trigeminal"></div></div>
+              <span class="sim-bar-pct" id="sim-val-trigeminal">-</span>
+            </div>
+            <div class="sim-bar-row">
+              <span class="sim-bar-name">Umami / bitter masker</span>
+              <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-umami"></div></div>
+              <span class="sim-bar-pct" id="sim-val-umami">-</span>
+            </div>
+            <div class="sim-bar-row">
+              <span class="sim-bar-name">Sour / tart</span>
+              <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-sour"></div></div>
+              <span class="sim-bar-pct" id="sim-val-sour">-</span>
+            </div>
+            <div class="sim-bar-row">
+              <span class="sim-bar-name">Anti-nausea</span>
+              <div class="sim-bar-track"><div class="sim-bar-fill" id="sim-fill-antinausea"></div></div>
+              <span class="sim-bar-pct" id="sim-val-antinausea">-</span>
+            </div>
+          </div>
+
+          <!-- Ingredient map -->
+          <div class="ingr-map">
+            <p class="ingr-map-title">Specific ingredients - relative prevalence</p>
+            <div class="ingr-row">
+              <span class="ingr-strategy-label">Trigeminal</span>
+              <div class="ingr-bar-wrap">
+                <div class="ingr-bar-bg">
+                  <div class="ingr-bar-inner s-trig" id="sim-ingr-trig" style="width:25%">
+                    <span class="ingr-pill">menthol</span>
+                    <span class="ingr-pill">·</span>
+                    <span class="ingr-pill">carbonation</span>
+                  </div>
+                </div>
+              </div>
+              <span class="ingr-pct-label" id="sim-ingr-pct-trig">25%</span>
+            </div>
+            <div class="ingr-row">
+              <span class="ingr-strategy-label">Umami / bitter masker</span>
+              <div class="ingr-bar-wrap">
+                <div class="ingr-bar-bg">
+                  <div class="ingr-bar-inner s-umami" id="sim-ingr-umami" style="width:25%">
+                    <span class="ingr-pill">glutamate peptides</span>
+                    <span class="ingr-pill">·</span>
+                    <span class="ingr-pill">IMP</span>
+                  </div>
+                </div>
+              </div>
+              <span class="ingr-pct-label" id="sim-ingr-pct-umami">25%</span>
+            </div>
+            <div class="ingr-row">
+              <span class="ingr-strategy-label">Sour / tart</span>
+              <div class="ingr-bar-wrap">
+                <div class="ingr-bar-bg">
+                  <div class="ingr-bar-inner s-sour" id="sim-ingr-sour" style="width:25%">
+                    <span class="ingr-pill">citric acid</span>
+                    <span class="ingr-pill">·</span>
+                    <span class="ingr-pill">malic acid</span>
+                  </div>
+                </div>
+              </div>
+              <span class="ingr-pct-label" id="sim-ingr-pct-sour">25%</span>
+            </div>
+            <div class="ingr-row">
+              <span class="ingr-strategy-label">Anti-nausea</span>
+              <div class="ingr-bar-wrap">
+                <div class="ingr-bar-bg">
+                  <div class="ingr-bar-inner s-antinausea" id="sim-ingr-antinausea" style="width:25%">
+                    <span class="ingr-pill">ginger extract</span>
+                    <span class="ingr-pill">·</span>
+                    <span class="ingr-pill">B6</span>
+                    <span class="ingr-pill">·</span>
+                    <span class="ingr-pill">Mg gluconate</span>
+                  </div>
+                </div>
+              </div>
+              <span class="ingr-pct-label" id="sim-ingr-pct-antinausea">25%</span>
+            </div>
+          </div>
+
+          <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border);">
+            <p style="font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--electric);margin-bottom:.5rem;">Algorithm rationale</p>
+            <p id="sim-rationale" style="font-size:.78rem;line-height:1.7;color:var(--muted);">-</p>
+          </div>
+
+          <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border);">
+            <p style="font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:.5rem;">What this patient might experience</p>
+            <p id="sim-experience" style="font-size:.78rem;line-height:1.7;color:var(--muted);font-family:var(--serif);font-style:italic;">-</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /persona-shell -->
+</section>
+
+<script>
+/* ============================================================
+   §06 PAGE-LOCAL: Deterministic scenario picker
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ----------------------------------------------------------
+     PERSONA DATABASE
+     Each persona has:
+       .inputs   - fed into the §05 algorithm function
+       .citas    - estimated dim scores [d1, d2, d3] each 0-100
+       .profile  - clinical profile sentence
+       .presentation - dominant symptom description
+       .traits   - tag chips
+       .experience - first-person-adjacent description of gum effect
+  ---------------------------------------------------------- */
+  var PERSONAS = {
+    maria: {
+      name: 'Maria, 58',
+      meta: 'Breast cancer · Carboplatin (platinum) · Week 4 · Elevated iron · Fair oral hygiene',
+      inputs: { treatment:'platinum', hygiene:'fair', iron:'elevated', zinc:'normal', weeks:'mid', nausea:1 },
+      citas: [42, 78, 35],
+      profile: 'Breast cancer patient in her fourth week of carboplatin therapy. Serum iron elevated (likely dietary - red meat-heavy diet pre-diagnosis). Oral hygiene fair. Nausea mild to moderate. Zinc within normal range.',
+      presentation: 'Dominant presentation: metallic. Everything tastes like a copper coin. Hot food intensifies it. Cold food is more tolerable. Sour foods are the most recognizable still - citrus gives the clearest signal.',
+      traits: ['Platinum agent', 'Elevated iron', 'Metallic dominant', 'Week 4'],
+      experience: 'When Maria chews SuzChews, the first wave of citric sourness cuts through the metallic background - briefly - and the menthol tingle redirects attention away from the taste buds toward the roof of the mouth and throat. The savory undercurrent doesn\'t fully mask the metallic quality, but it competes with it. Food afterward tastes slightly more like food.'
+    },
+    jake: {
+      name: 'Jake, 44',
+      meta: 'Colorectal cancer · FOLFOX (platinum + fluorouracil) · Week 6 · Deficient zinc · Good oral hygiene',
+      inputs: { treatment:'platinum', hygiene:'good', iron:'normal', zinc:'deficient', weeks:'mid', nausea:1 },
+      citas: [68, 55, 40],
+      profile: 'Colorectal cancer patient, mid-career, six weeks into FOLFOX regimen (oxaliplatin + leucovorin + fluorouracil). Zinc deficient - dietary intake severely reduced due to nausea. Good oral hygiene baseline. Normal iron.',
+      presentation: 'Dominant presentation: overall taste loss with a metallic undertone. Food tastes of almost nothing, then occasionally - unpredictably - metallic. The absence of flavor is almost as disorienting as a bad one. Sour is the most intact sense remaining.',
+      traits: ['Platinum agent', 'Zinc deficient', 'Taste loss dominant', 'Week 6'],
+      experience: 'Jake\'s experience with SuzChews centers on the sour first wave - it\'s the clearest flavor signal he\'s had in weeks, and it momentarily reorients his perception of what food is supposed to feel like. The umami sustain doesn\'t produce a flavor he can name, but it fills in a background that makes eating feel less futile.'
+    },
+    sofia: {
+      name: 'Sofia, 15',
+      meta: 'Pediatric ALL · Multi-agent chemotherapy · Week 3 · Zinc deficient · Fair oral hygiene',
+      inputs: { treatment:'other', hygiene:'fair', iron:'normal', zinc:'deficient', weeks:'early', nausea:2 },
+      citas: [55, 38, 62],
+      profile: 'Fifteen-year-old with acute lymphoblastic leukemia (ALL) on a multi-agent induction regimen. Three weeks in. Zinc deficient. Nausea moderate and persistent - the primary complaint alongside taste change. Fair oral hygiene, consistent with the difficulty of maintaining routines during induction.',
+      presentation: 'Dominant presentation: nausea + taste flattening. Foods Sofia loved - Takis, mango, anything spicy - taste like nothing. The nausea is always present. She hasn\'t wanted to eat in two weeks. The ACCO pediatric-patient notes describe this exact profile.',
+      traits: ['Pediatric ALL', 'Zinc deficient', 'Nausea dominant', 'Taste flattening'],
+      experience: 'For Sofia, the anti-nausea ginger and magnesium base works first - the nausea recedes just enough that eating feels possible. The sour/tart wave gives her a recognizable flavor signal, the one she\'s been missing. It\'s not Takis. But it\'s something. Her mom says she asked for mango two days later.'
+    },
+    patricia: {
+      name: 'Patricia, 71',
+      meta: 'Non-small cell lung cancer · Docetaxel (taxane) · Week 8 · Deficient zinc · Elevated iron · Poor oral hygiene',
+      inputs: { treatment:'taxane', hygiene:'poor', iron:'elevated', zinc:'deficient', weeks:'late', nausea:2 },
+      citas: [80, 65, 70],
+      profile: 'Seventy-one-year-old lung cancer patient, eight weeks into docetaxel (taxane-class). Multiple compounding variables: zinc deficient, iron elevated, poor oral hygiene (smoking history, irregular dental care). Nausea moderate. The most complex case in the cohort - nearly every variable is unfavorable.',
+      presentation: 'Severe across all CiTAS dimensions. Quantitative loss: almost nothing tastes like it should. Qualitative distortion: what does register is either metallic, bitter, or both. Nutrition impact: Patricia has lost 8 lbs in 8 weeks. Her oncologist has flagged nutritional decline as a treatment concern.',
+      traits: ['Taxane agent', 'Poor oral hygiene', 'Zinc deficient', 'Elevated iron', 'Severe all dimensions'],
+      experience: 'Patricia\'s formulation is the most intense of the five - poor oral hygiene applies a ×1.18 multiplier and all strategies are elevated. The sour wave hits hard and is the strongest flavor experience she\'s had in weeks. The menthol tingle lasts into the aftertaste. It won\'t fix the weight loss. But it makes the act of eating less dread-inducing.'
+    },
+    david: {
+      name: 'David, 52',
+      meta: 'Diffuse large B-cell lymphoma · R-CHOP (anthracycline + others) · Week 2 · Normal iron/zinc · Good oral hygiene',
+      inputs: { treatment:'anthracycline', hygiene:'good', iron:'normal', zinc:'normal', weeks:'early', nausea:2 },
+      citas: [30, 40, 65],
+      profile: 'Fifty-two-year-old with DLBCL (lymphoma) on R-CHOP regimen. Two weeks in. Good oral hygiene baseline. Normal iron and zinc - earliest stage, biomarkers haven\'t shifted yet. Nausea moderate, which is characteristic of anthracycline-containing regimens.',
+      presentation: 'Early stage: nausea is the primary complaint, with taste change just beginning. CiTAS Dimensions I and II are relatively low - the qualitative metallic distortion and quantitative loss haven\'t set in fully yet. Dimension III (nutritional impact) is already high because of nausea.',
+      traits: ['Anthracycline agent', 'Early stage', 'Nausea dominant', 'Good hygiene'],
+      experience: 'David is at the window where intervention is easiest - dysgeusia is mild, nausea is the primary barrier. The anti-nausea ginger base and the B6 settle the stomach enough that he eats dinner with his family for the first time since starting treatment. The taste is close to normal. He finishes the whole plate.'
+    }
+  };
+
+  /* ----------------------------------------------------------
+     §05 algorithm (mirrored from algorithm.html - keeps pages independent)
+  ---------------------------------------------------------- */
+  function compute(s) {
+    var trig = 25, umami = 25, sour = 25, nausea = 25;
+    if (s.treatment === 'platinum')     { trig += 20; umami += 15; }
+    else if (s.treatment === 'taxane')  { sour += 12; trig  +=  8; }
+    else if (s.treatment === 'anthracycline') { nausea += 18; trig += 7; }
+    if (s.iron === 'elevated')  { trig += 18; umami += 12; }
+    if (s.zinc === 'deficient') { sour += 16; nausea += 10; }
+    if      (s.weeks === 'mid')  { trig += 5; umami += 5; }
+    else if (s.weeks === 'late') { umami += 8; sour  += 5; }
+    else if (s.weeks === 'post') { sour += 10; umami += 5; }
+    nausea += s.nausea * 10;
+    var mult = s.hygiene === 'poor' ? 1.18 : s.hygiene === 'fair' ? 1.09 : 1.0;
+    trig *= mult; umami *= mult; sour *= mult; nausea *= mult;
+    var total = trig + umami + sour + nausea;
+    return {
+      trigeminal: Math.round(trig  / total * 100),
+      umami:      Math.round(umami / total * 100),
+      sour:       Math.round(sour  / total * 100),
+      antinausea: Math.round(nausea / total * 100)
+    };
+  }
+
+  function shortRationale(s) {
+    var parts = [];
+    if (s.treatment === 'platinum')       parts.push('Platinum → trigeminal + umami up');
+    else if (s.treatment === 'taxane')    parts.push('Taxane → sour up (taste-bud apoptosis)');
+    else if (s.treatment === 'anthracycline') parts.push('Anthracycline → anti-nausea up');
+    if (s.iron === 'elevated')  parts.push('elevated iron → trigeminal + umami +');
+    if (s.zinc === 'deficient') parts.push('zinc deficiency → sour + anti-nausea +');
+    if (s.hygiene === 'poor')   parts.push('poor hygiene ×1.18 global multiplier');
+    else if (s.hygiene === 'fair') parts.push('fair hygiene ×1.09 global multiplier');
+    if (s.nausea > 0)           parts.push('nausea severity → anti-nausea +'+ (s.nausea*10));
+    return parts.join(' · ');
+  }
+
+  /* ----------------------------------------------------------
+     Render selected persona
+  ---------------------------------------------------------- */
+  function renderPersona(key) {
+    var p = PERSONAS[key];
+    if (!p) return;
+    var r = compute(p.inputs);
+
+    /* Persona card */
+    document.getElementById('p-name').textContent = p.name;
+    document.getElementById('p-meta').textContent = p.meta;
+    document.getElementById('p-profile').textContent = p.profile;
+    document.getElementById('p-presentation').textContent = p.presentation;
+
+    /* CiTAS bars */
+    ['d1','d2','d3'].forEach(function(d, i){
+      var fill = document.getElementById('citas-' + d);
+      var val  = document.getElementById('citas-' + d + '-val');
+      if (fill) fill.style.width = p.citas[i] + '%';
+      if (val)  val.textContent  = p.citas[i] + '%';
+    });
+
+    /* Traits */
+    var traitsEl = document.getElementById('p-traits');
+    traitsEl.innerHTML = '';
+    p.traits.forEach(function(t){
+      var span = document.createElement('span');
+      span.className = 'persona-trait';
+      span.textContent = t;
+      traitsEl.appendChild(span);
+    });
+
+    /* Formulation bars */
+    var keys = ['trigeminal','umami','sour','antinausea'];
+    var ingrKeys = { trigeminal:'trig', umami:'umami', sour:'sour', antinausea:'antinausea' };
+    keys.forEach(function(k){
+      var fill = document.getElementById('sim-fill-' + k);
+      var val  = document.getElementById('sim-val-'  + k);
+      if (fill) fill.style.width = r[k] + '%';
+      if (val)  val.textContent  = r[k] + '%';
+      /* Ingredient map */
+      var ik = ingrKeys[k];
+      var iFill = document.getElementById('sim-ingr-' + ik);
+      var iPct  = document.getElementById('sim-ingr-pct-' + ik);
+      if (iFill) iFill.style.width = r[k] + '%';
+      if (iPct)  iPct.textContent  = r[k] + '%';
+    });
+
+    /* Rationale + experience */
+    document.getElementById('sim-rationale').textContent = shortRationale(p.inputs);
+    document.getElementById('sim-experience').textContent = p.experience;
+
+    /* Show / hide */
+    document.getElementById('personaCard').style.display = '';
+    document.getElementById('simEmpty').style.display = 'none';
+    document.getElementById('simResult').style.display = '';
+  }
+
+  /* ----------------------------------------------------------
+     Button listeners
+  ---------------------------------------------------------- */
+  document.querySelectorAll('.scenario-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.scenario-btn').forEach(function(b){
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected','false');
+      });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected','true');
+      renderPersona(btn.dataset.scenario);
+    });
+  });
+
+  /* Auto-select first on load */
+  var first = document.querySelector('.scenario-btn');
+  if (first) first.click();
+
+}());
+</script>
+</body></html>
