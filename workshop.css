@@ -82,3 +82,12 @@ body.reading #scene{right:0;filter:brightness(.5);pointer-events:none}body.readi
 .experience-media figcaption{padding:12px 17px;font-size:11px;line-height:1.7;color:#756d59;background:#f1e9d9}
 #photoDialog header{align-items:start;gap:20px}#photoDialog h2{font-size:clamp(14px,2vw,21px);line-height:1.5;max-width:75ch}
 @media(max-width:700px){.gallery-grid .project-media{margin:0;width:100%;border:1px solid #d7c8ad;border-radius:4px}.experience-media img{height:240px}.case-intro .still-media img{min-height:0;max-height:420px}.gallery-grid{gap:18px}.gallery-grid .media-enlarge img{min-height:0}.case-gallery{padding-bottom:10px}}
+
+/* Keep the full CV easy to reach in the room and in every project view. */
+.room-actions{top:14px;display:grid;grid-template-columns:1fr 1fr;gap:3px 14px;width:282px;align-items:center}
+.room-actions .resume-link{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 12px;border:1px solid #365e4c;border-radius:4px;background:#365e4c;color:#fff9e8;font-size:11px;font-weight:650;line-height:1.4;text-decoration:none;box-shadow:0 2px 8px #30291714}
+.resume-link:hover{background:#284b3b}.room-actions #motion{justify-self:start}.room-actions #guide{justify-self:end}
+.reader-resume{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:8px 12px;margin-left:auto;border:1px solid #bdaa89;border-radius:3px;font-size:12px;font-weight:650;text-decoration:none;white-space:nowrap}
+.reader-resume:hover{background:#e5dbc8}.reader-top #close{margin-left:0}
+@media(max-width:700px){.room-actions{top:68px;left:17px;right:17px;width:auto;gap:0 14px}.room-actions .resume-link{font-size:11px}.room-actions button{min-height:36px}body:not(.reading) #scene{top:153px}.reader-top{gap:8px}.reader-top #crumb{display:none}.reader-resume{padding:8px 10px;font-size:11px}.reader-top #close{padding:7px 9px;font-size:11px}}
+@media(min-width:701px){.identity{max-width:min(550px,calc(100% - 350px))}}
