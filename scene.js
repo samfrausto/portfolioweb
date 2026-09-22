@@ -123,7 +123,7 @@ export class Workshop {
  home(){const mobile=this.host.clientWidth<700&&!document.body.classList.contains('reading');const tvDistance=7.7/(2*Math.tan(35*Math.PI/360)*this.camera.aspect)*1.10-1.075;
   if(this.area==='library'){
    this.goalPosition.copy(mobile?B(-16.3+this.pan,-Math.max(19.2,9.7/(2*Math.tan(35*Math.PI/360)*this.camera.aspect)),7.4):B(-16.5+this.pan*.4,-19.7,8.3));this.goalLook.copy(B(mobile?-16.3+this.pan:-16.5+this.pan*.4,.6,4.9));this.camera.fov=mobile?35:Math.max(34.5,THREE.MathUtils.radToDeg(2*Math.atan(10*this.host.clientHeight/Math.max(220,this.host.clientHeight-180)/41)));
-  }else{const overview=THREE.MathUtils.clamp(Math.abs(this.pan)/2,0,1),distance=THREE.MathUtils.lerp(tvDistance,Math.max(tvDistance,17.5),overview);this.goalPosition.copy(mobile?B(this.pan,-distance,8.4):B(.45+this.pan*.5,-19.5,9.3));this.goalLook.copy(B(mobile?this.pan:.25+this.pan,.6,mobile?THREE.MathUtils.lerp(6.35,4.75,overview):5.35));this.camera.fov=mobile?35:27;}
+  }else{const overview=THREE.MathUtils.clamp(Math.abs(this.pan)/2,0,1),distance=THREE.MathUtils.lerp(tvDistance,Math.max(tvDistance,17.5),overview);this.goalPosition.copy(mobile?B(this.pan,-distance,8.4):B(.45+this.pan*.5,-24.7,9.8));this.goalLook.copy(B(mobile?this.pan:.25+this.pan,.6,mobile?THREE.MathUtils.lerp(6.35,4.75,overview):4.7));this.camera.fov=mobile?35:27;}
   this.camera.updateProjectionMatrix();this.invalidate();
  }
  focus(key){this.route=key;if(this.isRoom()){this.area=key==='library'?'library':'work';this.pan=0;if(this.area==='library'){this.loadCovers();this.stopPreview();}else this.autoPlayPreview();this.uiDirty=true;this.home();return;}

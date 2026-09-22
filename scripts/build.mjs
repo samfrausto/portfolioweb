@@ -1,5 +1,5 @@
 import {cpSync, existsSync, mkdirSync, rmSync} from 'node:fs';
-const files = ['index.html','home.js','guided.css','workshop.css','app.js','scene.js','display.js','portfolio.js','personal.js','project-views.js','heart-media.js','heart-engine.js','firewood.js','surfaces.json','style.css','shared.js','centerpiece.js','path-dots.js','path-dots-morph.js','hero-depth.js','scroll-travel.js','now-system.js','prototypes.html','prototype-immersive.html','prototype-hero-depth.html'];
+const files = ['index.html','workshop.css','app.js','scene.js','display.js','portfolio.js','personal.js','project-views.js','heart-media.js','heart-engine.js','firewood.js','surfaces.json','style.css','shared.js','centerpiece.js','path-dots.js','path-dots-morph.js','hero-depth.js','scroll-travel.js','now-system.js','prototypes.html','prototype-immersive.html','prototype-hero-depth.html'];
 const directories = ['projects','assets','models','media','fonts','vendor'];
 for (const path of [...files, ...directories, 'prototypes/relay-engine.js']) {
   if (!existsSync(path)) throw new Error(`Required production input is missing: ${path}`);

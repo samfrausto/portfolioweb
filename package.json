@@ -3,6 +3,6 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check:workshop": "node --check home.js && node --check app.js && node --check scene.js && node --check display.js && node --check portfolio.js && node --check project-views.js && node --check heart-media.js && node --check heart-engine.js && node --check scripts/build.mjs"
+    "check:workshop": "node --check app.js && node --check scene.js && node --check display.js && node --check portfolio.js && node --check project-views.js && node --check heart-media.js && node --check heart-engine.js && node --check scripts/build.mjs"
   }
 }
