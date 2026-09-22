@@ -19,3 +19,15 @@ CV path, and existing project routes. Existing project files and existing assets
 
 To edit this version, start from current origin/main. Do not deploy the older dirty
 immersive-evolution checkout. See the planning task's release receipt for deployment evidence.
+
+## Guided overview revision
+
+The default route is now a scrollable introduction with Work, About, and Experience sections.
+`home.js` owns overview content; `guided.css` adds its layout and the workshop navigation.
+The original interactive room is retained at `#room`, with the library at `#library`. The workshop
+model loads only when entering either space. Project readers preserve the originating route,
+scroll position, and keyboard focus. CV and all original project URLs are retained.
+
+The revised homepage was built and visually checked in an isolated checkout before release.
+Validation covered 320/390-pixel phones, a 720-pixel layout, desktop, main navigation, project
+return paths, Alma heartbeat/cutaway/pause controls, TV videos, and the global motion control.
