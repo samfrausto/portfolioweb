@@ -1,0 +1,68 @@
+/* A single vector deck at every scale, from the table to the hand guide. */
+.playing-card{overflow:hidden;padding:0;background:#fffbf1;border:0;border-radius:6px;color:#25232a;box-shadow:0 1px 1px #0002,0 4px 8px #17020b30;aspect-ratio:5/7}
+.playing-card.red{color:#ac1838}
+.playing-card>svg{display:block;width:100%;height:100%;overflow:hidden}
+.card-rank{font-family:Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-1px}
+.card-signature{font:italic 8px Georgia,"Times New Roman",serif;letter-spacing:.2px}
+.playing-card.card-back{background:#741b30;box-shadow:0 2px 5px #17020b35}
+.card-fan .playing-card{width:140px;height:196px;border-radius:9px;box-shadow:0 2px 2px #17020b20,0 14px 28px #17020b60}
+.board .playing-card{width:70px;height:98px}
+.private-cards .playing-card{width:65px;height:91px}
+.mini-cards .playing-card{width:31px;height:44px;border-radius:3px}
+.mini-cards .card-art{visibility:hidden}
+.mini-cards .card-rank{font-size:29px;font-weight:700}
+#help-dialog{width:calc(100% - 32px);max-width:740px;padding:0;overscroll-behavior:contain}
+.help-header{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:12px 30px;border-bottom:1px solid var(--line);background:var(--panel)}
+.help-header>span{font:20px Georgia,serif;color:var(--gold)}
+.help-header .close{margin:0}
+.help-body{padding:5px 34px 32px}
+#help-dialog h2{margin:20px 0 10px;font-size:34px}
+.help-intro{max-width:570px}
+.guide-nav{display:flex;gap:8px;margin:20px 0 24px}
+.guide-nav a{display:inline-flex;align-items:center;min-height:44px;border:1px solid #ffffff38;border-radius:5px;padding:10px 16px;font-size:12px;text-decoration:none;color:var(--ivory)}
+.guide-section{scroll-margin-top:85px}
+.guide-section h3{font-family:Georgia,serif;font-size:25px;font-weight:400;margin:24px 0 7px}
+.guide-note{font-size:12px!important;margin:0 0 8px}
+.hand-rankings{list-style:none;padding:0;margin:0;counter-reset:hand-order}
+.hand-example{counter-increment:hand-order;display:grid;grid-template-columns:32px minmax(0,1fr) 270px;align-items:center;gap:12px;padding:22px 0;border-bottom:1px solid var(--line)}
+.hand-example::before{content:counter(hand-order,decimal-leading-zero);font-size:12px;color:var(--gold);font-variant-numeric:tabular-nums;align-self:start;margin-top:3px}
+.hand-example h4{margin:0 0 7px;font-size:15px;font-weight:500}
+.hand-example p{font-size:11px;line-height:1.7;max-width:230px}
+.example-cards{display:flex;gap:5px;justify-content:flex-end}
+.example-cards .playing-card{width:50px;height:70px;border-radius:4px}
+.hand-notes{padding:16px 0;border-bottom:1px solid var(--line)}
+.hand-notes p+p{margin-top:8px}
+.hand-notes strong{color:var(--ivory)}
+#betting-guide dl{display:grid;grid-template-columns:75px 1fr;column-gap:15px;row-gap:14px;margin-top:20px}
+#betting-guide dt,#betting-guide dd{margin:0;line-height:1.7;font-size:12px}
+@media(max-width:760px){
+ .board .playing-card{width:44px;height:62px}
+ .private-cards .playing-card{width:64px;height:90px}
+ .mini-cards .playing-card{width:26px;height:37px}
+ #help-dialog{max-height:90svh;width:calc(100% - 20px)}
+ .help-header{padding:10px 20px}.help-body{padding:0 20px 25px}
+ #help-dialog h2{font-size:28px}.guide-nav{margin:17px 0}
+ .hand-example{grid-template-columns:24px minmax(0,1fr);gap:5px 10px;padding:20px 0}
+ .hand-example::before{grid-row:1;margin-top:2px}.hand-copy{grid-column:2}
+ .hand-example h4{font-size:15px;margin-bottom:5px}.hand-example p{max-width:none;font-size:12px}
+ .example-cards{grid-column:2;justify-content:flex-start;gap:5px;margin-top:8px}
+ .example-cards .playing-card{width:46px;height:65px}
+ .hand-notes p{font-size:12px}
+}
+@media(max-width:370px){
+ .board .playing-card{width:39px;height:55px}
+ .example-cards{gap:4px}.example-cards .playing-card{width:39px;height:55px}
+ .help-body{padding-left:16px;padding-right:16px}.help-header{padding-left:16px;padding-right:16px}
+}
+
+.card-compact{display:none}.mini-cards .card-face{display:none}.mini-cards .card-compact{display:inline}.mini-cards .card-compact .card-rank{font-size:62px}
+.hand-example{grid-template-columns:32px minmax(0,1fr) 310px}
+.example-cards .playing-card{width:58px;height:82px}
+.board .card-slot{width:70px;height:98px}
+@media(max-width:760px){.hand-example{grid-template-columns:24px minmax(0,1fr)}.example-cards .playing-card{width:50px;height:70px}.board .card-slot{width:44px;height:62px}}
+@media(max-width:370px){.example-cards .playing-card{width:39px;height:55px}.board .card-slot{width:39px;height:55px}}
+/* Give visible cards their own space beside each seat and below the player's turn label. */
+.table-wrap{padding-bottom:115px}
+.mini-cards{top:119px}
+.pos-3 .mini-cards{left:calc(100% + 48px);top:43px}
+@media(max-width:760px){.mini-cards{top:105px}.pos-3 .mini-cards{left:calc(100% + 40px);top:37px}}

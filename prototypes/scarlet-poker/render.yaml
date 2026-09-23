@@ -1,0 +1,20 @@
+# In Render's Blueprint setup, select this file's repository-relative path.
+services:
+  - type: web
+    name: scarlet-poker
+    runtime: node
+    rootDir: prototypes/scarlet-poker
+    plan: free
+    region: oregon
+    numInstances: 1
+    buildCommand: npm run build && npm test
+    startCommand: npm start
+    healthCheckPath: /
+    autoDeployTrigger: off
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: SECURE_COOKIE
+        value: "1"

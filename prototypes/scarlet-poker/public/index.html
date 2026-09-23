@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#300910"><meta name="description" content="A little friendly competition. Play Texas Hold’em with friends, or find your rhythm at the practice table. Play chips only."><title>Scarlet — A little friendly competition</title><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/cards.css"><script src="/app.js" type="module"></script></head>
+<body>
+<a class="skip" href="#main">Skip to play</a>
+<header class="header"><a href="/" class="brand" aria-label="Scarlet home"><span aria-hidden="true">♠</span> Scarlet<span class="brand-dot">.</span></a><div class="header-right"><span class="chip-note"><i aria-hidden="true"></i> Just play chips.</span><button id="help" class="text-button">How to play <span aria-hidden="true">↗</span></button></div></header>
+<main id="main" tabindex="-1">
+<section id="welcome" class="welcome">
+  <div class="invitation"><p class="intro">A little friendly competition.</p><h1>No Chips?<br>No Problem.</h1><p class="lead">Pull up a chair and text your friends.<br>We’ll deal you in.</p>
+  <div id="fan-cards" class="card-fan" aria-hidden="true"></div></div>
+  <div class="entry"><div class="entry-heading"><span class="tiny-suit" aria-hidden="true">♦</span><h2>Find your table.</h2><p>Play your people. Or play for practice.</p></div>
+  <div class="mode-switch" role="group" aria-label="Game mode"><button id="friends-mode" class="selected" aria-pressed="true">With friends</button><button id="practice-mode" aria-pressed="false">Practice</button></div>
+  <form id="create-form"><label for="player-name">Your name</label><input id="player-name" name="name" maxlength="18" autocomplete="nickname" placeholder="What should we call you?" required>
+  <label for="buy-in" id="buy-in-label">Table buy-in <span>Play chips</span></label><select id="buy-in"><option value="1000">1,000 chips</option><option value="2000" selected>2,000 chips</option><option value="5000">5,000 chips</option></select>
+  <p id="mode-description" class="mode-description">A private table for 2–6. Send a link and settle in.</p><button id="create" class="primary full" type="submit">Create a table <span aria-hidden="true">↗</span></button></form>
+  <details id="join-details"><summary>Already have a table code?</summary><form id="join-form"><label for="table-code">Table code</label><div class="join-row"><input id="table-code" maxlength="6" minlength="6" pattern="[A-Fa-f0-9]{6}" autocomplete="off" placeholder="ABC123" required><button class="secondary" type="submit">Join table</button></div><p class="muted">Everyone starts with the table’s chip buy-in.</p></form></details>
+  <p class="entry-footer">No accounts. No downloads. Just a good hand.</p></div>
+</section>
+<section id="game" class="game" hidden aria-label="Poker table"><div class="game-top"><div><span id="mode-label">Private table</span><h1 id="table-title">The table</h1></div><div class="table-tools"><span id="connection" role="status">Connecting…</span><button id="invite" class="secondary">Invite friends</button><button id="leave" class="text-button">Leave</button></div></div>
+<div class="table-layout"><div class="table-wrap"><div class="table-meta"><span id="blinds"></span><span id="hand-number"></span></div><div class="felt"><div class="inner-rail"></div><div class="table-center"><div id="pot" class="pot"></div><div id="board" class="board" aria-label="Community cards"></div><p id="street" class="street"></p><div id="result" class="result" role="status"></div></div><div id="seats"></div><div class="felt-signature" aria-hidden="true">Scarlet</div></div><div id="my-hand" class="my-hand"></div></div>
+<aside class="hand-aside"><div class="aside-heading"><h2>At the table</h2><span aria-hidden="true">♧</span></div><p id="table-note"></p><ol id="history" class="history" aria-label="Recent table activity"></ol></aside></div>
+<div class="controls"><div class="turn-info"><p id="turn-message" role="status" aria-live="polite"></p><span id="turn-detail"></span></div><div id="actions" class="actions"></div></div>
+<div class="game-bottom"><span>Play chips only</span><button id="history-button" class="text-button">Hand history</button><span>Texas Hold’em</span></div></section>
+</main><div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="help-dialog" aria-labelledby="help-title">
+<div class="help-header"><span>Scarlet field guide</span><button class="close text-button" data-close aria-label="Close help">Close ×</button></div>
+<div class="help-body"><h2 id="help-title">Know a good hand.</h2><p class="help-intro">Make your best five-card hand from your two private cards and the five community cards. You can use both, one, or neither of your private cards.</p>
+<nav class="guide-nav" aria-label="Poker guide sections"><a href="#hand-guide">Hand rankings</a><a href="#betting-guide">Betting basics</a></nav>
+<section id="hand-guide" class="guide-section" aria-labelledby="rankings-title"><h3 id="rankings-title">Strongest to weakest</h3><p class="guide-note">Each five-card hand below is an example.</p><ol id="hand-rankings" class="hand-rankings"></ol>
+<div class="hand-notes"><p><strong>Aces go high or low.</strong> A–2–3–4–5 is the lowest straight. 10–J–Q–K–A is the highest. A straight cannot wrap around from king to ace to two.</p><p><strong>Same kind of hand?</strong> Compare the ranks that make the hand, then the remaining cards (kickers). Suits have equal value. Identical best five-card hands split the pot.</p></div></section>
+<section id="betting-guide" class="guide-section" aria-labelledby="betting-title"><h3 id="betting-title">Your next move</h3><dl><dt>Check</dt><dd>Stay in without adding chips, when there’s no bet to call.</dd><dt>Call</dt><dd>Match the current bet. The button shows the chips you’ll add.</dd><dt>Raise to</dt><dd>Increase your total bet for this round. The amount includes chips you’ve already bet.</dd><dt>Fold</dt><dd>Give up this hand. You can play again on the next deal.</dd></dl><p class="muted">Blinds are 10 / 20. Private-table turns last 45 seconds; on timeout, you check when possible or fold. Practice has no turn timer for you.</p></section></div></dialog>
+<dialog id="history-dialog" aria-labelledby="history-title"><button class="close text-button" data-close aria-label="Close history">Close ×</button><h2 id="history-title">The hand so far.</h2><ol id="full-history"></ol></dialog>
+<dialog id="invite-dialog" aria-labelledby="invite-title"><button class="close text-button" data-close aria-label="Close invitation">Close ×</button><h2 id="invite-title">Save them a seat.</h2><p>Share this link with your friends.</p><label for="invite-link">Table link</label><input id="invite-link" readonly><button id="copy-link" class="primary full">Copy invitation link</button><p class="muted" id="invite-note"></p></dialog>
+<noscript><p class="noscript">Scarlet needs JavaScript to connect you to a table.</p></noscript>
+</body></html>

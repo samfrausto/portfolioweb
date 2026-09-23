@@ -1,0 +1,5 @@
+{
+  "name": "scarlet-poker", "private": true, "version": "0.1.0", "type": "module",
+  "scripts": {"start": "node server.mjs", "test": "node --test test/*.test.mjs", "build": "node --check server.mjs && node --check engine.mjs && node --check public/app.js && node --check public/cards.js"},
+  "engines": {"node": ">=22"}
+}
