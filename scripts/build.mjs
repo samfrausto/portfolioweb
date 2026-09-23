@@ -1,5 +1,5 @@
 import {execFileSync} from 'node:child_process';
-import {cpSync, existsSync, mkdirSync, rmSync} from 'node:fs';
+import {cpSync, existsSync, mkdirSync, readFileSync, writeFileSync, rmSync} from 'node:fs';
 const files = ['index.html','workshop.css','app.js','scene.js','display.js','portfolio.js','personal.js','project-views.js','heart-media.js','heart-engine.js','firewood.js','surfaces.json','style.css','shared.js','centerpiece.js','path-dots.js','path-dots-morph.js','hero-depth.js','scroll-travel.js','now-system.js','prototypes.html','prototype-immersive.html','prototype-hero-depth.html'];
 const directories = ['projects','assets','models','media','fonts','vendor'];
 for (const path of [...files, ...directories, 'prototypes/relay-engine.js']) {
@@ -14,3 +14,15 @@ console.log('Built workshop homepage and preserved existing public project pages
 execFileSync('npm',['run','build','--prefix','prototypes/spatial-study'],{stdio:'inherit'});
 cpSync('prototypes/spatial-study/dist','dist',{recursive:true});
 console.log('Published connected workshop assets alongside preserved original project pages.');
+
+// Keep the reviewed 3D workshop available, then publish the 2D portfolio at the root.
+mkdirSync('dist/immersive', {recursive: true});
+cpSync('dist/index.html', 'dist/immersive/index.html');
+cpSync('prototypes/simple-portfolio', 'dist/portfolio', {recursive: true,
+  filter: path => !path.endsWith('README.md')});
+const homepage = readFileSync('prototypes/simple-portfolio/index.html', 'utf8')
+  .replaceAll('href="style.css"', 'href="/portfolio/style.css"')
+  .replaceAll('src="script.js"', 'src="/portfolio/script.js"')
+  .replaceAll('="media/', '="/portfolio/media/');
+writeFileSync('dist/index.html', homepage);
+console.log('Published 2D homepage with optional workshop at /immersive/.');

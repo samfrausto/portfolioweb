@@ -59,7 +59,7 @@ function App(){
  <header className="workshop-header">
   <div className="identity"><button className="portrait-button" aria-label="About Samuel Frausto" onClick={()=>open('about-detail')}><img src="/personal/portrait.jpg" alt=""/></button><a href="#work/1" onClick={e=>{e.preventDefault();go('#work/1');}}><h1>Samuel’s workshop</h1><span className="identity-note">UX &amp; Advanced Tech Design</span></a></div>
   <nav aria-label="Choose a room" className="room-nav">{rooms.map((name,i)=>{const Icon=icons[i];return <Button key={name} aria-current={section===i?'page':undefined} onClick={()=>go(i===0?'#work/'+project:'#'+roomKeys[i])}><Icon size={18}/><span>{name}</span></Button>;})}</nav>
-  <div className="header-actions"><Button onClick={()=>open('cv')} aria-label="Open full Experience and Project CV PDF in a new tab"><BookOpenIcon size={18}/><span>Full CV</span></Button><a className="contact" href="mailto:samueljfrausto@gmail.com" aria-label="Contact Samuel"><EnvelopeSimpleIcon size={20}/><span>Contact</span></a></div>
+  <div className="header-actions"><a className="simple-portfolio-link" href="/">Simple portfolio</a><Button onClick={()=>open('cv')} aria-label="Open full Experience and Project CV PDF in a new tab"><BookOpenIcon size={18}/><span>Full CV</span></Button><a className="contact" href="mailto:samueljfrausto@gmail.com" aria-label="Contact Samuel"><EnvelopeSimpleIcon size={20}/><span>Contact</span></a></div>
  </header>
  <main>
  <section id="room-controls" tabIndex={-1} className={'room-stage room-'+roomKeys[section]} aria-label={rooms[section]}>

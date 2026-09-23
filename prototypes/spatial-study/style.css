@@ -20,3 +20,6 @@
 .tv-ui .tv-play .contents>span{display:none}.tv-ui .tv-play svg{width:27px;height:27px;margin-left:3px}.tv-ui .tv-play:hover{background:#365c49!important}
 .tv-credit{position:absolute;bottom:65px;left:20px;padding:6px 9px;background:#163b32de;font-size:14px;max-width:85%;border-radius:3px}
 .suz-tv{background:#F7F2EC;color:#2C1F1A}.suz-tv .tv-heading{padding:0 12px;min-height:46px;background:#F7F2EC}.suz-tv .tv-heading h2{color:#2C1F1A;text-shadow:none;font-size:19px}.suz-tv .tv-destination{min-height:38px;background:#5e7566;color:#fff;border:0}.suz-tv-frame{width:100%;flex:1;min-height:0;border:0;pointer-events:auto;background:#F7F2EC}.suz-tv .tv-actions{padding:0 12px;min-height:44px;background:#F7F2EC}.suz-tv .tv-actions button{min-height:38px!important;background:transparent!important;border:0!important;--text-color-kumo-default:#40584c}.suz-tv .tv-status{display:none}.complete-skills{margin-top:22px;border-top:1px solid #c8b99b;border-bottom:1px solid #c8b99b;padding:12px 0}.complete-skills summary{cursor:pointer;min-height:44px;padding:10px 0}.availability{color:#496a54}
+
+.simple-portfolio-link{display:inline-flex;align-items:center;min-height:44px;padding:0 10px;text-decoration:underline;text-underline-offset:4px;white-space:nowrap}
+@media(max-width:650px){.simple-portfolio-link{font-size:12px;padding:0 6px}.workshop-header{flex-wrap:wrap}}
