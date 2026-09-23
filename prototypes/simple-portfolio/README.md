@@ -117,3 +117,13 @@ The Pavilia excerpt is 26 seconds, 1280×710, 30 fps H.264 MP4 with fast-start m
 is 1280×800 H.264 with fast-start metadata. Browser samples decoded both at 30 fps with zero
 dropped frames; starting Pavilia pauses Alma, and filtering Pavilia away pauses it. NVIDIA shows
 Traffic only, reset returns 13, and 320/390/768/1440 layouts have no horizontal overflow.
+
+## Scarlet card — September 22, 2026
+
+Added Scarlet immediately after VR Baseball and before Pavilia at Samuel’s request, coordinated
+with the Scarlet task. The grid now has 12 projects; Interaction design has five matches.
+The screenshot is actual local practice gameplay on the flop with the original SVG card art,
+captured at 1600×1035. It contains no mock interaction or invented research outcome. The copy
+credits Samuel’s concept/interface direction, card/guide refinement, and AI-assisted implementation.
+The single Play Scarlet action uses `/poker`, preserving the existing Vercel redirect to Render.
+The game server, route config, other cards and immersive experience are unchanged.

@@ -215,3 +215,5 @@ footer a { display:inline-flex; align-items:center; min-height:44px; overflow-wr
  .invitation-art { height:72px; }
  .intro { padding-block:20px 26px; gap:20px; }
 }
+
+#scarlet .project-media img { background:#300910; }
