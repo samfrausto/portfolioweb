@@ -1,27 +1,29 @@
 # Publishing Scarlet alongside the portfolio
 
-## Release prepared September 22, 2026
+## Live release — September 22, 2026
 
-Samuel explicitly requested publication after editing the landing copy in VS Code. The release
-includes “No Chips? No Problem.” and “Pull up a chair and text your friends. We’ll deal you in.”
-It is isolated from other unfinished portfolio changes, based on portfolio release 49cc86a.
+Live game: https://scarlet-poker.onrender.com/ . Render service `srv-daplinqd0e5s739hssi0`
+successfully deployed commit `f550ec6` from `codex/scarlet-launch-20260922` in
+`samfrausto/portfolioweb`. The service was created from the public Git URL without granting
+GitHub account access. Samuel’s edited headline and lead are included.
 
-`render.yaml` in this directory configures a single Node 22 web service on the Free instance
-plan, Secure cookies, a root-page health check and a build that runs syntax checks and tests.
-Automatic redeployment is disabled so a routine push does not interrupt an active table.
-There is no public game URL yet. Render account sign-in is required to create the service.
+The service uses Node 22, one Free instance, Secure cookies, health check `/`, build command
+`npm run build && npm test`, start command `npm start`, root directory `prototypes/scarlet-poker`,
+and manual deployment. These settings match this directory’s `render.yaml`; no Blueprint was
+created. Dashboard: https://dashboard.render.com/web/srv-daplinqd0e5s739hssi0 .
 
-To deploy the prepared release, use repository `samfrausto/portfolioweb`, branch
-`codex/scarlet-launch-20260922`, and Blueprint path `prototypes/scarlet-poker/render.yaml`.
-Alternatively create a Node Web Service with root directory `prototypes/scarlet-poker`,
-build command `npm run build && npm test`, start command `npm start`, and the environment
-variables from that file. Do not select Static Site. No paid instance or new spending is authorized.
+Live verification: two independent HTTP sessions completed a hand, conserved all chips,
+received only their own private cards, connected to the SSE stream and resumed the same seat.
+Secure/HttpOnly cookies were verified. A real browser created a practice table, called, saw bots
+advance to the flop and resumed its seat on reload. This is implementation QA, not a user study.
 
-The Free instance is a prototype hosting option: it sleeps after 15 minutes without inbound
-traffic and can take about a minute to wake. Tables disappear on restart because this version
-stores state in memory. A paid instance alone would not fix restart recovery. Test the assigned
-HTTPS URL with independent browsers, invite links, reconnection and both game modes before
-linking it from the portfolio. Custom-domain or /poker routing remains a later integration step.
+The portfolio release adds a temporary redirect from `/poker/:path*` to the live Render address.
+This provides a shareable portfolio shortcut; the browser changes to the Render domain. It is
+not a reverse proxy. The portfolio homepage content is unchanged.
+
+The Free instance sleeps after 15 minutes without inbound traffic and can take about a minute
+to wake. Tables disappear on restart because this version stores state in memory. A paid
+instance alone would not fix restart recovery. No paid compute or new spending was approved.
 
 ## Current implementation
 
@@ -33,7 +35,7 @@ The rules/evaluator are custom JavaScript. There is no database or C++ component
 Both multiplayer and bot practice depend on the server. Copying the public directory to static
 portfolio hosting will display part of the interface but cannot create a table or run a game.
 The portfolio's inspected Vercel configuration builds static output in dist; it does not launch
-Scarlet's server. Neither the portfolio configuration nor its deployment changed in this task.
+Scarlet's server. The portfolio configuration adds only the redirect described above.
 
 ## Recommended arrangement
 

@@ -1,4 +1,4 @@
-# Scarlet poker — playable local prototype
+# Scarlet poker — playable portfolio prototype
 
 Texas Hold’em in a scarlet, gold and ivory interface. Private multiplayer tables have a shared
 starting play-chip buy-in (1,000 / 2,000 / 5,000), invitation links and up to six seats. Practice
@@ -25,8 +25,8 @@ npm run build
 `build` validates server, engine and browser JavaScript. The app serves its own public directory;
 there is no generated bundle and no external CDN or font dependency. This directory is separate
 from the portfolio build. Do not copy only its HTML into the live portfolio: multiplayer needs
-the running server. Samuel authorized publication on September 22. The release configuration is
-prepared; public deployment still needs hosting account access. See [DEPLOYMENT.md](DEPLOYMENT.md).
+the running server. Published September 22 at https://scarlet-poker.onrender.com/.
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the hosting setup and live checks.
 
 ## What works
 
@@ -57,9 +57,10 @@ is a possible follow-up after Samuel chooses the scope and reviews the design.
 
 ## Known prototype limits / next work
 
-- Rooms and sessions are in memory. Server restarts clear tables. This is a single-process local
-  prototype; durable state, hosting, TLS/secure-cookie configuration and production operations
-  remain before a public launch. `SECURE_COOKIE=1` enables Secure cookies behind HTTPS.
+- Rooms and sessions are in memory. Server restarts clear tables. This is a single-process
+  prototype hosted on Render Free with HTTPS/Secure cookies. Free instances sleep when idle,
+  causing a startup delay on the next visit. Durable state and production operations remain
+  follow-ups. `SECURE_COOKIE=1` enables Secure cookies behind HTTPS.
 - Bots are basic practice opponents, not a poker strategy coach or competitive AI.
 - Host manually deals each hand. Host responsibility transfers on explicit leave, but an absent
   host must return to start the next hand; automatic host takeover is not implemented.
@@ -88,4 +89,4 @@ court faces, indexed corners and patterned scarlet/gold backs at all UI sizes.
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for the verified hosting assessment: a separately hosted
 Node service at a portfolio subdomain is the simplest fit. A /poker subpath needs integration;
-static upload alone will not run either mode. No publishing has occurred.
+static upload alone will not run either mode. The live service runs both modes.
