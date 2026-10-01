@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alma | Learning and interaction design | Samuel Frausto</title>
+  <meta name="description" content="How Samuel Frausto directed an interactive heart guide: learning through exploration, phased AI-assisted development, and the decisions behind Alma.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="canonical" href="https://www.samfrausto.com/projects/alma.html">
+  <meta property="og:title" content="Alma | Samuel Frausto">
+  <meta property="og:description" content="Making heart function something people can explore, not just read about.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.samfrausto.com/projects/alma.html">
+  <meta property="og:image" content="https://www.samfrausto.com/projects/heart-valve/case-study/way-in.jpg">
+  <link rel="stylesheet" href="alma.css">
+</head>
+<body>
+  <a class="skip-link" href="#case-study">Skip to case study</a>
+  <header class="case-header">
+    <div class="case-wrap header-inner">
+      <a class="identity" href="/">Samuel Frausto</a>
+      <nav aria-label="Main navigation">
+        <a href="/#work">Work</a>
+        <a href="/#about">About</a>
+        <a href="/portfolio/media/Samuel_Frausto_Resume.pdf">Resume</a>
+      </nav>
+    </div>
+  </header>
+  <main id="case-study" class="case-wrap">
+    <section class="case-intro" aria-labelledby="case-title">
+      <p class="context">Learning experience for Edwards Lifesciences employees</p>
+      <h1 id="case-title">Alma</h1>
+      <p class="lead">Making heart function something people can explore, not just read about.</p>
+      <div class="actions"><a class="primary-link" href="heart-valve/app/index.html">Try Alma</a><a href="/#alma">Back to work</a></div>
+    </section>
+
+    <section class="decision" aria-labelledby="decision-title">
+      <div class="section-intro">
+        <h2 id="decision-title">Let the interaction carry the lesson</h2>
+      </div>
+      <fieldset class="valve-evidence">
+        <legend>Two states from The Four Valves</legend>
+        <div class="state-options">
+          <input class="visually-hidden" type="radio" name="valve-state" id="way-in" checked aria-controls="in-figure">
+          <label for="way-in">The way in</label>
+          <input class="visually-hidden" type="radio" name="valve-state" id="way-out" aria-controls="out-figure">
+          <label for="way-out">The way out</label>
+        </div>
+        <figure id="in-figure" class="state-figure state-in">
+          <a href="heart-valve/case-study/way-in.jpg" aria-label="Open full-size screenshot of The way in"><img src="heart-valve/case-study/way-in.jpg" width="1280" height="720" alt="Alma's cutaway heart with The way in selected. Mitral and tricuspid valves are labeled open; aortic and pulmonary valves are labeled shut." fetchpriority="high"></a>
+          <figcaption><strong>The way in:</strong> the mitral and tricuspid valves are open; the aortic and pulmonary valves are shut.</figcaption>
+        </figure>
+        <figure id="out-figure" class="state-figure state-out">
+          <a href="heart-valve/case-study/way-out.jpg" aria-label="Open full-size screenshot of The way out"><img src="heart-valve/case-study/way-out.jpg" width="1280" height="720" alt="The same cutaway heart with The way out selected. Aortic and pulmonary valves are labeled open; mitral and tricuspid valves are labeled shut."></a>
+          <figcaption><strong>The way out:</strong> the aortic and pulmonary valves are open; the mitral and tricuspid valves are shut.</figcaption>
+        </figure>
+      </fieldset>
+      <p class="evidence-note">Actual screenshots of two states in the same experience, not a before-and-after redesign.</p>
+      <dl class="overview">
+        <div><dt>The problem</dt><dd>Explain an unfamiliar subject to people without a cardiac background, without overwhelming them with text.</dd></div>
+        <div><dt>My role</dt><dd>Learning goals, lesson sequence, interaction design, visual direction, and review of AI-assisted implementation.</dd></div>
+      </dl>
+      <p class="decision-rationale">I wanted the interaction to carry the lesson. In The Four Valves, users switch between "The way in" and "The way out" to see which valves open and close. I directed the learning experience and used Claude Code to help implement the connected 3D model and controls.</p>
+      <div class="decision-notes">
+        <p><strong>One clear comparison.</strong> A two-position switch moves between filling and ejection, keeping attention on the two valve pairs.</p>
+        <p><strong>Connected feedback.</strong> The model and open/shut labels change together, so the state is shown in both motion and words.</p>
+      </div>
+    </section>
+
+    <section class="story-section" aria-labelledby="process-title">
+      <h2 id="process-title">AI built in phases.<br> I reviewed each one.</h2>
+      <div class="story-copy">
+        <p>When the AI initially tried to build everything at once, I restarted with a phased plan we created together. Before advancing, I checked whether each interaction matched my intent, fit the overall experience, and communicated the concept I wanted to teach. AI helped implement the work; I directed and reviewed each stage.</p>
+        <figure class="plan-excerpt">
+          <figcaption>From the original build plan</figcaption>
+          <blockquote>Each phase has an explicit <strong>done-when</strong>. Do not proceed until it's met. Check in between phases rather than assuming scope.</blockquote>
+          <p>The plan defined nine phases, from the initial scene and simulation to connected interactions and polish.</p>
+          <a href="heart-valve/case-study/build-plan-excerpt.txt" download>Download planning excerpt</a>
+        </figure>
+        <h3>My review criteria</h3>
+        <ul class="review-criteria">
+          <li>Does the interaction match what I had in mind?</li>
+          <li>Does it fit with the rest of the experience?</li>
+          <li>Does it communicate the concept I want to teach?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="story-section" aria-labelledby="iteration-title">
+      <h2 id="iteration-title">Less reading.<br> More room to explore.</h2>
+      <div class="story-copy">
+        <p>I first noticed that the sections contained too much information. Watching one person use Alma, I then noticed their attention gravitate toward the buttons. That reinforced my decision to focus each section on its main idea and make the interaction carry the lesson.</p>
+        <dl class="revisions">
+          <div><dt>A clearer beginning</dt><dd>I added an opening section with a title explaining what the viewer was looking at.</dd></div>
+          <div><dt>A lighter final section</dt><dd>I simplified the dense final section so the main point was easier to pick out.</dd></div>
+        </dl>
+        <p class="qualification">This was an informal observation of one person, not a formal usability study or eye-tracking research.</p>
+      </div>
+    </section>
+
+    <section class="story-section" aria-labelledby="result-title">
+      <h2 id="result-title">A working experience</h2>
+      <div class="story-copy">
+        <p>Alma connects a 3D heart, interactive controls, and diagrams in a browser-based learning experience. The Four Valves section is one example of the approach: let someone act, see what changes, and explore the relationship.</p>
+        <p class="qualification">I reviewed the interactions against my teaching goals. Formal learning outcomes have not been measured.</p>
+        <a class="primary-link" href="heart-valve/app/index.html">Try Alma</a>
+      </div>
+    </section>
+
+    <section class="story-section credits" aria-labelledby="credits-title">
+      <h2 id="credits-title">Tools and credits</h2>
+      <div class="story-copy">
+        <p><strong>My contribution:</strong> learning and interaction direction, visual review, and decisions at each build stage. <strong>Claude Code:</strong> AI-assisted coding, debugging, implementation, and iteration under my direction.</p>
+        <p><strong>3D assets:</strong> purchased heart anatomy and heartbeat poses by 3D4SCI, prepared with Blender and Python scripts for glTF/GLB browser delivery.</p>
+        <details>
+          <summary>Implementation tools</summary>
+          <dl class="tool-list">
+            <div><dt>TypeScript / JavaScript</dt><dd>Simulation logic, controls, and synchronized diagrams.</dd></div>
+            <div><dt>HTML / CSS</dt><dd>Layout, typography, controls, and responsive styling.</dd></div>
+            <div><dt>Three.js / WebGL / GLSL</dt><dd>3D rendering, cutaways, and blood-flow effects.</dd></div>
+            <div><dt>GSAP / ScrollTrigger; SVG / Canvas</dt><dd>Camera transitions, scroll coordination, and supporting diagrams.</dd></div>
+            <div><dt>Node.js / npm / Vite; Git / GitHub</dt><dd>Development tooling, builds, and version history.</dd></div>
+            <div><dt>Vitest</dt><dd>Software checks for simulation ranges and behavior, not clinical validation or evidence of learning outcomes.</dd></div>
+          </dl>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer class="case-wrap"><a href="/#alma">Back to work</a><span>Samuel Frausto</span></footer>
+</body>
+</html>

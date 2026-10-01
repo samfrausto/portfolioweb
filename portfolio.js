@@ -164,14 +164,14 @@ export const PORTFOLIO={
       "id": 6,
       "title": "Cyberpunk Twin",
       "role": "Co-lead · Modeling, animation and skybox",
-      "summary": "A real bedroom rebuilt in 3D, with a custom tool to simplify material transfer.",
+      "summary": "A real bedroom rebuilt in Blender and NVIDIA Omniverse.",
       "brief": "Rebuild the source room with accurate placement, materials, scale and lighting.",
       "part": [
         "Co-led modeling, animation and the skybox",
-        "Built an Omniverse extension for material transfer into USD",
+        "Used Cursor to make a small material-transfer helper in about five minutes",
         "Added motion to screens, signage and ambient elements"
       ],
-      "outcome": "Completed the room twin and an Omniverse extension that removed a repetitive material-transfer step from the team’s workflow.",
+      "outcome": "Completed the room twin, with modeling, animation and skybox contributions.",
       "tools": [
         "Blender",
         "NVIDIA Omniverse",
@@ -183,7 +183,7 @@ export const PORTFOLIO={
       "featured": true,
       "url": "https://www.samfrausto.com/projects/cyberpunk-twin.v2.html",
       "live": false,
-      "team": "This was a co-led team project. My contributions span modeling, animation, the skybox and the material-transfer extension.",
+      "team": "This was a co-led team project. My main contributions were modeling, animation and the skybox. The extension was a five-minute Cursor-assisted utility, not a substantial engineering project.",
       "mediaCaption": "Original project demo · A real room recreated in Blender and NVIDIA Omniverse.",
       "video": "media/cyberpunk-twin-demo.mp4"
     },
@@ -404,7 +404,7 @@ export const PORTFOLIO={
       "part": [
         "Delivery and waypoint navigation for the IYH Digital Twin",
         "Technical leadership on portal and ambient visionOS mechanics",
-        "Modeling, animation and pipeline tooling for a digital twin"
+        "Modeling, animation and skybox work for a digital twin"
       ],
       "note": "The project stories distinguish my responsibilities from the work of my teammates and the class.",
       "projects": [
@@ -496,7 +496,7 @@ export const PORTFOLIO={
         12,
         2
       ],
-      "example": "Digital twins, animation and an Omniverse material-transfer extension."
+      "example": "Digital twins, animation and a small Cursor-assisted material-transfer helper."
     },
     {
       "title": "Deliver across XR",
@@ -530,7 +530,7 @@ export const PORTFOLIO={
         6,
         3
       ],
-      "example": "Custom shaders, pipeline tooling and explainable interactive logic."
+      "example": "Custom shaders and explainable interactive logic."
     },
     {
       "title": "Connect research and design",

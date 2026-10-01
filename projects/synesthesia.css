@@ -1,0 +1,3 @@
+.demo-evidence video { display:block; width:100%; aspect-ratio:16/9; object-fit:contain; background:#101214; }
+.demo-evidence video:focus-visible { outline:3px solid var(--blue); outline-offset:4px; }
+.demo-evidence figcaption { padding-top:12px; font-size:14px; color:var(--muted); max-width:80ch; }

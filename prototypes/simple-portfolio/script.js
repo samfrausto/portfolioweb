@@ -5,6 +5,10 @@ const projects = [...document.querySelectorAll('.project')];
 const status = document.querySelector('#filter-status');
 const heading = document.querySelector('#work-title');
 const context = document.querySelector('#experience-context');
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+reducedMotion.addEventListener('change', event => {
+  if (event.matches) document.querySelector('.work-results').getAnimations().forEach(animation => animation.cancel());
+});
 const reset = document.createElement('a');
 reset.className = 'reset-filter';
 reset.href = '?';
@@ -14,9 +18,9 @@ status.after(reset);
 const experiences = {
   edwards: {title:'Edwards Lifesciences', projects:['alma','clinical'], note:'XR learning design · current contractor, previously an intern.'},
   jelsert: {title:'Jel Sert', projects:['jamba'], note:'Launch communications from my Jel Sert internship.'},
-  otter: {title:'Jel Sert experience', projects:['jamba'], note:'Otter Pops is part of my Jel Sert experience. Below is my public Jel Sert launch case study; a separate Otter Pops case study is not available.'},
+  usc: {title:'USC Iovine & Young Academy', projects:['cyberpunk','traffic','iyh','suzchews','pavilia','synesthesia'], note:'B.S. Human-Technology Interaction, class of 2028. Coursework and directed research, with individual and team responsibilities stated below.'},
   uchicago: {title:'UChicago', projects:['tet2'], note:'ResearcHStart research fellowship · Kron Lab.'},
-  nvidia: {title:'Digital twin research', projects:['traffic'], note:'USC digital twin research led by a Senior Workflow Specialist at NVIDIA.'}
+  nvidia: {title:'Autonomous Vehicle Digital Twin Research', projects:['traffic'], note:'USC faculty-directed research led by a Senior Workflow Specialist at NVIDIA. This is academic research, not NVIDIA employment or sponsorship.'}
 };
 
 function showSelection({skill='all', experience}={}, animate=true) {
@@ -40,7 +44,7 @@ function showSelection({skill='all', experience}={}, animate=true) {
   context.hidden = !affiliation;
   context.textContent = affiliation?.note || '';
   reset.hidden = !affiliation && value === 'all';
-  if (animate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (animate && !reducedMotion.matches) {
     document.querySelector('.work-results').animate([{opacity:.65},{opacity:1}],{duration:180});
   }
 }
@@ -63,8 +67,13 @@ function select(selection) {
 library.hidden = false;
 const details = library.querySelector('details');
 const narrow = matchMedia('(max-width:850px)');
+// Anchor targets and sticky filters follow the header's actual wrapped height.
+const header = document.querySelector('.site-header');
+const updateHeaderHeight = () => document.documentElement.style.setProperty('--header-height', `${Math.ceil(header.getBoundingClientRect().height)}px`);
+updateHeaderHeight();
+new ResizeObserver(updateHeaderHeight).observe(header);
 if (narrow.matches) details.open = false;
-narrow.addEventListener('change',event => {if (!event.matches) details.open = true;});
+narrow.addEventListener('change',event => {details.open = !event.matches;});
 showSelection(readSelection(),false);
 buttons.forEach(button => button.addEventListener('click',() => {
   select({skill:button.dataset.filter});
@@ -73,6 +82,15 @@ buttons.forEach(button => button.addEventListener('click',() => {
     library.querySelector('summary').focus({preventScroll:true});
     library.scrollIntoView({block:'start'});
   }
+}));
+// Keep the complete logo and role visible when tabbing through the phone row.
+brands.forEach(brand => brand.addEventListener('focus', () => {
+  const strip = brand.closest('.brand-strip');
+  if (strip.scrollWidth <= strip.clientWidth) return;
+  const bounds = strip.getBoundingClientRect();
+  const item = brand.getBoundingClientRect();
+  if (item.left < bounds.left + 4) strip.scrollLeft += item.left - bounds.left - 4;
+  else if (item.right > bounds.right - 4) strip.scrollLeft += item.right - bounds.right + 4;
 }));
 brands.forEach(brand => brand.addEventListener('click',event => {
   if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;

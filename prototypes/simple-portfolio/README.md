@@ -1,3 +1,68 @@
+# About wording - September 30, 2026
+
+Samuel accepted the Alma case study and requested removal of the Sam-sized-hole metaphor.
+About now uses Curiosity with follow-through, keeps the contract-extension facts, and focuses
+on asking questions, initiative and contribution. Local copy change only; header unchanged.
+
+# Alma case study - September 30, 2026
+
+Local case study at /projects/alma.html, styled with projects/alma.css. Homepage Alma card
+now links to the case study and the working app; detailed narrative/credits moved to the case.
+Accepted homepage header unchanged. No new dependencies or changes to the Alma application.
+Case covers audience, role, Four Valves states, phased AI process, informal observation,
+revisions, working result and attribution. No measured learning or clinical validation claims.
+Original captures copied without edits into projects/heart-valve/case-study/. Build-plan
+excerpt is from /Users/sjfraust/Alma/BUILD_PLAN.md; original scope is not a completion claim.
+Native radio controls compare screenshots without JavaScript; full-size images remain linked.
+Existing root build preserves the new project route. Publication still requires approval.
+
+# Phase-one review checkpoint - September 29, 2026
+
+Header direction accepted by Samuel; left unchanged in this full-card pass. Affiliation marks
+sit beside role captions, with desktop regions vertically centered and a compact scrollable row.
+All twelve project cards now use concise context, summary and individual contribution.
+
+Local only: compact sticky header, one generic USC mark paired beside NVIDIA, visible concise
+roles, and shorter cards with native details where useful. Alma, Synesthesia, Scarlet and
+VR Baseball lead; all twelve projects remain visible. Full research relationship remains in
+accessible label, tooltip, filter context and research card. About unchanged in this pass.
+
+Samuel clarified that the material-transfer extension was a five-minute Cursor-made utility.
+Corrected both room case pages, shared portfolio data and immersive About references.
+It is supporting evidence of initiative, not a flagship engineering/design case.
+
+Design: retain white #ffffff, light ground #f0f3f7, ink #25344b, muted #59667a,
+orange #ff9c36 and link blue #176199. Existing Barlow headings and Avenir/system body.
+Left-aligned project content; common logo/caption tracks. No new visual theme.
+Composition: name | company affiliations | USC + NVIDIA | navigation on wide screens;
+name + navigation over scrollable affiliations on compact screens. Short summary and
+specific contribution replace repeated What I did / What happened labels throughout the grid.
+Original media and contribution boundaries retained; USC filter membership corrected.
+Review full copy/order before the evidence-led detailed case-study pass.
+
+Preview: http://127.0.0.1:8795/. Source is this directory; root build copies it into dist.
+Production, resumes and applications unchanged.
+
+# Local Summer 2027 revision - September 25, 2026 (historical)
+
+Latest header refinement: visible roles below the affiliation marks, content-aware spacing,
+and a horizontally scrollable phone row with complete keyboard-focus visibility. One IYA logo,
+generic USC monogram beside NVIDIA. Headline: "Product design. Made interactive." Both intro
+supporting lines are removed. USC monogram source (unmodified PNG):
+https://identity.usc.edu/wp-content/uploads/2022/08/TheMonogram.png
+from https://identity.usc.edu/identity/logos-marks/ .
+
+Unpublished changes in this checkout: sticky five-affiliation header (Edwards, Jel Sert,
+UChicago, USC IYA, NVIDIA), exact requested NVIDIA caption, full-width immersive invitation,
+Sam-sized-hole About and plain-language contribution/result summaries for all 12 projects.
+Alma and Cyberpunk tooling lead, followed by Traffic and IYH; game projects remain together.
+The USC image is copied from the repository's existing assets/logos/iya.png.
+
+Preview: http://127.0.0.1:8795/ after npm run build. Shared job requirement mapping and factual
+questions live in docs/ROLE_ALIGNMENT_2027.md in the Downloads portfolio checkout. Learning
+claims await Samuel's answers. Original detailed case pages, resume and immersive app remain
+unchanged. No commit, push or deployment is authorized by this revision request.
+
 # Published 2D portfolio
 
 Samuel approved launch on September 22, 2026 after removing the Pure Kick × Harley-Davidson and

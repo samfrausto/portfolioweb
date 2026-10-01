@@ -1,0 +1,20 @@
+ALMA: ORIGINAL BUILD PLAN EXCERPT
+
+Source: BUILD_PLAN.md, section 3, "Phased build order".
+Original planning document recorded in Git commit 114bc0b, July 29, 2026.
+Selected excerpt; original Markdown emphasis retained.
+
+Each phase has an explicit **done-when**. Do not proceed until it's met. Check in
+between phases rather than assuming scope.
+
+Phase 2 - Clock + dev HUD [heading typography normalized]
+
+Wire the master clock and scrubber. Bind engine output to a throwaway debug HUD:
+numeric readouts + rough 2D plots of pressures/volume over the beat (a proto-
+Wiggers as a *dev tool*).
+- **Done when:** scrubbing the beat shows correct, live curves in the HUD -
+  visual confirmation the engine behaves before any 3D depends on it.
+
+Context: this excerpt documents the intended sequence and review checkpoints,
+not a record of every phase approval, proof of clinical accuracy, or evidence
+of improved learning. Original typography has been normalized to plain text.

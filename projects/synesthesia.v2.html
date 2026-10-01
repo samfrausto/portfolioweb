@@ -1,82 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Synesthesia: Ambient VR App | Samuel Frausto</title>
-<meta name="description" content="An ambient visionOS app with scene switching, dynamic color and music, and custom gradient shaders. Technical lead on a 3-person team.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="case.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synesthesia | Unity and visionOS implementation | Samuel Frausto</title>
+  <meta name="description" content="A Unity-to-visionOS ambient prototype: Samuel Frausto's integration work, interactive color controls, and documentation-led troubleshooting, with AI-assisted C# implementation.">
+  <link rel="canonical" href="https://www.samfrausto.com/projects/synesthesia.v2.html">
+  <link rel="stylesheet" href="alma.css">
+  <link rel="stylesheet" href="synesthesia.css">
 </head>
 <body>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<nav>
-  <a class="nav-logo" href="../index.html">S<span>.</span>Frausto</a>
-  <div class="nav-links">
-    <a href="../index.html#work">Work</a>
-    <a href="../index.html#about">About</a>
-    <a href="../index.html#contact">Contact</a>
-    <div class="nav-dot"></div>
-  </div>
-</nav>
-
-<header class="case-hero">
-  <a class="back-link" href="../index.html#work">All projects</a>
-  <p class="case-eyebrow">visionOS · ACAD 217</p>
-  <h1 class="case-title">Synesthesia</h1>
-  <p class="case-lead">An ambient visionOS app that runs <strong>behind a user's workspace with adjustable scenes, color, music, and opacity.</strong></p>
-  <div class="case-facts">
-    <div class="fact"><p class="fact-k">Role</p><p class="fact-v">Technical lead, 3-person team</p></div>
-    <div class="fact"><p class="fact-k">Status</p><p class="fact-v">Completed</p></div>
-    <div class="fact"><p class="fact-k">Platform</p><p class="fact-v">Apple Vision Pro</p></div>
-    <div class="fact"><p class="fact-k">Stack</p><p class="fact-v">Unity · SwiftUI · Shaders</p></div>
-  </div>
-</header>
-
-<section class="case-section reveal">
-  <span class="cs-label">The project</span>
-  <div class="cs-body">
-    <h2>An adjustable environment for spatial work.</h2>
-    <p>Synesthesia sits behind a user's open windows and changes the surrounding scene without replacing the work in front of them. I was the technical lead only and had no control over the design. My teammates owned modeling and visual design; I implemented the interaction and runtime mechanics.</p>
-  </div>
-</section>
-
-<section class="case-section reveal">
-  <span class="cs-label">The build</span>
-  <div class="cs-body">
-    <h2>Controls that stay out of the way.</h2>
-    <div class="build-list">
-      <div class="build-item"><span class="bi-num">01</span><p class="bi-t">Scene switching</p><p class="bi-d">Mechanics to move between multiple ambient environments without breaking the sense that the world is still "on."</p></div>
-      <div class="build-item"><span class="bi-num">02</span><p class="bi-t">Color, music, opacity</p><p class="bi-d">Live controls for palette, audio, and AR opacity so the experience can sit at any intensity behind real work.</p></div>
-      <div class="build-item"><span class="bi-num">03</span><p class="bi-t">Unity → visionOS pipeline</p><p class="bi-d">Brought the Unity build onto visionOS with custom gradient shaders tuned for soft, ambient presence.</p></div>
-      <div class="build-item"><span class="bi-num">04</span><p class="bi-t">Opacity states</p><p class="bi-d">The scene remains legible across transparent and fully visible presentation states.</p></div>
+  <a class="skip-link" href="#case-study">Skip to case study</a>
+  <header class="case-header">
+    <div class="case-wrap header-inner">
+      <a class="identity" href="/">Samuel Frausto</a>
+      <nav aria-label="Main navigation">
+        <a href="/#work">Work</a>
+        <a href="/#about">About</a>
+        <a href="/portfolio/media/Samuel_Frausto_Resume.pdf">Resume</a>
+      </nav>
     </div>
-  </div>
-</section>
+  </header>
+  <main id="case-study" class="case-wrap">
+    <section class="case-intro" aria-labelledby="case-title">
+      <p class="context">For ACAD 217 at USC / Three-person team</p>
+      <h1 id="case-title">Synesthesia</h1>
+      <p class="lead">Adjustable surroundings for a Vision Pro workspace.</p>
+    </section>
 
-<div class="case-outcome reveal">
-  <div class="outcome-inner">
-    <p class="outcome-label">What it proved</p>
-    <p class="outcome-text">The completed prototype combines <em>scene switching, live controls, audio, and custom shaders</em> in one visionOS experience.</p>
-  </div>
-</div>
+    <section class="decision" aria-labelledby="demo-title">
+      <div class="section-intro"><h2 id="demo-title">From a scene to something you can control</h2></div>
+      <figure class="demo-evidence">
+        <video controls playsinline muted preload="none" poster="../assets/projects/synesthesia-color-controls.png" aria-label="Synesthesia: scene switching and color controls in the Apple Vision Pro simulator" aria-describedby="demo-caption">
+          <source src="../media/synesthesia-controls.mp4" type="video/mp4">
+          <a href="../media/synesthesia-controls.mp4">Watch the Synesthesia recording</a>
+        </video>
+        <figcaption id="demo-caption">Apple Vision Pro simulator recording. The scene menu changes environments; two color sliders adjust the sky gradient.</figcaption>
+      </figure>
+      <dl class="overview">
+        <div><dt>The project</dt><dd>An ambient environment behind the user's workspace, with adjustable scenes, color, music, and opacity.</dd></div>
+        <div><dt>My role</dt><dd>Technical lead. I handled the Unity implementation and used AI to write C# scripts. My teammates created the visual design and models.</dd></div>
+      </dl>
+    </section>
 
-<footer class="case-foot">
-  <div class="tools-row">
-    <span class="tools-k">Tools &amp; tech</span>
-    <div class="tools-list"><span class="tool-chip">visionOS</span><span class="tool-chip">Unity</span><span class="tool-chip">SwiftUI</span><span class="tool-chip">Shader</span><span class="tool-chip">ACAD 217</span></div>
-  </div>
-  <a class="next-link" href="cyberpunk-twin.v2.html">
-    <div><p class="next-k">Next project</p><p class="next-t">Cyberpunk 2077 Room: Digital Twin</p></div>
-    <span class="next-arrow">→</span>
-  </a>
-</footer>
+    <section class="story-section" aria-labelledby="interaction-title">
+      <h2 id="interaction-title">Connecting the controls to the environment</h2>
+      <div class="story-copy">
+        <p>Two sliders control the top and bottom colors of the sky. The C# controller converts each slider's position into a color and passes it to the gradient material, so the environment changes as the controls move.</p>
+        <p>Scene buttons switch between the base, country, jazz, and EDM environments. The scene controller coordinates the selected environment, its music, and the button highlight. Color controls appear in the base scene and hide in the themed scenes.</p>
+        <p class="qualification">The implementation uses Unity PolySpatial's sample spatial controls, connected through AI-assisted C# scripts. I did not build the underlying SDK controls from scratch.</p>
+      </div>
+    </section>
 
-<script src="../shared.js"></script>
+    <section class="story-section" aria-labelledby="challenge-title">
+      <h2 id="challenge-title">Getting the shading working with the SDK</h2>
+      <div class="story-copy">
+        <p>The hardest parts were getting the color shading to work with the VR SDK and navigating the Unity-to-visionOS workflow. I used the SDK manuals to troubleshoot the integration.</p>
+        <p>My work combined hands-on Unity setup with AI-assisted C# coding and documentation-led troubleshooting to bring the team's scenes and controls into a working prototype.</p>
+      </div>
+    </section>
+
+    <section class="story-section" aria-labelledby="result-title">
+      <h2 id="result-title">A working spatial prototype</h2>
+      <div class="story-copy">
+        <p>The prototype brings scene switching, adjustable color, music, and opacity into one visionOS experience. The recording above shows the scene and color controls in the simulator.</p>
+        <p class="qualification">This case documents implementation and integration. The recording is simulator evidence, not a headset usability study.</p>
+      </div>
+    </section>
+
+    <section class="story-section credits" aria-labelledby="credits-title">
+      <h2 id="credits-title">Tools and credits</h2>
+      <div class="story-copy">
+        <p><strong>My contribution:</strong> Unity implementation and integration, including troubleshooting with the SDK manuals. <strong>AI assistance:</strong> C# script generation. <strong>Teammates:</strong> visual design and modeling.</p>
+        <p><strong>Stack:</strong> Unity, PolySpatial, visionOS, C#, and Shader Graph. PolySpatial supplied the sample spatial UI components.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="case-wrap"><a href="/#synesthesia">Back to work</a><span>Samuel Frausto</span></footer>
 </body>
 </html>

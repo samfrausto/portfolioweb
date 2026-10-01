@@ -2,7 +2,7 @@ import {PORTFOLIO as SOURCE} from '../../portfolio.js';
 export const PORTFOLIO=structuredClone(SOURCE);
 PORTFOLIO.projects.find(p=>p.id===7).team='I was the technical lead only. I implemented the runtime, controls and platform delivery; I had no control over the design. My teammates owned the visual design and modeling.';
 PORTFOLIO.experiences[1].name='USC Iovine and Young Academy for the Arts, Technology, and Business of Innovation & Viterbi School of Engineering';
-PORTFOLIO.experiences[1].part=['Delivery and waypoint navigation for the class-built IYH Digital Twin','Technical implementation and platform delivery for Synesthesia; design owned by teammates','Modeling, animation and pipeline tooling for Cyberpunk Twin'];
+PORTFOLIO.experiences[1].part=['Delivery and waypoint navigation for the class-built IYH Digital Twin','Technical implementation and platform delivery for Synesthesia; design owned by teammates','Modeling, animation and skybox work for Cyberpunk Twin'];
 PORTFOLIO.experiences[1].projects=[12,2,7,6,3,4];
 export const coursework=['Object-Oriented Programming','Introduction to Programming (CSCI 103 · C++)','Constructing Digital Worlds (ACAD 288)','Extended Reality Development (ACAD 217)','Collaborative Prototyping for Healthcare Innovation (ACAD 432)'];
 export const rooms=['Featured work','About me','Experience'];
