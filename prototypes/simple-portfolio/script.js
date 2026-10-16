@@ -18,7 +18,7 @@ status.after(reset);
 const experiences = {
   edwards: {title:'Edwards Lifesciences', projects:['alma','clinical'], note:'XR learning design · current contractor, previously an intern.'},
   jelsert: {title:'Jel Sert', projects:['jamba'], note:'Launch communications from my Jel Sert internship.'},
-  usc: {title:'USC Iovine & Young Academy', projects:['cyberpunk','traffic','iyh','suzchews','pavilia','synesthesia'], note:'B.S. Human-Technology Interaction, class of 2028. Coursework and directed research, with individual and team responsibilities stated below.'},
+  usc: {title:'USC Iovine & Young Academy', projects:['duo','cyberpunk','traffic','iyh','suzchews','pavilia','synesthesia'], note:'B.S. Human-Technology Interaction, class of 2028. Coursework and directed research, with individual and team responsibilities stated below.'},
   uchicago: {title:'UChicago', projects:['tet2'], note:'ResearcHStart research fellowship · Kron Lab.'},
   nvidia: {title:'Autonomous Vehicle Digital Twin Research', projects:['traffic'], note:'USC faculty-directed research led by a Senior Workflow Specialist at NVIDIA. This is academic research, not NVIDIA employment or sponsorship.'}
 };
