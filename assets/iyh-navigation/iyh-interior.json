@@ -1,0 +1,10 @@
+{
+  "file": "iyh-interior.png",
+  "captured_at": "2026-10-22T21:15:18.633455+00:00",
+  "stage": "scenes/IYH_navigation.usda",
+  "camera": "/TravelCamera",
+  "world_transform": "( (-1.4221497780057126e-14, 1.0000000000000002, 9.860761315262652e-32, 0), (-0.03868070792447022, -5.500976018788913e-16, 0.9992516213819532, 0), (0.9992516213819531, 1.4210854715201928e-14, 0.03868070792447021, 0), (108.90374755859392, 86.00000000000007, 180.0000000000002, 1) )",
+  "source": "Unmodified RTX viewport capture; no generated imagery.",
+  "original_png_sha256": "54783a02eaa7e70e045688301c955d1b16dbe8ff2f2b7636150f03b4a59aef26",
+  "web_format": "WebP quality 90; no cropping, retouching, or generated content"
+}

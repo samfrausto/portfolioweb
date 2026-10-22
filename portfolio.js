@@ -53,28 +53,28 @@ export const PORTFOLIO={
     {
       "id": 2,
       "title": "IYH Digital Twin",
-      "role": "Delivery layer · Three-person subteam",
-      "summary": "A shared building model, delivered across Web, Meta Quest and Apple Vision Pro.",
+      "role": "Waypoint navigation · Python extension",
+      "summary": "Street View-style navigation through the Iovine and Young Hall digital twin.",
       "brief": "Help people navigate the class-built twin of Iovine and Young Hall.",
       "part": [
-        "Waypoint navigation between viewpoints",
-        "Delivery across Web, Quest and Vision Pro",
-        "Integration with the architecture modeled by the class"
+        "Smooth click-to-travel, drag-to-look, and saved viewpoints",
+        "Kit event messaging and camera discovery",
+        "Later IYH integration with Codex assistance"
       ],
-      "outcome": "The authored case reports the building and navigation running across all three platforms.",
+      "outcome": "The local Kit integration switches between three IYH cameras; actual captures and event validation are included.",
       "tools": [
         "Omniverse",
-        "JavaScript",
-        "Meta Quest",
-        "visionOS"
+        "Python",
+        "OpenUSD",
+        "Kit SDK"
       ],
       "category": "Spatial & XR",
-      "poster": "assets/usc.jpg",
+      "poster": "assets/iyh-navigation/iyh-interior.webp",
       "featured": false,
       "url": "https://www.samfrausto.com/projects/iyh-digital-twin.v2.html",
       "live": false,
-      "team": "The class built the architecture and interiors. My three-person subteam owned delivery and waypoint navigation.",
-      "mediaCaption": "Iovine and Young Hall · Campus reference photograph; the digital twin is not pictured."
+      "team": "I developed the original warehouse waypoint extension. The class built IYH's architecture and interiors. Restoration, IYH integration and capture tools were developed later with Codex assistance.",
+      "mediaCaption": "IYH Interior waypoint · Actual Omniverse viewport capture, October 2026."
     },
     {
       "id": 3,
@@ -402,7 +402,7 @@ export const PORTFOLIO={
       "context": "Spatial systems + interaction",
       "intro": "Connecting technical systems, design and interaction through work built for Web, Quest and Vision Pro.",
       "part": [
-        "Delivery and waypoint navigation for the IYH Digital Twin",
+        "Omniverse waypoint navigation prototype and later IYH integration",
         "Technical leadership on portal and ambient visionOS mechanics",
         "Modeling, animation and skybox work for a digital twin"
       ],

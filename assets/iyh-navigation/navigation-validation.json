@@ -1,0 +1,58 @@
+{
+  "checked_at": "2026-10-22T21:15:21.040113+00:00",
+  "movement": [
+    {
+      "scene": "warehouse",
+      "passed": true,
+      "start": [
+        120.0,
+        200.0,
+        535.0
+      ],
+      "target": [
+        -802.01171875,
+        200.0,
+        535.0
+      ],
+      "intermediate_samples": 30,
+      "actual_duration_seconds": 0.6240936999965925,
+      "picked_surface": "/World/IsaacWarehouse/Warehouse01/SM_Floor_A1",
+      "recorded_frames": 113
+    },
+    {
+      "scene": "iyh",
+      "passed": true,
+      "start": [
+        970.0000000000002,
+        86.0,
+        324.0
+      ],
+      "target": [
+        108.90374755859375,
+        86.0,
+        180.0
+      ],
+      "intermediate_samples": 20,
+      "actual_duration_seconds": 0.9345597000065027,
+      "picked_surface": "/World/IYH/IYA_Building_Textured/Cube_002",
+      "recorded_frames": 98
+    }
+  ],
+  "native_mouse_check": {
+    "scene": "warehouse",
+    "click_moves": true,
+    "drag_looks": true,
+    "back_restores": true,
+    "method": "Observed native mouse input and rendered UI on 2026-10-22"
+  },
+  "interaction_checks": {
+    "scene": "IYH_navigation.usda",
+    "look_changes_orientation": true,
+    "look_preserves_position": true,
+    "sky_click_rejected": true,
+    "rejected_click_preserves_position": true,
+    "back_restores_position": true,
+    "passed": true
+  },
+  "scope": "Local Kit app; direct camera travel, no collision-aware route planning."
+}

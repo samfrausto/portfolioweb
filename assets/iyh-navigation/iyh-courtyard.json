@@ -1,0 +1,10 @@
+{
+  "file": "iyh-courtyard.png",
+  "captured_at": "2026-10-22T20:30:25.819960+00:00",
+  "stage": "scenes/IYH_navigation.usda",
+  "camera": "/Waypoints/Courtyard",
+  "world_transform": "( (1, 0, 0, 0), (0, 0.15799050110667287, 0.9874406319167055, 0), (0, -0.9874406319167055, 0.15799050110667287, 0), (900.0000000000001, 1100, 720, 1) )",
+  "source": "Unmodified RTX viewport capture; no generated imagery.",
+  "original_png_sha256": "15e27542c2e8e48ef7226e7068f1b6f4c4f42e000dc9420e38362ca94dd3bae1",
+  "web_format": "WebP quality 90; no cropping, retouching, or generated content"
+}

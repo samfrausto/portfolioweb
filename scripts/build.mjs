@@ -11,7 +11,12 @@ for (const path of [...files, ...directories, 'prototypes/relay-engine.js']) cpS
 console.log('Built workshop homepage and preserved existing public project pages.');
 
 // Publish the reviewed connected workshop while retaining every original project route.
-execFileSync('npm',['run','build','--prefix','prototypes/spatial-study'],{stdio:'inherit'});
+// Use the invoking package manager's JS entry point on Windows as well as Unix.
+if (process.env.npm_execpath) {
+  execFileSync(process.execPath,[process.env.npm_execpath,'run','build'],{stdio:'inherit',cwd:'prototypes/spatial-study'});
+} else {
+  execFileSync(process.platform === 'win32' ? 'npm.cmd' : 'npm',['run','build','--prefix','prototypes/spatial-study'],{stdio:'inherit',shell:process.platform === 'win32'});
+}
 cpSync('prototypes/spatial-study/dist','dist',{recursive:true});
 console.log('Published connected workshop assets alongside preserved original project pages.');
 

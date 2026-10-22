@@ -1,0 +1,10 @@
+{
+  "file": "iyh-exterior.png",
+  "captured_at": "2026-10-22T20:30:31.728359+00:00",
+  "stage": "scenes/IYH_navigation.usda",
+  "camera": "/Waypoints/Exterior",
+  "world_transform": "( (0.7880243737245632, 0.615644041972315, 2.7755575615628907e-17, 0), (-0.2133222455335797, 0.273052474282982, 0.9380490210263279, 0), (0.5775042908728217, -0.7392054923172119, 0.34650257452369304, 0), (5299.999999999999, -6399.999999999999, 3399.999999999999, 0.9999999999999998) )",
+  "source": "Unmodified RTX viewport capture; no generated imagery.",
+  "original_png_sha256": "5080e6695fbf8ff828c36bbb65d504935f2608a2b33fdda00c5909028351d631",
+  "web_format": "WebP quality 90; no cropping, retouching, or generated content"
+}

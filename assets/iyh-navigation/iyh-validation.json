@@ -1,0 +1,36 @@
+{
+  "tested_at": "2026-10-22T20:31:05.578004+00:00",
+  "stage": "scenes/IYH_navigation.usda",
+  "event": "teleportToWaypoint",
+  "checks": [
+    {
+      "requested": "/Waypoints/Exterior",
+      "active_camera": "/Waypoints/Exterior",
+      "verified": true
+    },
+    {
+      "requested": "/Waypoints/Interior",
+      "active_camera": "/Waypoints/Interior",
+      "verified": true
+    },
+    {
+      "requested": "/Waypoints/Courtyard",
+      "active_camera": "/Waypoints/Courtyard",
+      "verified": true
+    }
+  ],
+  "published_waypoints": [
+    {
+      "name": "01 / Building overview",
+      "path": "/Waypoints/Exterior"
+    },
+    {
+      "name": "02 / Interior orientation",
+      "path": "/Waypoints/Interior"
+    },
+    {
+      "name": "03 / Upper courtyard",
+      "path": "/Waypoints/Courtyard"
+    }
+  ]
+}

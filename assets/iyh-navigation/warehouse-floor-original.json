@@ -1,0 +1,10 @@
+{
+  "file": "warehouse-floor-original.png",
+  "captured_at": "2026-10-22T20:02:19.485833+00:00",
+  "stage": "scenes/warehouse_navigation.usda",
+  "camera": "/Waypoints/Floor_Center",
+  "world_transform": "( (0.06386345308825858, 2.775556294017028e-17, -0.9979586461169843, 0), (-0.06298305910584029, 0.9980064573866858, -0.004030543405993309, 0), (0.9959691730296247, 0.0631118928132992, 0.06373613857309375, 0), (120, 200, -180, 1) )",
+  "source": "Unmodified RTX viewport capture; no generated imagery.",
+  "original_png_sha256": "fb39ae02af404b6911b914f74a96036d51ace55b0395127dc5ddd9d093ef8f88",
+  "web_format": "WebP quality 90; no cropping, retouching, or generated content"
+}

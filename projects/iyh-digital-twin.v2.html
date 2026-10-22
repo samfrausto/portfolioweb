@@ -1,84 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iovine &amp; Young Hall Digital Twin | Samuel Frausto</title>
-<meta name="description" content="A digital twin of USC's Iovine and Young Hall delivered across Web, Meta Quest, and Apple Vision Pro with Google Maps-style waypoint navigation.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
-<link rel="stylesheet" href="case.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IYH waypoint navigation | Samuel Frausto</title>
+<meta name="description" content="System design for click-to-travel, drag-to-look and saved viewpoints in an NVIDIA Omniverse digital twin.">
+<link rel="preload" href="../assets/iyh-navigation/BarlowCondensed-BoldItalic.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="iyh-navigation.css">
 </head>
 <body>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<nav>
-  <a class="nav-logo" href="../index.html">S<span>.</span>Frausto</a>
-  <div class="nav-links">
-    <a href="../index.html#work">Work</a>
-    <a href="../index.html#about">About</a>
-    <a href="../index.html#contact">Contact</a>
-    <div class="nav-dot"></div>
-  </div>
-</nav>
-
-<header class="case-hero">
-  <a class="back-link" href="../index.html#work">All projects</a>
-  <p class="case-eyebrow">Digital twin · Multi-platform</p>
-  <h1 class="case-title">Iovine &amp; Young Hall Digital Twin</h1>
-  <p class="case-lead">A digital twin of USC's Iovine and Young Hall. <strong>My three-person sub-team built the delivery layer and waypoint navigation for Web, Meta Quest, and Apple Vision Pro.</strong></p>
-  <div class="case-facts">
-    <div class="fact"><p class="fact-k">Role</p><p class="fact-v">Delivery layer, 3-person sub-team</p></div>
-    <div class="fact"><p class="fact-k">Status</p><p class="fact-v accent">In progress</p></div>
-    <div class="fact"><p class="fact-k">Platforms</p><p class="fact-v">Web · Meta Quest · Vision Pro</p></div>
-    <div class="fact"><p class="fact-k">Stack</p><p class="fact-v">Omniverse · JavaScript</p></div>
-  </div>
-</header>
-
-<section class="case-section reveal">
-  <span class="cs-label">The project</span>
-  <div class="cs-body">
-    <h2>One building model, delivered on three platforms.</h2>
-    <p>The class modeled the architecture and interiors of Iovine &amp; Young Hall in NVIDIA Omniverse. My three-person sub-team owns the delivery layer.</p>
-    <p>We are making the shared twin <strong>walkable on the web, Meta Quest, and Apple Vision Pro</strong> from one source model.</p>
-  </div>
+<a class="skip" href="#main">Skip to project</a>
+<header class="site-header"><div class="header-row wrap"><a class="identity" href="/"><span class="monogram" aria-hidden="true">SF</span>Samuel Frausto</a><nav aria-label="Main navigation"><a href="/#work">Work</a><a href="/#about">About</a></nav></div></header>
+<main id="main" class="wrap">
+<section class="hero" aria-labelledby="project-title">
+<p class="context">USC ACAD 288 · Interaction design &amp; development</p>
+<h1 id="project-title">IYH waypoint navigation</h1>
+<p class="lead">A navigation system for the Iovine and Young Hall digital twin. Click a floor position to move through the scene, drag to look around, or select a saved viewpoint.</p>
+<p class="tools">Python · NVIDIA Omniverse Kit · OpenUSD</p>
 </section>
-
-<section class="case-section reveal">
-  <span class="cs-label">The build</span>
-  <div class="cs-body">
-    <h2>Navigation you already know <em>how to use.</em></h2>
-    <p>Rather than inventing a new way to move through a building, we borrowed one everybody has used: waypoint navigation, the way Google Maps walks you down a street.</p>
-    <div class="build-list">
-      <div class="build-item"><span class="bi-num">01</span><p class="bi-t">Waypoint navigation</p><p class="bi-d">A Google Maps-style system. Pick a destination and move between viewpoints.</p></div>
-      <div class="build-item"><span class="bi-num">02</span><p class="bi-t">Three platforms, one twin</p><p class="bi-d">The same experience delivered across Web, Meta Quest, and Apple Vision Pro from one source of truth.</p></div>
-      <div class="build-item"><span class="bi-num">03</span><p class="bi-t">Student-built architecture</p><p class="bi-d">Our delivery layer integrates with the building model produced by the class.</p></div>
-      <div class="build-item"><span class="bi-num">04</span><p class="bi-t">Seamless transitions</p><p class="bi-d">Movement between virtual viewpoints is continuous, so exploring feels like walking, not clicking through slides.</p></div>
-    </div>
-  </div>
-</section>
-
-<div class="case-outcome reveal">
-  <div class="outcome-inner">
-    <p class="outcome-label">Where it stands</p>
-    <p class="outcome-text">The same building and navigation system runs across <em>Web, Quest, and Vision Pro.</em></p>
-  </div>
+<section class="demo" aria-label="Navigation videos">
+<div class="demo-tabs" role="group" aria-label="Choose a video">
+<button type="button" data-scene="rendered" aria-pressed="true">Rendered walkthrough</button>
+<button type="button" data-scene="live" aria-pressed="false">Live interaction</button>
+<button type="button" data-scene="warehouse" aria-pressed="false">Warehouse prototype</button>
 </div>
-
-<footer class="case-foot">
-  <div class="tools-row">
-    <span class="tools-k">Tools &amp; tech</span>
-    <div class="tools-list"><span class="tool-chip">Omniverse</span><span class="tool-chip">visionOS</span><span class="tool-chip">Meta Quest</span><span class="tool-chip">Web</span><span class="tool-chip">JavaScript</span></div>
-  </div>
-  <a class="next-link" href="pavilia.v2.html">
-    <div><p class="next-k">Next project</p><p class="next-t">Pavilia: Portal Mechanic</p></div>
-    <span class="next-arrow">→</span>
-  </a>
-</footer>
-
-<script src="../shared.js"></script>
+<video id="demo-video" controls playsinline preload="metadata" poster="../assets/iyh-navigation/iyh-rendered.webp" aria-label="Rendered IYH building tour opening on the lettered staircase">
+<source src="../assets/iyh-navigation/iyh-rendered.mp4" type="video/mp4">
+<p><a href="../assets/iyh-navigation/iyh-rendered.mp4">Watch the rendered walkthrough.</a></p>
+</video>
+<p class="caption" id="demo-caption">A 60 fps rendered tour of IYH, opening on the lettered staircase. See Live interaction for the click-to-travel system in use.</p>
+</section>
+<section class="system" aria-labelledby="system-title">
+<div class="section-heading"><h2 id="system-title">System design</h2><p>The interface sends navigation events to Python extensions inside Kit. The extensions handle movement and camera selection, so the same controls can work across different USD scenes.</p></div>
+<ol class="flow" aria-label="Navigation data flow">
+<li><b>Input</b><span>Floor click, look gesture, or destination selection</span></li>
+<li><b>Kit events</b><span>Coordinates, drag deltas, or a camera path</span></li>
+<li><b>Navigation</b><span>Surface picking, camera easing, and viewpoint lookup</span></li>
+<li><b>USD camera</b><span>Update the travel camera or activate a saved view</span></li>
+</ol>
+<div class="table-wrap"><table><thead><tr><th scope="col">Interaction</th><th scope="col">Event</th><th scope="col">System response</th></tr></thead><tbody>
+<tr><td>Click to travel</td><td><code>travelClick</code></td><td>Cast a ray through the cursor, accept a floor hit, then ease the camera toward it at eye height.</td></tr>
+<tr><td>Drag to look</td><td><code>lookDrag</code></td><td>Turn the camera using pointer deltas while preserving its position and limiting vertical rotation.</td></tr>
+<tr><td>Saved viewpoint</td><td><code>teleportToWaypoint</code></td><td>Select a camera discovered under <code>/Waypoints</code> and make it the active view.</td></tr>
+</tbody></table></div>
+<div class="design-notes"><div><h3>Separate movement from the model</h3><p>The travel camera lives in a temporary USD session layer. Moving through the building does not change its source geometry or overwrite the saved destination cameras. Back restores the previous camera pose.</p></div><div><h3>Adapt to the scene</h3><p>The warehouse uses Y-up; IYH uses Z-up. The integration adjusts the movement axis, eye height, and accepted floor elevations. Scene changes cancel active travel and clear the previous scene’s navigation history.</p></div></div>
+</section>
+<section class="credit" aria-labelledby="role-title"><h2 id="role-title">My contribution</h2><div>
+<p>I developed the waypoint and smooth-travel extensions in a warehouse test scene. The IYH integration, surface picking, and replacement interface shown here were completed later for this portfolio with Codex assistance.</p>
+<p>The Iovine and Young Hall model was built by our ACAD 288 class. The warehouse is an NVIDIA sample environment.</p>
+<div class="links"><a href="../assets/iyh-navigation/navigation-source.zip" download>Navigation source ↓</a><a href="../assets/iyh-navigation/navigation-validation.json">Movement checks ↗</a></div>
+<p class="note">Direct camera travel does not include collision-aware route planning. Some assets and materials remain missing from the recovered class scene.</p>
+</div></section>
+</main>
+<footer class="wrap"><a href="/#iyh">Back to all work</a><a href="/#contact">Get in touch ↗</a></footer>
+<script src="iyh-navigation.js"></script>
 </body>
 </html>
