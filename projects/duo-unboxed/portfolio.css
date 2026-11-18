@@ -1,0 +1,15 @@
+/* Portfolio navigation around the supplied team presentation. */
+.portfolio-return{display:inline-flex;align-items:center;min-height:44px;flex-shrink:0;color:#3c3c3c;background:#fff;text-decoration:none;font:800 14px/1.2 Nunito,"Trebuchet MS",sans-serif;border-radius:8px;padding:0 10px}
+.portfolio-return:hover{text-decoration:underline;text-underline-offset:3px}
+.portfolio-return:focus-visible{outline:3px solid #1899d6;outline-offset:2px}
+.top .sound-toggle{min-height:44px}
+.top .bar{min-width:20px}
+@media(max-width:700px){.top{gap:8px;padding-inline:16px}.portfolio-return{font-size:12px;padding-inline:4px}.top .sound-toggle{font-size:12px;padding-inline:8px}.top .count{min-width:2.7em;font-size:13px}}
+.manual-slide-controls{top:66px;right:var(--pad);left:auto;max-width:calc(100% - 32px);box-shadow:none}
+.manual-slide-controls button,.manual-slide-controls select{min-height:44px}
+.slide{padding-top:136px}
+@media(max-width:700px){.manual-slide-controls{left:16px;right:16px;gap:4px}.manual-slide-controls select{flex:1;min-width:0;max-width:none}.manual-slide-controls button,.manual-slide-controls select{font-size:12px}.slide{padding-top:136px}}
+/* Clip off-stage slide transitions without clipping each slide's vertical scrolling. */
+#deck{position:fixed;inset:0;overflow:hidden}
+@media(max-width:700px){#map .city[data-id="nyc"] .chip{left:auto;right:0;--tx:0}}
+@media print{#deck{position:static;overflow:visible}.portfolio-return{display:none}.slide{padding:44px 72px}}
