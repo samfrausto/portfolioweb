@@ -23,7 +23,7 @@ for(const file of runtimeFiles){let text=await readFile(file,'utf8');
  if(production){
   // Module-generated media paths need the same namespace as the HTML assets.
   if(file.endsWith('.js'))text=text.replace(/(['"`])assets\//g,'$1/notebook/assets/');
-  if(file==='index.html')text=text.replace('<meta name="robots" content="noindex,nofollow">','<meta name="description" content="Samuel Frausto’s work in interaction design, XR and emerging technology. Explore working demos, project stories and contributions."><meta name="theme-color" content="#f4eee3"><link rel="canonical" href="https://www.samfrausto.com/">').replace(/((?:src|href)=")(?=assets\/|style\.css|project-motion\.css|app\.js|read\.html)/g,'$1/notebook/');
+  if(file==='index.html')text=text.replace('<html lang="en">','<html lang="en" data-release="notebook">').replace('<meta name="robots" content="noindex,nofollow">','<meta name="description" content="Samuel Frausto’s work in interaction design, XR and emerging technology. Explore working demos, project stories and contributions."><meta name="theme-color" content="#f4eee3"><link rel="canonical" href="https://www.samfrausto.com/">').replace(/((?:src|href)=")(?=assets\/|style\.css|project-motion\.css|app\.js|read\.html)/g,'$1/notebook/');
  }
  await writeFile('dist/'+file,text);
 }

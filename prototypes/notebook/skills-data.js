@@ -132,13 +132,13 @@ export const skillGroups=[
       {
         "title": "Prototype implementation",
         "items": [
-          "C# scripting",
+          "C# integration",
           "JavaScript",
           "HTML/CSS",
-          "HLSL",
+          "HLSL integration",
           "TypeScript"
         ],
-        "note": "Includes AI-assisted implementation."
+        "note": "C# and HLSL code is AI-generated and integrated in Unity. Other languages include AI-assisted project work."
       },
       {
         "title": "Frontend project experience",
@@ -174,7 +174,7 @@ export const skillGroups=[
         ]
       }
     ],
-    "note": "AI-assisted builds that I direct and review.",
+    "note": "AI-assisted builds that I direct and review. Unity C# and HLSL code is AI-generated.",
     "evidence": [
       "alma",
       "scarlet"
@@ -218,7 +218,7 @@ export const skillGroups=[
         "note": "Earned through the Edwards immersive-training project."
       }
     ],
-    "note": "Yellow Belt earned through the Edwards immersive-training project.",
+    "note": "Yellow Belt earned during my Edwards internship.",
     "evidence": [
       "suzchews",
       "jamba",

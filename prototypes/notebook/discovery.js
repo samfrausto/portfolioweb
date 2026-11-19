@@ -51,7 +51,7 @@ export const projectIndexLabels={
  synesthesia:'Vision Pro environments',
  suzchews:'Digital product concept',
  pavilia:'Unity portal prototype',
- clinical:'Immersive audit training',
+ clinical:'Edwards · internal work',
  scarlet:'Private poker',
  cyberpunk:'Bedroom model',
  iyh:'Campus navigation',

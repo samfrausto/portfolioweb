@@ -143,3 +143,8 @@ body[data-view=about] .notebook,body[data-view=case] .notebook{--rail:32px}
 /* Written evidence does not need the media preview's reserved summary space. */
 .preview.is-written .preview-definition{min-height:0;margin-bottom:0}
 .preview.is-written .preview-visual{display:none}
+
+/* Stage 5: readers use the same action language as the project preview. */
+.reader .action,.reader .play-overlay,.reader .media-controls [data-play]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.reader .play-overlay{white-space:nowrap;width:auto;min-width:176px}
+.case-intro h2{overflow-wrap:normal;word-break:normal;hyphens:none;text-wrap:balance}
