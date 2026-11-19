@@ -169,3 +169,9 @@ body[data-view=about] .notebook,body[data-view=case] .notebook{--rail:32px}
 .media-controls [data-fullscreen],.preview .media-controls [data-fullscreen]{grid-row:2;grid-column:3;padding:8px 0;min-width:44px;justify-content:flex-end;font-size:13px}.media-controls [data-sound]{grid-row:3;grid-column:1/-1;justify-content:flex-start}.media-controls [data-sound]:disabled{display:none}
 @media(max-width:900px){.alma-surface{height:450px}.alma-toolbar{padding-inline:4px}.media-controls,.preview .media-controls{gap:0 8px;padding-inline:6px}}
 @media(max-width:360px){.alma-surface{height:430px}.alma-toolbar>span{font-size:11px}.media-controls [data-play],.preview .media-controls [data-play]{font-size:12px;min-width:94px}.media-time,.preview .media-time{font-size:11px}.media-controls [data-fullscreen],.preview .media-controls [data-fullscreen]{font-size:12px}}
+
+/* Larger labels retain the selected tab shapes and natural whole-word wrapping. */
+.category-tabs button{font-size:17px;line-height:1.4;padding:12px}
+@media(min-width:901px) and (max-width:1050px){.category-tabs button{font-size:16px;padding:11px 9px;gap:7px}}
+@media(max-width:900px){.category-tabs button{font-size:17px;padding:12px}}
+.presentation-evidence{margin:0;min-width:0}.presentation-evidence a{display:block;outline-offset:4px}.presentation-evidence img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain}.presentation-evidence figcaption{margin-top:10px;font-size:13px;line-height:1.5;color:var(--graphite)}.reader .presentation-evidence{margin-block:24px 36px}

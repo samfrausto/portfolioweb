@@ -14,7 +14,7 @@ function visible(image){return image&&image.getBoundingClientRect().width>0&&get
 function previewImage(){
  const frame=document.querySelector('#preview .alma-surface[data-state=ready] iframe');if(visible(frame))return frame;
  const poster=document.querySelector('#preview .alma-poster');if(visible(poster))return poster;
- const art=document.querySelector('#preview .media-sketch,#preview .preview-sketch img,#preview .preview-artifact img');
+ const art=document.querySelector('#preview .media-sketch,#preview .preview-sketch img,#preview .preview-artifact img,#preview .presentation-evidence img');
  return visible(art)?art:document.querySelector('#preview video');
 }
 function sourceOf(image){

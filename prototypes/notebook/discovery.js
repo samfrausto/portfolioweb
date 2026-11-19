@@ -8,12 +8,12 @@ export const discovery={
  pavilia:{skills:['unity','spatial','prototyping'],note:'Portal cameras, projection and player transfer.'},
  iyh:{skills:['interaction','spatial'],note:'Omniverse navigation. Class model; later Codex-assisted integration.'},
  cyberpunk:{skills:['modeling','animation','spatial'],note:'Co-led modeling, animation and skybox.'},
- duo:{skills:['interaction','prototyping','strategy'],note:'AI-assisted Blender design. Printed; unassembled.'},
+ duo:{skills:['interaction','prototyping','strategy'],note:'Team pitch; learning experience and AI-assisted design. Box printed; unassembled.'},
  scarlet:{skills:['interaction','prototyping'],note:'Interface direction, cards and a hand guide for playable poker.'},
  baseball:{skills:['unity','prototyping'],note:'Pitch selection, difficulty and trajectories.'},
  jamba:{skills:['communication','strategy'],note:'Launch writing, partner outreach and field representation.'},
  tet2:{skills:['research','communication'],note:'Cell culture, study analysis and a research presentation.'},
- traffic:{skills:['research','spatial'],note:'USC research on coordinated vehicles and road flow. In progress.'}
+ traffic:{skills:['research','spatial'],note:'Study design, atlas and analysis tools; shared integration. AI-assisted implementation.'}
 };
 
 // Short preview captions retain the evidence boundary; readers keep the full recording account.
@@ -30,7 +30,7 @@ export const previewCaptions={
 // Brief project definitions, grounded in the canonical cases. These describe the work, not new outcomes.
 export const projectDescriptions={
  alma:'An Edwards side project: heart anatomy for employees.',
- duo:'A Korean-learning puzzle box. Printed; unassembled.',
+ duo:'An interactive restaurant pitch and Korean-learning puzzle box.',
  synesthesia:'Adjustable ambient worlds for Vision Pro.',
  suzchews:'A digital concept for chemotherapy-related taste changes.',
  pavilia:'A live portal between two Unity worlds.',
@@ -41,13 +41,13 @@ export const projectDescriptions={
  baseball:'Repeatable catching practice. Desktop prototype.',
  jamba:'Launch communications for Jamba Singles To Go.',
  tet2:'A laboratory study of radiation resistance.',
- traffic:'Coordinated vehicles and road flow. Research in progress.'
+ traffic:'Who benefits and who waits when vehicles coordinate?'
 };
 
 // Compact index cues. Full definitions and evidence remain in the selected preview and cases.
 export const projectIndexLabels={
  alma:'Heart anatomy guide',
- duo:'Korean-learning puzzle',
+ duo:'Restaurant pitch & puzzle box',
  synesthesia:'Vision Pro environments',
  suzchews:'Digital product concept',
  pavilia:'Unity portal prototype',
