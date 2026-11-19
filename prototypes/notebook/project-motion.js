@@ -12,10 +12,13 @@ function rectFor(image,dimensions){
 }
 function visible(image){return image&&image.getBoundingClientRect().width>0&&getComputedStyle(image).visibility!=='hidden';}
 function previewImage(){
+ const frame=document.querySelector('#preview .alma-surface[data-state=ready] iframe');if(visible(frame))return frame;
+ const poster=document.querySelector('#preview .alma-poster');if(visible(poster))return poster;
  const art=document.querySelector('#preview .media-sketch,#preview .preview-sketch img,#preview .preview-artifact img');
  return visible(art)?art:document.querySelector('#preview video');
 }
 function sourceOf(image){
+ if(image.tagName==='IFRAME'){try{return image.contentWindow.almaPreview.capture();}catch{return document.querySelector('#preview .alma-poster').src;}}
  if(image.tagName!=='VIDEO')return image.currentSrc||image.src;
  if(image.readyState>=2){
   try{const canvas=document.createElement('canvas');canvas.width=image.videoWidth;canvas.height=image.videoHeight;canvas.getContext('2d').drawImage(image,0,0);return canvas.toDataURL();}catch{/* The poster remains available if a recording cannot be sampled. */}
