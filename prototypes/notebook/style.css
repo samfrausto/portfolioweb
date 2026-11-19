@@ -175,3 +175,17 @@ body[data-view=about] .notebook,body[data-view=case] .notebook{--rail:32px}
 @media(min-width:901px) and (max-width:1050px){.category-tabs button{font-size:16px;padding:11px 9px;gap:7px}}
 @media(max-width:900px){.category-tabs button{font-size:17px;padding:12px}}
 .presentation-evidence{margin:0;min-width:0}.presentation-evidence a{display:block;outline-offset:4px}.presentation-evidence img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain}.presentation-evidence figcaption{margin-top:10px;font-size:13px;line-height:1.5;color:var(--graphite)}.reader .presentation-evidence{margin-block:24px 36px}
+
+/* Duo: work through the pitch here, with its model recording available immediately. */
+.duo-preview{display:grid;gap:24px;min-width:0}.duo-deck{margin:0;min-width:0}
+.duo-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;font-size:12px;color:var(--graphite)}
+.duo-toolbar .utility{gap:7px;font-size:13px;padding:8px 0 8px 8px;white-space:nowrap}
+.duo-stage{position:relative;inset:auto;display:flex;flex-direction:column;width:100%;max-width:none;height:390px;max-height:none;padding:0;margin:0;border:1px solid var(--rule);background:#fff;color:var(--ink);overflow:hidden}
+.duo-surface{position:relative;flex:1;min-height:0}.duo-surface iframe{display:block;width:100%;height:100%;border:0;visibility:hidden}.duo-surface[data-state=ready] iframe{visibility:visible}
+.duo-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;text-align:center;font-size:14px;background:var(--paper);color:var(--graphite)}
+.duo-expanded-bar{display:none}.duo-stage:modal{position:fixed;inset:0;width:min(1280px,calc(100% - 48px));height:calc(100dvh - 48px);max-height:none;margin:auto;box-shadow:0 16px 64px #18251d44}
+.duo-stage::backdrop{background:#25302bcc}.duo-stage:modal .duo-expanded-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:52px;padding:4px 16px;background:var(--paper);font-size:14px}.duo-expanded-bar .utility{min-width:68px;gap:8px}
+.duo-model h3{font-size:15px;font-weight:500;line-height:1.4;margin:0 0 12px;color:var(--ink)}
+.preview .duo-model .video-surface{aspect-ratio:16/7;min-height:160px;max-height:240px}
+@media(max-width:900px){.duo-stage{height:440px}.duo-stage:modal{width:calc(100% - 16px);height:calc(100dvh - 16px)}.duo-stage:modal .duo-expanded-bar{padding-inline:12px;font-size:12px}.preview .duo-model .video-surface{aspect-ratio:16/10;max-height:280px}.duo-preview{gap:20px}}
+@media(max-width:360px){.duo-toolbar{gap:8px;font-size:11px}.duo-toolbar .utility{font-size:12px}.duo-stage{height:420px}}

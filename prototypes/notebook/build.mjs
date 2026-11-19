@@ -13,7 +13,7 @@ for(const page of Object.keys(suzSections))aliases['suzchews/'+page]='suzchews';
 for(const [route,id] of Object.entries(aliases)){const section=suzSections[route.split('/').pop()];const target=`?path=${home(id)}&project=${id}&view=case#${section?id+'-'+section:'case-'+id}`;const depth=route.split('/').length;await mkdir('projects/'+route.slice(0,route.lastIndexOf('/')+1),{recursive:true});await writeFile('projects/'+route,shell(projects[id].title,`<div class="compatibility"><a class="action" href="${target}">Open this case in the notebook</a></div><div class="static-case">${readable(article(id,{native:true}))}</div>`,'../'.repeat(depth)));}
 // Only runtime files and referenced public assets enter the release. Design studies,
 // source photographs, verification captures and local provenance stay in the workspace.
-export const runtimeFiles=['index.html','read.html','style.css','reader.css','project-motion.css','app.js','content.js','render.js','discovery.js','skills.js','skills-data.js','binding.js','project-motion.js','alma-preview.js'];
+export const runtimeFiles=['index.html','read.html','style.css','reader.css','project-motion.css','app.js','content.js','render.js','discovery.js','skills.js','skills-data.js','binding.js','project-motion.js','alma-preview.js','duo-preview.js'];
 const production=process.argv.includes('--production');
 const sourceText=(await Promise.all(runtimeFiles.map(f=>readFile(f,'utf8')))).join('\n')+JSON.stringify({projects,about});
 async function filesUnder(dir){const found=[];for(const entry of await readdir(dir,{withFileTypes:true})){const path=dir+'/'+entry.name;found.push(...(entry.isDirectory()?await filesUnder(path):[path]));}return found;}

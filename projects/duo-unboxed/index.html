@@ -996,6 +996,7 @@ const MECHANISM_FRAMES={"food":[[-16.0,0.0,16.0,0.0,0.0],[-15.6667,0.0,15.6667,0
  el('demo-stage').onchange=e=>jumpStage(+e.target.value);
  window.duoDemoAdvance=()=>{const k=currentStage();if(k>=stages.length-1)return false;jumpStage(k+1);return true;};
 
+ document.addEventListener('portfolio:pause',stop);
  document.addEventListener('deck:changed',e=>{if(e.detail==='play')start();else stop();});
  document.addEventListener('visibilitychange',()=>{last=performance.now();if(document.hidden)v.pause();else if(active&&['motion','overview'].includes(phase)&&!videoFailed)v.play().catch(()=>videoFailed=true);});
  still.src=HD_MEDIA.front;
@@ -1051,6 +1052,7 @@ const MECHANISM_FRAMES={"food":[[-16.0,0.0,16.0,0.0,0.0],[-15.6667,0.0,15.6667,0
   }else window.duoFeedback(false,scene,'tap');
   schedule();
  });
+ document.addEventListener('portfolio:pause',hold);
  document.addEventListener('visibilitychange',()=>{if(document.hidden&&active)hold();});
  globe.addEventListener('error',()=>{if(active&&active.id==='globe'){hold();status('Continue to see the locations.');}});
  const initial=scenes.find(s=>s.classList.contains('active'));
@@ -1122,6 +1124,7 @@ const MECHANISM_FRAMES={"food":[[-16.0,0.0,16.0,0.0,0.0],[-15.6667,0.0,15.6667,0
  const dialog=el('culture-reference-dialog');
  el('culture-reference-open').onclick=()=>{stop();const d=DATA[index];el('culture-reference-title').textContent=d.origin;el('culture-reference-large').setAttribute('viewBox',d.view);el('culture-reference-large-use').setAttribute('href','#'+d.refAsset);dialog.showModal();};
  el('culture-reference-close').onclick=()=>dialog.close();
+ document.addEventListener('portfolio:pause',stop);
  document.addEventListener('deck:changed',e=>{if(e.detail==='cultures')start();else stop();});
  document.addEventListener('feedback:sound',e=>{if(!e.detail)cancelSpeech();});
  draw(false);if(root.classList.contains('active'))start();
@@ -1132,6 +1135,7 @@ const MECHANISM_FRAMES={"food":[[-16.0,0.0,16.0,0.0,0.0],[-15.6667,0.0,15.6667,0
  const reveal=()=>{if(!finish.classList.contains('active')||!popup.hidden)return;popup.hidden=false;document.getElementById('next').textContent='Replay';window.duoFeedback(false,finish,"tap");};
  window.duoStreakStep=()=>{if(popup.hidden){if(popTimer!==null)clearTimeout(popTimer);popTimer=null;reveal();return true;}return false;};
  document.getElementById('finish-sound').onclick=()=>window.duoFeedback(true,finish);
+ document.addEventListener('portfolio:pause',()=>{if(timer!==null)clearTimeout(timer);if(popTimer!==null)clearTimeout(popTimer);timer=null;popTimer=null;version++;});
  document.addEventListener('deck:changed',e=>{
   if(timer!==null)clearTimeout(timer);if(popTimer!==null)clearTimeout(popTimer);timer=null;popTimer=null;version++;popup.hidden=true;
   document.body.classList.toggle('on-finish',e.detail==='closing');
@@ -1151,7 +1155,7 @@ const MECHANISM_FRAMES={"food":[[-16.0,0.0,16.0,0.0,0.0],[-15.6667,0.0,15.6667,0
   frame=null;
   slides.forEach(slide=>{
    const wrap=slide.querySelector('.wrap');if(!wrap)return;
-   if(innerWidth<=760){for(const k of ['position','left','top','margin','width','maxWidth','transform','transformOrigin'])wrap.style[k]='';return;}
+   if(innerWidth<=760||document.body.classList.contains('portfolio-embed')){for(const k of ['position','left','top','margin','width','maxWidth','transform','transformOrigin'])wrap.style[k]='';return;}
    const css=getComputedStyle(slide),pt=parseFloat(css.paddingTop),pb=parseFloat(css.paddingBottom),pl=parseFloat(css.paddingLeft),pr=parseFloat(css.paddingRight);
    const aw=slide.clientWidth-pl-pr,ah=slide.clientHeight-pt-pb;if(aw<=0||ah<=0)return;
    wrap.style.position='absolute';wrap.style.left='50%';wrap.style.top=(pt+ah/2)+'px';wrap.style.margin='0';wrap.style.width=Math.min(1100,aw)+'px';wrap.style.maxWidth='1100px';wrap.style.transformOrigin='50% 50%';
@@ -1218,5 +1222,5 @@ const MECHANISM_FRAMES={"food":[[-16.0,0.0,16.0,0.0,0.0],[-15.6667,0.0,15.6667,0
  document.addEventListener('deck:changed',sync);sync();
  bar.addEventListener('keydown',e=>e.stopPropagation());bar.addEventListener('touchend',e=>e.stopPropagation());
  document.querySelector('.manual-demo-controls').addEventListener('touchend',e=>e.stopPropagation());
-})();</script><link rel="stylesheet" href="portfolio.css"></body>
+})();</script><link rel="stylesheet" href="portfolio.css"><script src="portfolio-embed.js"></script></body>
 </html>
