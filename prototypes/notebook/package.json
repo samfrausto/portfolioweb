@@ -1,0 +1,10 @@
+{
+  "name": "notebook-interaction-prototype",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "build": "node build.mjs",
+    "check": "node --check app.js && node --check discovery.js && node --check skills.js && node --check skills-data.js && node --check content.js && node --check render.js && node --check project-motion.js && node --check binding.js && node --check build.mjs"
+  }
+}

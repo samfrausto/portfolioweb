@@ -1,0 +1,13 @@
+/* Artwork alone moves; labels and the selected state update immediately. */
+.project-transfer-layer{position:fixed;z-index:30;pointer-events:none;contain:layout style;isolation:isolate}
+.project-transfer-backing{overflow:hidden;background:var(--paper)}
+.project-transfer-art{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:contain}
+@media(hover:hover) and (pointer:fine){
+ body[data-project-motion=artifact] .project-thumb{overflow:visible}
+ body[data-project-motion=artifact] .project-thumb img{transition:transform 100ms cubic-bezier(.23,1,.32,1)}
+ body[data-project-motion=artifact] .work-entry:not(.is-selected):hover .project-thumb img{transform:translate(-2px,-2px) scale(1.08);transition-duration:160ms}
+}
+@media(prefers-reduced-motion:reduce){
+ body[data-project-motion=artifact] .project-thumb img{transform:none!important;transition:none!important}
+ .project-transfer-layer{display:none}
+}
