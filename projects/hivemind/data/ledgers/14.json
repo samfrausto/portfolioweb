@@ -1,0 +1,52 @@
+{
+  "checked_on": "2026-10-16",
+  "sources": [
+    {
+      "id": "F01",
+      "citation": "Veksler, Yaron; Hornstein, Sharon; Wang, Han; Delle Monache, Maria Laura; Urieli, Daniel (2026). Highway Congestion Reduction through Reinforcement Learning Based Eulerian Headway Control. arXiv:2412.02520v5.",
+      "url": "https://arxiv.org/html/2412.02520v5",
+      "status_version": "v5 2026-09-22; first submission 2024-12-03; arXiv reports ITSC2026 acceptance; proceedings DOI unverified.",
+      "reading_depth": "Selected full HTML III–VI; Eqs3,5; empirical setup; metadata.",
+      "methods": "Segment PPO headways.",
+      "evaluation": "SUMO merge; see frontier-evidence.md.",
+      "artifacts_licenses": "Author repository https://github.com/coopcruise/coopcruise identified; not run or version-pinned; code license unchecked. Manuscript arXiv nonexclusive license.",
+      "limitations": "No field validation; training replication unclear.",
+      "prior_id": "September P4"
+    },
+    {
+      "id": "F02",
+      "citation": "Kumar, Pankaj; Chakraborty, Pranamesh; Peruru, Subrahmanya Swamy (2026). Macroscopic Characteristics of Mixed Traffic Flow with Deep Reinforcement Learning Based Automated and Human-Driven Vehicles. arXiv:2603.25328v1.",
+      "url": "https://arxiv.org/html/2603.25328v1",
+      "status_version": "Preprint v1 2026-03-26; no venue verified.",
+      "reading_depth": "Selected HTML §§2.3–4.2; metadata; not full evaluation audit.",
+      "methods": "TD3 following; aggregate diagram.",
+      "evaluation": "NGSIM and synthetic leaders; see note.",
+      "artifacts_licenses": "Manuscript Creative Commons link present; exact variant and code/data reuse not checked.",
+      "limitations": "Eq15 presentation unresolved; no V2V comparison.",
+      "prior_id": "MT05"
+    },
+    {
+      "id": "F03",
+      "citation": "Schulman, John; Wolski, Filip; Dhariwal, Prafulla; Radford, Alec; Klimov, Oleg (2017). Proximal Policy Optimization Algorithms. arXiv:1707.06347v2.",
+      "url": "https://arxiv.org/abs/1707.06347v2",
+      "status_version": "v2 2017-08-28.",
+      "reading_depth": "Abstract/metadata; HTML body unavailable.",
+      "methods": "Policy-gradient surrogate objective.",
+      "evaluation": "Robotic locomotion and Atari reported.",
+      "artifacts_licenses": "ArXiv nonexclusive manuscript license; implementation not inspected.",
+      "limitations": "Algorithm context only."
+    },
+    {
+      "id": "F04",
+      "citation": "Yu, Chao; Velu, Akash; Vinitsky, Eugene; Gao, Jiaxuan; Wang, Yu; Bayen, Alexandre; Wu, Yi (2022). The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games. NeurIPS2022 Datasets and Benchmarks; arXiv:2103.01955v4.",
+      "url": "https://arxiv.org/html/2103.01955v4",
+      "status_version": "v4 2022-11-04; accepted venue recorded in arXiv.",
+      "reading_depth": "Selected §§3.1–3.3 plus abstract, section structure; detailed result tables not re-audited.",
+      "methods": "MAPPO centralized critic versus IPPO local critic.",
+      "evaluation": "MPE, SMAC, football, Hanabi.",
+      "artifacts_licenses": "https://github.com/marlbenchmark/on-policy linked; code license unchecked; arXiv nonexclusive manuscript license.",
+      "limitations": "Game benchmarks do not establish traffic efficacy.",
+      "prior_id": "September P7"
+    }
+  ]
+}

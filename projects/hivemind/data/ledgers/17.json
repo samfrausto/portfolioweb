@@ -1,0 +1,96 @@
+{
+  "checked_on": "2026-10-16",
+  "timezone": "America/Los_Angeles",
+  "scope": "Incremental Step3 validation evidence; exact reading limits retained; no experiments.",
+  "sources": [
+    {
+      "id": "V01",
+      "citation": "Gomes, Gabriel; Gan, Qijian; Bayen, Alexandre (2018). A methodology for evaluating the performance of model-based traffic prediction systems. Transportation Research Part C 96, 160–169.",
+      "doi": "10.1016/j.trc.2018.09.004",
+      "url": "https://bayen.berkeley.edu/sites/default/files/a_methodology_for_evaluating_the_performance_of_model-based_traffic_prediction_systems.pdf",
+      "status_version": "Published typeset author-hosted copy; available online 2018-09-25.",
+      "reading_depth": "Deep selected full text §§3–6, pp.163–168; Table2–4. No independent reproduction.",
+      "methods": "Paired daily forecast comparison against model-less reference; CTM with alternative boundary predictors.",
+      "evaluation": "I-210E;35 selected days; full/degraded sensing.",
+      "artifacts_licenses": "Paper ©2018 Elsevier, all rights reserved. References BeATS/OTM and PeMS; experiment archive/license not verified.",
+      "limitations": "Historical-profile reuse across the 35 days; no counterfactual AV observations.",
+      "prior_id": "P04"
+    },
+    {
+      "id": "V02",
+      "citation": "Wang, Yanbing; Delle Monache, Maria Laura; Work, Daniel B. (2022). Identifiability of car-following dynamics. Physica D: Nonlinear Phenomena, article 133090.",
+      "doi": "10.1016/j.physd.2021.133090",
+      "url": "https://lab-work.github.io/download/wang2021identifiability.pdf",
+      "metadata_url": "https://www.sciencedirect.com/science/article/pii/S0167278921002463",
+      "status_version": "February2022 published record;35-page author manuscript read, exact manuscript revision unmarked.",
+      "reading_depth": "Deep selected §§4–6, pp.8–25;Eq25;Tables3–4;conclusion. No figure-dependent numerical extraction.",
+      "methods": "Differential-geometric structural analysis and numerical pair-search under output tolerance.",
+      "evaluation": "CTH-RV, OV, FTL, IDM; controlled initial states/input and error tolerance.",
+      "artifacts_licenses": "Public lab PDF; code/data and reuse license not verified. MATLAB toolbox used.",
+      "limitations": "Local structural result; specified numerical setup; optimizer may miss indistinguishable pairs."
+    },
+    {
+      "id": "V03",
+      "citation": "Kong, Menglin; Zhang, Chengyuan; Sun, Lijun (2026). Active Simulation-Based Inference for Scalable Car-Following Model Calibration. arXiv:2602.05246v1.",
+      "doi": "10.48550/arXiv.2602.05246",
+      "url": "https://arxiv.org/html/2602.05246v1",
+      "status_version": "Preprint v1,2026-02-05; no peer-reviewed venue verified.",
+      "reading_depth": "Deep selected HTML §§III-A/C,IV-A/D,V-A/D,VI;TableII;appendix priors.",
+      "methods": "Residual IDM; conditional density estimator; joint active parameter–scenario acquisition.",
+      "evaluation": "HighD driver-ID60/10/30 split;10s reset rollouts;RMSE/Energy Score;five seeds.",
+      "artifacts_licenses": "CC BY4.0 manuscript. Full code promised upon publication; no release checked.",
+      "limitations": "Known leader; pooled baselines; validation-stopping wording inconsistent; no corridor intervention validity."
+    },
+    {
+      "id": "V04",
+      "citation": "Punzo, Vincenzo; Iannelli, Davide; Saltelli, Andrea; Montanino, Marcello (2026). How do human factors affect the explanatory power of driver models? A methodology for comparative model assessment and validation. Transportation Research Part B 211,103466.",
+      "doi": "10.1016/j.trb.2026.103466",
+      "url": "https://doi.org/10.1016/j.trb.2026.103466",
+      "status_version": "September2026 issue per existing institutional/publisher metadata; first-online date unverified.",
+      "reading_depth": "Publisher-indexed introduction and §3.2 excerpts;direct publisher/institutional opens failed. Full methods/evaluation not read.",
+      "methods": "Paired calibration;factorial human-factor variants;variance-based sensitivity.",
+      "evaluation": "Reported800variants;109selected platoon trajectories:35NGSIM,40highD,34Zen.",
+      "artifacts_licenses": "i4Driving link in prior ledger; corresponding release/data license unverified.",
+      "limitations": "Lane-change exclusion; no numerical effect claims adopted.",
+      "prior_id": "P07"
+    },
+    {
+      "id": "V05",
+      "citation": "Schrader, Maxwell; Bittle, Joshua (2024). A Global Sensitivity Analysis of Traffic Microsimulation Input Parameters on Performance Metrics. IEEE Transactions on Intelligent Transportation Systems.",
+      "doi": "10.1109/TITS.2024.3372334",
+      "url": "https://github.com/UnivOfAlabama-BittleResearchGroup/sa-traffic-sim",
+      "status_version": "Author repository confirms publication citation; final pagination not primary-verified; mutable main branch.",
+      "reading_depth": "README citation,config/figure directory,workflow and license label; full paper not read.",
+      "methods": "SUMO sensitivity workflow with parallel simulation and analysis notebooks.",
+      "evaluation": "SA1/SA2 artifacts inspected as inventory only.",
+      "artifacts_licenses": "MIT repository license label verified;not cloned/run;no commit pin.",
+      "limitations": "No reproduced results or runtime estimate.",
+      "prior_id": "P06"
+    },
+    {
+      "id": "V06",
+      "citation": "Azevedo, Carlos Lima; Ciuffo, Biagio; Cardoso, João Lourenço; Ben-Akiva, Moshe E. (2015). Dealing with uncertainty in detailed calibration of traffic simulation models for safety assessment. Transportation Research Part C58(B),395–412.",
+      "doi": "10.1016/j.trc.2015.01.029",
+      "url": "https://web.mit.edu/cami/Public/CLA_uncertainty_CLA_TRC_2015_preprint.pdf",
+      "status_version": "Published2015;author preprint indexed;direct access failed.",
+      "reading_depth": "Indexed author-manuscript abstract/introduction;full methods not read.",
+      "methods": "Multistep global sensitivity/calibration.",
+      "evaluation": "Reported urban motorway trajectory/aggregate/safety outputs.",
+      "artifacts_licenses": "Public manuscript indexed;reuse and code licenses unverified.",
+      "limitations": "Context/novelty boundary only;not detailed comparator.",
+      "prior_id": "P05"
+    },
+    {
+      "id": "V07",
+      "citation": "Zhang, Chengyuan; Sun, Lijun. Bayesian Calibration of the Intelligent Driver Model. arXiv:2210.03571; journal publication reported in IEEE Transactions on Intelligent Transportation Systems (2024).",
+      "url": "https://arxiv.org/abs/2210.03571",
+      "metadata_url": "https://lijunsun.github.io/news/",
+      "status_version": "Original preprint2022-10-07;author confirms Jan2024 journal publication;final pagination/DOI not independently resolved.",
+      "reading_depth": "arXiv abstract and author record only;attempted HTMLv4 failed.",
+      "methods": "Hierarchical Bayesian parameters;Gaussian-process discrepancy.",
+      "evaluation": "Reported HighD simulation comparison.",
+      "artifacts_licenses": "2026paper links author IDM_Bayesian_Calibration repository;not inspected;license unverified.",
+      "limitations": "Shallow foundational pointer,not quantitative evidence."
+    }
+  ]
+}

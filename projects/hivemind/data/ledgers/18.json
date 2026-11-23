@@ -1,0 +1,73 @@
+{
+  "edition": "1.0",
+  "checked_on": "2026-10-16",
+  "timezone": "America/Los_Angeles",
+  "scope": "Step 4 incremental primary-source checks; proposed study design, not systematic novelty clearance",
+  "inherited_ledger": "../03-specialized-knowledge/source-ledger.json",
+  "sources": [
+    {
+      "id": "S4-01",
+      "title": "SUMO Definition of Vehicles, Vehicle Types, and Routes",
+      "url": "https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html",
+      "type": "official living documentation",
+      "read": "lcAssertive and surrounding lane-change parameter rows",
+      "supports": "Candidate parameter semantics",
+      "limit": "No pinned local implementation or physical validity verified"
+    },
+    {
+      "id": "S4-02",
+      "title": "SUMO Lanechange output",
+      "url": "https://sumo.dlr.de/docs/Simulation/Output/Lanechange.html",
+      "type": "official living documentation",
+      "read": "Event definition and gap/reason output fields",
+      "supports": "Instrumentation design for realized lane changes",
+      "limit": "Does not supply rejected-opportunity records or empirical measurements"
+    },
+    {
+      "id": "S4-03",
+      "title": "NVIDIA Isaac Sim Mobile Robot Controllers",
+      "url": "https://docs.isaacsim.omniverse.nvidia.com/latest/robot_simulation/mobile_robot_controllers.html",
+      "type": "official living documentation",
+      "read": "Ackermann interface, input/output rows and example",
+      "supports": "Available documented interface concept",
+      "limit": "No asset, installation, highway physics or local throughput verified"
+    },
+    {
+      "id": "S4-04",
+      "title": "Active Simulation-Based Inference for Scalable Car-Following Model Calibration",
+      "authors": [
+        "Menglin Kong",
+        "Chengyuan Zhang",
+        "Lijun Sun"
+      ],
+      "url": "https://arxiv.org/html/2602.05246v1",
+      "type": "preprint v1",
+      "read": "Targeted network/task-aligned open-problems passage; other details inherit Step 3 V03",
+      "supports": "Novelty boundary for generic calibration and network objectives",
+      "limit": "Not a full Step 4 reread or reproduced result"
+    },
+    {
+      "id": "S4-05",
+      "title": "IEEE Transactions on Intelligent Transportation Systems official scope",
+      "url": "https://ieee-itss.org/pub/t-its/",
+      "type": "official venue scope",
+      "read": "Scope and transportation application requirements",
+      "supports": "Aspirational venue scope compatibility",
+      "limit": "No acceptance assessment, deadline or review-duration claim"
+    }
+  ],
+  "failed_access": [
+    {
+      "prior_id": "V06",
+      "url": "https://web.mit.edu/cami/Public/CLA_uncertainty_CLA_TRC_2015_preprint.pdf",
+      "outcome": "Direct open failed; inherited shallow evidence retained"
+    }
+  ],
+  "material_open_readings": [
+    "ML06 full methods",
+    "ML07 full methods and first-online date",
+    "V04 full methods",
+    "V06 full methods",
+    "Full decision-focused calibration/value-of-information nearest-neighbor review"
+  ]
+}

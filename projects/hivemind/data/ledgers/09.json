@@ -1,0 +1,113 @@
+{
+  "checked_on": "2026-10-16",
+  "status": "Candidate comparison, not adopted focus; selective searches, no reproduction",
+  "sources": [
+    {
+      "id": "P01",
+      "citation": "Kapteyn, M. G., & Willcox, K. E. (2022). Design of Digital Twin Sensing Strategies Via Predictive Modeling and Interpretable Machine Learning. Journal of Mechanical Design, 144(9), 091710.",
+      "doi": "10.1115/1.4054907",
+      "url": "https://kiwi.oden.utexas.edu/papers/Digital-twin-sensing-design-Kapteyn-Willcox.pdf",
+      "metadata_url": "https://asmejmd.org/2022/08/11/design-of-digital-twin-sensing-strategies-via-predictive-modeling-and-interpretable-machine-learning/",
+      "status_version": "Published journal article; 21-page author manuscript read; no revision identifier on inspected copy",
+      "reading_depth": "Deep selected: sections II-III pp.2-8, IV data and results pp.11-18; conclusion pp.17-19. Web PDF text. Screenshot attempted; no inspected local render.",
+      "method": "Reduced-order physics models synthesize observations; optimal classification trees map sensors to discretized structural states and select sensor subsets.",
+      "evaluation": "UAV structural example; 2500 synthetic noisy data points; tree depth/split complexity and fixed versus selectable sensors compared. Physical deployment is future work in conclusion.",
+      "artifacts_access": "Public author PDF; code/data availability not verified. Commercial optimization tooling discussed.",
+      "limitations": "Known fixed state space; synthetic Gaussian noise; state classification objective does not establish intervention-regret improvement.",
+      "candidate_relevance": "Blocks broad novelty claim for digital-twin adaptive sensing; differentiated decision loss and unknown topology would require evidence."
+    },
+    {
+      "id": "P02",
+      "citation": "Klunder, G. A., Taale, H., Kester, L., & Hoogendoorn, S. (2014). The effect of inaccurate traffic data for ramp metering: Comparing loop detectors and cameras using information utility. IFAC Proceedings Volumes, pp.11318-11325.",
+      "doi": null,
+      "url": "https://traffic-quest.nl/wp-content/uploads/2014/06/IFAC14_1239_FI.pdf",
+      "metadata_url": "https://repository.tno.nl/SingleDoc?docId=42062",
+      "status_version": "Published IFAC conference paper; eight-page manuscript; DOI not verified",
+      "reading_depth": "Deep selected: sections 4.2-5.2 pp.4-6, cost analysis p.7; PDF text. Screenshot cache failure.",
+      "method": "Vissim A10 West with modified ALINEA; perturb flow/speed measurements, derive utility and camera/loop cost comparison.",
+      "evaluation": "Illustrative visually calibrated motorway; average network speed, random/systematic error, same-seed runs.",
+      "artifacts_access": "Public PDF and TNO record; executable/data archive not verified.",
+      "limitations": "Illustrative calibration and assumed sensor costs; not a field causal evaluation or joint map/demand ambiguity study.",
+      "candidate_relevance": "Direct prior art for data accuracy-to-decision utility; simply adding traffic sensing to VoI is insufficient novelty."
+    },
+    {
+      "id": "P03",
+      "citation": "Malings, C., & Pozzi, M. (2019). Submodularity issues in value-of-information-based sensor placement. Reliability Engineering & System Safety, 183, 93-103.",
+      "doi": "10.1016/j.ress.2018.11.010",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0951832017306270",
+      "status_version": "Published journal article; publisher abstract/introduction and section snippets",
+      "reading_depth": "Targeted publisher text; full numerical methods not inspected",
+      "method": "Examine greedy sensor selection under non-submodular value of information; heuristic alternatives.",
+      "evaluation": "Counterexamples/application cases described; no numeric claim extracted.",
+      "artifacts_access": "Publisher text accessible; code/data unchecked",
+      "limitations": "Cannot transfer optimality guarantees to a new highway acquisition policy.",
+      "candidate_relevance": "Explicit reason to test complementarity of map inspections and traffic measurements."
+    },
+    {
+      "id": "P04",
+      "citation": "Gomes, G., Gan, Q., & Bayen, A. (2018). A methodology for evaluating the performance of model-based traffic prediction systems. Transportation Research Part C, 96, 160-169.",
+      "doi": "10.1016/j.trc.2018.09.004",
+      "url": "https://bayen.berkeley.edu/sites/default/files/a_methodology_for_evaluating_the_performance_of_model-based_traffic_prediction_systems.pdf",
+      "status_version": "Published journal article; typeset ten-page author-hosted copy; DOI verified on p.160",
+      "reading_depth": "Deep selected: sections 3-4 pp.163-166, sections 5-6 pp.166-168; PDF text. Screenshot cache failure.",
+      "method": "Paired test of model-based versus model-less prediction, day-level statistical units; data-quality-adaptive reference.",
+      "evaluation": "I-210 Eastbound, 35 manually selected days, CTM with two demand/split predictors; full and degraded sensor conditions. Flow errors favor only one model-based system.",
+      "artifacts_access": "Public PDF; PeMS and BeATS described, exact experiment archive unchecked.",
+      "limitations": "Predictive error comparison does not observe counterfactual intervention outcomes. Selected days and historical-profile construction require care when designing stronger held-out tests.",
+      "candidate_relevance": "Direct Southern California prior art: realistic corridor plus calibration test is already established."
+    },
+    {
+      "id": "P05",
+      "citation": "Azevedo, C. L., Ciuffo, B., Cardoso, J. L., & Ben-Akiva, M. E. (2015). Dealing with uncertainty in detailed calibration of traffic simulation models for safety assessment. Transportation Research Part C, 58(B), 395-412.",
+      "doi": "10.1016/j.trc.2015.01.029",
+      "url": "https://web.mit.edu/cami/Public/CLA_uncertainty_CLA_TRC_2015_preprint.pdf",
+      "status_version": "Published journal article; author preprint indexed; direct PDF open failed",
+      "reading_depth": "Indexed author-manuscript abstract and section 2.2 p.6; not full methods/evaluation",
+      "method": "Multistep global sensitivity/calibration across input, model, method and output uncertainty; trajectory and aggregate data.",
+      "evaluation": "Urban motorway, more than 100 parameters, accident/non-accident calibrations; reported abstract only.",
+      "artifacts_access": "Indexed public manuscript; executable archive unchecked",
+      "limitations": "Insufficient reading depth for numerical comparison; revisit if benchmark focus approved.",
+      "candidate_relevance": "Blocks a claim that studying several interacting traffic uncertainties is itself new."
+    },
+    {
+      "id": "P06",
+      "citation": "Schrader, M., & Bittle, J. (2024). A Global Sensitivity Analysis of Traffic Microsimulation Input Parameters on Performance Metrics. IEEE Transactions on Intelligent Transportation Systems. DOI 10.1109/TITS.2024.3372334.",
+      "doi": "10.1109/TITS.2024.3372334",
+      "url": "https://github.com/UnivOfAlabama-BittleResearchGroup/sa-traffic-sim",
+      "status_version": "Published journal article; author repository citation verified, final pagination not verified from primary record",
+      "reading_depth": "Author repository README and file inventory; paper full text not read",
+      "method": "SUMO sensitivity analysis, parameter distributions, parallel execution and analysis notebooks.",
+      "evaluation": "Repository provides SA1/SA2 configuration and result processing; no independent performance claim extracted.",
+      "artifacts_access": "Public MIT-licensed repository; not cloned or executed; pinned commit not established",
+      "limitations": "Availability is not reproducibility; runtime and dependencies untested.",
+      "candidate_relevance": "Strong open comparator for sensitivity-only benchmark; proposed decision benchmark must add more than parameter ranking."
+    },
+    {
+      "id": "P07",
+      "citation": "Punzo, V., Iannelli, D., Saltelli, A., & Montanino, M. (2026). How do human factors affect the explanatory power of driver models? A methodology for comparative model assessment and validation. Transportation Research Part B, 211, 103466.",
+      "doi": "10.1016/j.trb.2026.103466",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0191261526000780",
+      "metadata_url": "https://iris.unina.it/handle/11588/1053275",
+      "status_version": "Published September 2026 journal issue; institution lists open publisher PDF",
+      "reading_depth": "Publisher abstract, introduction 1.1-1.2, contribution statements and conclusion snippets; not complete methods/results",
+      "method": "Trajectory-level paired calibration, normalized relative errors, sensitivity analysis and full-factorial human-factor variants.",
+      "evaluation": "Reported 800 IDM-family variants and three naturalistic datasets; no independent result verification.",
+      "artifacts_access": "Publisher points to https://github.com/i4Driving; exact corresponding release/license not checked",
+      "limitations": "Comparing driver models is not evaluating intervention ranking under joint map/observation errors; scope distinction needs deeper reading.",
+      "candidate_relevance": "Recent close frontier; invalidates generic novelty based on model-ranking instability or complexity/accuracy tradeoffs."
+    },
+    {
+      "id": "P08",
+      "citation": "Spitkovska, V., & Kuzmenko, D. (2026). Trajectory Design and Budgeted Querying for Digital Twin Calibration. arXiv:2608.08631v1.",
+      "doi": "10.48550/arXiv.2608.08631",
+      "url": "https://arxiv.org/html/2608.08631v1",
+      "status_version": "9 August 2026 v1 preprint; arXiv comments report CDEL ECCV 2026 non-archival workshop acceptance; venue acceptance not independently checked",
+      "reading_depth": "Deep HTML sections 3.1-3.4, 4.1-4.2 and Table 1; section 4.3 and limitations not fully inspected",
+      "method": "PPO excitation, GRU predictive Gaussian and frozen-estimator budgeted query policy. Query returns privileged true parameter for one step, does not update estimator.",
+      "evaluation": "Pendulum and Waterworld; query policy only in Pendulum; single training run, 20 Pendulum evaluation episodes; no significance tests.",
+      "artifacts_access": "Public CC BY 4.0 HTML; implementation availability not verified",
+      "limitations": "Exploratory unmatched comparisons; no same-protocol query-free ablation for oracle-withdrawal case. No formal identifiability result; no traffic validation.",
+      "candidate_relevance": "Budgeted twin calibration querying is existing work; possible difference is noisy heterogeneous acquisitions updating persistent belief and minimizing intervention regret, requiring matched ablations."
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "access_date": "2026-10-16",
+  "sources": [
+    {
+      "id": "G01",
+      "citation": "Lague, D., Brodu, N., & Leroux, J. (2013). Accurate 3D comparison of complex topography with terrestrial laser scanner: application to the Rangitikei canyon (N-Z). ISPRS Journal of Photogrammetry and Remote Sensing, 82, 10–26.",
+      "url": "https://arxiv.org/abs/1302.1183",
+      "full_text_url": "https://nicolas.brodu.net/common/recherche/publications/M3C2.pdf",
+      "type": "peer-reviewed methods and field study; author manuscript read",
+      "reading_depth": "Deep selected sections: 2.4, 3.1–3.4, 4.1–4.2, 5.2–5.3; author PDF pages 5–12 and 17–20. Figures 3 and 8 visually inspected locally (PDF pages 7 and 18). Not replicated.",
+      "question": "How can two rough 3D surfaces be compared with local change uncertainty?",
+      "method": "M3C2 projects local point sets along estimated surface normals and estimates confidence bounds.",
+      "data": "Synthetic shifted noisy planes and repeat terrestrial scans of Rangitikei canyon.",
+      "evaluation": "Compares nearest-neighbor C2C, height-function C2C and cloud-to-mesh; examines displacement error and no-change rejection under resampling.",
+      "supported_finding": "Local averaging and uncertainty estimates improve interpretable change measurement in evaluated settings.",
+      "limitations": "Registration assumptions, roughness, density and scale affect confidence calibration; Figure 8 shows failure at some scales. Canyon precision is not a highway accuracy guarantee.",
+      "reproducibility": "Public author manuscript; CloudCompare implementation described; no local reproduction or data-license audit.",
+      "relevance": "Separate actual change from sampling/registration differences."
+    },
+    {
+      "id": "G02",
+      "citation": "Biljecki, F., Stoter, J., Ledoux, H., Zlatanova, S., & Çöltekin, A. (2015). Applications of 3D City Models: State of the Art Review. ISPRS International Journal of Geo-Information, 4(4), 2842–2889.",
+      "doi": "10.3390/ijgi4042842",
+      "url": "https://doi.org/10.3390/ijgi4042842",
+      "full_text_url": "https://filipbiljecki.com/publications/2015_ijgi_3d_applications.pdf",
+      "type": "peer-reviewed review",
+      "reading_depth": "Selected full-text sections 2, 3.1–3.4 and 5; not all application subsections read.",
+      "question": "What do people use 3D city models for?",
+      "method": "Literature and project-document classification.",
+      "data": "Scientific papers, reports and online resources.",
+      "evaluation": "Taxonomy of 29 use cases; no controlled benchmark or pooled effect size.",
+      "supported_finding": "Urban 3D applications span visualization and analysis, beyond traffic.",
+      "limitations": "Subjective category boundaries; reported application does not independently demonstrate benefit; historical coverage.",
+      "reproducibility": "Open full text and references; no re-screening performed.",
+      "relevance": "Keeps the foundation broader than vehicle control and separates popularity from utility."
+    },
+    {
+      "id": "G03",
+      "citation": "Kutzner, T., Chaturvedi, K., & Kolbe, T. H. (2020). CityGML 3.0: New Functions Open Up New Applications. PFG, 88, 43–61.",
+      "doi": "10.1007/s41064-020-00095-z",
+      "url": "https://doi.org/10.1007/s41064-020-00095-z",
+      "type": "peer-reviewed data-model/design paper",
+      "reading_depth": "Selected full-text sections 1–2, 4 (Dynamizers), 5.1–5.2, 6.1–6.4, 7 through publisher HTML. Repository PDF download returned HTML and was removed; no local PDF claim.",
+      "question": "How should semantic urban objects support geometry, time and applications?",
+      "method": "Modular conceptual model and illustrative conversions/use cases.",
+      "data": "City/IFC examples including Berlin Moabit; not a highway sensor benchmark.",
+      "evaluation": "Schema and implementation examples; no predictive-accuracy comparison.",
+      "supported_finding": "Transportation spaces, time-varying property links and point-cloud representation can be explicitly modeled.",
+      "limitations": "Describes then-proposed standard; current normative specifications must govern implementations. Expressiveness does not establish complete data or software support.",
+      "reproducibility": "Public HTML and referenced tools; no conversion run.",
+      "relevance": "Geometry and semantics need a declared mapping, even if the viewer uses USD."
+    },
+    {
+      "id": "G04",
+      "citation": "Noardo, F., Arroyo Ohori, K., Biljecki, F., Ellul, C., Harrie, L., Krijnen, T., Eriksson, H., van Liempt, J., Pla, M., Ruiz, A., Hintz, D., Krueger, N., Leoni, C., Leoz, L., Moraru, D., Vitalis, S., Willkomm, P., & Stoter, J. (2021). Reference study of CityGML software support: the GeoBIM benchmark 2019—Part II. Transactions in GIS, 25(2), 842–868. Author manuscript v2, 7 January 2021; first preprint 2020. Repository labels publication year 2020 and journal volume 2021.",
+      "doi": "10.1111/tgis.12710",
+      "url": "https://arxiv.org/abs/2007.10938v2",
+      "full_text_url": "https://arxiv.org/html/2007.10938v2",
+      "type": "peer-reviewed empirical interoperability study; author manuscript read",
+      "reading_depth": "Selected full-text sections 3.1–3.3, 4.3–4.4, with discussion scope screened. Not designated a deep anchor; no figure inspection or reproduction.",
+      "question": "Does nominal CityGML support preserve usable information?",
+      "method": "Volunteer software tests using common datasets and import/export checks.",
+      "data": "Rotterdam, Amsterdam and LoD3 building datasets.",
+      "evaluation": "Geometry, semantics, georeferencing, operation success and coarse timing categories across software reports.",
+      "supported_finding": "Support and interoperability varied; reading a format did not ensure lossless round trips.",
+      "limitations": "Volunteer workflows, hardware variation and historical software versions prevent a current product ranking.",
+      "reproducibility": "Public manuscript and benchmark links; artifacts not executed.",
+      "relevance": "Check a small conversion sample before assuming an Esri-to-simulator pipeline."
+    }
+  ]
+}

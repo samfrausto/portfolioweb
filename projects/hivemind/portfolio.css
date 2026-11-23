@@ -1,0 +1,30 @@
+/* Public atlas adaptations; the supplied scientific record remains intact. */
+html { scroll-padding-top: 1.5rem; }
+body { font-size: 1rem; }
+::selection { color: #fff; background: var(--teal); }
+.portfolio-return { display: inline-flex; align-items: center; min-height: 44px; }
+.project-name { margin: 1.5rem 0 0; font-size: 1.125rem; font-weight: 650; }
+.status { border: 1px solid var(--line); padding: .75rem 1.125rem; }
+.status p { margin: .5rem 0; max-width: 75ch; }
+.status .muted { font-size: .875rem; }
+nav a { display: inline-flex; align-items: center; min-height: 44px; }
+button, select, input:not([type="file"]), summary { min-height: 44px; }
+input[type="file"] { min-height: 44px; }
+input::file-selector-button { min-height: 32px; font: inherit; }
+.source-unavailable { color: var(--muted); }
+.source-path, .legend, footer, td code { font-size: .875rem; }
+.table-scroll:focus-visible, #library-list:focus-visible, #source-list:focus-visible {
+  outline: 3px solid var(--orange); outline-offset: 3px;
+}
+@media (max-width: 700px) {
+  h1 { font-size: clamp(2rem, 8vw, 3rem); }
+  .status { padding: .625rem .875rem; }
+  .project-name { margin-top: 1rem; }
+  .controls { gap: .875rem; }
+  .table-scroll { overscroll-behavior-x: contain; }
+}
+@media print {
+  .portfolio-return { display: none; }
+  .status { background: transparent; }
+}
+[hidden] { display: none !important; }

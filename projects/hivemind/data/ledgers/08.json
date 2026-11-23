@@ -1,0 +1,113 @@
+{
+  "checked": "2026-10-16",
+  "scope": "Targeted primary-source search for two human-interaction candidates; not systematic, not reproduction. Search families: CoCreatAR; XR uncertainty decision calibration; historical VR authenticity; remote XR quality inspection; monoscopic versus stereoscopic spatial decisions.",
+  "sources": [
+    {
+      "id": "H01",
+      "citation": "Numan, N., Brostow, G., Park, S., Julier, S., Steed, A., & Van Brummelen, J. (2025). CoCreatAR: Enhancing Authoring of Outdoor Augmented Reality Experiences Through Asymmetric Collaboration. CHI '25, 22 pages.",
+      "doi": "10.1145/3706598.3714274",
+      "url": "https://nels.dev/publication/cocreatar/Numan_CHI2025_preprint.pdf",
+      "status_version": "Peer-reviewed CHI paper; unnumbered author manuscript, personal use/no redistribution notice. This is foundation R07 deepened, not a new unique paper.",
+      "reading": "Deep selected sections 3, 5.1-5.5, 6.1, 7.4-7.5, 8; PDF pp.4,9-13,18-19. Web extracted full text. Figure8 caption/procedure read; no successful visual QA claimed.",
+      "methods_evaluation": "Formative n=25; interviews n=5. Exploratory 16 pairs, within-subject counterbalanced sync/async and two outdoor sites. Seven seeded issues/site with clues. NASA-TLX, UES-SF, custom confidence, interviews; mixed-effects models.",
+      "finding": "Synchronous collaboration improved self-reported engagement/confidence; objective authored-quality metrics proposed as future work.",
+      "limitations": "Small sample, site variation, novelty bias; synchronous communication and spatial features bundled.",
+      "artifacts_access": "Public author PDF and supplementary-material references; code availability not verified; no execution.",
+      "candidate_links": [
+        "HA",
+        "HB"
+      ]
+    },
+    {
+      "id": "H02",
+      "citation": "Hullman, J., Resnick, P., & Adar, E. (2015). Hypothetical Outcome Plots Outperform Error Bars and Violin Plots for Inferences about Reliability of Variable Ordering. PLOS ONE, 10(11), e0142444.",
+      "doi": "10.1371/journal.pone.0142444",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0142444",
+      "status_version": "Peer-reviewed publisher full HTML, 2015 version; no later-version comparison.",
+      "reading": "Deep selected Methods 3.2-3.5, conclusion and supporting-information links; HTML, not PDF page claims.",
+      "methods_evaluation": "288 MTurk participants, 96/encoding; power analysis. Matched draws generate HOPs, violin plots, error bars; univariate and multivariate probability estimates, including correlated variables.",
+      "finding": "HOPs improved multivariate judgments; high-variance univariate means can suffer.",
+      "limitations": "Abstract graphical probability tasks; not XR or operational decision utility.",
+      "artifacts_access": "S4 interface/stimuli code and S5 anonymized responses linked; not downloaded/executed.",
+      "candidate_links": [
+        "HA"
+      ]
+    },
+    {
+      "id": "H03",
+      "citation": "Colley, J., Paananen, S., Mustonen, S., Vierula, S., & Hakkila, J. (2026). Visualising Authenticity in Historical Virtual Reality Environments. PerDis 2026, Article 6, pp.1-10.",
+      "doi": "10.1145/3797993.3798021",
+      "url": "https://research.ulapland.fi/en/publications/visualising-authenticity-in-historical-virtual-reality-environmen/",
+      "status_version": "Peer-reviewed ACM proceedings, March 2026; university record identifies final published version CC BY.",
+      "reading": "Institutional metadata/abstract; indexed publisher sections 2.3,3.1,3.3,6.1 read. Direct publisher open failed; repository PDF returned 403. Partial full-text, not deep evaluation audit.",
+      "methods_evaluation": "Design focus groups n=8; lab study n=20. Border, grayscale and blur styles in static panoramic historical scenes; clarity, UX and trust.",
+      "finding": "Clarity improved; trust ratings did not significantly differ across styles in indexed discussion.",
+      "limitations": "Historical authenticity, not calibrated predictive probabilities or objective intervention decisions; exact study ordering/statistics unverified.",
+      "artifacts_access": "20.2 MB final PDF linked but unavailable to reader; no artifact inspection.",
+      "candidate_links": [
+        "HA"
+      ]
+    },
+    {
+      "id": "H04",
+      "citation": "Herman, L., Jurik, V., Snopkova, D., Chmelik, J., Ugwitz, P., Stachon, Z., Sasinka, C., & Reznik, T. (2021). A Comparison of Monoscopic and Stereoscopic 3D Visualizations: Effect on Spatial Planning in Digital Twins. Remote Sensing, 13(15), 2976.",
+      "doi": "10.3390/rs13152976",
+      "url": "https://www.muni.cz/en/research/publications/1786917",
+      "status_version": "Peer-reviewed journal article; institutional metadata/abstract.",
+      "reading": "Abstract and institutional record only; direct publisher failed.",
+      "methods_evaluation": "60 participants randomized between shutter-glass stereo and standard display, choosing transmitter position in twin/terrain models.",
+      "finding": "Stereo condition slower (reported r=-0.524, p<.001).",
+      "limitations": "Not modern HMDs; cannot generalize to every immersive decision task.",
+      "artifacts_access": "DOI available; materials not checked.",
+      "candidate_links": [
+        "HA",
+        "HB"
+      ]
+    },
+    {
+      "id": "H05",
+      "citation": "Wu, L., Xu, S., Liao, W., & Fujimura, S. (2026). Augmented Remote Assistance for Quality Inspection: A Cross-Reality Collaborative System With Virtual Replicas. International Journal of Human-Computer Interaction, 42(5), 3615-3651.",
+      "doi": "10.1080/10447318.2025.2534059",
+      "url": "https://waseda.elsevierpure.com/en/publications/augmented-remote-assistance-for-quality-inspection-a-cross-realit-2/",
+      "status_version": "Peer-reviewed journal; institutional record assigns 2026 issue, DOI contains 2025. Online-first date not independently verified.",
+      "reading": "Institutional abstract/metadata and indexed publisher extracts; full-page fetch failed. Not a deep methods audit.",
+      "methods_evaluation": "26 participants, industrial product inspection; no-assistance, screen and XR assistance; AI-assisted defect detection and virtual replicas. Error rate/time and questionnaires.",
+      "finding": "Reported objective inspection error improvements already exist in adjacent XR literature.",
+      "limitations": "Exact randomization, defect prevalence, AI parity and effect-size model not checked; cannot infer isolated XR causality.",
+      "artifacts_access": "Publisher full/PDF endpoints indexed but direct open failed; no code/data verified.",
+      "candidate_links": [
+        "HB"
+      ]
+    },
+    {
+      "id": "H06",
+      "citation": "Dembski, F., Wossner, U., Letzgus, M., Ruddat, M., & Yamu, C. (2020). Urban Digital Twins for Smart Cities and Citizens: The Case Study of Herrenberg, Germany. Sustainability, 12(6), 2307.",
+      "doi": "10.3390/su12062307",
+      "url": "https://www.mdpi.com/2071-1050/12/6/2307",
+      "status_version": "Peer-reviewed case study; reuses foundation T06, not new unique source.",
+      "reading": "Current publisher search text plus existing foundation deep record: sections3 and survey/discussion pp.12-15; no new PDF check.",
+      "methods_evaluation": "Urban modeling, SUMO and immersive participation; 39 survey respondents.",
+      "finding": "Integrated city/SUMO/XR participation already demonstrated.",
+      "limitations": "Perception survey does not establish causal improvement in decisions or predictive validity.",
+      "artifacts_access": "Open publisher article; foundation PDF retained; no reproduction.",
+      "candidate_links": [
+        "HA",
+        "HB"
+      ]
+    }
+  ],
+  "unresolved_leads": [
+    {
+      "title": "Extended Reality Interfaces for a Geospatial Digital Twin: Immersive Visualization and Collaborative Decision Support for District-Scale Hydrogeological Risk Governance",
+      "url": "https://www.mdpi.com/2071-1050/18/19/10054",
+      "status": "2026 publisher indexed text; direct open failed; not counted as fully verified bibliography",
+      "reason": "Recent enterprise-GIS/MR/VR prior art explicitly distinguishes technical acceptance/internal appraisal from controlled experiment; weakens novelty of integration alone."
+    },
+    {
+      "title": "The Trust Paradox in Visualization: From Building Confidence to Calibrating Trust",
+      "url": "https://doi.org/10.2312/evs.20261020",
+      "status": "EuroVis 2026 Short Papers, Jusufi, Musleh and Chatzimparmpas; abstract/metadata only",
+      "reason": "Conceptual calibrated-trust framing already explicit; do not claim to invent it."
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "partition": "confirmation",
+  "interval_type": "simultaneous_or_pointwise_MUST_SPECIFY",
+  "checkpoint_scope": "MUST_SPECIFY",
+  "rows": []
+}

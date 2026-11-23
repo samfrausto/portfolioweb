@@ -1,0 +1,46 @@
+{
+  "checked_on": "2026-10-16",
+  "scope": "Official tool roles and supplementary primary source screening for revised shortlist; no execution",
+  "sources": [
+    {
+      "id": "MT01",
+      "citation": "NVIDIA. Isaac Lab developer overview.",
+      "url": "https://developer.nvidia.com/isaac/lab",
+      "depth": "Official product/framework overview",
+      "supports": "Isaac Lab robot-learning framework versus Isaac Sim simulation platform",
+      "limits": "Not evidence of ready highway environment or local throughput"
+    },
+    {
+      "id": "MT02",
+      "citation": "Isaac Lab contributors. Reinforcement Learning Scripts.",
+      "url": "https://isaac-sim.github.io/IsaacLab/main/source/overview/reinforcement-learning/rl_existing_scripts.html",
+      "depth": "Official training/library examples",
+      "supports": "Multi-agent MAPPO examples through skrl",
+      "limits": "Living main documentation, not user's installed version; no PettingZoo compatibility assumed"
+    },
+    {
+      "id": "MT03",
+      "citation": "Farama Foundation. PettingZoo Parallel API.",
+      "url": "https://pettingzoo.farama.org/api/parallel/",
+      "depth": "API documentation",
+      "supports": "Simultaneous multi-agent step interface",
+      "limits": "Interface is not a simulator or NVIDIA product"
+    },
+    {
+      "id": "MT04",
+      "citation": "Ameli et al. (2024). Designing, simulating, and performing the 100-AV field test for the CIRCLES consortium: Methodology and Implementation of the Largest mobile traffic control experiment to date. arXiv:2404.15533.",
+      "url": "https://arxiv.org/abs/2404.15533",
+      "depth": "Abstract and metadata only",
+      "supports": "Large-scale open-road coordinated traffic-control precedent",
+      "limits": "No extracted numerical effect or full-method claim; related to ML04, do not treat as independent replication"
+    },
+    {
+      "id": "MT05",
+      "citation": "Macroscopic Characteristics of Mixed Traffic Flow with Deep Reinforcement Learning Based Automated and Human-Driven Vehicles. arXiv:2603.25328 (2026).",
+      "url": "https://arxiv.org/abs/2603.25328",
+      "depth": "Abstract and metadata only; complete citation not extracted",
+      "supports": "Additional lead for RL share and human-driver heterogeneity",
+      "limits": "Screened lead only, not full comparator audit"
+    }
+  ]
+}

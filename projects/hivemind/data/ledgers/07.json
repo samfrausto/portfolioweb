@@ -1,0 +1,71 @@
+{
+  "edition": "1.0",
+  "sources": [
+    {
+      "id": "D2-01",
+      "citation": "Caltrans. State Highway Network Lines, catalog and FeatureServer layer 0.",
+      "url": "https://data.ca.gov/@caltrans/state-highway-network-lines",
+      "additional_urls": [
+        "https://caltrans-gis.dot.ca.gov/arcgis/rest/services/CHhighway/SHN_Lines/FeatureServer/0"
+      ],
+      "version": "Catalog updated 8 October 2026; TSN extraction 8 June 2025 with route 221 exception.",
+      "finding": "Route/direction/postmile polylines in EPSG:3857; HasZ false; no lane connectivity fields.",
+      "access": "Catalog states CC Attribution and no restrictions on public use. No feature rows downloaded.",
+      "limitations": "Not lane graph, surface accuracy reference or bridge Z.",
+      "evidence_class": "official dataset/platform metadata",
+      "reading_depth": "Current primary page/schema reading only; no sample validation",
+      "checked": "2026-10-16"
+    },
+    {
+      "id": "D2-02",
+      "citation": "NOAA OCM Partners / USGS. 2023–2024 USGS Lidar DEM: Los Angeles County and Channel Islands, CA. InPort 80274.",
+      "url": "https://www.fisheries.noaa.gov/inport/item/80274/full-list",
+      "version": "Published 2026; mainland capture 8 January 2023–7 January 2024.",
+      "finding": "0.5 m bare-earth DEM; classified point cloud also linked; NAD83(2011), NAVD88.",
+      "access": "Metadata CC0, no access constraints; no tiles inspected.",
+      "limitations": "No verified corridor coverage/deck classification or independent error estimate.",
+      "evidence_class": "official dataset/platform metadata",
+      "reading_depth": "Current primary page/schema reading only; no sample validation",
+      "checked": "2026-10-16"
+    },
+    {
+      "id": "D2-03",
+      "citation": "USDA FPAC-BC. National Agriculture Imagery Program Imagery, Data.gov catalog.",
+      "url": "https://catalog.data.gov/dataset/national-agriculture-imagery-program-naip-imagery",
+      "version": "Catalog source modified 9 July 2025; accessed 16 October 2026.",
+      "finding": "Orthorectified aerial imagery, variable acquisition vintages/resolutions.",
+      "access": "Program catalog public-domain license; exact tile/service terms and epoch require later check.",
+      "limitations": "No inferred latest LA vintage or lane survey accuracy.",
+      "evidence_class": "official dataset/platform metadata",
+      "reading_depth": "Current primary page/schema reading only; no sample validation",
+      "checked": "2026-10-16"
+    },
+    {
+      "id": "D2-04",
+      "citation": "Caltrans. Performance Measurement System (PeMS) Data Source.",
+      "url": "https://dot.ca.gov/programs/traffic-operations/mpr/pems-source",
+      "version": "Live undated page accessed 16 October 2026.",
+      "finding": "Freeway detector archive; incident/closure information; changed historical speed algorithms.",
+      "access": "Account application required. No account creation or data retrieval.",
+      "limitations": "Actual station quality, timestamps, file license and corridor incident coverage unverified.",
+      "evidence_class": "official dataset/platform metadata",
+      "reading_depth": "Current primary page/schema reading only; no sample validation",
+      "checked": "2026-10-16"
+    },
+    {
+      "id": "D2-05",
+      "citation": "Esri. Online terms of use; Download map tiles, ArcGIS Earth documentation.",
+      "url": "https://doc.arcgis.com/en/arcgis-online/reference/terms-of-use.htm",
+      "additional_urls": [
+        "https://doc.arcgis.com/en/arcgis-earth/use/download-map-tiles.htm"
+      ],
+      "version": "Live documentation accessed 16 October 2026.",
+      "finding": "Owner-specific terms; tile export must be enabled.",
+      "access": "Metadata only; no account entitlement checked.",
+      "limitations": "Does not clear outside-platform export, ML use or public derivative redistribution.",
+      "evidence_class": "official dataset/platform metadata",
+      "reading_depth": "Current primary page/schema reading only; no sample validation",
+      "checked": "2026-10-16"
+    }
+  ]
+}

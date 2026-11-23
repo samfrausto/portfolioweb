@@ -1,0 +1,110 @@
+{
+  "access_date": "2026-10-16",
+  "scope": "Official industrial, software and standards sources, separate from scholarly evidence and dataset metadata.",
+  "sources": [
+    {
+      "id": "P01",
+      "title": "Niantic Spatial About",
+      "type": "official company description and marketing",
+      "url": "https://nianticspatial.com/about",
+      "reading_depth": "Company identity, history and current product overview",
+      "supports": "Current entity/positioning; not independent efficacy evidence"
+    },
+    {
+      "id": "P02",
+      "title": "Niantic Spatial Capture",
+      "type": "official product marketing",
+      "url": "https://nianticspatial.com/products/capture",
+      "reading_depth": "Product page",
+      "supports": "Advertised capture workflows; site performance unverified"
+    },
+    {
+      "id": "P03",
+      "title": "Niantic Spatial Reconstruct",
+      "type": "official product marketing",
+      "url": "https://nianticspatial.com/products/reconstruct",
+      "reading_depth": "Product page",
+      "supports": "Advertised reconstruction outputs; accuracy claims require independent tests"
+    },
+    {
+      "id": "P04",
+      "title": "Niantic Spatial Localize",
+      "type": "official product marketing",
+      "url": "https://nianticspatial.com/products/localize",
+      "reading_depth": "Product page",
+      "supports": "Advertised positioning modes; no highway coverage audit"
+    },
+    {
+      "id": "P05",
+      "title": "Niantic Spatial Understand",
+      "type": "official product marketing",
+      "url": "https://nianticspatial.com/products/understand",
+      "reading_depth": "Product page",
+      "supports": "Advertised semantic capabilities/direction; no task validation"
+    },
+    {
+      "id": "P06",
+      "title": "Niantic Spatial pricing",
+      "type": "official commercial information",
+      "url": "https://nianticspatial.com/pricing",
+      "reading_depth": "Plan distinctions only; no purchase or quote",
+      "supports": "Paid plans exist; no cost estimate adopted"
+    },
+    {
+      "id": "P07",
+      "title": "Niantic Spatial VPS documentation",
+      "type": "official software documentation",
+      "url": "https://www.nianticspatial.com/docs/nsdk/features/lightship_vps/",
+      "reading_depth": "Coverage/localization limitations and access guidance",
+      "supports": "Documented operational constraints; not independent benchmark"
+    },
+    {
+      "id": "P08",
+      "title": "Niantic Spatial research index",
+      "type": "official research catalog",
+      "url": "https://nianticspatial.com/research",
+      "reading_depth": "Research discovery and links",
+      "supports": "Locates research; each paper assessed separately"
+    },
+    {
+      "id": "P09",
+      "title": "OGC CityGML standards catalog",
+      "type": "standards body catalog",
+      "url": "https://www.ogc.org/standards/citygml/",
+      "reading_depth": "Current specification list and overview",
+      "supports": "Conceptual model and encoding distinction; not software conformance"
+    },
+    {
+      "id": "P10",
+      "title": "OGC CityGML 3.0 Conceptual Model Users Guide",
+      "type": "official standards guidance",
+      "url": "https://docs.ogc.org/guides/20-066.html",
+      "reading_depth": "Foundations and implementation specifications",
+      "supports": "Semantics, geometry and time modeling; historical implementation status requires current specification check"
+    },
+    {
+      "id": "P11",
+      "title": "OGC CityGML Part 2 GML Encoding Standard",
+      "type": "standard",
+      "url": "https://docs.ogc.org/is/21-006r2/21-006r2.html",
+      "reading_depth": "Scope and conformance",
+      "supports": "Concrete encoding specification exists; no conformance tests run"
+    },
+    {
+      "id": "P12",
+      "title": "SUMO Geo-Coordinates",
+      "type": "official software documentation",
+      "url": "https://sumo.dlr.de/userdoc/Geo-Coordinates.html",
+      "reading_depth": "Geo-referenced networks section",
+      "supports": "Cartesian metres, projection metadata and coordinate conversion context"
+    },
+    {
+      "id": "P13",
+      "title": "Introduction to USD version 24.08",
+      "type": "versioned official software documentation",
+      "url": "https://openusd.org/24.08/intro.html",
+      "reading_depth": "What is USD and composition overview",
+      "supports": "Scene description/composition; not a traffic validity claim or installed-version audit"
+    }
+  ]
+}

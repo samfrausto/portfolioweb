@@ -1,0 +1,211 @@
+{
+  "edition": "1.0",
+  "accessed": "2026-10-16",
+  "prepared_by": "Codex",
+  "scope": "Official dataset metadata and platform documentation; no bulk data or accounts accessed.",
+  "sources": [
+    {
+      "id": "D01",
+      "title": "Caltrans State Highway Network Lines",
+      "owner": "Caltrans",
+      "type": "dataset and REST schema",
+      "urls": [
+        "https://data.ca.gov/@caltrans/state-highway-network-lines",
+        "https://caltrans-gis.dot.ca.gov/arcgis/rest/services/CHhighway/SHN_Lines/FeatureServer/0"
+      ],
+      "reading_depth": "Catalog plus full layer schema",
+      "capture_date": "2025-06-08 extraction; selected route updates",
+      "crs": "EPSG:3857",
+      "vertical_datum": null,
+      "lane_topology": false,
+      "license": "Catalog: Creative Commons Attribution",
+      "unknowns": [
+        "corridor accuracy",
+        "actual feature completeness",
+        "lane geometry"
+      ],
+      "role": "Route anchor"
+    },
+    {
+      "id": "D02",
+      "title": "2023–2024 USGS lidar DEM: Los Angeles County and Channel Islands",
+      "owner": "USGS; NOAA distributor; NV5 contractor",
+      "type": "dataset metadata",
+      "urls": [
+        "https://www.fisheries.noaa.gov/inport/item/80274/full-list",
+        "https://s3-us-west-2.amazonaws.com/usgs-lidar-public/CA_LosAngeles_1_B23/ept.json"
+      ],
+      "reading_depth": "Full metadata including reference systems/access/quality; linked report not read; EPT not fetched",
+      "capture_date": "2023-01-08/2024-01-07 mainland",
+      "resolution": "0.5 m DEM",
+      "crs": "EPSG:6339 / EPSG:6340; tile-specific verification needed",
+      "vertical_datum": "NAVD88 EPSG:5703 metres",
+      "license": "CC0",
+      "unknowns": [
+        "corridor-specific quality",
+        "bridge surfaces"
+      ],
+      "role": "Terrain and candidate point-cloud evidence"
+    },
+    {
+      "id": "D03",
+      "title": "LACounty Dynamic Elevation",
+      "owner": "LA County",
+      "type": "map service metadata",
+      "urls": [
+        "https://public.gis.lacounty.gov/public/rest/services/LACounty_Dynamic/Elevation/MapServer"
+      ],
+      "reading_depth": "Service and DEM layer metadata",
+      "capture_date": "2006 label",
+      "crs": "EPSG:3857",
+      "vertical_datum": null,
+      "license": null,
+      "unknowns": [
+        "resolution",
+        "vertical reference",
+        "export rights"
+      ],
+      "role": "Legacy-data caution"
+    },
+    {
+      "id": "D04",
+      "title": "NAIP 2022 60cm California",
+      "owner": "USDA acquisition; CDFW service",
+      "type": "catalog and ImageServer schema",
+      "urls": [
+        "https://catalog.data.gov/dataset/naip-2022-60cm-california",
+        "https://gis.wildlife.ca.gov/images/rest/services/Base_Remote_Sensing/NAIP_2022/ImageServer",
+        "https://catalog.data.gov/dataset/national-agriculture-imagery-program-naip-imagery"
+      ],
+      "reading_depth": "Catalog, service schema and USDA program licensing metadata",
+      "capture_date": "2022 product; local day unverified",
+      "resolution": "60 cm catalog",
+      "crs": "EPSG:3857 service",
+      "vertical_datum": null,
+      "license": "USDA NAIP program public domain; retain source attribution and item conditions",
+      "unknowns": [
+        "local flight date",
+        "tile footprint",
+        "accuracy"
+      ],
+      "role": "Appearance and interpretation"
+    },
+    {
+      "id": "D05",
+      "title": "Countywide Building Outlines (2020)",
+      "owner": "LA County",
+      "type": "ArcGIS item metadata",
+      "urls": [
+        "https://www.arcgis.com/home/item.html?id=e6a1e375e12a4fe6849d896a26ec028a",
+        "https://egis-lacounty.hub.arcgis.com/pages/terms-of-use"
+      ],
+      "reading_depth": "Indexed item description; direct page and terms body unreadable",
+      "capture_date": "2020 product",
+      "crs": null,
+      "vertical_datum": null,
+      "license": "County terms unresolved",
+      "unknowns": [
+        "height units",
+        "datum",
+        "CRS",
+        "redistribution conditions"
+      ],
+      "role": "Candidate urban context"
+    },
+    {
+      "id": "D06",
+      "title": "GIS-NET public / LARIAC content",
+      "owner": "LA County and named imagery suppliers",
+      "type": "viewer and layer metadata",
+      "urls": [
+        "https://planning.lacounty.gov/maps-and-gis/gis-net-public/",
+        "https://arcgis.gis.lacounty.gov/arcgis/rest/services/DRP/GISNET_Public/MapServer/layers"
+      ],
+      "reading_depth": "Viewer description and indexed layer metadata",
+      "capture_date": "2023 viewer imagery; inspected restriction concerns described layer only",
+      "crs": null,
+      "vertical_datum": null,
+      "license": "Some described Pictometry imagery restricted; do not generalize across products",
+      "unknowns": [
+        "selected product rights",
+        "resolution",
+        "exportability"
+      ],
+      "role": "High-resolution imagery lead"
+    },
+    {
+      "id": "D07",
+      "title": "PeMS Data Source",
+      "owner": "Caltrans",
+      "type": "official program documentation",
+      "urls": [
+        "https://dot.ca.gov/programs/traffic-operations/mpr/pems-source"
+      ],
+      "reading_depth": "Official program description; archive not accessed",
+      "capture_date": null,
+      "crs": null,
+      "vertical_datum": null,
+      "license": null,
+      "access": "Free account application required",
+      "unknowns": [
+        "sampling interval",
+        "quality fields",
+        "corridor stations",
+        "export terms",
+        "latest records"
+      ],
+      "role": "Candidate traffic calibration/evaluation"
+    },
+    {
+      "id": "D08",
+      "title": "2024 AADT / Traffic Census",
+      "owner": "Caltrans",
+      "type": "item metadata, service schema and census catalog",
+      "urls": [
+        "https://caltrans-gis.dot.ca.gov/arcgis/rest/services/CHhighway/Traffic_AADT/FeatureServer/0/iteminfo",
+        "https://caltrans-gis.dot.ca.gov/arcgis/rest/services/CHhighway/Traffic_AADT/FeatureServer/0",
+        "https://dot.ca.gov/programs/traffic-operations/census"
+      ],
+      "reading_depth": "Metadata and schema; linked spreadsheets not downloaded",
+      "capture_date": "2024 annual estimate",
+      "crs": "EPSG:3857",
+      "vertical_datum": null,
+      "license": "Caltrans copyright; exact item redistribution terms unresolved",
+      "unknowns": [
+        "corridor completeness",
+        "time-specific representativeness"
+      ],
+      "role": "Aggregate demand constraints"
+    },
+    {
+      "id": "D09",
+      "title": "Esri basemap metadata, offline tiles and online terms",
+      "owner": "Esri/platform documentation; imagery owners vary",
+      "type": "software documentation",
+      "urls": [
+        "https://doc.arcgis.com/en/arcgis-online/reference/faq.htm",
+        "https://doc.arcgis.com/en/arcgis-earth/use/download-map-tiles.htm",
+        "https://doc.arcgis.com/en/arcgis-online/reference/terms-of-use.htm"
+      ],
+      "reading_depth": "Relevant documented sections",
+      "capture_date": null,
+      "crs": null,
+      "vertical_datum": null,
+      "license": "Item-specific and subscription terms",
+      "unknowns": [
+        "Sam institutional entitlement",
+        "credits",
+        "external scene redistribution"
+      ],
+      "role": "Platform and rights boundary"
+    }
+  ],
+  "limitations": [
+    "No selected corridor",
+    "No dataset contents validated",
+    "No conversion implemented",
+    "No independent accuracy remeasurement",
+    "No shared document changes"
+  ],
+  "conceptual_mapping_status": "proposal only; see feasibility.md"
+}
